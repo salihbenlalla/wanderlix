@@ -6,7 +6,7 @@ export default component$(() => {
   return (
     <div>
       <h1>
-        Test Page
+        Welcome to My Image Page
       </h1>
 
       <p><img src='https://cdn.travel2.ml/a-boat-ride-2-1.jpg'/></p>
