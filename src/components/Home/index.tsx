@@ -1,11 +1,15 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import Home from "~/components/Home";
+import BannerSection from "./BannerSection";
 
 export default component$(() => {
-  return <Home />;
+  return (
+    <>
+      <BannerSection />
+    </>
+  );
 });
 
 export const head: DocumentHead = {
-  title: "travel2.ml Home",
+  title: "Home",
 };
