@@ -16,6 +16,7 @@
   --color-light-orange: #ffeeaf;
   --font-color-primary: #2e383f;
   --font-color-secondary: #3c71ff;
+  --color-secondary: #FF7235;
 }
 
 * {
@@ -31,6 +32,22 @@ body {
   color: var(--font-color-primary);
   padding: 0;
   margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--font-color-secondary);
+    font-weight: 700;
+}
+
+p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+ul li {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .container {
@@ -49,21 +66,13 @@ main {
   overflow: hidden;
 }
 
-section {
-  border-bottom: 1px solid var(--color-dark-blue);
-  min-height: 100vh;
-  background-color: var(--bg-light-gray);
-  display: flex;
-  justify-content: center;
-}
-
 .page-title {
   text-align: center;
   font-size: large;
 }
 
 ul {
-  list-style-type: square;
+  list-style-type: circle;
   padding-left: 25px;
 }
 

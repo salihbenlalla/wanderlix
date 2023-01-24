@@ -1,0 +1,56 @@
+.activity_list {
+    background-color: #EFEFEF;
+}
+
+.activity_header {
+    background-color: #15A7C1;
+    color: var(--color-pure-white);
+    font-size: 18px;
+    line-height: 32px;
+    padding: 8px;
+}
+
+.activity_body {
+    padding: 16px;
+}
+
+
+
+.activity_image {
+    float: left;
+    margin-right: 16px;
+}
+
+.activity_image img {
+    border-radius: 5px;
+}
+
+.activity_description p {
+    padding: 0;
+    margin: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+.cta {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.cta a {
+    display: block;
+    background-color: #F51642;
+    color: var(--color-pure-white);
+    padding: 2px 8px;
+    margin: auto 0;
+}
+
+.activity_price {
+    font-weight: 700;
+}

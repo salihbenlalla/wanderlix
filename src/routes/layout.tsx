@@ -6,9 +6,9 @@ export default component$(() => {
     <>
       <main>
         <Header />
-        <section>
-          <Slot />
-        </section>
+        {/* <section> */}
+        <Slot />
+        {/* </section> */}
       </main>
       <footer>
         <p>Copyright travel2.ml © 2022</p>

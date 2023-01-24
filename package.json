@@ -16,17 +16,22 @@
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",
-    "preview": "qwik build preview && vite preview --open",
-    "serve": "wrangler pages dev ./dist",
+    "preview": "qwik build preview && vite preview --open -d",
+    "serve": "wrangler pages dev ./dist -c ./wrangler.toml",
     "start": "vite --open --mode ssr",
-    "qwik": "qwik"
+    "qwik": "qwik",
+    "svgx": "npm uninstall @svgx/core @svgx/vite-plugin-react @svgx/vite-plugin-qwik && npm install --save-dev /home/salih/Documents/programming/Qwik/travel2/svgx-core-0.0.0.tgz /home/salih/Documents/programming/Qwik/travel2/svgx-vite-plugin-react-0.0.0.tgz /home/salih/Documents/programming/Qwik/travel2/svgx-vite-plugin-qwik-0.0.0.tgz",
+    "svgx2": "npm uninstall @svgx/core @svgx/vite-plugin-react @svgx/vite-plugin-qwik"
   },
   "devDependencies": {
-    "@builder.io/qwik": "0.10.0",
-    "@builder.io/qwik-city": "0.0.111",
+    "@builder.io/qwik": "^0.16.2",
+    "@builder.io/qwik-city": "^0.1.0-beta9",
+    "@mdx-js/rollup": "^2.1.5",
+    "@svgx/vite-plugin-qwik": "^1.0.1",
     "@types/eslint": "8.4.6",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "latest",
+    "@types/scriptjs": "^0.0.2",
     "@typescript-eslint/eslint-plugin": "5.37.0",
     "@typescript-eslint/parser": "5.37.0",
     "eslint": "8.23.1",
@@ -34,9 +39,14 @@
     "js-yaml": "^4.1.0",
     "node-fetch": "3.2.10",
     "prettier": "2.7.1",
+    "svg-to-jsx": "^1.0.4",
     "typescript": "4.8.3",
     "vite": "3.1.1",
     "vite-tsconfig-paths": "3.5.0",
-    "wrangler": "beta"
-  }
+    "wrangler": "^2.8.1"
+  },
+  "dependencies": {
+    "scriptjs": "^2.5.9"
+  },
+  "type": "module"
 }

@@ -1,0 +1,30 @@
+.container_widget {
+  background-color: #f0f2f7;
+  border-radius: 5px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.widget_search_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  font-size: 16px;
+  margin: 16px 0;
+  padding: 16px;
+}
+
+.widget_search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.widget_search svg {
+  width: 22px;
+  height: 22px;
+  color: black;
+}

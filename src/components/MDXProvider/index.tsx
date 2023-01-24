@@ -1,6 +1,7 @@
-import { createContext } from "@builder.io/qwik";
+import { createContext, Slot, useContextProvider } from "@builder.io/qwik";
 import { MDXComponents } from "mdx/types";
 import { contextComponents } from "./contextComponents";
+// import {h} from '@builder.io/qwik'
 
 type MergeComponents = (components: MDXComponents) => MDXComponents;
 
@@ -19,4 +20,24 @@ export const useMDXComponents = (
   }
 
   return { ...contextComponents, ...components };
+};
+
+const emptyObject = {};
+
+export const MDXProvider: (props: any) => any = ({
+  components,
+  disableParentContext,
+}) => {
+  let allComponents = useMDXComponents(components);
+
+  if (disableParentContext) {
+    allComponents = components || emptyObject;
+  }
+
+  useContextProvider(MDXContext, allComponents);
+  return (
+    <>
+      <Slot />
+    </>
+  );
 };

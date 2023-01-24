@@ -8,12 +8,12 @@
     "jsxImportSource": "@builder.io/qwik",
     "strict": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "incremental": true,
     "isolatedModules": true,
-    "types": ["node", "vite/client"],
+    "types": ["node", "@svgx/vite-plugin-qwik", "vite/client"],
     "paths": {
       "~/*": ["./src/*"]
     }

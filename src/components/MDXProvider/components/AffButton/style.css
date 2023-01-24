@@ -1,0 +1,23 @@
+.aff_button {
+  background-color: var(--link-color);
+  color: var(--color-pure-white);
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  width: fit-content;
+  margin: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.aff_button a {
+  color: var(--color-pure-white);
+  font-weight: 400;
+}
+
+.aff_button svg {
+  fill: var(--color-pure-white);
+  font-weight: 400;
+}
