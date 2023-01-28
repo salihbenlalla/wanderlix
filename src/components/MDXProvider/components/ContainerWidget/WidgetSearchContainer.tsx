@@ -1,5 +1,5 @@
 import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
-import styles from "./style.css";
+import styles from "./style.css?inline";
 
 export type WidgetSearchContainerProps = {};
 

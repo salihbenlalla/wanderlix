@@ -1,5 +1,5 @@
 import { createContext, Slot, useContextProvider } from "@builder.io/qwik";
-import { MDXComponents } from "mdx/types";
+import type { MDXComponents } from "mdx/types";
 import { contextComponents } from "./contextComponents";
 // import {h} from '@builder.io/qwik'
 

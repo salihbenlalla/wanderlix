@@ -1,5 +1,5 @@
 import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
-import styles from "./style.css";
+import styles from "./style.css?inline";
 
 export type ImageWithCaptionProps = {
   imgSrc: string;
@@ -9,7 +9,7 @@ export type ImageWithCaptionProps = {
 
 const ImageWithCaption = component$((props: ImageWithCaptionProps) => {
   useStylesScoped$(styles);
-  const proportion: number = Number(props.imgWidth) / 700
+  const proportion: number = Number(props.imgWidth) / 700;
   const imgWidth = Number(props.imgWidth) / proportion;
   const imgHeight = Number(props.imgHeight) / proportion;
   return (

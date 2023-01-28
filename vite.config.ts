@@ -3,24 +3,29 @@ import { qwikVite } from "@builder.io/qwik/optimizer";
 import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import svgx from "@svgx/vite-plugin-qwik";
+import replaceLinkIdsRehype from "./src/rehypePlugin";
+// import replaceLinkIdsRehype from "./src/recmaPlugin";
 
-export default defineConfig(async () => {
+export default defineConfig(() => {
   return {
-    ssr: {
-      target: "webworker",
-      // noExternal: true,
-    },
     plugins: [
       qwikCity({
         mdx: {
           providerImportSource: "src/components/MDXProvider",
+          jsxRuntime: "automatic",
+          jsxImportSource: "@builder.io/qwik",
+          rehypePlugins: [replaceLinkIdsRehype],
+          // recmaPlugins: [replaceLinkIdsRehype],
         },
       }),
       qwikVite(),
       tsconfigPaths(),
-      // mdx()
       svgx(),
     ],
-    // assetsInclude: ["**/*.svg"],
+    preview: {
+      headers: {
+        "Cache-Control": "public, max-age=600",
+      },
+    },
   };
 });

@@ -1,45 +1,15 @@
-import { component$, Slot, useStore, useStylesScoped$ } from "@builder.io/qwik";
+import {
+  component$,
+  Slot,
+  // useContext,
+  useStore,
+  useStylesScoped$,
+  // useTask$,
+} from "@builder.io/qwik";
+// import { isServer } from "@builder.io/qwik/build";
 import styles from "./style.css?inline";
-import path from "path";
-import fs from "fs";
-import yaml from "js-yaml";
-import { loader$ } from "@builder.io/qwik-city";
-
-interface LinkObj {
-  id: number;
-  originalHref: string;
-  newHref: string;
-  use: string;
-}
-
-export const linkObjs = loader$<unknown, LinkObj[]>(() => {
-  const yml = yaml.load(
-    fs.readFileSync(
-      path.join(process.cwd(), "/src/data", "linkIds.yml"),
-      "utf-8"
-    )
-  ) as LinkObj[];
-  return yml;
-});
-
-export const findLink: (
-  linkObjs: LinkObj[],
-  href: string,
-  use: string
-) => string | undefined = (linkObjs, href, use) => {
-  const foundLink = linkObjs.find(
-    (o) => o.id === Number(href.replace("link_id:", ""))
-  );
-
-  //originalHref
-  if (foundLink && foundLink.use === use) {
-    return foundLink.originalHref;
-  }
-  //newHref
-  if (foundLink && foundLink.use === use) {
-    return foundLink.newHref;
-  }
-};
+// import { dataContext } from "~/data/dataContext";
+// import { findSrc } from "~/data/utils";
 
 export type ActivityListProps = {
   activityHeader: string;
@@ -49,11 +19,22 @@ export type ActivityListProps = {
   activityPrice: string;
 };
 
+interface Store {
+  showCTA: boolean;
+}
+
 const ActivityList = component$((props: ActivityListProps) => {
   useStylesScoped$(styles);
-  const state = useStore({ showCTA: false });
-  const links = linkObjs.use().value;
-  const CTALink = findLink(links, props.CTALink, "originalHref");
+  // const links = useContext(dataContext).srcs;
+  const state = useStore<Store>({ showCTA: false });
+
+  // useTask$(() => {
+  //   if (isServer) {
+  //     const CTALink = findSrc(links, props.CTALink, "originalSrc");
+  //     state.CTALink = CTALink;
+  //   }
+  // });
+
   return (
     <div class="activity_list">
       <div class="activity_header">{props.activityHeader}</div>
@@ -79,7 +60,7 @@ const ActivityList = component$((props: ActivityListProps) => {
             <div class="activity_price">{props.activityPrice}</div>
             <a
               class="activity_button"
-              href={CTALink}
+              href={props.CTALink}
               rel="nofollow noopener noreferrer"
               target="_blank"
             >

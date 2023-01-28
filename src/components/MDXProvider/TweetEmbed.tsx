@@ -1,6 +1,6 @@
 import {
   component$,
-  useRef,
+  useSignal,
   useClientEffect$,
   useStore,
 } from "@builder.io/qwik";
@@ -34,7 +34,7 @@ export const methodName = "createTweet";
 
 export const TweetEmbed = component$((props: TweetProps) => {
   const state = useStore({ isLoading: true, isComponentMounted: true });
-  const ref = useRef();
+  const ref = useSignal<HTMLDivElement>();
   useClientEffect$(async () => {
     //   let isComponentMounted = true;
     const script = (await import("scriptjs")).default;
@@ -53,7 +53,7 @@ export const TweetEmbed = component$((props: TweetProps) => {
 
         window.twttr.widgets[methodName](
           props.tweetId,
-          ref?.current,
+          ref?.value,
           props.options
         ).then(() => {
           state.isLoading = false;

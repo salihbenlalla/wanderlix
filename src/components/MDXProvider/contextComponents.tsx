@@ -2,25 +2,23 @@ import TweetEmbed from "./TweetEmbed";
 import InstagramEmbed from "./InstagramEmbed";
 import TextContainer from "./components/TextContainer";
 import Anchor from "./components/Anchor";
-import ImageAd from "./components/ImageAd"
+import ImageAd from "./components/ImageAd";
 import ActivityList from "./components/ActivityList";
-import type {ActivityListProps} from './components/ActivityList'
+import type { ActivityListProps } from "./components/ActivityList";
 import AffButton from "./components/AffButton";
 import AlignCenter from "./components/AlignCenter";
 import ButtonSection from "./components/ButtonSection";
 import ImageWithCaption from "./components/ImageWithCaption";
-import type { ImageWithCaptionProps } from './components/ImageWithCaption'
+import type { ImageWithCaptionProps } from "./components/ImageWithCaption";
 import ContainerWidget from "./components/ContainerWidget";
 import SearchWidget from "./components/ContainerWidget/SearchWidget";
-import type {
-  SearchWidgetProps,
-} from "./components/ContainerWidget/SearchWidget";
+import type { SearchWidgetProps } from "./components/ContainerWidget/SearchWidget";
 import WidgetSearchContainer from "./components/ContainerWidget/WidgetSearchContainer";
+import Iframe from "./components/Iframe";
 
 type ElementProps = {
   [key: string]: any;
 };
-
 
 export const contextComponents = {
   a: (props: ElementProps) => <Anchor {...props} />,
@@ -47,4 +45,5 @@ export const contextComponents = {
     <WidgetSearchContainer {...props} />
   ),
   SearchWidget: (props: SearchWidgetProps) => <SearchWidget {...props} />,
+  Iframe: (props: ElementProps) => <Iframe {...props} />,
 };

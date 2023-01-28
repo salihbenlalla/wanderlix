@@ -1,79 +1,36 @@
-import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
-import { loader$ } from "@builder.io/qwik-city";
+import {
+  component$,
+  Slot,
+  // useContext,
+  // useStore,
+  useStylesScoped$,
+  // useTask$,
+} from "@builder.io/qwik";
+// import { isServer } from "@builder.io/qwik/build";
 import styles from "./style.css?inline";
-import yaml from "js-yaml";
-import fs from "fs";
-import path from "path";
+// import { dataContext } from "~/data/dataContext";
+// import { handleAnchorProps } from "~/data/utils";
 
-type ElementProps = {
+export interface AnchorProps {
   [key: string]: any;
-};
-
-interface LinkObj {
-  id: number;
-  originalHref: string;
-  newHref: string;
-  use: string;
 }
 
-export const linkObjs = loader$<unknown, LinkObj[]>(() => {
-  const yml = yaml.load(
-    fs.readFileSync(
-      path.join(process.cwd(), "/src/data", "linkIds.yml"),
-      "utf-8"
-    )
-  ) as LinkObj[];
-  return yml;
-});
-
-const Anchor = component$((props: ElementProps) => {
+const Anchor = component$((props: AnchorProps) => {
   useStylesScoped$(styles);
-  const links = linkObjs.use().value;
-  if (props.href.startsWith("https://travel2.ml")) {
-    return <a {...props} />;
-  }
-  const foundLink = links.find(
-    (o) => o.id === Number(props.href.replace("link_id:", ""))
-  );
+  // const context = useContext(dataContext);
+  // const store = useStore<{ iProps: AnchorProps }>({
+  //   iProps: {},
+  // });
 
-  //originalHref
-  if (foundLink && foundLink.use === "none") {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { href, ...rest } = props;
-    return (
-      <a
-        target="_blank"
-        rel="nofollow noopener noreferrer"
-        href={foundLink.originalHref}
-        {...rest}
-      >
-        <Slot />
-      </a>
-    );
-  }
-  if (foundLink && foundLink.use === "newHref") {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { href, ...rest } = props;
-    return (
-      <a
-        target="_blank"
-        rel="nofollow noopener noreferrer"
-        href={foundLink.newHref}
-        {...rest}
-      >
-        <Slot />
-      </a>
-    );
-  }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { href, title, ...rest } = props;
+  // useTask$(() => {
+  //   if (isServer) {
+  //     const iProps = handleAnchorProps(context.links, props, "originalHref");
+  //     store.iProps = iProps;
+  //   }
+  // });
+
   return (
-    <a
-      target="_blank"
-      rel="nofollow noopener noreferrer"
-      href={props.href}
-      {...rest}
-    >
+    <a {...props}>
       <Slot />
     </a>
   );

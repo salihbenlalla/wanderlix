@@ -1,4 +1,16 @@
-import { qwikCity } from '@builder.io/qwik-city/middleware/cloudflare-pages';
+/*
+ * WHAT IS THIS FILE?
+ *
+ * It's the  entry point for cloudflare-pages when building for production.
+ *
+ * Learn more about the cloudflare integration here:
+ * - https://qwik.builder.io/integrations/deployments/cloudflare-pages/
+ *
+ */
+import { createQwikCity } from '@builder.io/qwik-city/middleware/cloudflare-pages';
+import qwikCityPlan from '@qwik-city-plan';
 import render from './entry.ssr';
 
-export const onRequest = qwikCity(render);
+const onRequest = createQwikCity({ render, qwikCityPlan });
+
+export { onRequest };

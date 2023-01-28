@@ -1,5 +1,5 @@
 import { component$, useStylesScoped$ } from "@builder.io/qwik";
-import styles from "./style.css";
+import styles from "./style.css?inline";
 import svgxImport from "@svgx-dir:/src/assets/icomoon_svg";
 
 export type SearchWidgetProps = {

@@ -1,6 +1,6 @@
 import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
 import svgxImport from "@svgx-dir:/src/assets/icomoon_svg";
-import styles from "./style.css";
+import styles from "./style.css?inline";
 
 interface AffButtonProps {
   icon?: string;

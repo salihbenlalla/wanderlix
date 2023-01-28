@@ -2,7 +2,7 @@ import { component$, useStylesScoped$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { LocationIcon } from "../icons/LocationIcon";
 import { CalendarInIcon } from "../icons/CalendarInIcon";
-import styles from "./banner.css";
+import styles from "./banner.css?inline";
 import { CalendarOutIcon } from "../icons/CalendarOutIcon";
 import { VerticalRule } from "../icons/VerticalRule";
 import { ArrowForward } from "../icons/ArrowForward";
