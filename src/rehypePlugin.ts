@@ -5,10 +5,13 @@ import path from "path";
 import type { LinkObj, SrcObj } from "./data/dataContext";
 import type { Root, Properties } from "hast";
 import type { Plugin } from "unified";
+import type { MdxJsxAttributeValueExpression } from "mdast-util-mdx-jsx";
 
 interface LinkProperties extends Properties {
   href?: string;
   title?: string;
+  target?: "_blank";
+  rel?: "noopener noreferrer";
 }
 
 const handleLink = (
@@ -18,6 +21,9 @@ const handleLink = (
   use?: "none" | "originalHref" | "newHref"
 ): LinkProperties => {
   if (href?.startsWith("https://travel2.ml")) return { href, title };
+
+  if (href?.startsWith("link_id:")) return { href: undefined };
+
   const foundLink = linkObjs.find(
     (o) => o.id === Number(href?.replace("link_id:", ""))
   );
@@ -32,18 +38,29 @@ const handleLink = (
       : foundLink?.[foundLink.use];
   const iTitle =
     !href?.startsWith("https://travel2.ml") && !iHref ? undefined : title;
+  if (!iHref)
+    return {
+      href: iHref,
+      title: iTitle,
+    };
+
   return {
     href: iHref,
     title: iTitle,
+    target: "_blank",
+    rel: "noopener noreferrer",
   };
 };
 
-export const findSrc: (
+type FindSrcFunc = (
   srcObjs: SrcObj[],
-  src?: string | null,
+  src?: string | MdxJsxAttributeValueExpression | null | undefined,
   use?: "none" | "originalSrc" | "newSrc"
-) => string | undefined = (srcObjs, src, use) => {
-  if (src?.startsWith("https://travel2.ml")) return src;
+) => string | MdxJsxAttributeValueExpression | null | undefined;
+
+export const findSrc: FindSrcFunc = (srcObjs, src, use) => {
+  if (typeof src === "object" || src?.startsWith("https://travel2.ml"))
+    return src;
   const foundSrc = srcObjs.find(
     (o) => o.id === Number(src?.replace("srcId:", ""))
   );
@@ -85,19 +102,19 @@ const replaceLinkIds: Plugin<[], Root> = () => {
         node.properties = node.properties ?? {};
         node.properties.href = newLinkProperties.href;
         node.properties.title = newLinkProperties.title;
+        node.properties.target = newLinkProperties.target;
+        node.properties.rel = newLinkProperties.rel;
+        console.log("href: ", node.properties);
       }
-      // @ts-ignore: couldn't find a type declaration for MDXHAST.
       if (node?.type === "mdxJsxFlowElement" && node.name == "Iframe") {
-        // @ts-ignore
         const newAttributes = node.attributes.map((attr) => {
-          if (attr.name === "src") {
+          if (attr.type === "mdxJsxAttribute" && attr.name === "src") {
             const src = attr.value;
             const newSrc = findSrc(srcObjs, src, "originalSrc");
             attr.value = newSrc;
           }
           return attr;
         });
-        // @ts-ignore
         node.attributes = newAttributes;
       }
     });
