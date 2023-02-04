@@ -15,6 +15,8 @@ import SearchWidget from "./components/ContainerWidget/SearchWidget";
 import type { SearchWidgetProps } from "./components/ContainerWidget/SearchWidget";
 import WidgetSearchContainer from "./components/ContainerWidget/WidgetSearchContainer";
 import Iframe from "./components/Iframe";
+import AdPlacer from "./components/AdPlacer";
+import type { AdPlacerProps } from "./components/AdPlacer";
 
 type ElementProps = {
   [key: string]: any;
@@ -46,4 +48,5 @@ export const contextComponents = {
   ),
   SearchWidget: (props: SearchWidgetProps) => <SearchWidget {...props} />,
   Iframe: (props: ElementProps) => <Iframe {...props} />,
+  AdPlacer: (props: AdPlacerProps) => <AdPlacer {...props} />,
 };

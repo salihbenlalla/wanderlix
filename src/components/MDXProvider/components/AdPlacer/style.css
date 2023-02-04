@@ -1,0 +1,5 @@
+.ad_placer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

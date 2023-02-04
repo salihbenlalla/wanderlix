@@ -3,8 +3,7 @@ import { qwikVite } from "@builder.io/qwik/optimizer";
 import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import svgx from "@svgx/vite-plugin-qwik";
-import replaceLinkIdsRehype from "./src/rehypePlugin";
-// import replaceLinkIdsRehype from "./src/recmaPlugin";
+// import replaceLinkIdsRehype from "./src/rehypePlugin";
 
 export default defineConfig(() => {
   return {
@@ -14,8 +13,7 @@ export default defineConfig(() => {
           providerImportSource: "src/components/MDXProvider",
           jsxRuntime: "automatic",
           jsxImportSource: "@builder.io/qwik",
-          rehypePlugins: [replaceLinkIdsRehype],
-          // recmaPlugins: [replaceLinkIdsRehype],
+          // rehypePlugins: [replaceLinkIdsRehype],
         },
       }),
       qwikVite(),

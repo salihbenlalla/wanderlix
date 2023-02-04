@@ -10,9 +10,7 @@ export type SearchWidgetProps = {
 const SearchWidget = component$<SearchWidgetProps>((props) => {
   useStylesScoped$(styles);
 
-  const SVGIcon = svgxImport(
-    props.icon.replace("icon-", "").replace("idea", "light-bulb")
-  );
+  const SVGIcon = svgxImport(props.icon);
 
   return (
     <div class="widget_search">
