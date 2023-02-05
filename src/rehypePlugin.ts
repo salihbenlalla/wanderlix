@@ -64,7 +64,7 @@ export const findSrc: FindSrcFunc = (srcObjs, src, use) => {
   if (typeof src === "object" || src?.startsWith("https://travel2.ml"))
     return src;
   const foundSrc = srcObjs.find(
-    (o) => o.id === Number(src?.replace("srcId:", ""))
+    (o) => o.id === Number(src?.replace("srcId:", "").replace("src_id:", ""))
   );
 
   if (use === "none") return;
