@@ -17,6 +17,8 @@ import WidgetSearchContainer from "./components/ContainerWidget/WidgetSearchCont
 import Iframe from "./components/Iframe";
 import AdPlacer from "./components/AdPlacer";
 import type { AdPlacerProps } from "./components/AdPlacer";
+import FacebookVideoEmbed from "./components/FacebookVideoEmbed";
+import type { FacebookVideoEmbedProps } from "./components/FacebookVideoEmbed";
 
 type ElementProps = {
   [key: string]: any;
@@ -49,4 +51,7 @@ export const contextComponents = {
   SearchWidget: (props: SearchWidgetProps) => <SearchWidget {...props} />,
   Iframe: (props: ElementProps) => <Iframe {...props} />,
   AdPlacer: (props: AdPlacerProps) => <AdPlacer {...props} />,
+  FacebookVideoEmbed: (props: FacebookVideoEmbedProps) => (
+    <FacebookVideoEmbed {...props} />
+  ),
 };

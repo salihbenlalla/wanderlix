@@ -15,7 +15,6 @@ const InstagramEmbed = component$<InstagramEmbedProps>((props) => {
         if (iFrameData.type === "MEASURE") {
           const iFrameHeight = iFrameData.details.height;
           state.height = iFrameHeight;
-          console.log("iframe height: ", state.height);
         }
       }
     })
