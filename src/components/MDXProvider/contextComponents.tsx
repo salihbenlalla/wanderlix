@@ -19,6 +19,9 @@ import AdPlacer from "./components/AdPlacer";
 import type { AdPlacerProps } from "./components/AdPlacer";
 import FacebookVideoEmbed from "./components/FacebookVideoEmbed";
 import type { FacebookVideoEmbedProps } from "./components/FacebookVideoEmbed";
+import LegendPhoto from "./components/LegendPhoto";
+import TableCarre2 from "./components/TableCarre2";
+import type { TableCarre2Props } from "./components/TableCarre2";
 
 type ElementProps = {
   [key: string]: any;
@@ -54,4 +57,6 @@ export const contextComponents = {
   FacebookVideoEmbed: (props: FacebookVideoEmbedProps) => (
     <FacebookVideoEmbed {...props} />
   ),
+  LegendPhoto: (props: ElementProps) => <LegendPhoto {...props} />,
+  TableCarre2: (props: TableCarre2Props) => <TableCarre2 {...props} />,
 };

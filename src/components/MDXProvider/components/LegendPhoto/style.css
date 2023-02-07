@@ -1,0 +1,13 @@
+.legend_photo {
+  margin: 0px auto 16px auto;
+}
+
+.legend_photo a {
+  display: inline;
+}
+
+div.legend_photo > p {
+  font-size: 12px;
+  text-align: right;
+  margin: 0 5px;
+}

@@ -7,9 +7,8 @@ interface AffButtonProps {
 }
 
 const AffButton = component$<AffButtonProps>((props) => {
-  const SVGIcon = props.icon
-    ? svgxImport(props.icon.replace("icon-", "").replace("idea", "light-bulb"))
-    : "";
+  console.log("props.icon : ", props.icon);
+  const SVGIcon = props.icon ? svgxImport(props.icon) : undefined;
   useStylesScoped$(styles);
   return (
     <div class="aff_button">
