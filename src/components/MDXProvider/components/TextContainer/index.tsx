@@ -1,4 +1,4 @@
-import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, Slot, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 
 interface TextContainer {
@@ -6,7 +6,7 @@ interface TextContainer {
 }
 
 const TextContainer = component$<TextContainer>((props) => {
-  useStylesScoped$(styles);
+  useStyles$(styles);
   return (
     <div class="text_container">
       {props.title && <span class="text_container__title">{props.title}</span>}

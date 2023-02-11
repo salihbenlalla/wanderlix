@@ -20,8 +20,8 @@ import type { AdPlacerProps } from "./components/AdPlacer";
 import FacebookVideoEmbed from "./components/FacebookVideoEmbed";
 import type { FacebookVideoEmbedProps } from "./components/FacebookVideoEmbed";
 import LegendPhoto from "./components/LegendPhoto";
-import TableCarre2 from "./components/TableCarre2";
-import type { TableCarre2Props } from "./components/TableCarre2";
+import Icon from "./components/Icon";
+import type { IconProps } from "./components/Icon";
 
 type ElementProps = {
   [key: string]: any;
@@ -34,11 +34,13 @@ export const contextComponents = {
   InstagramEmbed: (props: ElementProps) => (
     <InstagramEmbed postId={props.postId} />
   ),
-  blockquote: (props: ElementProps) => (
-    <blockquote style={{ border: "10px solid green" }} {...props} />
-  ),
   TextContainer: (props: ElementProps) => (
     <TextContainer title={props.title} {...props} />
+  ),
+  blockquote: (props: ElementProps) => (
+    <div class="blockquote_wrapper">
+      <blockquote {...props} />
+    </div>
   ),
   ActivityList: (props: ActivityListProps) => <ActivityList {...props} />,
   AffButton: (props: ElementProps) => <AffButton {...props} />,
@@ -58,5 +60,5 @@ export const contextComponents = {
     <FacebookVideoEmbed {...props} />
   ),
   LegendPhoto: (props: ElementProps) => <LegendPhoto {...props} />,
-  TableCarre2: (props: TableCarre2Props) => <TableCarre2 {...props} />,
+  Icon: (props: IconProps) => <Icon {...props} />,
 };

@@ -3,39 +3,122 @@
   margin: auto;
 }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
+.post-content ol {
+  list-style-position: inside;
+  /* Start counter */
+  counter-reset: list;
+  padding-left: 16px;
+}
+
+.post-content ol li {
+  /* font-family: "Raleway", sans-serif; */
+  /* Increment counter on each list item */
+  margin-top: 5px;
+  margin-left: 5px;
+  counter-increment: list;
+}
+
+/* .post-content ol li::marker { */
+/* font-family: "Sigmar One", cursive; */
+/* Use counter to display the current number */
+/* content: "Step " counter(list) ". "; */
+/* } */
+
+.post-content blockquote::before {
+  content: open-quote;
+}
+
+.post-content blockquote::after {
+  content: close-quote;
+}
+
+.post-content blockquote::before,
+blockquote::after {
+  opacity: 0.25;
+  padding: 0 10px;
+  font-size: 3em;
+}
+
+.post-content blockquote {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+  padding: 20px 10px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+
+.post-content .blockquote_wrapper {
+  max-width: 660px;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: #474747;
+  /* background-color: #827085; */
+  /* font: 900 1.375rem/1.5 "Merriweather", serif; */
+  font: 900 0.9rem/1.4 "Merriweather", serif;
+  font-style: italic;
+  text-align: center;
+}
+
+.table_container {
+  overflow-x: auto;
+  border: 1px solid #eee;
   margin-top: 16px;
   margin-bottom: 16px;
 }
 
-table tbody td,
-table tbody th {
+.post_table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.post_table tbody td,
+.post_table tbody th {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-table thead td,
-table thead th {
+.post_table thead td,
+.post_table thead th {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-table tr:nth-child(even) {
+.post_table tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-table tr:hover {
+.post_table tr:hover {
   background-color: #ddd;
 }
 
-table th {
+.post_table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
   background-color: #3e4347;
   color: white;
+}
+
+.highlighted_cell {
+  background-color: #3e4347;
+  color: white;
+}
+
+.post_table caption {
+  font-weight: bold;
+  padding: 16px;
+}
+
+.post_table caption p {
+  padding: 0;
+  margin: 0;
+}
+
+.post_table svg {
+  fill: currentColor;
 }

@@ -1,4 +1,4 @@
-import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, Slot, useStyles$ } from "@builder.io/qwik";
 import svgxImport from "@svgx-dir:/src/assets/icomoon_svg";
 import styles from "./style.css?inline";
 
@@ -7,9 +7,8 @@ interface AffButtonProps {
 }
 
 const AffButton = component$<AffButtonProps>((props) => {
-  console.log("props.icon : ", props.icon);
   const SVGIcon = props.icon ? svgxImport(props.icon) : undefined;
-  useStylesScoped$(styles);
+  useStyles$(styles);
   return (
     <div class="aff_button">
       <Slot />

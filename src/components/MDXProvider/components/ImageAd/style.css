@@ -1,8 +1,9 @@
-a {
-    margin: 0 auto;
-    display: block;
+.image_ad a {
+  margin: 0 auto;
+  display: block;
 }
 
-img {
-    width: 100%
+.image_ad img {
+  width: 100%;
+  cursor: pointer;
 }

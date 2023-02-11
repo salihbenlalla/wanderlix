@@ -1,4 +1,4 @@
-import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 
 export interface AdPlacerProps {
@@ -6,7 +6,7 @@ export interface AdPlacerProps {
 }
 
 const AdPlacer = component$<AdPlacerProps>(({ kind }) => {
-  useStylesScoped$(styles);
+  useStyles$(styles);
   return (
     <div class="ad_placer">
       {kind === "1" ? (

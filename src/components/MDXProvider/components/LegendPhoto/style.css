@@ -6,7 +6,7 @@
   display: inline;
 }
 
-div.legend_photo > p {
+.legend_photo > p {
   font-size: 12px;
   text-align: right;
   margin: 0 5px;

@@ -148,6 +148,52 @@ const replaceLinkIds: Plugin<[], Root> = () => {
         });
         node.attributes = newAttributes;
       }
+
+      // <a> tags
+      if (node?.type === "mdxJsxFlowElement" && node.name == "a") {
+        const newAttributes = node.attributes.map((attr) => {
+          if (attr.type === "mdxJsxAttribute" && attr.name === "href") {
+            const href = attr.value;
+            const newHref = handleLink(
+              linkObjs,
+              href as string,
+              undefined,
+              "originalHref"
+            );
+            attr.value = newHref.href;
+          }
+          return attr;
+        });
+        newAttributes.push({
+          type: "mdxJsxAttribute",
+          name: "target",
+          value: "_blank",
+        });
+        newAttributes.push({
+          type: "mdxJsxAttribute",
+          name: "rel",
+          value: "noopener noreferrer",
+        });
+        node.attributes = newAttributes;
+      }
+
+      // <ImageAd aHref="link_id">
+      if (node?.type === "mdxJsxFlowElement" && node.name == "ImageAd") {
+        const newAttributes = node.attributes.map((attr) => {
+          if (attr.type === "mdxJsxAttribute" && attr.name === "aHref") {
+            const href = attr.value;
+            const newHref = handleLink(
+              linkObjs,
+              href as string,
+              undefined,
+              "originalHref"
+            );
+            attr.value = newHref.href;
+          }
+          return attr;
+        });
+        node.attributes = newAttributes;
+      }
     });
   };
 };

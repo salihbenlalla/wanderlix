@@ -1,8 +1,8 @@
-import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, Slot, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 
 const AlignCenter = component$(() => {
-  useStylesScoped$(styles);
+  useStyles$(styles);
   return (
     <div class="align_center">
       <Slot />

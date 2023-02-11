@@ -1,24 +1,28 @@
 .text_container {
-    background-color: #F0F2F7;
-    border-radius: 5px;
-    padding: 25px;
-    margin-top: 25px;
-    margin-bottom: 25px;
+  background-color: #f0f2f7;
+  border-radius: 5px;
+  padding: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 .text_container__title {
-    font-weight: 700;
-    font-size: large;
-    display: block;
-    margin-bottom: 15px;
+  font-weight: 700;
+  font-size: large;
+  display: block;
+  margin-bottom: 15px;
 }
 
 .text_container * {
-    line-height: 26px;
+  line-height: 26px;
 }
 
 .text_container img {
-    max-width: 24px;
-    max-height: 24px;
-    transform: translateY(6px);
+  max-width: 24px;
+  max-height: 24px;
+  transform: translateY(6px);
+}
+
+.text_container iframe {
+  width: 100%;
 }

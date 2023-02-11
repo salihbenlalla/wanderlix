@@ -1,8 +1,4 @@
-import {
-  component$,
-  useClientEffect$,
-  useStylesScoped$,
-} from "@builder.io/qwik";
+import { component$, useClientEffect$, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 
 export interface FacebookVideoEmbedProps {
@@ -13,14 +9,16 @@ export const facebookSDK =
   "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2";
 
 const FacebookVideoEmbed = component$((props: FacebookVideoEmbedProps) => {
-  useStylesScoped$(styles);
+  useStyles$(styles);
   useClientEffect$(async () => {
     const script = (await import("scriptjs")).default;
     script(facebookSDK, "facebook-sdk");
   });
 
   return (
-    <div class="fb-video" data-href={props.videoUrl} data-width="500"></div>
+    <div class="fb-video-container">
+      <div class="fb-video" data-href={props.videoUrl} data-width="500"></div>
+    </div>
   );
 });
 

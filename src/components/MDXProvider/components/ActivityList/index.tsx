@@ -1,15 +1,5 @@
-import {
-  component$,
-  Slot,
-  // useContext,
-  useStore,
-  useStylesScoped$,
-  // useTask$,
-} from "@builder.io/qwik";
-// import { isServer } from "@builder.io/qwik/build";
+import { component$, Slot, useStore, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
-// import { dataContext } from "~/data/dataContext";
-// import { findSrc } from "~/data/utils";
 
 export type ActivityListProps = {
   activityHeader: string;
@@ -24,16 +14,8 @@ interface Store {
 }
 
 const ActivityList = component$((props: ActivityListProps) => {
-  useStylesScoped$(styles);
-  // const links = useContext(dataContext).srcs;
+  useStyles$(styles);
   const state = useStore<Store>({ showCTA: false });
-
-  // useTask$(() => {
-  //   if (isServer) {
-  //     const CTALink = findSrc(links, props.CTALink, "originalSrc");
-  //     state.CTALink = CTALink;
-  //   }
-  // });
 
   return (
     <div class="activity_list">

@@ -1,4 +1,4 @@
-import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 
 type ElementProps = {
@@ -6,11 +6,13 @@ type ElementProps = {
 };
 
 const ImageAd = component$((props: ElementProps) => {
-  useStylesScoped$(styles);
+  useStyles$(styles);
   return (
-    <a href={props.linkId} target="_blank" rel="nofollow noopener noreferrer">
-      <img src={props.imgSrc} loading="lazy" alt="" />
-    </a>
+    <div class="image_ad">
+      <a href={props.aHref} target="_blank" rel="nofollow noopener noreferrer">
+        <img src={props.imgSrc} loading="lazy" alt="" />
+      </a>
+    </div>
   );
 });
 
