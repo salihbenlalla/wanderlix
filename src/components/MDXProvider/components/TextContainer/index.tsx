@@ -1,11 +1,11 @@
 import { component$, Slot, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 
-interface TextContainer {
+export interface TextContainerProps {
   title: string;
 }
 
-const TextContainer = component$<TextContainer>((props) => {
+const TextContainer = component$<TextContainerProps>((props) => {
   useStyles$(styles);
   return (
     <div class="text_container">

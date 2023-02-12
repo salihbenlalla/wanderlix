@@ -1,11 +1,19 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
+import style from "./style.css?inline";
 
-type ElementProps = {
-  [key: string]: any;
+export type IframeProps = {
+  src?: string;
+  width?: string;
+  height?: string;
 };
 
-const Iframe = component$((props: ElementProps) => {
-  return <iframe {...props} />;
+const Iframe = component$((props: IframeProps) => {
+  useStyles$(style);
+  return (
+    <div class="iframe_container">
+      <iframe {...props} />;
+    </div>
+  );
 });
 
 export default Iframe;

@@ -1,6 +1,7 @@
 import TweetEmbed from "./TweetEmbed";
 import InstagramEmbed from "./InstagramEmbed";
 import TextContainer from "./components/TextContainer";
+import type { TextContainerProps } from "./components/TextContainer";
 import Anchor from "./components/Anchor";
 import ImageAd from "./components/ImageAd";
 import ActivityList from "./components/ActivityList";
@@ -15,6 +16,7 @@ import SearchWidget from "./components/ContainerWidget/SearchWidget";
 import type { SearchWidgetProps } from "./components/ContainerWidget/SearchWidget";
 import WidgetSearchContainer from "./components/ContainerWidget/WidgetSearchContainer";
 import Iframe from "./components/Iframe";
+import type { IframeProps } from "./components/Iframe";
 import AdPlacer from "./components/AdPlacer";
 import type { AdPlacerProps } from "./components/AdPlacer";
 import FacebookVideoEmbed from "./components/FacebookVideoEmbed";
@@ -22,6 +24,9 @@ import type { FacebookVideoEmbedProps } from "./components/FacebookVideoEmbed";
 import LegendPhoto from "./components/LegendPhoto";
 import Icon from "./components/Icon";
 import type { IconProps } from "./components/Icon";
+import TitleStay from "./components/TitleStay";
+import Stay22Container from "./components/Stay22Container";
+import SoundCloud from "./components/SoundCloud";
 
 type ElementProps = {
   [key: string]: any;
@@ -34,9 +39,7 @@ export const contextComponents = {
   InstagramEmbed: (props: ElementProps) => (
     <InstagramEmbed postId={props.postId} />
   ),
-  TextContainer: (props: ElementProps) => (
-    <TextContainer title={props.title} {...props} />
-  ),
+  TextContainer: (props: TextContainerProps) => <TextContainer {...props} />,
   blockquote: (props: ElementProps) => (
     <div class="blockquote_wrapper">
       <blockquote {...props} />
@@ -54,11 +57,14 @@ export const contextComponents = {
     <WidgetSearchContainer {...props} />
   ),
   SearchWidget: (props: SearchWidgetProps) => <SearchWidget {...props} />,
-  Iframe: (props: ElementProps) => <Iframe {...props} />,
+  Iframe: (props: IframeProps) => <Iframe {...props} />,
   AdPlacer: (props: AdPlacerProps) => <AdPlacer {...props} />,
   FacebookVideoEmbed: (props: FacebookVideoEmbedProps) => (
     <FacebookVideoEmbed {...props} />
   ),
   LegendPhoto: (props: ElementProps) => <LegendPhoto {...props} />,
   Icon: (props: IconProps) => <Icon {...props} />,
+  TitleStay: (props: ElementProps) => <TitleStay {...props} />,
+  Stay22Container: (props: ElementProps) => <Stay22Container {...props} />,
+  SoundCloud: (props: ElementProps) => <SoundCloud {...props} />,
 };
