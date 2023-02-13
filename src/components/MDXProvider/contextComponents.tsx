@@ -25,8 +25,6 @@ import LegendPhoto from "./components/LegendPhoto";
 import Icon from "./components/Icon";
 import type { IconProps } from "./components/Icon";
 import TitleStay from "./components/TitleStay";
-import Stay22Container from "./components/Stay22Container";
-import SoundCloud from "./components/SoundCloud";
 
 type ElementProps = {
   [key: string]: any;
@@ -65,6 +63,4 @@ export const contextComponents = {
   LegendPhoto: (props: ElementProps) => <LegendPhoto {...props} />,
   Icon: (props: IconProps) => <Icon {...props} />,
   TitleStay: (props: ElementProps) => <TitleStay {...props} />,
-  Stay22Container: (props: ElementProps) => <Stay22Container {...props} />,
-  SoundCloud: (props: ElementProps) => <SoundCloud {...props} />,
 };
