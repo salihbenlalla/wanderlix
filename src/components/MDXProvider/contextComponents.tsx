@@ -25,6 +25,8 @@ import LegendPhoto from "./components/LegendPhoto";
 import Icon from "./components/Icon";
 import type { IconProps } from "./components/Icon";
 import TitleStay from "./components/TitleStay";
+import WidgetLink from "./components/WidgetLink";
+import type { WidgetLinkProps } from "./components/WidgetLink";
 
 type ElementProps = {
   [key: string]: any;
@@ -63,4 +65,5 @@ export const contextComponents = {
   LegendPhoto: (props: ElementProps) => <LegendPhoto {...props} />,
   Icon: (props: IconProps) => <Icon {...props} />,
   TitleStay: (props: ElementProps) => <TitleStay {...props} />,
+  WidgetLink: (props: WidgetLinkProps) => <WidgetLink {...props} />,
 };

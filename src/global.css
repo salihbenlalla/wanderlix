@@ -16,7 +16,7 @@
   --color-light-orange: #ffeeaf;
   --font-color-primary: #2e383f;
   --font-color-secondary: #3c71ff;
-  --color-secondary: #FF7235;
+  --color-secondary: #ff7235;
 }
 
 * {
@@ -35,14 +35,9 @@ body {
 }
 
 a {
-    text-decoration: none;
-    color: var(--font-color-secondary);
-    font-weight: 700;
-}
-
-p {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  text-decoration: none;
+  color: var(--font-color-secondary);
+  font-weight: 700;
 }
 
 ul li {

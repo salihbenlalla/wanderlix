@@ -13,8 +13,12 @@
   margin-bottom: 15px;
 }
 
-.text_container * {
+/* .text_container * {
   line-height: 26px;
+} */
+
+.text_container p {
+  margin: 0;
 }
 
 .text_container img {
