@@ -27,6 +27,8 @@ import type { IconProps } from "./components/Icon";
 import TitleStay from "./components/TitleStay";
 import WidgetLink from "./components/WidgetLink";
 import type { WidgetLinkProps } from "./components/WidgetLink";
+import HotelDisplayTitle from "./components/HotelDisplay/HotelDisplayTitle";
+import HotelDisplay from "./components/HotelDisplay";
 
 type ElementProps = {
   [key: string]: any;
@@ -66,4 +68,6 @@ export const contextComponents = {
   Icon: (props: IconProps) => <Icon {...props} />,
   TitleStay: (props: ElementProps) => <TitleStay {...props} />,
   WidgetLink: (props: WidgetLinkProps) => <WidgetLink {...props} />,
+  HotelDisplay: (props: ElementProps) => <HotelDisplay {...props}/>,
+  HotelDisplayTitle: (props: ElementProps) => <HotelDisplayTitle {...props}/>
 };

@@ -143,6 +143,10 @@ blockquote::after {
   text-align: left;
 }
 
+.post-content p img {
+  max-width: 100%;
+}
+
 .post-content h1,
 h2,
 h3 {
