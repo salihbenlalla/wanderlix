@@ -29,6 +29,10 @@ import WidgetLink from "./components/WidgetLink";
 import type { WidgetLinkProps } from "./components/WidgetLink";
 import HotelDisplayTitle from "./components/HotelDisplay/HotelDisplayTitle";
 import HotelDisplay from "./components/HotelDisplay";
+import HotelDisplayPrice from "./components/HotelDisplay/HotelDisplayPrice";
+import HotelDisplayCTA from "./components/HotelDisplay/HotelDisplayCTA";
+import MainPays from "./components/MainPays";
+import type { MainPaysProps } from "./components/MainPays";
 
 type ElementProps = {
   [key: string]: any;
@@ -68,6 +72,9 @@ export const contextComponents = {
   Icon: (props: IconProps) => <Icon {...props} />,
   TitleStay: (props: ElementProps) => <TitleStay {...props} />,
   WidgetLink: (props: WidgetLinkProps) => <WidgetLink {...props} />,
-  HotelDisplay: (props: ElementProps) => <HotelDisplay {...props}/>,
-  HotelDisplayTitle: (props: ElementProps) => <HotelDisplayTitle {...props}/>
+  HotelDisplay: (props: ElementProps) => <HotelDisplay {...props} />,
+  HotelDisplayTitle: (props: ElementProps) => <HotelDisplayTitle {...props} />,
+  HotelDisplayPrice: (props: ElementProps) => <HotelDisplayPrice {...props} />,
+  HotelDisplayCTA: (props: ElementProps) => <HotelDisplayCTA {...props} />,
+  MainPays: (props: MainPaysProps) => <MainPays {...props} />,
 };

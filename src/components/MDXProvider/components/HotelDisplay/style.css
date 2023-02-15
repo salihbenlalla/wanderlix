@@ -4,7 +4,8 @@
   margin-top: 10px;
 }
 
-.hotel_title {
+.hotel_title,
+.hotel_title a {
   font-size: 20px;
   font-weight: 700;
   color: #2e383f;
@@ -16,6 +17,27 @@
   border-radius: 5px;
   width: 286px;
   height: auto;
-  max-width: 220px;
+  /* max-width: 220px; */
   aspect-ratio: auto 200 / 150;
+}
+
+@media (max-width: 1100px) {
+  .hotel_card p img {
+    max-width: 220px;
+  }
+}
+
+.hotel_price {
+  font-style: italic;
+  margin-left: 10px;
+  color: #2e383f;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7em;
+}
+
+.hotel_cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

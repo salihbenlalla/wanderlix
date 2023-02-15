@@ -9,7 +9,7 @@ export interface IconProps {
 const Icon = component$<IconProps>((props) => {
   useStyles$(style);
   const SVGIcon = props.icon ? svgxImport(props.icon) : undefined;
-  return <>{SVGIcon && <SVGIcon />}</>;
+  return <>{SVGIcon && <SVGIcon class="icon_svg" />}</>;
 });
 
 export default Icon;
