@@ -1,24 +1,63 @@
 .button_section {
-  background-color: var(--color-secondary);
-  color: var(--color-pure-white);
-  padding: 16px;
   font-size: 16px;
   font-weight: 400;
   width: fit-content;
-  margin: 16px;
+  margin: 15px 5px;
+  padding: 6px 10px;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  height: 49px;
+  line-height: 25px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button_section_orange {
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+}
+
+.button_section_orange a {
+  color: var(--color-pure-white);
+}
+
+.button_section_orange svg {
+  fill: var(--color-pure-white);
+}
+
+.button_section_gray {
+  background-color: #fff;
+  border: 1px solid #2e383f;
+}
+
+.button_section_gray a {
+  color: #2e383f;
+}
+
+.button_section_gray svg {
+  fill: #2e383f;
 }
 
 .button_section a {
-  color: var(--color-pure-white);
   font-weight: 400;
 }
 
 .button_section svg {
-  fill: var(--color-pure-white);
   font-weight: 400;
+}
+
+.button_section:hover {
+  background-color: #15a7ca;
+  border: 1px solid #fff;
+}
+
+.button_section:hover a {
+  color: var(--color-pure-white);
+}
+
+.button_section:hover svg {
+  fill: var(--color-pure-white);
 }
