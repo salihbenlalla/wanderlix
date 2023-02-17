@@ -1,4 +1,7 @@
 .widget_link {
-  color: blue;
-  display: block;
+  /* color: blue;
+  display: block; */
+  text-decoration: none;
+  color: var(--font-color-secondary);
+  font-weight: 700;
 }

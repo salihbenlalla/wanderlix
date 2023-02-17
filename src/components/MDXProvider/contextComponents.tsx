@@ -6,9 +6,8 @@ import Anchor from "./components/Anchor";
 import ImageAd from "./components/ImageAd";
 import ActivityList from "./components/ActivityList";
 import type { ActivityListProps } from "./components/ActivityList";
-import AffButton from "./components/AffButton";
 import AlignCenter from "./components/AlignCenter";
-import ButtonSection from "./components/ButtonSection";
+import Button from "./components/Button";
 import ImageWithCaption from "./components/ImageWithCaption";
 import type { ImageWithCaptionProps } from "./components/ImageWithCaption";
 import ContainerWidget from "./components/ContainerWidget";
@@ -33,6 +32,12 @@ import HotelDisplayPrice from "./components/HotelDisplay/HotelDisplayPrice";
 import HotelDisplayCTA from "./components/HotelDisplay/HotelDisplayCTA";
 import MainPays from "./components/MainPays";
 import type { MainPaysProps } from "./components/MainPays";
+import BilletTarif from "./components/BilletTarif";
+import ListCombineContainer from "./components/BilletTarif/ListCombineContainer";
+import ListCombine from "./components/BilletTarif/ListCombine";
+import ListBlockQuote from "./components/BilletTarif/ListBlockQuote";
+import TopLabel from "./components/BilletTarif/TopLabel";
+import type { TopLabelProps } from "./components/BilletTarif/TopLabel";
 
 type ElementProps = {
   [key: string]: any;
@@ -52,8 +57,7 @@ export const contextComponents = {
     </div>
   ),
   ActivityList: (props: ActivityListProps) => <ActivityList {...props} />,
-  AffButton: (props: ElementProps) => <AffButton {...props} />,
-  ButtonSection: (props: ElementProps) => <ButtonSection {...props} />,
+  Button: (props: ElementProps) => <Button {...props} />,
   AlignCenter: (props: ElementProps) => <AlignCenter {...props} />,
   ImageWithCaption: (props: ImageWithCaptionProps) => (
     <ImageWithCaption {...props} />
@@ -77,4 +81,11 @@ export const contextComponents = {
   HotelDisplayPrice: (props: ElementProps) => <HotelDisplayPrice {...props} />,
   HotelDisplayCTA: (props: ElementProps) => <HotelDisplayCTA {...props} />,
   MainPays: (props: MainPaysProps) => <MainPays {...props} />,
+  BilletTarif: (props: ElementProps) => <BilletTarif {...props} />,
+  ListCombineContainer: (props: ElementProps) => (
+    <ListCombineContainer {...props} />
+  ),
+  ListCombine: (props: ElementProps) => <ListCombine {...props} />,
+  ListBlockQuote: (props: ElementProps) => <ListBlockQuote {...props} />,
+  TopLabel: (props: TopLabelProps) => <TopLabel {...props} />,
 };

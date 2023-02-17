@@ -1,4 +1,4 @@
-.button_section {
+.button {
   font-size: 16px;
   font-weight: 400;
   width: fit-content;
@@ -15,49 +15,62 @@
   cursor: pointer;
 }
 
-.button_section_orange {
+.button_orange {
   background-color: var(--color-secondary);
   border: 1px solid var(--color-secondary);
 }
 
-.button_section_orange a {
+.button_blue {
+  background-color: #15a7ca;
+  border: 1px solid #15a7ca;
+}
+
+.button_blue a {
   color: var(--color-pure-white);
 }
 
-.button_section_orange svg {
+.button_blue svg {
   fill: var(--color-pure-white);
 }
 
-.button_section_gray {
+.button_orange a {
+  color: var(--color-pure-white);
+}
+
+.button_orange svg {
+  fill: var(--color-pure-white);
+}
+
+.button_gray {
   background-color: #fff;
   border: 1px solid #2e383f;
 }
 
-.button_section_gray a {
+.button_gray a {
   color: #2e383f;
 }
 
-.button_section_gray svg {
+.button_gray svg {
   fill: #2e383f;
 }
 
-.button_section a {
+.button a {
   font-weight: 400;
 }
 
-.button_section svg {
+.button svg {
   font-weight: 400;
 }
 
-.button_section:hover {
+.button:hover {
   background-color: #15a7ca;
   border: 1px solid #fff;
 }
 
-.button_section:hover a {
+.button:hover a {
   color: var(--color-pure-white);
 }
 
-.button_section:hover svg {
+.button:hover svg {
   fill: var(--color-pure-white);
 }
