@@ -1,0 +1,96 @@
+.gift_block {
+  border-bottom: 1px solid #ececec;
+  padding-bottom: 70px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+
+.gift_block h5 {
+  /* color: #15a7ca; */
+  color: #15a7ca;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 60px;
+  text-align: center;
+}
+
+.gift_block img {
+  display: block;
+  margin-bottom: 15px;
+  min-height: 45px;
+  border-radius: 20px;
+  max-height: 300px;
+  max-width: 100%;
+  padding: 10px 10px 4px;
+  width: auto;
+}
+
+.gift_block ol {
+  /* list-style-position: outside; */
+  list-style: none;
+  margin: auto;
+  max-width: 350px;
+  text-align: left;
+  color: #2e383f;
+  font-family: Poppins, Arial, Tahoma, Verdana, FreeSans, sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+/* .gift_block ol li {
+  margin-bottom: 15px;
+  line-height: 1.7em;
+  text-align: left;
+  padding-left: 15px;
+} */
+
+.gift_block ol li {
+  display: block;
+  clear: both;
+  counter-increment: list;
+  padding-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.375;
+  position: relative;
+}
+
+/* .gift_block ol li::marker {
+  content: url(/images/listmarker-min_20x20.png);
+  width: 20px;
+  height: 20px;
+  transform: translateY(450px);
+} */
+
+.gift_block ol li::before {
+  font: bold 1.5rem/1 Montserrat, Roboto, Helvetica, Arial, sans-serif;
+  content: counter(list);
+  width: 2rem;
+  height: 2rem;
+  float: left;
+  margin: 0 1.5rem 0.75rem 0;
+  color: #fdfdfd;
+  background: #ff7235 linear-gradient(to bottom right, #ff7235 25%, #ffedbc);
+  text-shadow: 0 0 2px #ff7235;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  shape-outside: ellipse();
+  z-index: 1;
+  transform: translateY(-5px);
+}
+
+.gift_block ol li::after {
+  width: 2.5rem;
+  height: 2.5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  background: #ff7235;
+  z-index: -1;
+  border-top-left-radius: 3px;
+}

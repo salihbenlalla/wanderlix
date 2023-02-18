@@ -38,6 +38,7 @@ import ListCombine from "./components/BilletTarif/ListCombine";
 import ListBlockQuote from "./components/BilletTarif/ListBlockQuote";
 import TopLabel from "./components/BilletTarif/TopLabel";
 import type { TopLabelProps } from "./components/BilletTarif/TopLabel";
+import GiftBlock from "./components/GiftBlock";
 
 type ElementProps = {
   [key: string]: any;
@@ -88,4 +89,5 @@ export const contextComponents = {
   ListCombine: (props: ElementProps) => <ListCombine {...props} />,
   ListBlockQuote: (props: ElementProps) => <ListBlockQuote {...props} />,
   TopLabel: (props: TopLabelProps) => <TopLabel {...props} />,
+  GiftBlock: (props: ElementProps) => <GiftBlock {...props} />,
 };
