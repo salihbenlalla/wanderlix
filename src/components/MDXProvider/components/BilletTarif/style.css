@@ -25,6 +25,7 @@
 }
 
 .ticket_tarifs div.combined_list ul li span.widget_link {
+  width: fit-content;
   display: block;
   border-bottom: 1px dashed #15a7c1;
   border-radius: 5px;
@@ -50,19 +51,25 @@
 .combined_list_container {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
-.combined_list_container > * {
+.combined_list_container .combined_list {
+  flex: 1 1 300px;
+}
+
+/* .combined_list_container > * {
   flex-grow: 1;
   flex-basis: 0;
-}
+} */
 .combined_list_blockquote {
-  max-width: 350px;
+  /* max-width: 350px; */
+  flex: 1 1 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  margin: 20px;
+  /* margin: 20px; */
   padding: 20px 10px;
   border-radius: 10px;
   background-color: #fff3ee;

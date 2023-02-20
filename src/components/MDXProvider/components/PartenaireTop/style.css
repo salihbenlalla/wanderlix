@@ -1,0 +1,28 @@
+.partner_card {
+  width: 100%;
+  display: flex;
+  background-color: #efefef;
+  border-radius: 16px;
+  margin: 24px auto;
+  padding: 16px;
+  flex-direction: column;
+}
+
+.partner_button_section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.partner_button_section h5 {
+  font-size: 18px;
+  text-align: left;
+  flex: 1 1 450px;
+}
+
+.partner_button_section .button {
+  width: 180px;
+  flex-basis: 180px;
+  flex-grow: 1;
+}

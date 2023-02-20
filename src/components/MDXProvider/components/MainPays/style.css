@@ -12,7 +12,7 @@
   border-radius: 5px;
   display: flex;
   align-items: center;
-  height: 90px;
+  /* height: 90px; */
   margin-bottom: 15px;
   overflow: hidden;
   padding: 0;
@@ -31,11 +31,15 @@
 }
 
 .read_more_card a img {
-  height: 90px;
-  width: 120px;
+  /* height: 90px; */
+  /* width: 120px; */
   border-radius: 5px;
   display: block;
   text-align: center;
+  max-width: 130px;
+  flex: 1 0 120px;
+  margin: 0;
+  padding: 0;
 }
 
 .read_more_card_content {
@@ -45,12 +49,24 @@
   padding: 10px;
   color: #2e383f;
   font-weight: 300;
+
+  /* flex: 1 1 300px; */
+
+  /* overflow: hidden; */
+  /* width: 100px; */
+  /* display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; */
+  /* text-overflow: ellipsis; */
 }
 
 .read_more_card_svg_wrapper {
   position: relative;
-  width: 40px;
+  /* width: 40px; */
   height: 80px;
+  margin-left: 5px;
+  margin-right: 5px;
+  flex: 0 1 40px;
 }
 
 .read_more_card_svg_wrapper svg {

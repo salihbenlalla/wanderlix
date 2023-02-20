@@ -9,12 +9,12 @@ export type ImageWithCaptionProps = {
 
 const ImageWithCaption = component$((props: ImageWithCaptionProps) => {
   useStyles$(styles);
-  const proportion: number = Number(props.imgWidth) / 700;
-  const imgWidth = Number(props.imgWidth) / proportion;
-  const imgHeight = Number(props.imgHeight) / proportion;
+  //   const proportion: number = Number(props.imgWidth) / 700;
+  //   const imgWidth = Number(props.imgWidth) / proportion;
+  //   const imgHeight = Number(props.imgHeight) / proportion;
   return (
     <div class="image_caption">
-      <img src={props.imgSrc} width={imgWidth} height={imgHeight} />
+      <img src={props.imgSrc} />
       <Slot />
     </div>
   );
