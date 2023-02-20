@@ -39,6 +39,8 @@ import ListBlockQuote from "./components/BilletTarif/ListBlockQuote";
 import TopLabel from "./components/BilletTarif/TopLabel";
 import type { TopLabelProps } from "./components/BilletTarif/TopLabel";
 import GiftBlock from "./components/GiftBlock";
+import DisplayGenerique from "./components/DisplayGenerique";
+import DisplayGeneriqueBody from "./components/DisplayGenerique/DisplayGeneriqueBody";
 
 type ElementProps = {
   [key: string]: any;
@@ -90,4 +92,6 @@ export const contextComponents = {
   ListBlockQuote: (props: ElementProps) => <ListBlockQuote {...props} />,
   TopLabel: (props: TopLabelProps) => <TopLabel {...props} />,
   GiftBlock: (props: ElementProps) => <GiftBlock {...props} />,
+  DisplayGenerique: (props: ElementProps) => <DisplayGenerique {...props} />,
+  DisplayGeneriqueBody: (props: ElementProps) => <DisplayGeneriqueBody {...props} />
 };

@@ -1,0 +1,33 @@
+.generic_card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background-color: #efefef;
+    border-radius: 16px;
+    margin: 24px auto;
+    padding: 16px;
+    flex-wrap: wrap;
+}
+
+.generic_card_img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1;
+}
+
+.generic_card_img a img {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+
+.generic_card_body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* min-width: 309px; */
+    flex: 1 0 309px;
+}
