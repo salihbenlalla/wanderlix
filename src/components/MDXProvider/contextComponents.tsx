@@ -26,10 +26,7 @@ import type { IconProps } from "./components/Icon";
 import TitleStay from "./components/TitleStay";
 import WidgetLink from "./components/WidgetLink";
 import type { WidgetLinkProps } from "./components/WidgetLink";
-import HotelDisplayTitle from "./components/HotelDisplay/HotelDisplayTitle";
 import HotelDisplay from "./components/HotelDisplay";
-import HotelDisplayPrice from "./components/HotelDisplay/HotelDisplayPrice";
-import HotelDisplayCTA from "./components/HotelDisplay/HotelDisplayCTA";
 import MainPays from "./components/MainPays";
 import type { MainPaysProps } from "./components/MainPays";
 import BilletTarif from "./components/BilletTarif";
@@ -81,9 +78,6 @@ export const contextComponents = {
   TitleStay: (props: ElementProps) => <TitleStay {...props} />,
   WidgetLink: (props: WidgetLinkProps) => <WidgetLink {...props} />,
   HotelDisplay: (props: ElementProps) => <HotelDisplay {...props} />,
-  HotelDisplayTitle: (props: ElementProps) => <HotelDisplayTitle {...props} />,
-  HotelDisplayPrice: (props: ElementProps) => <HotelDisplayPrice {...props} />,
-  HotelDisplayCTA: (props: ElementProps) => <HotelDisplayCTA {...props} />,
   MainPays: (props: MainPaysProps) => <MainPays {...props} />,
   BilletTarif: (props: ElementProps) => <BilletTarif {...props} />,
   ListCombineContainer: (props: ElementProps) => (
