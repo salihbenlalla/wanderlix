@@ -4,6 +4,10 @@
   margin-top: 10px;
 }
 
+.hotel_card div.clear {
+  clear: both;
+}
+
 .hotel_card h5 {
   font-size: 20px;
   font-weight: 700;
@@ -28,11 +32,22 @@
   aspect-ratio: auto 200 / 150;
 }
 
-/* .hotel_card p img {
-  float: left;
+@media only screen and (min-width: 600px) {
+  .hotel_card p img {
+    float: left;
+    max-width: 286px;
+    margin-right: 16px;
+  }
 
-  max-width: 220px;
-} */
+  .hotel_card:nth-child(1) {
+    color: red;
+    order: 2;
+  }
+
+  .hotel_card:nth-child(2) {
+    order: 1;
+  }
+}
 
 .hotel_price {
   font-style: italic;
@@ -47,4 +62,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.hotel_card_cta div.button {
+  margin-top: 0;
 }
