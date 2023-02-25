@@ -15,7 +15,7 @@ interface Store {
 
 const ActivityList = component$((props: ActivityListProps) => {
   useStyles$(styles);
-  const state = useStore<Store>({ showCTA: false });
+  const state = useStore<Store>({ showCTA: true });
 
   return (
     <div class="activity_list">
@@ -29,8 +29,8 @@ const ActivityList = component$((props: ActivityListProps) => {
               .replace("https://cdn.travel2.ml/", "")
               .replace("-", " ")
               .slice(0, props.activityImage.length - 4)}
-            width="200"
-            height="150"
+            // width="200"
+            // height="150"
           />
         </div>
         <div class="activity_description">

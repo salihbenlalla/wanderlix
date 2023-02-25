@@ -171,8 +171,7 @@ blockquote::after {
   font-size: 16px;
   font-weight: 300;
   line-height: 1.7em;
-  margin-bottom: 15px;
-  margin-bottom: 15px;
+  margin: 16px 8px;
   text-align: left;
 }
 
@@ -188,7 +187,8 @@ h5 {
   font-size: 24px;
   line-height: 1.4em;
   font-family: Merriweather;
-  margin: 15px 0 2px;
+  /* margin: 15px 0 2px; */
+  margin: 16px;
   color: #2e383f;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -196,23 +196,19 @@ h5 {
 
 .post-content h2 {
   color: #2e383f;
-  margin: 30px 0;
+  margin: 30px 16px;
   text-align: left;
 }
 
 .post-content h3 {
   text-align: center;
   font-weight: 600;
-  margin: 60px 0 20px;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  margin: 60px 16px 20px;
 }
 
 .post-content h4 {
   font-weight: 600;
-  margin: 30px 0 20px;
+  margin: 30px 16px 20px;
   text-align: center;
   font-size: 20px;
   line-height: 1.3em;
@@ -220,7 +216,7 @@ h5 {
 
 .post-content h5 {
   text-align: center;
-  margin-bottom: 15px;
+  margin: 16px;
   line-height: 1.3em;
   font-size: 20px;
   font-weight: 600;

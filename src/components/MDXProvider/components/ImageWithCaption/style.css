@@ -1,10 +1,11 @@
 .image_caption {
   margin: 16px auto;
 }
-.image_caption img {
+/* .image_caption img {
   width: 100%;
   border-radius: 5px;
-}
+  background: #ddd url(/icomoon_svg/camera.svg) no-repeat center center;
+} */
 
 .image_caption a {
   display: inline;
