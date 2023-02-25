@@ -14,38 +14,11 @@
   color: #2e383f;
 }
 
-.hotel_card_body {
-  display: flex;
-  align-items: flex-start;
-}
-
-.hotel_card_image_section {
-  display: flex;
-  flex-direction: column;
-}
-
-.hotel_card_body p img {
-  margin: 4px 14px 2px 0;
-  border-radius: 5px;
-  width: 286px;
-  height: auto;
-  aspect-ratio: auto 200 / 150;
-}
-
 @media only screen and (min-width: 600px) {
   .hotel_card p img {
     float: left;
     max-width: 286px;
     margin-right: 16px;
-  }
-
-  .hotel_card:nth-child(1) {
-    color: red;
-    order: 2;
-  }
-
-  .hotel_card:nth-child(2) {
-    order: 1;
   }
 }
 
