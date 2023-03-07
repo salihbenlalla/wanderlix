@@ -40,11 +40,75 @@ interface EndpointData {
 export const head: DocumentHead<EndpointData> = ({ head }) => {
   //   console.log(head);
   return {
-    title: `MyCompany - ${head.title}`,
+    title: head.title,
     meta: [
       {
-        name: "og:image",
+        property: "og:locale",
+        content: "en_US"
+      },
+      {
+        property: "og:type",
+        content: "article"
+      },
+      {
+        property: "og:title",
+        content: head.title
+      },
+      {
+        property: "og:description",
+        content: head.meta.find(obj => obj.name === "description")?.content
+      },
+      {
+        property: "og:url",
+        content: `https://travel2.ml/${head.frontmatter.slug}/`
+      },
+      // {
+      //   property: "og:site_name",
+      //   content: "travel2.ml"
+      // },
+      // {
+      //   property: "article:publisher",
+      //   content: "https://www.facebook.com/travel2"
+      // },
+      {
+        property: "article:published_time",
+        content: head.frontmatter.datePublished
+      },
+      {
+        property: "og:image",
         content: head.frontmatter.image,
+      },
+      {
+        property: "og:image:width",
+        content: head.frontmatter.imageWidth
+      },
+      {
+        property: "og:image:Height",
+        content: head.frontmatter.imageHeight
+      },
+      {
+        property: "og:image:type",
+        content: head.frontmatter.imageType
+      },
+      {
+        name: "author",
+        content: head.frontmatter.authorName
+      },
+      {
+        name: "twitter:label1",
+        content: "by"
+      },
+      {
+        name: "twitter:data1",
+        content: head.frontmatter.authorName
+      },
+      {
+        name: "twitter:label2",
+        content: "estimated reading time"
+      },
+      {
+        name: "twitter:data2",
+        content: head.frontmatter.readDuration
       },
     ],
   };
