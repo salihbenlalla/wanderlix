@@ -7,10 +7,15 @@ import styles from "./style.css?inline";
 export default component$(() => {
   useStyles$(styles);
 
-  const x = useDocumentHead();
-  console.log(x);
+  const head = useDocumentHead();
+  console.log(head);
   return (
     <div class="post-content">
+      <div class="post-header">
+        <div class="post-header-image">
+          <img src={head.frontmatter.image} />
+        </div>
+      </div>
       <Slot />
     </div>
   );
@@ -43,24 +48,37 @@ export const head: DocumentHead<EndpointData> = ({ head }) => {
     title: head.title,
     meta: [
       {
+        "http-equiv": "Content-Type",
+        content: "text/html; charset=utf-8",
+      },
+      {
+        name: "theme-color",
+        content: "#01a0c6",
+      },
+      {
+        name: "robots",
+        content:
+          "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      },
+      {
         property: "og:locale",
-        content: "en_US"
+        content: "en_US",
       },
       {
         property: "og:type",
-        content: "article"
+        content: "article",
       },
       {
         property: "og:title",
-        content: head.title
+        content: head.title,
       },
       {
         property: "og:description",
-        content: head.meta.find(obj => obj.name === "description")?.content
+        content: head.meta.find((obj) => obj.name === "description")?.content,
       },
       {
         property: "og:url",
-        content: `https://travel2.ml/${head.frontmatter.slug}/`
+        content: `https://travel2.ml/${head.frontmatter.slug}/`,
       },
       // {
       //   property: "og:site_name",
@@ -72,7 +90,7 @@ export const head: DocumentHead<EndpointData> = ({ head }) => {
       // },
       {
         property: "article:published_time",
-        content: head.frontmatter.datePublished
+        content: head.frontmatter.datePublished,
       },
       {
         property: "og:image",
@@ -80,35 +98,41 @@ export const head: DocumentHead<EndpointData> = ({ head }) => {
       },
       {
         property: "og:image:width",
-        content: head.frontmatter.imageWidth
+        content: head.frontmatter.imageWidth,
       },
       {
         property: "og:image:Height",
-        content: head.frontmatter.imageHeight
+        content: head.frontmatter.imageHeight,
       },
       {
         property: "og:image:type",
-        content: head.frontmatter.imageType
+        content: head.frontmatter.imageType,
       },
       {
         name: "author",
-        content: head.frontmatter.authorName
+        content: head.frontmatter.authorName,
       },
       {
         name: "twitter:label1",
-        content: "by"
+        content: "by",
       },
       {
         name: "twitter:data1",
-        content: head.frontmatter.authorName
+        content: head.frontmatter.authorName,
       },
       {
         name: "twitter:label2",
-        content: "estimated reading time"
+        content: "estimated reading time",
       },
       {
         name: "twitter:data2",
-        content: head.frontmatter.readDuration
+        content: head.frontmatter.readDuration,
+      },
+    ],
+    links: [
+      {
+        rel: "dns-prefetch",
+        href: "https://cdn.travel2.ml",
       },
     ],
   };
