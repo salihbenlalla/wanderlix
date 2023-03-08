@@ -38,6 +38,7 @@
     "hast": "^1.0.0",
     "js-yaml": "^4.1.0",
     "mdast": "^3.0.0",
+    "mdast-util-mdx-jsx": "^2.1.0",
     "node-fetch": "3.3.0",
     "prettier": "2.8.1",
     "remark": "^14.0.2",
@@ -49,10 +50,11 @@
     "unist-util-visit": "^4.1.2",
     "vite": "4.0.3",
     "vite-tsconfig-paths": "3.5.0",
-    "mdast-util-mdx-jsx": "^2.1.0",
     "wrangler": "latest"
   },
   "dependencies": {
+    "@types/dateformat": "^5.0.0",
+    "dateformat": "^5.0.3",
     "scriptjs": "^2.5.9"
   }
 }

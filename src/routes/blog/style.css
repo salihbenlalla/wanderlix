@@ -196,7 +196,7 @@ h5 {
 
 .post-content h2 {
   color: #2e383f;
-  margin: 30px 16px;
+  margin: 30px 0px;
   text-align: left;
 }
 
@@ -222,15 +222,94 @@ h5 {
   font-weight: 600;
 }
 
-.post-header img {
-  width: 100%;
+.post-header {
+  margin-left: 0;
+}
+
+.post-header h1 {
+  font-size: 40px;
+  margin-bottom: 1rem !important;
+  color: #203656;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 20px 0;
 }
 
 .post-header-image {
   width: 100%;
-  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+.post-header-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  vertical-align: middle;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+
+.post-header > ul > li.comment-count svg {
+  fill: #a8afba;
+  width: "14";
+  height: "14";
+}
+
+.post-header > ul > li.comment-count::after {
+  content: "";
+  display: none;
+}
+
+.post-header > ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #a8afba;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.post-header > ul > li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-header > ul > li::after {
+  content: "";
+  display: inline-block;
+  background-color: #fe4f70;
+  border-radius: 50%;
+  margin-left: 1rem;
+  height: 3px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  width: 3px;
+}
+
+img.author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 700px) {
+  .post-header > h1 {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .post-header > ul {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .post-content h2 {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
