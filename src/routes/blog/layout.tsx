@@ -1,62 +1,53 @@
 import { component$, Slot, useStyles$ } from "@builder.io/qwik";
 import { useDocumentHead } from "@builder.io/qwik-city";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import BubbleIcon from "~/assets/icomoon_svg/bubble2.svg";
 import { formatDate } from "~/lib/helpers/formatDate";
 
 import styles from "./style.css?inline";
+import PostHeader from "~/components/PostHeader";
 
 export default component$(() => {
   useStyles$(styles);
 
   const head = useDocumentHead();
-  console.log(head);
+  //   console.log(head);
   return (
     <div class="post-content">
-      <div class="post-header">
-        <h1>{head.title}</h1>
-        <ul>
-          <li>
-            <img src="/images/fake-avatar.jpg" class="author-avatar" />
-            <span>{head.frontmatter.authorName}</span>
-          </li>
-          <li>{head.frontmatter.tagName}</li>
-          <li>{formatDate(head.frontmatter.dateModified)}</li>
-          <li class="comment-count">
-            <BubbleIcon viewbox="0 0 32 32" width="16" height="16" /> (0)
-          </li>
-        </ul>
-        <div class="post-header-image">
-          <img src={head.frontmatter.image} />
-        </div>
-      </div>
+      <PostHeader
+        title={head.title}
+        authorName={head.frontmatter.authorName}
+        authorAvatar="/images/fake-avatar.jpg"
+        tagName={head.frontmatter.tagName}
+        dateModified={formatDate(head.frontmatter.dateModified)}
+        image={head.frontmatter.image}
+      />
       <Slot />
     </div>
   );
 });
 
-interface EndpointData {
-  canonical: string;
-  slug: string;
-  frVersion: string;
-  enVersion: string;
-  authorName: string;
-  authorUrl: string;
-  tagName: string;
-  tagUrl: string;
-  breadcrumbs: string[];
-  title: string;
-  description: string;
-  image: string;
-  imageWidth: string;
-  imageHeight: string;
-  readDuration: string;
-  datePublished: string;
-  dateModified: string;
-  imageType: string;
-}
+// interface Frontmatter {
+//   canonical: string;
+//   slug: string;
+//   frVersion: string;
+//   enVersion: string;
+//   authorName: string;
+//   authorUrl: string;
+//   tagName: string;
+//   tagUrl: string;
+//   breadcrumbs: string[];
+//   title: string;
+//   description: string;
+//   image: string;
+//   imageWidth: string;
+//   imageHeight: string;
+//   readDuration: string;
+//   datePublished: string;
+//   dateModified: string;
+//   imageType: string;
+// }
 
-export const head: DocumentHead<EndpointData> = ({ head }) => {
+export const head: DocumentHead = ({ head }) => {
   //   console.log(head);
   return {
     title: head.title,
