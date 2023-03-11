@@ -1,0 +1,11 @@
+.comments-list-container {
+  padding: 30px;
+  border: solid 1px #ebebeb;
+  border-radius: 10px !important;
+}
+
+.comments-list-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

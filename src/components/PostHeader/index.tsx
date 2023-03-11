@@ -1,5 +1,5 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import BubbleIcon from "~/assets/icomoon_svg/bubble2.svg";
+import BubbleIcon from "~/assets/icomoon_svg/bubble2.svg?component";
 import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
 

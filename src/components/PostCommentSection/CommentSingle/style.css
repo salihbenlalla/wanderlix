@@ -1,0 +1,77 @@
+.comments-list-comment {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.comment-author-avatar-container > a > img {
+  max-width: 100%;
+  vertical-align: middle;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.comment-author-name {
+  font-size: 18px;
+  margin: 0;
+  color: #203656;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.comment-author-name a {
+  color: #203656;
+}
+
+.comment-date {
+  color: #8f9bad;
+  font-size: 13px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.comment-text {
+  color: #8f9bad;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+p.comment-awaiting-moderation {
+  font-style: italic;
+  font-size: 13px;
+  margin: 1rem 0;
+  color: #8f9bad;
+}
+
+a.comment-reply-link {
+  padding: 7px 20px;
+  font-size: 12px;
+  color: #fff;
+  background: linear-gradient(to right, #fe4f70 0%, #ffa387 51%, #fe4f70 100%);
+  background-size: 200% auto;
+  border: 0;
+  border-radius: 25px;
+  transition: all 0.3s ease-in-out;
+  outline: 0;
+  text-decoration: none;
+}
+
+a.comment-reply-link:hover {
+  color: #fff;
+  background-position: right center;
+  text-decoration: none;
+  margin: 0;
+}
+
+.comment-details footer {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
