@@ -23,7 +23,6 @@ export default component$(() => {
 
   const head = useDocumentHead();
   const comments = getComments();
-  console.log(comments.value);
   //   console.log(head);
   return (
     <div class="post-content">

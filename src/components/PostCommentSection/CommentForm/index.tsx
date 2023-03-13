@@ -1,27 +1,36 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
+import { action$, Form } from "@builder.io/qwik-city";
+import { handleAddComment } from "~/lib/handlers/handleAddComment";
 import styles from "./style.css?inline";
+
+interface AddCommentReturnValue {
+  success: boolean;
+  CommentID: number;
+}
+
+export const addComment = action$<AddCommentReturnValue>(
+  async (comment, ev) => {
+    const success = await handleAddComment(comment, ev);
+    return success;
+  }
+);
 
 export default component$(() => {
   useStyles$(styles);
+  const action = addComment();
 
   return (
-    <form
-      action=""
-      method="post"
-      id="commentform"
-      class="comment-form"
-      noValidate
-    >
+    <Form action={action} id="commentform" class="comment-form" noValidate>
       <p class="comment-notes">
         Your email address will not be published. Required fields are marked *
       </p>
       <p class="comment-form-comment comment-form-field">
-        <label for="comment">
+        <label for="text">
           Comment <span class="required">*</span>
         </label>
         <textarea
-          id="comment"
-          name="comment"
+          id="text"
+          name="text"
           cols={45}
           rows={8}
           maxLength={65525}
@@ -29,10 +38,10 @@ export default component$(() => {
         ></textarea>
       </p>
       <p class="comment-form-author comment-form-field">
-        <label for="author">Name *</label>
+        <label for="authorName">Name *</label>
         <input
-          id="author"
-          name="author"
+          id="authorName"
+          name="authorName"
           type="text"
           value=""
           size={30}
@@ -56,10 +65,10 @@ export default component$(() => {
         />
       </p>
       <p class="comment-form-website comment-form-field">
-        <label for="url">Website</label>
+        <label for="website">Website</label>
         <input
-          id="url"
-          name="url"
+          id="website"
+          name="website"
           type="url"
           value=""
           size={30}
@@ -79,6 +88,9 @@ export default component$(() => {
           comment.
         </label>
       </p>
+      {action.value?.success && (
+        <p style={{ color: "red" }}>comment posted seccessfuly</p>
+      )}
       <p class="form-submit">
         <input
           name="submit"
@@ -100,6 +112,6 @@ export default component$(() => {
           value="0"
         />
       </p>
-    </form>
+    </Form>
   );
 });
