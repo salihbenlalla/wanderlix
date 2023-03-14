@@ -16,7 +16,6 @@ export interface CommentSingleProps {
 
 export default component$<CommentSingleProps>((props) => {
   useStyles$(styles);
-  console.log(props.date);
   return (
     <article class="comments-list-comment">
       <div class="comment-author-avatar-container">

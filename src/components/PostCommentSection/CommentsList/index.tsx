@@ -9,12 +9,13 @@ export interface CommentsListProps {
 
 export default component$<CommentsListProps>((props) => {
   useStyles$(styles);
+  console.log("CommentsList run");
 
   return (
     <div class="comments-list-container">
       <ul>
         {props.comments.map((commentProps, index) => (
-          <li key={index}>
+          <li key={`${index}`}>
             <CommentSingle {...commentProps} />
           </li>
         ))}

@@ -10,7 +10,6 @@ interface PostCommentSectionProps {
 
 export default component$<PostCommentSectionProps>((props) => {
   useStyles$(styles);
-
   return (
     <div class="post-comment-section">
       <h3>Comments ({props.comments.length})</h3>

@@ -57,7 +57,6 @@ export const TweetEmbed = component$((props: TweetProps) => {
           props.options
         ).then(() => {
           state.isLoading = false;
-          // console.log("after loaded: ", element);
         });
       }
     });

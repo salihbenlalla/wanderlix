@@ -20,10 +20,8 @@ export const getComments = routeLoader$<LoaderData>(async (ev) => {
 
 export default component$(() => {
   useStyles$(styles);
-
   const head = useDocumentHead();
   const comments = getComments();
-  //   console.log(head);
   return (
     <div class="post-content">
       <PostHeader
@@ -62,7 +60,6 @@ export default component$(() => {
 // }
 
 export const head: DocumentHead = ({ head }) => {
-  //   console.log(head);
   return {
     title: head.title,
     meta: [

@@ -12,7 +12,7 @@
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "vite build -c adaptors/cloudflare-pages/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
-    "deploy": "wrangler pages dev ./dist --d1 DB --local --persist",
+    "deploy": "export NO_D1_WARNING=true && wrangler pages dev ./dist --d1 DB --local --persist --compatibility-date 2023-03-14",
     "dev": "vite --mode ssr --host",
     "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
     "fmt": "prettier --write .",

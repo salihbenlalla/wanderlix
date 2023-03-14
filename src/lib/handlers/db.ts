@@ -25,7 +25,7 @@ export const DB: DBProps = {
       text: "Hello, this Is My First Comment",
     },
     {
-      CommentID: 1,
+      CommentID: 2,
       website: "johnsmith.com",
       avatarImage:
         "https://previews.123rf.com/images/fizkes/fizkes2007/fizkes200701460/151824697-headshot-portrait-of-smiling-confident-young-caucasian-businessman-in-glasses-posing-in-office.jpg",

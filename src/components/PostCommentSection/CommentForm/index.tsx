@@ -3,10 +3,12 @@ import { action$, Form } from "@builder.io/qwik-city";
 import { handleAddComment } from "~/lib/handlers/handleAddComment";
 import styles from "./style.css?inline";
 
-interface AddCommentReturnValue {
-  success: boolean;
-  CommentID: number;
-}
+type AddCommentReturnValue =
+  | {
+      success: boolean;
+      CommentID: number;
+    }
+  | undefined;
 
 export const addComment = action$<AddCommentReturnValue>(
   async (comment, ev) => {
