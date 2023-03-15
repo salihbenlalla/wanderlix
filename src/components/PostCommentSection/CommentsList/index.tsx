@@ -9,8 +9,7 @@ export interface CommentsListProps {
 
 export default component$<CommentsListProps>((props) => {
   useStyles$(styles);
-  console.log("CommentsList run");
-
+  console.log("comment: ", props.comments);
   return (
     <div class="comments-list-container">
       <ul>

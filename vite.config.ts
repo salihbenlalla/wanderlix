@@ -25,5 +25,8 @@ export default defineConfig(() => {
         "Cache-Control": "public, max-age=600",
       },
     },
+    build: {
+      minify: false,
+    },
   };
 });
