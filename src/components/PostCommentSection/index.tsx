@@ -1,11 +1,11 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import CommentForm from "./CommentForm";
-import type { CommentSingleProps } from "./CommentSingle";
+import type { Comment } from "~/lib/handlers/db";
 import CommentsList from "./CommentsList";
 import styles from "./style.css?inline";
 
 interface PostCommentSectionProps {
-  comments: CommentSingleProps[];
+  comments: Comment[];
 }
 
 export default component$<PostCommentSectionProps>((props) => {

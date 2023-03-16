@@ -6,6 +6,7 @@ export const handleGetComments = async (ev: RequestEventLoader) => {
     const { results } = await ev.platform.DB.prepare(
       "SELECT * FROM Comments"
     ).all();
+    console.log("results: ", results);
     return results;
   }
 

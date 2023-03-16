@@ -34,7 +34,6 @@
     "@types/scriptjs": "^0.0.2",
     "@typescript-eslint/eslint-plugin": "5.48.0",
     "@typescript-eslint/parser": "5.48.0",
-    "better-sqlite3": "^7.6.2",
     "eslint": "8.31.0",
     "eslint-plugin-qwik": "0.16.2",
     "hast": "^1.0.0",
@@ -56,6 +55,7 @@
   },
   "dependencies": {
     "@types/dateformat": "^5.0.0",
+    "better-sqlite3": "^8.2.0",
     "dateformat": "^5.0.3",
     "scriptjs": "^2.5.9"
   }

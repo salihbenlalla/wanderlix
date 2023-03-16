@@ -6,11 +6,11 @@ import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
 import PostHeader from "~/components/PostHeader";
 import PostCommentSection from "~/components/PostCommentSection";
-import type { CommentSingleProps } from "~/components/PostCommentSection/CommentSingle";
+import type { Comment } from "~/lib/handlers/db";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { handleGetComments } from "~/lib/handlers/handleGetComments";
 
-type LoaderData = CommentSingleProps[];
+type LoaderData = Comment[];
 
 export const getComments = routeLoader$<LoaderData>(async (ev) => {
   const comments = await handleGetComments(ev);

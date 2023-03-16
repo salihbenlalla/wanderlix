@@ -6,7 +6,7 @@ import styles from "./style.css?inline";
 type AddCommentReturnValue =
   | {
       success: boolean;
-      CommentID: number;
+      id: number;
     }
   | undefined;
 
@@ -27,12 +27,12 @@ export default component$(() => {
         Your email address will not be published. Required fields are marked *
       </p>
       <p class="comment-form-comment comment-form-field">
-        <label for="text">
+        <label for="commentText">
           Comment <span class="required">*</span>
         </label>
         <textarea
-          id="text"
-          name="text"
+          id="commentText"
+          name="commentText"
           cols={45}
           rows={8}
           maxLength={65525}
