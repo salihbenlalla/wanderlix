@@ -33,6 +33,7 @@ declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
 export const getENV = routeLoader$(
   (ev: RequestEventLoader<PlatformCloudflarePages>) => {
     let commentsUrl: string;
+    console.log("ev.platform.CF_ENV: ", ev.platform.CF_ENV);
     if (ev.platform.CF_ENV) {
       const CF_ENV = ev.platform.CF_ENV;
 
