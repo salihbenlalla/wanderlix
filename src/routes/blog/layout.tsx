@@ -23,11 +23,11 @@ import type { Comment } from "~/lib/handlers/db";
 // );
 
 export const commentsUrl =
-  process.env.NODE_ENV === "development"
+  process?.env?.NODE_ENV === "development"
     ? "http://localhost:5173/comments"
-    : process.env.NODE_ENV === "production"
+    : process?.env?.NODE_ENV === "production"
     ? "http://127.0.0.1:8788/comments"
-    : process.env.CF_ENV === "development"
+    : process?.env?.CF_ENV === "development"
     ? "https://dev.travel2-eiq.pages.dev/comments"
     : "https://travel2.ml/comments";
 
