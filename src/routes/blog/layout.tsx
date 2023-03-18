@@ -34,7 +34,16 @@ export const getENV = routeLoader$(
   (ev: RequestEventLoader<PlatformCloudflarePages>) => {
     const env = ev.platform.env;
 
-    return env;
+    const commentsUrl =
+      env?.CF_ENV === "development"
+        ? "https://dev.travel2-eiq.pages.dev/comments"
+        : env?.CF_ENV === "production"
+        ? "https://travel2.ml/comments"
+        : process && process?.env?.NODE_ENV === "development"
+        ? "http://localhost:5173/comments"
+        : "http://127.0.0.1:8788/comments";
+
+    return { commentsUrl };
   }
 );
 
@@ -42,22 +51,15 @@ export default component$(() => {
   useStyles$(styles);
   const head = useDocumentHead();
   const env = getENV().value;
-  const commentsUrl =
-    process && process?.env?.NODE_ENV === "development"
-      ? "http://localhost:5173/comments"
-      : env?.CF_ENV === "development"
-      ? "https://dev.travel2-eiq.pages.dev/comments"
-      : env?.CF_ENV === "production"
-      ? "https://travel2.ml/comments"
-      : "http://127.0.0.1:8788/comments";
+
   const commentsResource = useResource$<Comment[]>(async () => {
-    const res = await fetch(commentsUrl);
+    const res = await fetch(env.commentsUrl);
 
     return res.json();
   });
   return (
     <div class="post-content">
-      <p>env: {env?.CF_ENV}</p>
+      <p>env: {env.commentsUrl}</p>
       <PostHeader
         title={head.title}
         authorName={head.frontmatter.authorName}
