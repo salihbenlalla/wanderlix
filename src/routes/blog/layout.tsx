@@ -34,26 +34,30 @@ declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
 
 export const getENV = routeLoader$(
   (ev: RequestEventLoader<PlatformCloudflarePages>) => {
-    let commentsUrl: string;
-    if (ev.platform[0].CF_ENV) {
-      const CF_ENV = ev.platform[0].CF_ENV;
+    return {
+      "ev.env": ev.env,
+      "ev.platform": Object.keys(ev.platform),
+    };
+    // let commentsUrl: string;
+    // if (ev.platform[0].CF_ENV) {
+    //   const CF_ENV = ev.platform[0].CF_ENV;
 
-      commentsUrl =
-        CF_ENV === "development"
-          ? "https://dev.travel2-eiq.pages.dev/comments"
-          : CF_ENV === "production"
-          ? "https://travel2.ml/comments"
-          : "/comments";
-    } else {
-      const NODE_ENV = process.env.NODE_ENV;
-      commentsUrl =
-        NODE_ENV === "development"
-          ? "http://localhost:5173/comments"
-          : NODE_ENV === "production"
-          ? "http://127.0.0.1:8788/comments"
-          : "/comments";
-    }
-    return { commentsUrl };
+    //   commentsUrl =
+    //     CF_ENV === "development"
+    //       ? "https://dev.travel2-eiq.pages.dev/comments"
+    //       : CF_ENV === "production"
+    //       ? "https://travel2.ml/comments"
+    //       : "/comments";
+    // } else {
+    //   const NODE_ENV = process.env.NODE_ENV;
+    //   commentsUrl =
+    //     NODE_ENV === "development"
+    //       ? "http://localhost:5173/comments"
+    //       : NODE_ENV === "production"
+    //       ? "http://127.0.0.1:8788/comments"
+    //       : "/comments";
+    // }
+    // return { commentsUrl };
   }
 );
 
@@ -63,13 +67,13 @@ export default component$(() => {
   const env = getENV().value;
 
   const commentsResource = useResource$<Comment[]>(async () => {
-    const res = await fetch(env.commentsUrl);
+    const res = await fetch("https://dev.travel2-eiq.pages.dev/comments");
 
     return res.json();
   });
   return (
     <div class="post-content">
-      <p>env: {env.commentsUrl}</p>
+      <p>env: {JSON.stringify(env)}</p>
       <PostHeader
         title={head.title}
         authorName={head.frontmatter.authorName}
