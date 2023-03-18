@@ -22,19 +22,19 @@ import type { Comment } from "~/lib/handlers/db";
 //   }
 // );
 
-// const url =
-//   process.env.NODE_ENV === "development"
-//     ? "http://localhost:5173/comments"
-//     : process.env.NODE_ENV === "production"
-//     ? "http://localhost:8788/comments"
-//     : "https://5b43b730.travel2-eiq.pages.dev/comments";
+export const commentsUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:5173/comments"
+    : process.env.NODE_ENV === "production"
+    ? "http://localhost:8788/comments"
+    : "https://5b43b730.travel2-eiq.pages.dev/comments";
 
 export default component$(() => {
   useStyles$(styles);
   const head = useDocumentHead();
   //   const comments = getComments();
   const commentsResource = useResource$<Comment[]>(async () => {
-    const res = await fetch("http://localhost:5173/comments");
+    const res = await fetch(commentsUrl);
 
     return res.json();
   });

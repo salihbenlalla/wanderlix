@@ -6,6 +6,6 @@ export const onGet: RequestHandler<PlatformCloudflarePages> = async (ev) => {
   const comments = await handleGetComments(ev);
   console.log("comments: ", comments);
 
-  ev.json(200, comments ?? {});
+  ev.json(200, comments ?? []);
 };
 // export {};
