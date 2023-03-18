@@ -1,22 +1,26 @@
 import { component$, Slot, useStyles$ } from "@builder.io/qwik";
 import { useDocumentHead } from "@builder.io/qwik-city";
+import type { RequestEventLoader } from "@builder.io/qwik-city";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { formatDate } from "~/lib/helpers/formatDate";
 
 import styles from "./style.css?inline";
 import PostHeader from "~/components/PostHeader";
 import PostCommentSection from "~/components/PostCommentSection";
-import type { Comment } from "~/lib/handlers/db";
+// import type { Comment } from "~/lib/handlers/db";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { handleGetComments } from "~/lib/handlers/handleGetComments";
+import type { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 
-type LoaderData = Comment[];
+// type LoaderData = Comment[];
 
-export const getComments = routeLoader$<LoaderData>(async (ev) => {
-  const comments = await handleGetComments(ev);
+export const getComments = routeLoader$(
+  async (ev: RequestEventLoader<PlatformCloudflarePages>) => {
+    const comments = await handleGetComments(ev);
 
-  return comments;
-});
+    return comments;
+  }
+);
 
 export default component$(() => {
   useStyles$(styles);

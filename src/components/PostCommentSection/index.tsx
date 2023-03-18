@@ -5,14 +5,14 @@ import CommentsList from "./CommentsList";
 import styles from "./style.css?inline";
 
 interface PostCommentSectionProps {
-  comments: Comment[];
+  comments: Comment[] | undefined;
 }
 
 export default component$<PostCommentSectionProps>((props) => {
   useStyles$(styles);
   return (
     <div class="post-comment-section">
-      <h3>Comments ({props.comments.length})</h3>
+      <h3>Comments (3)</h3>
       <CommentsList comments={props.comments} />
       <h3>Leave a Reply </h3>
       <CommentForm />
