@@ -57,7 +57,6 @@ export default component$(() => {
   });
   return (
     <div class="post-content">
-      <p>comments url: {commentsUrl}</p>
       <p>env: {env?.CF_ENV}</p>
       <PostHeader
         title={head.title}
