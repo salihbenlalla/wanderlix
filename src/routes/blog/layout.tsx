@@ -1,6 +1,6 @@
 import { component$, Slot, useResource$, useStyles$ } from "@builder.io/qwik";
 import { useDocumentHead } from "@builder.io/qwik-city";
-// import type { RequestEventLoader } from "@builder.io/qwik-city";
+import type { RequestEventLoader } from "@builder.io/qwik-city";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { formatDate } from "~/lib/helpers/formatDate";
 
@@ -8,9 +8,10 @@ import styles from "./style.css?inline";
 import PostHeader from "~/components/PostHeader";
 import PostCommentSection from "~/components/PostCommentSection";
 import type { Comment } from "~/lib/handlers/db";
-// import { routeLoader$ } from "@builder.io/qwik-city";
+import { routeLoader$ } from "@builder.io/qwik-city";
 // import { handleGetComments } from "~/lib/handlers/handleGetComments";
-// import type { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
+import type { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
+// import { D1Database } from "@miniflare/d1";
 
 // type LoaderData = Comment[];
 
@@ -22,19 +23,33 @@ import type { Comment } from "~/lib/handlers/db";
 //   }
 // );
 
-export const commentsUrl =
-  process?.env?.NODE_ENV === "development"
-    ? "http://localhost:5173/comments"
-    : process?.env?.NODE_ENV === "production"
-    ? "http://127.0.0.1:8788/comments"
-    : process?.env?.CF_ENV === "development"
-    ? "https://dev.travel2-eiq.pages.dev/comments"
-    : "https://travel2.ml/comments";
+// declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
+//   interface PlatformCloudflarePages {
+//     DB: D1Database;
+//     env: any
+//   }
+// }
+
+export const getENV = routeLoader$(
+  (ev: RequestEventLoader<PlatformCloudflarePages>) => {
+    const env = ev.platform.env;
+
+    return env;
+  }
+);
 
 export default component$(() => {
   useStyles$(styles);
   const head = useDocumentHead();
-  //   const comments = getComments();
+  const env = getENV().value;
+  const commentsUrl =
+    process && process?.env?.NODE_ENV === "development"
+      ? "http://localhost:5173/comments"
+      : env?.CF_ENV === "development"
+      ? "https://dev.travel2-eiq.pages.dev/comments"
+      : env?.CF_ENV === "production"
+      ? "https://travel2.ml/comments"
+      : "http://127.0.0.1:8788/comments";
   const commentsResource = useResource$<Comment[]>(async () => {
     const res = await fetch(commentsUrl);
 
