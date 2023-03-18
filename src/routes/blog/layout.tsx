@@ -27,7 +27,9 @@ export const commentsUrl =
     ? "http://localhost:5173/comments"
     : process.env.NODE_ENV === "production"
     ? "http://127.0.0.1:8788/comments"
-    : "https://dev.travel2-eiq.pages.dev/comments";
+    : process.env.CF_ENV === "development"
+    ? "https://dev.travel2-eiq.pages.dev/comments"
+    : "https://travel2.ml";
 
 export default component$(() => {
   useStyles$(styles);
