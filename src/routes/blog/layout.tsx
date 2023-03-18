@@ -44,10 +44,11 @@ export const getENV = routeLoader$(
           ? "https://travel2.ml/comments"
           : "/comments";
     } else {
+      const NODE_ENV = process.env.NODE_ENV;
       commentsUrl =
-        process && process?.env?.NODE_ENV === "development"
+        NODE_ENV === "development"
           ? "http://localhost:5173/comments"
-          : process && process?.env?.NODE_ENV === "production"
+          : NODE_ENV === "production"
           ? "http://127.0.0.1:8788/comments"
           : "/comments";
     }
