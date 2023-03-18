@@ -36,7 +36,7 @@ export const getENV = routeLoader$(
   (ev: RequestEventLoader<PlatformCloudflarePages>) => {
     return {
       "ev.env": ev.env,
-      "ev.platform": Object.keys(ev.platform),
+      "ev.platform": ev.platform,
     };
     // let commentsUrl: string;
     // if (ev.platform[0].CF_ENV) {
