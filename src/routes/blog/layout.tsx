@@ -34,13 +34,13 @@ export const getENV = routeLoader$(
   (ev: RequestEventLoader<PlatformCloudflarePages>) => {
     let commentsUrl: string;
     if (ev.platform.env) {
-      console.log("ev.platform: ", ev.platform.env);
-      const env = ev.platform.env;
+      console.log("ev.platform: ", ev.env);
+      const CF_ENV = ev.env.get("CF_ENV");
 
       commentsUrl =
-        env?.CF_ENV === "development"
+        CF_ENV === "development"
           ? "https://dev.travel2-eiq.pages.dev/comments"
-          : env?.CF_ENV === "production"
+          : CF_ENV === "production"
           ? "https://travel2.ml/comments"
           : "/comments";
     } else {
@@ -52,9 +52,6 @@ export const getENV = routeLoader$(
           ? "http://127.0.0.1:8788/comments"
           : "/comments";
     }
-
-    //   const commentsUrl = "https://dev.travel2-eiq.pages.dev/comments";
-
     return { commentsUrl };
   }
 );
