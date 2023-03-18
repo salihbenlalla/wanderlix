@@ -5,7 +5,6 @@ import { handleGetComments } from "~/lib/handlers/handleGetComments";
 export const onGet: RequestHandler<PlatformCloudflarePages> = async (ev) => {
   const comments = await handleGetComments(ev);
   console.log("comments: ", comments);
-  console.log(process.env.NODE_ENV);
 
   ev.json(200, comments ?? []);
 };
