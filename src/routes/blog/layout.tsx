@@ -43,8 +43,8 @@ export default component$(() => {
   return (
     <div class="post-content">
       <p>comments url: {commentsUrl}</p>
-      <p>process.env.CF_ENV: {process.env.CF_ENV}</p>
-      <p>process.env: {JSON.stringify(process.env)}</p>
+      <p>process.env.CF_ENV: {process?.env?.CF_ENV}</p>
+      <p>process.env: {JSON.stringify(process?.env)}</p>
       <PostHeader
         title={head.title}
         authorName={head.frontmatter.authorName}
