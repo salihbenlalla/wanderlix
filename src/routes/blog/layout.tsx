@@ -1,6 +1,6 @@
 import { component$, Slot, useResource$, useStyles$ } from "@builder.io/qwik";
 import { useDocumentHead } from "@builder.io/qwik-city";
-// import type { RequestEventLoader } from "@builder.io/qwik-city";
+import type { RequestEventLoader } from "@builder.io/qwik-city";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { formatDate } from "~/lib/helpers/formatDate";
 
@@ -10,7 +10,7 @@ import PostCommentSection from "~/components/PostCommentSection";
 import type { Comment } from "~/lib/handlers/db";
 import { routeLoader$ } from "@builder.io/qwik-city";
 // import { handleGetComments } from "~/lib/handlers/handleGetComments";
-// import type { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
+import type { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 // import { D1Database } from "@miniflare/d1";
 
 // type LoaderData = Comment[];
@@ -30,23 +30,28 @@ import { routeLoader$ } from "@builder.io/qwik-city";
 //   }
 // }
 
-export const getENV = routeLoader$(() => {
-  //   (ev: RequestEventLoader<PlatformCloudflarePages>) => {
-  // const env = ev.platform.env;
+export const getENV = routeLoader$(
+  (ev: RequestEventLoader<PlatformCloudflarePages>) => {
+    let commentsUrl: string;
+    if (ev.platform) {
+      const env = ev.platform.env;
 
-  // const commentsUrl =
-  //   env?.CF_ENV === "development"
-  //     ? "https://dev.travel2-eiq.pages.dev/comments"
-  //     : env?.CF_ENV === "production"
-  //     ? "https://travel2.ml/comments"
-  //     : process && process?.env?.NODE_ENV === "development"
-  //     ? "http://localhost:5173/comments"
-  //     : "http://127.0.0.1:8788/comments";
+      commentsUrl =
+        env?.CF_ENV === "development"
+          ? "https://dev.travel2-eiq.pages.dev/comments"
+          : "https://travel2.ml/comments";
+    } else {
+      commentsUrl =
+        process && process?.env?.NODE_ENV === "development"
+          ? "http://localhost:5173/comments"
+          : "http://127.0.0.1:8788/comments";
+    }
 
-  const commentsUrl = "https://dev.travel2-eiq.pages.dev/comments";
+    //   const commentsUrl = "https://dev.travel2-eiq.pages.dev/comments";
 
-  return { commentsUrl };
-});
+    return { commentsUrl };
+  }
+);
 
 export default component$(() => {
   useStyles$(styles);
