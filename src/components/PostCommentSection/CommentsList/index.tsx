@@ -35,9 +35,7 @@ export default component$<CommentsListProps>((props) => {
       <Resource
         value={props.comments}
         onPending={() => <p>Loading comments ...</p>}
-        onRejected={(error) => (
-          <p>failed to load comments {JSON.stringify(error)}</p>
-        )}
+        onRejected={(error) => <p>failed to load comments {error}</p>}
         onResolved={(comments) => (
           <ul>
             {comments.map((commentProps) => (

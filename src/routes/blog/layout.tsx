@@ -29,7 +29,7 @@ export const commentsUrl =
     ? "http://127.0.0.1:8788/comments"
     : process.env.CF_ENV === "development"
     ? "https://dev.travel2-eiq.pages.dev/comments"
-    : "https://travel2.ml";
+    : "https://travel2.ml/comments";
 
 export default component$(() => {
   useStyles$(styles);
