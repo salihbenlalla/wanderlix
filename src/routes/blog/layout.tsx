@@ -11,7 +11,7 @@ import type { Comment } from "~/lib/handlers/db";
 import { routeLoader$ } from "@builder.io/qwik-city";
 // import { handleGetComments } from "~/lib/handlers/handleGetComments";
 import type { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
-// import { D1Database } from "@miniflare/d1";
+import type { D1Database } from "@miniflare/d1";
 
 // type LoaderData = Comment[];
 
@@ -23,19 +23,20 @@ import type { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/c
 //   }
 // );
 
-// declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
-//   interface PlatformCloudflarePages {
-//     DB: D1Database;
-//     env: any
-//   }
-// }
+declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
+  interface PlatformCloudflarePages {
+    DB: D1Database;
+    "0": {
+      CF_ENV: string;
+    };
+  }
+}
 
 export const getENV = routeLoader$(
   (ev: RequestEventLoader<PlatformCloudflarePages>) => {
     let commentsUrl: string;
-    if (ev.platform.env) {
-      console.log("ev.platform: ", ev.env);
-      const CF_ENV = ev.env.get("CF_ENV");
+    if (ev.platform[0].CF_ENV) {
+      const CF_ENV = ev.platform[0].CF_ENV;
 
       commentsUrl =
         CF_ENV === "development"

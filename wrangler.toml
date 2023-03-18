@@ -2,3 +2,6 @@
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "DB"
 database_id = "fc8afa45-6ee8-4781-bb5a-f3d06c904715"
+
+[[ vars ]]
+CF_ENV = "production"
