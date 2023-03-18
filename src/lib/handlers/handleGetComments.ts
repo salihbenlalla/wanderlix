@@ -4,9 +4,10 @@ import { DB } from "./db";
 // import { Comment } from "./Models";
 import type { Comment } from "./db";
 
-import { RequestEvent, RequestEventLoader } from "@builder.io/qwik-city";
+// import { RequestEvent, RequestEventLoader } from "@builder.io/qwik-city";
 import { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 import type { D1Database } from "@miniflare/d1";
+import { RequestEvent } from "@builder.io/qwik-city";
 // import { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 
 declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
@@ -16,7 +17,7 @@ declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
 }
 
 export const handleGetComments = async (
-  ev: RequestEventLoader<PlatformCloudflarePages>
+  ev: RequestEvent<PlatformCloudflarePages>
 ) => {
   if (ev.platform.DB) {
     const results = (
