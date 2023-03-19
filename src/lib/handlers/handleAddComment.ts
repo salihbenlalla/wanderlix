@@ -18,7 +18,7 @@ export const handleAddComment = async (
 ) => {
   const date = dateFormat(Date.now(), "isoUtcDateTime");
   if (ev.platform.DB) {
-    const { success } = await ev.platform.DB.prepare(
+    const { success, meta } = await ev.platform.DB.prepare(
       "INSERT INTO Comments (website, avatarImage, authorName, email, commentDate, commentText) VALUES (?, ?, ?, ?, ?, ?)"
     )
       .bind(

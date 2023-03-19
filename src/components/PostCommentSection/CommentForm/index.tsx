@@ -22,7 +22,13 @@ export default component$(() => {
   const action = addComment();
 
   return (
-    <Form action={action} id="commentform" class="comment-form" noValidate>
+    <Form
+      action={action}
+      id="commentform"
+      class="comment-form"
+      spaReset
+      noValidate
+    >
       <p class="comment-notes">
         Your email address will not be published. Required fields are marked *
       </p>

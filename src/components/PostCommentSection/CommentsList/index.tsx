@@ -1,16 +1,16 @@
 import {
   component$,
-  Resource,
+  //   Resource,
   //   useResource$,
   useStyles$,
 } from "@builder.io/qwik";
-import type { ResourceReturn } from "@builder.io/qwik";
+// import type { ResourceReturn } from "@builder.io/qwik";
 import CommentSingle from "../CommentSingle";
 import type { Comment } from "~/lib/handlers/db";
 import styles from "./style.css?inline";
 
 interface CommentsListProps {
-  comments: ResourceReturn<Comment[]>;
+  comments: Comment[] | undefined;
 }
 
 export default component$<CommentsListProps>((props) => {
@@ -18,7 +18,7 @@ export default component$<CommentsListProps>((props) => {
 
   return (
     <div class="comments-list-container">
-      {/* <ul>
+      <ul>
         {props.comments &&
           props.comments.map((commentProps) => (
             <li key={`${commentProps.id}`}>
@@ -31,8 +31,8 @@ export default component$<CommentsListProps>((props) => {
               />
             </li>
           ))}
-      </ul> */}
-      <Resource
+      </ul>
+      {/* <Resource
         value={props.comments}
         onPending={() => <p>Loading comments ...</p>}
         onRejected={(error) => <p>failed to load comments {`${error}`}</p>}
@@ -51,7 +51,7 @@ export default component$<CommentsListProps>((props) => {
             ))}
           </ul>
         )}
-      />
+      /> */}
     </div>
   );
 });

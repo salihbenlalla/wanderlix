@@ -1,12 +1,12 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import type { ResourceReturn } from "@builder.io/qwik";
+// import type { ResourceReturn } from "@builder.io/qwik";
 import CommentForm from "./CommentForm";
 import type { Comment } from "~/lib/handlers/db";
 import CommentsList from "./CommentsList";
 import styles from "./style.css?inline";
 
 interface PostCommentSectionProps {
-  comments: ResourceReturn<Comment[]>;
+  comments: Comment[] | undefined;
 }
 
 export default component$<PostCommentSectionProps>((props) => {

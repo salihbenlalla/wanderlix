@@ -1,4 +1,4 @@
-import { component$, Slot, useResource$, useStyles$ } from "@builder.io/qwik";
+import { component$, Slot, useStyles$ } from "@builder.io/qwik";
 import { useDocumentHead } from "@builder.io/qwik-city";
 import type { RequestEventLoader } from "@builder.io/qwik-city";
 import type { DocumentHead } from "@builder.io/qwik-city";
@@ -7,21 +7,21 @@ import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
 import PostHeader from "~/components/PostHeader";
 import PostCommentSection from "~/components/PostCommentSection";
-import type { Comment } from "~/lib/handlers/db";
+// import type { Comment } from "~/lib/handlers/db";
 import { routeLoader$ } from "@builder.io/qwik-city";
-// import { handleGetComments } from "~/lib/handlers/handleGetComments";
+import { handleGetComments } from "~/lib/handlers/handleGetComments";
 import type { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 import type { D1Database } from "@miniflare/d1";
 
 // type LoaderData = Comment[];
 
-// export const getComments = routeLoader$(
-//   async (ev: RequestEventLoader<PlatformCloudflarePages>) => {
-//     const comments = await handleGetComments(ev);
+export const getComments = routeLoader$(
+  async (ev: RequestEventLoader<PlatformCloudflarePages>) => {
+    const comments = await handleGetComments(ev);
 
-//     return comments;
-//   }
-// );
+    return comments;
+  }
+);
 
 declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
   interface PlatformCloudflarePages {
@@ -30,46 +30,45 @@ declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
   }
 }
 
-export const getENV = routeLoader$(
-  (ev: RequestEventLoader<PlatformCloudflarePages>) => {
-    let commentsUrl: string;
-    console.log("ev.platform.CF_ENV: ", ev.platform.CF_ENV);
-    if (ev.platform.CF_ENV) {
-      const CF_ENV = ev.platform.CF_ENV;
+// export const getENV = routeLoader$(
+//   (ev: RequestEventLoader<PlatformCloudflarePages>) => {
+//     let commentsUrl: string;
+//     console.log("ev.platform.CF_ENV: ", ev.platform.CF_ENV);
+//     if (ev.platform.CF_ENV) {
+//       const CF_ENV = ev.platform.CF_ENV;
 
-      commentsUrl =
-        CF_ENV === "development"
-          ? "https://dev.travel2-eiq.pages.dev/comments"
-          : CF_ENV === "production"
-          ? "https://travel2.ml/comments"
-          : "/comments";
-    } else {
-      const NODE_ENV = process.env.NODE_ENV;
-      commentsUrl =
-        NODE_ENV === "development"
-          ? "http://localhost:5173/comments"
-          : NODE_ENV === "production"
-          ? "http://127.0.0.1:8788/comments"
-          : "/comments";
-    }
-    return { commentsUrl };
-  }
-);
+//       commentsUrl =
+//         CF_ENV === "development"
+//           ? "https://dev.travel2-eiq.pages.dev/comments"
+//           : CF_ENV === "production"
+//           ? "https://travel2.ml/comments"
+//           : "/comments";
+//     } else {
+//       const NODE_ENV = process.env.NODE_ENV;
+//       commentsUrl =
+//         NODE_ENV === "development"
+//           ? "http://localhost:5173/comments"
+//           : NODE_ENV === "production"
+//           ? "http://127.0.0.1:8788/comments"
+//           : "/comments";
+//     }
+//     return { commentsUrl };
+//   }
+// );
 
 export default component$(() => {
   useStyles$(styles);
   const head = useDocumentHead();
-  const env = getENV().value;
 
-  const commentsResource = useResource$<Comment[]>(async () => {
-    const res = await fetch(env.commentsUrl);
+  const comments = getComments().value;
 
-    return res.json();
-  });
+  //   const commentsResource = useResource$<Comment[]>(async () => {
+  //     const res = await fetch(env.commentsUrl);
+
+  //     return res.json();
+  //   });
   return (
     <div class="post-content">
-      <p>env: {JSON.stringify(env)}</p>
-      <p>CF_ENV: {CF_ENV}</p>
       <PostHeader
         title={head.title}
         authorName={head.frontmatter.authorName}
@@ -79,7 +78,7 @@ export default component$(() => {
         image={head.frontmatter.image}
       />
       <Slot />
-      <PostCommentSection comments={commentsResource} />
+      <PostCommentSection comments={comments} />
     </div>
   );
 });
