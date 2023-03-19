@@ -61,8 +61,6 @@ export default component$(() => {
   const head = useDocumentHead();
   const env = getENV().value;
 
-  const CF_ENV = JSON.stringify(Object.keys(process))
-
   const commentsResource = useResource$<Comment[]>(async () => {
     const res = await fetch(env.commentsUrl);
 
