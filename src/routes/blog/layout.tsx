@@ -61,7 +61,7 @@ export default component$(() => {
   const head = useDocumentHead();
   const env = getENV().value;
 
-  const CF_ENV = process.env.CF_ENV
+  const CF_ENV = process.env
 
   const commentsResource = useResource$<Comment[]>(async () => {
     const res = await fetch(env.commentsUrl);
@@ -71,7 +71,7 @@ export default component$(() => {
   return (
     <div class="post-content">
       <p>env: {JSON.stringify(env)}</p>
-      <p>CF_ENV: {CF_ENV}</p>
+      <p>CF_ENV: {JSON.stringify(CF_ENV)}</p>
       <PostHeader
         title={head.title}
         authorName={head.frontmatter.authorName}
