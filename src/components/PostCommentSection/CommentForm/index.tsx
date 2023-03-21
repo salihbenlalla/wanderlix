@@ -1,29 +1,18 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import { action$, Form } from "@builder.io/qwik-city";
-import { handleAddComment } from "~/lib/handlers/handleAddComment";
+import { type ActionStore, Form } from "@builder.io/qwik-city";
+import { type AddCommentReturnValue } from "~/routes/blog/layout";
 import styles from "./style.css?inline";
 
-type AddCommentReturnValue =
-  | {
-      success: boolean;
-      id: number;
-    }
-  | undefined;
+interface CommentFormProps {
+  action: ActionStore<AddCommentReturnValue, Record<string, any>, true>;
+}
 
-export const addComment = action$<AddCommentReturnValue>(
-  async (comment, ev) => {
-    const success = await handleAddComment(comment, ev);
-    return success;
-  }
-);
-
-export default component$(() => {
+export default component$<CommentFormProps>((props) => {
   useStyles$(styles);
-  const action = addComment();
 
   return (
     <Form
-      action={action}
+      action={props.action}
       id="commentform"
       class="comment-form"
       spaReset
@@ -96,7 +85,7 @@ export default component$(() => {
           comment.
         </label>
       </p>
-      {action.value?.success && (
+      {props.action.value?.success && (
         <p style={{ color: "red" }}>comment posted seccessfuly</p>
       )}
       <p class="form-submit">

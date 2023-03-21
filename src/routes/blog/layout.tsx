@@ -1,19 +1,26 @@
 import { component$, Slot, useStyles$ } from "@builder.io/qwik";
-import { useDocumentHead } from "@builder.io/qwik-city";
-import type { RequestEventLoader } from "@builder.io/qwik-city";
-import type { DocumentHead } from "@builder.io/qwik-city";
-import { formatDate } from "~/lib/helpers/formatDate";
-
-import styles from "./style.css?inline";
+import {
+  routeLoader$,
+  useDocumentHead,
+  type RequestEventLoader,
+  type DocumentHead,
+  routeAction$,
+} from "@builder.io/qwik-city";
+import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
+import { type D1Database } from "@miniflare/d1";
 import PostHeader from "~/components/PostHeader";
 import PostCommentSection from "~/components/PostCommentSection";
-// import type { Comment } from "~/lib/handlers/db";
-import { routeLoader$ } from "@builder.io/qwik-city";
+import { formatDate } from "~/lib/helpers/formatDate";
 import { handleGetComments } from "~/lib/handlers/handleGetComments";
-import type { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
-import type { D1Database } from "@miniflare/d1";
 
-// type LoaderData = Comment[];
+import styles from "./style.css?inline";
+import { handleAddComment } from "~/lib/handlers/handleAddComment";
+
+declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
+  interface PlatformCloudflarePages {
+    DB: D1Database;
+  }
+}
 
 export const getComments = routeLoader$(
   async (ev: RequestEventLoader<PlatformCloudflarePages>) => {
@@ -23,50 +30,26 @@ export const getComments = routeLoader$(
   }
 );
 
-declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
-  interface PlatformCloudflarePages {
-    DB: D1Database;
-    CF_ENV: "development" | "production";
+export type AddCommentReturnValue =
+  | {
+      success: boolean;
+      id: number;
+    }
+  | undefined;
+
+export const addComment = routeAction$<AddCommentReturnValue>(
+  async (comment, ev) => {
+    const success = await handleAddComment(comment, ev);
+    return success;
   }
-}
-
-// export const getENV = routeLoader$(
-//   (ev: RequestEventLoader<PlatformCloudflarePages>) => {
-//     let commentsUrl: string;
-//     console.log("ev.platform.CF_ENV: ", ev.platform.CF_ENV);
-//     if (ev.platform.CF_ENV) {
-//       const CF_ENV = ev.platform.CF_ENV;
-
-//       commentsUrl =
-//         CF_ENV === "development"
-//           ? "https://dev.travel2-eiq.pages.dev/comments"
-//           : CF_ENV === "production"
-//           ? "https://travel2.ml/comments"
-//           : "/comments";
-//     } else {
-//       const NODE_ENV = process.env.NODE_ENV;
-//       commentsUrl =
-//         NODE_ENV === "development"
-//           ? "http://localhost:5173/comments"
-//           : NODE_ENV === "production"
-//           ? "http://127.0.0.1:8788/comments"
-//           : "/comments";
-//     }
-//     return { commentsUrl };
-//   }
-// );
+);
 
 export default component$(() => {
   useStyles$(styles);
   const head = useDocumentHead();
-
   const comments = getComments().value;
+  const action = addComment();
 
-  //   const commentsResource = useResource$<Comment[]>(async () => {
-  //     const res = await fetch(env.commentsUrl);
-
-  //     return res.json();
-  //   });
   return (
     <div class="post-content">
       <PostHeader
@@ -78,7 +61,7 @@ export default component$(() => {
         image={head.frontmatter.image}
       />
       <Slot />
-      <PostCommentSection comments={comments} />
+      <PostCommentSection comments={comments} action={action} />
     </div>
   );
 });

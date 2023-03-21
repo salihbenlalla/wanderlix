@@ -1,10 +1,8 @@
 import { RequestEventAction } from "@builder.io/qwik-city";
 import { PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 import { D1Database } from "@miniflare/d1";
-// import { DB } from "./db";
 import dateFormat from "dateformat";
-// import { sequelize, connectToDB } from "./sequelize.js";
-// import { Comment } from "./Models";
+import { getDB } from "../helpers/getDB";
 
 declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
   interface PlatformCloudflarePages {
@@ -16,9 +14,10 @@ export const handleAddComment = async (
   comment: any,
   ev: RequestEventAction<PlatformCloudflarePages>
 ) => {
+  const DB = await getDB(ev);
   const date = dateFormat(Date.now(), "isoUtcDateTime");
-  if (ev.platform.DB) {
-    const { success, meta } = await ev.platform.DB.prepare(
+  if (DB) {
+    const { success } = await DB.prepare(
       "INSERT INTO Comments (website, avatarImage, authorName, email, commentDate, commentText) VALUES (?, ?, ?, ?, ?, ?)"
     )
       .bind(
@@ -39,36 +38,4 @@ export const handleAddComment = async (
       };
     }
   }
-  //   DB.comments.push({
-  //     id: DB.comments.length + 1,
-  //     website: comment.website,
-  //     avatarImage: "/images/comment-avatar.png",
-  //     authorName: comment.authorName,
-  //     email: comment.email,
-  //     commentDate: date,
-  //     commentText: comment.text,
-  //   });
-
-  //   return {
-  //     success: true,
-  //     id: DB.comments.length,
-  //   };
-
-  //   await connectToDB();
-
-  //   const newComment = await Comment.create({
-  //     website: comment.website,
-  //     avatarImage: "/images/comment-avatar.png",
-  //     authorName: comment.authorName,
-  //     email: comment.email,
-  //     commentDate: date,
-  //     commentText: comment.commentText,
-  //   });
-
-  //   console.log("added comment: ", newComment);
-
-  //   return {
-  //     success: true,
-  //     id: newComment.dataValues.id,
-  //   };
 };

@@ -4,9 +4,12 @@ import CommentForm from "./CommentForm";
 import type { Comment } from "~/lib/handlers/db";
 import CommentsList from "./CommentsList";
 import styles from "./style.css?inline";
+import { type ActionStore } from "@builder.io/qwik-city";
+import { type AddCommentReturnValue } from "~/routes/blog/layout";
 
 interface PostCommentSectionProps {
   comments: Comment[] | undefined;
+  action: ActionStore<AddCommentReturnValue, Record<string, any>, true>;
 }
 
 export default component$<PostCommentSectionProps>((props) => {
@@ -16,7 +19,7 @@ export default component$<PostCommentSectionProps>((props) => {
       <h3>Comments (3)</h3>
       <CommentsList comments={props.comments} />
       <h3>Leave a Reply </h3>
-      <CommentForm />
+      <CommentForm action={props.action} />
     </div>
   );
 });
