@@ -19,16 +19,7 @@ export const handleGetComments = async (
       "SELECT * FROM Comments"
     ).all()) as D1Result<Comment>;
 
-    const results2: Comment[] =
-      results?.map((comment) => ({
-        website: comment.website,
-        authorName: comment.authorName,
-        avatarImage: comment.avatarImage,
-        commentDate: comment.commentDate,
-        commentText: comment.commentText,
-        email: comment.email,
-        id: comment.id,
-      })) ?? [];
+    const results2: Comment[] = JSON.parse(JSON.stringify(results)) ?? [];
     return results2;
   }
 };

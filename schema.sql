@@ -1,13 +1,12 @@
 DROP TABLE IF EXISTS Comments;
 CREATE TABLE Comments (
-    id int AUTO_INCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     website TEXT,
     avatarImage TEXT,
     authorName TEXT,
     email TEXT,
     commentDate TEXT,
-    commentText TEXT,
-    PRIMARY KEY (`id`)
+    commentText TEXT
     );
 INSERT INTO Comments (
     id,
