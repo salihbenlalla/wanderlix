@@ -1,5 +1,5 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import type { Comment } from "~/lib/handlers/db";
+import type { Comment } from "../commentHandlers";
 import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
 

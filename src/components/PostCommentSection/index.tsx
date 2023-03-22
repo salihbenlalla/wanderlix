@@ -1,7 +1,6 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-// import type { ResourceReturn } from "@builder.io/qwik";
 import CommentForm from "./CommentForm";
-import type { Comment } from "~/lib/handlers/db";
+import type { Comment } from "./commentHandlers";
 import CommentsList from "./CommentsList";
 import styles from "./style.css?inline";
 import { type ActionStore } from "@builder.io/qwik-city";

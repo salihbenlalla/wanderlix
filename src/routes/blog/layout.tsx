@@ -11,10 +11,11 @@ import { type D1Database } from "@miniflare/d1";
 import PostHeader from "~/components/PostHeader";
 import PostCommentSection from "~/components/PostCommentSection";
 import { formatDate } from "~/lib/helpers/formatDate";
-import { handleGetComments } from "~/lib/handlers/handleGetComments";
-
+import {
+  handleGetComments,
+  handleAddComment,
+} from "~/components/PostCommentSection/commentHandlers";
 import styles from "./style.css?inline";
-import { handleAddComment } from "~/lib/handlers/handleAddComment";
 
 declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
   interface PlatformCloudflarePages {
