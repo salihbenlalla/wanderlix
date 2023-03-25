@@ -16,6 +16,7 @@ import {
   handleAddComment,
 } from "~/components/PostCommentSection/commentHandlers";
 import styles from "./style.css?inline";
+import SideBar, { type SideBarProps } from "~/components/SideBar";
 
 declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
   interface PlatformCloudflarePages {
@@ -45,6 +46,86 @@ export const addComment = routeAction$<AddCommentReturnValue>(
   }
 );
 
+export const sidebar: SideBarProps = {
+  popularPosts: {
+    title: "Popular Posts",
+    posts: [
+      {
+        title: "3 Easy Ways To Make Your iPhone Faster",
+        url: "#",
+        thumbnail: "/images/thumbnail1.jpg",
+        date: "26 August 2022",
+      },
+      {
+        title: "Facts About Business That Will Help You Success",
+        url: "#",
+        thumbnail: "/images/thumbnail2.jpg",
+        date: "23 August 2022",
+      },
+      {
+        title: "15 Unheard Ways To Achieve Greater Walker",
+        url: "#",
+        thumbnail: "/images/thumbnail3.jpg",
+        date: "24 August 2022",
+      },
+    ],
+  },
+  destinations: {
+    title: "Explore Destinations",
+    destinations: [
+      {
+        name: "Algeria",
+        url: "#",
+        count: 5,
+      },
+      {
+        name: "Morocco",
+        url: "#",
+        count: 7,
+      },
+      {
+        name: "France",
+        url: "#",
+        count: 20,
+      },
+      {
+        name: "Tunisia",
+        url: "#",
+        count: 25,
+      },
+      {
+        name: "United States",
+        url: "#",
+        count: 10,
+      },
+      {
+        name: "England",
+        url: "#",
+        count: 58,
+      },
+      {
+        name: "Belgium",
+        url: "#",
+        count: 15,
+      },
+      {
+        name: "Australia",
+        url: "#",
+        count: 9,
+      },
+      {
+        name: "Brisil",
+        url: "#",
+        count: 8,
+      },
+    ],
+  },
+  newsletter: {
+    title: "Newsletter",
+    subscribersCount: 70000,
+  },
+};
+
 export default component$(() => {
   useStyles$(styles);
   const head = useDocumentHead();
@@ -52,17 +133,22 @@ export default component$(() => {
   const action = addComment();
 
   return (
-    <div class="post-content">
-      <PostHeader
-        title={head.title}
-        authorName={head.frontmatter.authorName}
-        authorAvatar="/images/fake-avatar.jpg"
-        tagName={head.frontmatter.tagName}
-        dateModified={formatDate(head.frontmatter.dateModified)}
-        image={head.frontmatter.image}
-      />
-      <Slot />
-      <PostCommentSection comments={comments} action={action} />
+    <div class="post-container">
+      <div class="post-content">
+        <PostHeader
+          title={head.title}
+          authorName={head.frontmatter.authorName}
+          authorAvatar="/images/fake-avatar.jpg"
+          tagName={head.frontmatter.tagName}
+          dateModified={formatDate(head.frontmatter.dateModified)}
+          image={head.frontmatter.image}
+        />
+        <Slot />
+        <PostCommentSection comments={comments} action={action} />
+      </div>
+      <div class="post-sidebar">
+        <SideBar {...sidebar} />
+      </div>
     </div>
   );
 });
