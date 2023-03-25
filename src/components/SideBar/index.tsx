@@ -8,11 +8,15 @@ import NewsletterWidget, {
 import PopularPostsWidget, {
   type PopularPostsWidgetProps,
 } from "./PopularPostsWidget";
+import PostsCarouselWidget, {
+  type PostsCarouselWidgetProps,
+} from "./PostsCarouselWidget";
 
 export interface SideBarProps {
   popularPosts?: PopularPostsWidgetProps;
   destinations?: DestinationsWidgetProps;
   newsletter?: NewsletterWidgetProps;
+  postsCarousel?: PostsCarouselWidgetProps;
 }
 
 export default component$<SideBarProps>((props) => {
@@ -21,6 +25,7 @@ export default component$<SideBarProps>((props) => {
       {props.popularPosts && <PopularPostsWidget {...props.popularPosts} />}
       {props.destinations && <DestinationsWidget {...props.destinations} />}
       {props.newsletter && <NewsletterWidget {...props.newsletter} />}
+      {props.postsCarousel && <PostsCarouselWidget {...props.postsCarousel} />}
     </div>
   );
 });

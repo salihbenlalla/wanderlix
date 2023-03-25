@@ -124,6 +124,35 @@ export const sidebar: SideBarProps = {
     title: "Newsletter",
     subscribersCount: 70000,
   },
+  postsCarousel: {
+    title: "Read Also",
+    posts: [
+      {
+        title: "3 Easy Ways To Make Your iPhone Faster",
+        url: "#",
+        thumbnail: "/images/thumbnail4.jpg",
+        date: "26 August 2022",
+        author: "John Doe",
+        authorUrl: "#",
+      },
+      {
+        title: "Facts About Business That Will Help You Success",
+        url: "#",
+        thumbnail: "/images/thumbnail5.jpg",
+        date: "23 August 2022",
+        author: "John Smith",
+        authorUrl: "#",
+      },
+      {
+        title: "The richest man in the world reveals the secrets",
+        url: "#",
+        thumbnail: "/images/thumbnail6.jpg",
+        date: "23 August 2022",
+        author: "matilda Smith",
+        authorUrl: "#",
+      },
+    ],
+  },
 };
 
 export default component$(() => {
