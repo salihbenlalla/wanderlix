@@ -1,9 +1,5 @@
-import {
-  component$,
-  useStore,
-  useStyles$,
-  useVisibleTask$,
-} from "@builder.io/qwik";
+import { component$, useSignal, useStore, useStyles$ } from "@builder.io/qwik";
+// import { isBrowser } from "@builder.io/qwik/build";
 import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
 import CheveronRight from "/src/assets/icomoon_svg/cheveron-right.svg?component";
@@ -25,44 +21,35 @@ export interface PostsCarouselWidgetProps {
 
 interface Store {
   posts: CarouselPost[];
-  movingLeft: boolean;
-  movingRight: boolean;
+}
+
+declare global {
+  interface Window {
+    timer?: ReturnType<typeof window.setTimeout>;
+  }
 }
 
 export default component$<PostsCarouselWidgetProps>((props) => {
   useStyles$(styles);
-  const store = useStore<Store>({
-    posts: props.posts,
-    movingLeft: false,
-    movingRight: false,
-  });
-  //   useVisibleTask$(({ track }) => {
-  //     track(store.movingLeft);
-  //     setTimeout(() => {
-  //       store.movingLeft = false;
-  //     }, 3000);
-  //   });
 
-  useVisibleTask$(({ track }) => {
-    track(store.movingRight);
-    setTimeout(() => {
-      store.movingRight = false;
-    }, 300);
+  const store = useStore<Store>({
+    posts: [...props.posts],
   });
+  const movingLeft = useSignal(false);
+  const movingRight = useSignal(false);
+
+  const ulRef = useSignal<HTMLUListElement>();
+
   return (
     <WidgetContainer title={props.title}>
       {store.posts.length && (
         <>
           <div class="carousel-posts-container">
-            <ul
-              class={`carousel-posts-list${
-                store.movingLeft ? " move-left" : ""
-              }${store.movingRight ? " move-right" : ""}`}
-            >
-              {store.posts.map((post, index) => {
+            <ul class={`carousel-posts-list`} ref={ulRef}>
+              {store.posts.map((post) => {
                 return (
                   <>
-                    <li key={`carousel-post-${index}`}>
+                    <li key={`carousel-post-${post.title}`}>
                       <div class="carousel-post-thumbnail">
                         <a href={post.url}>
                           <div class="carousel-post-thumbnail-inner">
@@ -91,11 +78,26 @@ export default component$<PostsCarouselWidgetProps>((props) => {
             <button
               class="carousel-arrow-left"
               onClick$={() => {
-                const firstPost = store.posts.shift();
-                if (firstPost) {
-                  store.posts = [...store.posts, firstPost];
-                }
-                store.movingRight = true;
+                movingRight.value = true;
+
+                if (window.timer) clearTimeout(window.timer);
+                window.timer = setTimeout(() => {
+                  ulRef.value?.classList.remove("move-right");
+                  const sotrePosts = store.posts.map((post) => ({
+                    author: post.author,
+                    authorUrl: post.authorUrl,
+                    date: post.date,
+                    thumbnail: post.thumbnail,
+                    title: post.title,
+                    url: post.url,
+                  }));
+                  const lastPost = sotrePosts.pop();
+
+                  if (lastPost) {
+                    store.posts = [lastPost, ...sotrePosts];
+                  }
+                  ulRef.value?.classList.add("move-right");
+                }, 300);
               }}
             >
               <CheveronLeft />
@@ -103,11 +105,25 @@ export default component$<PostsCarouselWidgetProps>((props) => {
             <button
               class="carousel-arrow-right"
               onClick$={() => {
-                const lastPost = store.posts.pop();
-                if (lastPost) {
-                  store.posts = [lastPost, ...store.posts];
-                }
-                store.movingLeft = true;
+                movingLeft.value = true;
+                ulRef.value?.classList.add("move-left");
+                if (window.timer) clearTimeout(window.timer);
+                window.timer = setTimeout(() => {
+                  const sotrePosts = store.posts.map((post) => ({
+                    author: post.author,
+                    authorUrl: post.authorUrl,
+                    date: post.date,
+                    thumbnail: post.thumbnail,
+                    title: post.title,
+                    url: post.url,
+                  }));
+                  const firstPost = sotrePosts.shift();
+
+                  if (firstPost) {
+                    store.posts = [...sotrePosts, firstPost];
+                  }
+                  ulRef.value?.classList.remove("move-left");
+                }, 300);
               }}
             >
               <CheveronRight />

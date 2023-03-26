@@ -151,6 +151,14 @@ export const sidebar: SideBarProps = {
         author: "matilda Smith",
         authorUrl: "#",
       },
+      {
+        title: "3 Easy Ways To Make Your iPhone Faster",
+        url: "#",
+        thumbnail: "/images/thumbnail4.jpg",
+        date: "26 August 2022",
+        author: "John Doe",
+        authorUrl: "#",
+      },
     ],
   },
 };
