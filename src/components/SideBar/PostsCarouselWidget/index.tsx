@@ -1,5 +1,6 @@
 import { component$, useSignal, useStore, useStyles$ } from "@builder.io/qwik";
 // import { isBrowser } from "@builder.io/qwik/build";
+import { v4 as uuidv4 } from 'uuid'
 import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
 import CheveronRight from "/src/assets/icomoon_svg/cheveron-right.svg?component";
@@ -21,6 +22,7 @@ export interface PostsCarouselWidgetProps {
 
 interface Store {
   posts: CarouselPost[];
+  numbers: number[]
 }
 
 declare global {
@@ -34,7 +36,8 @@ export default component$<PostsCarouselWidgetProps>((props) => {
 
   const store = useStore<Store>({
     posts: [...props.posts],
-  });
+    numbers: [...Array(props.posts.length).keys()]
+  }, {deep: true});
   const movingLeft = useSignal(false);
   const movingRight = useSignal(false);
 
@@ -46,30 +49,30 @@ export default component$<PostsCarouselWidgetProps>((props) => {
         <>
           <div class="carousel-posts-container">
             <ul class={`carousel-posts-list`} ref={ulRef}>
-              {store.posts.map((post) => {
+              {store.numbers.map((num) => {
                 return (
-                  <>
-                    <li key={`carousel-post-${post.title}`}>
+                  
+                    <li key={`carousel-post-${uuidv4()}`}>
                       <div class="carousel-post-thumbnail">
-                        <a href={post.url}>
+                        <a href={props.posts[num].url}>
                           <div class="carousel-post-thumbnail-inner">
-                            <img src={post.thumbnail} alt={post.title} />
+                            <img src={props.posts[num].thumbnail} alt={props.posts[num].title} />
                           </div>
                         </a>
                       </div>
                       <div class="carousel-post-details">
-                        <a href={post.url}>
-                          <h6 class="carousel-post-title">{post.title}</h6>
+                        <a href={props.posts[num].url}>
+                          <h6 class="carousel-post-title">{props.posts[num].title}</h6>
                         </a>
                         <ul class="carousel-post-meta">
                           <li>
-                            <a href={post.authorUrl}>{post.author}</a>
+                            <a href={props.posts[num].authorUrl}>{props.posts[num].author}</a>
                           </li>
-                          <li>{post.date}</li>
+                          <li>{props.posts[num].date}</li>
                         </ul>
                       </div>
                     </li>
-                  </>
+                  
                 );
               })}
             </ul>
@@ -78,25 +81,15 @@ export default component$<PostsCarouselWidgetProps>((props) => {
             <button
               class="carousel-arrow-left"
               onClick$={() => {
+                
                 movingRight.value = true;
 
+                  ulRef.value?.classList.add("move-right");
                 if (window.timer) clearTimeout(window.timer);
                 window.timer = setTimeout(() => {
-                  ulRef.value?.classList.remove("move-right");
-                  const sotrePosts = store.posts.map((post) => ({
-                    author: post.author,
-                    authorUrl: post.authorUrl,
-                    date: post.date,
-                    thumbnail: post.thumbnail,
-                    title: post.title,
-                    url: post.url,
-                  }));
-                  const lastPost = sotrePosts.pop();
-
-                  if (lastPost) {
-                    store.posts = [lastPost, ...sotrePosts];
-                  }
-                  ulRef.value?.classList.add("move-right");
+                  const lastNum = store.numbers.pop()
+                  if (typeof lastNum === 'number') {store.numbers.unshift(lastNum)}
+                    ulRef.value?.classList.remove("move-right");
                 }, 300);
               }}
             >
@@ -105,23 +98,13 @@ export default component$<PostsCarouselWidgetProps>((props) => {
             <button
               class="carousel-arrow-right"
               onClick$={() => {
+                
                 movingLeft.value = true;
                 ulRef.value?.classList.add("move-left");
                 if (window.timer) clearTimeout(window.timer);
                 window.timer = setTimeout(() => {
-                  const sotrePosts = store.posts.map((post) => ({
-                    author: post.author,
-                    authorUrl: post.authorUrl,
-                    date: post.date,
-                    thumbnail: post.thumbnail,
-                    title: post.title,
-                    url: post.url,
-                  }));
-                  const firstPost = sotrePosts.shift();
-
-                  if (firstPost) {
-                    store.posts = [...sotrePosts, firstPost];
-                  }
+                const firstNum = store.numbers.shift()
+                if (typeof firstNum === 'number') {store.numbers.push(firstNum)}
                   ulRef.value?.classList.remove("move-left");
                 }, 300);
               }}
