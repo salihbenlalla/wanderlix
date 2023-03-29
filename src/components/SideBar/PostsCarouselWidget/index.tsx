@@ -1,4 +1,10 @@
-import { component$, useSignal, useStore, useStyles$ } from "@builder.io/qwik";
+import {
+  $,
+  component$,
+  useSignal,
+  useStore,
+  useStyles$,
+} from "@builder.io/qwik";
 // import { isBrowser } from "@builder.io/qwik/build";
 import { v4 as uuidv4 } from "uuid";
 import WidgetContainer from "../WidgetContainer";
@@ -41,10 +47,50 @@ export default component$<PostsCarouselWidgetProps>((props) => {
     },
     { deep: true }
   );
-  //   const movingLeft = useSignal(false);
-  //   const movingRight = useSignal(false);
 
   const ulRef = useSignal<HTMLUListElement>();
+  const activeIndex = useSignal<number>(2);
+
+  const handleNext = $(() => {
+    activeIndex.value =
+      activeIndex.value + 1 === props.posts.length ? 0 : activeIndex.value + 1;
+    ulRef.value?.classList.add("move-right");
+    if (window.timer) clearTimeout(window.timer);
+    window.timer = setTimeout(() => {
+      const lastNum = store.numbers.pop();
+      if (typeof lastNum === "number") {
+        store.numbers.unshift(lastNum);
+      }
+      ulRef.value?.classList.remove("move-right");
+    }, 350);
+  });
+
+  const handlePrev = $(() => {
+    activeIndex.value =
+      activeIndex.value - 1 === -1
+        ? props.posts.length - 1
+        : activeIndex.value - 1;
+    ulRef.value?.classList.add("move-left");
+    if (window.timer) clearTimeout(window.timer);
+    window.timer = setTimeout(() => {
+      const firstNum = store.numbers.shift();
+      if (typeof firstNum === "number") {
+        store.numbers.push(firstNum);
+      }
+      ulRef.value?.classList.remove("move-left");
+    }, 350);
+  });
+
+  const liStyles = (index: number) => {
+    const middleIndex = Math.floor(props.posts.length / 2);
+    return {
+      transform: `translateX(${
+        [2, 4].includes(props.posts.length) ? 149 : 0
+      }px)`,
+      display:
+        index >= middleIndex - 2 && index <= middleIndex + 2 ? "block" : "none",
+    };
+  };
 
   return (
     <WidgetContainer title={props.title}>
@@ -52,9 +98,9 @@ export default component$<PostsCarouselWidgetProps>((props) => {
         <>
           <div class="carousel-posts-container">
             <ul class={`carousel-posts-list`} ref={ulRef}>
-              {store.numbers.map((num) => {
+              {store.numbers.map((num, index) => {
                 return (
-                  <li key={`carousel-post-${uuidv4()}`}>
+                  <li key={`carousel-post-${uuidv4()}`} style={liStyles(index)}>
                     <div class="carousel-post-thumbnail">
                       <a href={props.posts[num].url}>
                         <div class="carousel-post-thumbnail-inner">
@@ -86,39 +132,10 @@ export default component$<PostsCarouselWidgetProps>((props) => {
             </ul>
           </div>
           <div class="carousel-arrows">
-            <button
-              class="carousel-arrow-left"
-              onClick$={() => {
-                // movingRight.value = true;
-
-                ulRef.value?.classList.add("move-right");
-                if (window.timer) clearTimeout(window.timer);
-                window.timer = setTimeout(() => {
-                  const lastNum = store.numbers.pop();
-                  if (typeof lastNum === "number") {
-                    store.numbers.unshift(lastNum);
-                  }
-                  ulRef.value?.classList.remove("move-right");
-                }, 400);
-              }}
-            >
+            <button class="carousel-arrow-left" onClick$={handleNext}>
               <CheveronLeft />
             </button>
-            <button
-              class="carousel-arrow-right"
-              onClick$={() => {
-                // movingLeft.value = true;
-                ulRef.value?.classList.add("move-left");
-                if (window.timer) clearTimeout(window.timer);
-                window.timer = setTimeout(() => {
-                  const firstNum = store.numbers.shift();
-                  if (typeof firstNum === "number") {
-                    store.numbers.push(firstNum);
-                  }
-                  ulRef.value?.classList.remove("move-left");
-                }, 400);
-              }}
-            >
+            <button class="carousel-arrow-right" onClick$={handlePrev}>
               <CheveronRight />
             </button>
           </div>

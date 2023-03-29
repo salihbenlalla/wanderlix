@@ -1,16 +1,30 @@
 .carousel-posts-container {
-  /* transform: translate3d(0, 0, 0); */
   display: block;
   overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+  .carousel-posts-container {
+    max-width: 298px;
+  }
 }
 
 .carousel-posts-list {
   list-style: none;
-  display: block;
+  /* display: block; */
   user-select: none;
-  width: 1192px;
+  width: 1490px;
   position: relative;
-  left: -298px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* left: -298px; */
 }
 
 .move-left {
@@ -33,7 +47,7 @@
 }
 
 .carousel-post-thumbnail {
-  max-width: 300px;
+  max-width: 298px;
 }
 
 .carousel-post-thumbnail-inner {
