@@ -3,9 +3,11 @@ import {
   component$,
   useSignal,
   useStore,
+  //   useStore,
   useStyles$,
+  useTask$,
 } from "@builder.io/qwik";
-// import { isBrowser } from "@builder.io/qwik/build";
+import { isBrowser } from "@builder.io/qwik/build";
 import { v4 as uuidv4 } from "uuid";
 import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
@@ -27,8 +29,7 @@ export interface PostsCarouselWidgetProps {
 }
 
 interface Store {
-  posts: CarouselPost[];
-  numbers: number[];
+  translateValues: number[];
 }
 
 declare global {
@@ -37,93 +38,116 @@ declare global {
   }
 }
 
+export const getTranslateValues = (
+  posts: CarouselPost[],
+  activeIndex: number
+) => {
+  const halfOfPosts = Math.floor(posts.length / 2);
+  return posts.map((post, index) => {
+    if (index > activeIndex) {
+      if (index - activeIndex <= halfOfPosts) {
+        return 298 * (index - activeIndex);
+      } else {
+        return -298 * (activeIndex + posts.length - index);
+      }
+    } else {
+      if (activeIndex - index <= halfOfPosts) {
+        return -298 * (activeIndex - index);
+      } else {
+        return 298 * (posts.length + index - activeIndex);
+      }
+    }
+  });
+};
+
 export default component$<PostsCarouselWidgetProps>((props) => {
   useStyles$(styles);
 
+  const ulRef = useSignal<HTMLUListElement>();
+  const activeIndex = useSignal<number>(0);
+  const direction = useSignal<"prev" | "next" | null>(null);
+  const carouselWidth = useSignal<number>(props.posts.length * 298);
   const store = useStore<Store>(
-    {
-      posts: [...props.posts],
-      numbers: [...Array(props.posts.length).keys()],
-    },
+    { translateValues: getTranslateValues(props.posts, activeIndex.value) },
     { deep: true }
   );
 
-  const ulRef = useSignal<HTMLUListElement>();
-  const activeIndex = useSignal<number>(2);
+  useTask$(({ track }) => {
+    track(activeIndex);
+    if (isBrowser) {
+      store.translateValues = getTranslateValues(
+        props.posts,
+        activeIndex.value
+      );
+      console.log("translate values: ", store.translateValues);
+    }
+  });
 
   const handleNext = $(() => {
-    activeIndex.value =
-      activeIndex.value + 1 === props.posts.length ? 0 : activeIndex.value + 1;
-    ulRef.value?.classList.add("move-right");
-    if (window.timer) clearTimeout(window.timer);
-    window.timer = setTimeout(() => {
-      const lastNum = store.numbers.pop();
-      if (typeof lastNum === "number") {
-        store.numbers.unshift(lastNum);
-      }
-      ulRef.value?.classList.remove("move-right");
-    }, 350);
+    direction.value = "next";
   });
 
   const handlePrev = $(() => {
-    activeIndex.value =
-      activeIndex.value - 1 === -1
-        ? props.posts.length - 1
-        : activeIndex.value - 1;
-    ulRef.value?.classList.add("move-left");
-    if (window.timer) clearTimeout(window.timer);
-    window.timer = setTimeout(() => {
-      const firstNum = store.numbers.shift();
-      if (typeof firstNum === "number") {
-        store.numbers.push(firstNum);
-      }
-      ulRef.value?.classList.remove("move-left");
-    }, 350);
+    direction.value = "prev";
   });
 
-  const liStyles = (index: number) => {
-    const middleIndex = Math.floor(props.posts.length / 2);
+  const handleTransitionEnd = $(() => {
+    if (direction.value === "next") {
+      activeIndex.value =
+        activeIndex.value + 1 === props.posts.length
+          ? 0
+          : activeIndex.value + 1;
+    } else if (direction.value === "prev") {
+      activeIndex.value =
+        activeIndex.value === 0
+          ? props.posts.length - 1
+          : activeIndex.value - 1;
+    }
+    direction.value = null;
+  });
+
+  const ulStyle = () => {
     return {
-      transform: `translateX(${
-        [2, 4].includes(props.posts.length) ? 149 : 0
-      }px)`,
-      display:
-        index >= middleIndex - 2 && index <= middleIndex + 2 ? "block" : "none",
+      width: carouselWidth.value,
+    };
+  };
+
+  const liStyle = (index: number) => {
+    return {
+      transform: `translateX(${store.translateValues[index]}px)`,
     };
   };
 
   return (
     <WidgetContainer title={props.title}>
-      {store.posts.length && (
+      {props.posts.length && (
         <>
           <div class="carousel-posts-container">
-            <ul class={`carousel-posts-list`} ref={ulRef}>
-              {store.numbers.map((num, index) => {
+            <ul
+              class={`carousel-posts-list move-${direction.value}`}
+              ref={ulRef}
+              style={ulStyle()}
+              onTransitionEnd$={handleTransitionEnd}
+            >
+              {props.posts.map((post, index) => {
                 return (
-                  <li key={`carousel-post-${uuidv4()}`} style={liStyles(index)}>
+                  <li key={`carousel-post-${uuidv4()}`} style={liStyle(index)}>
                     <div class="carousel-post-thumbnail">
-                      <a href={props.posts[num].url}>
+                      <a href={post.url}>
                         <div class="carousel-post-thumbnail-inner">
-                          <img
-                            src={props.posts[num].thumbnail}
-                            alt={props.posts[num].title}
-                          />
+                          <img src={post.thumbnail} alt={post.title} />
                         </div>
                       </a>
                     </div>
                     <div class="carousel-post-details">
-                      <a href={props.posts[num].url}>
-                        <h6 class="carousel-post-title">
-                          {props.posts[num].title}
-                        </h6>
+                      <a href={post.url}>
+                        <h6 class="carousel-post-title">{post.title}</h6>
                       </a>
                       <ul class="carousel-post-meta">
                         <li>
-                          <a href={props.posts[num].authorUrl}>
-                            {props.posts[num].author}
-                          </a>
+                          <a href={post.authorUrl}>{post.author}</a>
                         </li>
-                        <li>{props.posts[num].date}</li>
+                        <li>{post.date}</li>
                       </ul>
                     </div>
                   </li>
@@ -132,10 +156,10 @@ export default component$<PostsCarouselWidgetProps>((props) => {
             </ul>
           </div>
           <div class="carousel-arrows">
-            <button class="carousel-arrow-left" onClick$={handleNext}>
+            <button class="carousel-arrow-left" onClick$={handlePrev}>
               <CheveronLeft />
             </button>
-            <button class="carousel-arrow-right" onClick$={handlePrev}>
+            <button class="carousel-arrow-right" onClick$={handleNext}>
               <CheveronRight />
             </button>
           </div>

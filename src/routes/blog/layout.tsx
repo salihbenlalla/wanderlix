@@ -128,7 +128,7 @@ export const sidebar: SideBarProps = {
     title: "Read Also",
     posts: [
       {
-        title: "3 Easy Ways To Make Your iPhone Faster",
+        title: "Post 0",
         url: "#",
         thumbnail: "/images/thumbnail4.jpg",
         date: "26 August 2022",
@@ -136,7 +136,7 @@ export const sidebar: SideBarProps = {
         authorUrl: "#",
       },
       {
-        title: "Facts About Business That Will Help You Success",
+        title: "Post 1",
         url: "#",
         thumbnail: "/images/thumbnail5.jpg",
         date: "23 August 2022",
@@ -144,7 +144,7 @@ export const sidebar: SideBarProps = {
         authorUrl: "#",
       },
       {
-        title: "The richest man in the world reveals the secrets",
+        title: "Post 2",
         url: "#",
         thumbnail: "/images/thumbnail6.jpg",
         date: "23 August 2022",
@@ -152,7 +152,15 @@ export const sidebar: SideBarProps = {
         authorUrl: "#",
       },
       {
-        title: "Facts About Business That Will Help You Success",
+        title: "Post 3",
+        url: "#",
+        thumbnail: "/images/thumbnail5.jpg",
+        date: "23 August 2022",
+        author: "John Smith",
+        authorUrl: "#",
+      },
+      {
+        title: "Post 4",
         url: "#",
         thumbnail: "/images/thumbnail5.jpg",
         date: "23 August 2022",
