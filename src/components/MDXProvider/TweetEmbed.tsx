@@ -1,7 +1,7 @@
 import {
   component$,
   useSignal,
-  useClientEffect$,
+  useVisibleTask$,
   useStore,
 } from "@builder.io/qwik";
 // import script from "scriptjs";
@@ -35,7 +35,7 @@ export const methodName = "createTweet";
 export const TweetEmbed = component$((props: TweetProps) => {
   const state = useStore({ isLoading: true, isComponentMounted: true });
   const ref = useSignal<HTMLDivElement>();
-  useClientEffect$(async () => {
+  useVisibleTask$(async () => {
     //   let isComponentMounted = true;
     const script = (await import("scriptjs")).default;
     script(twitterWidgetJs, "twitter-embed", () => {

@@ -1,11 +1,11 @@
-import { createContext, Slot, useContextProvider } from "@builder.io/qwik";
+import { createContextId, Slot, useContextProvider } from "@builder.io/qwik";
 import type { MDXComponents } from "mdx/types";
 import { contextComponents } from "./contextComponents";
 // import {h} from '@builder.io/qwik'
 
 type MergeComponents = (components: MDXComponents) => MDXComponents;
 
-export const MDXContext = createContext<MDXComponents>("mdx-context");
+export const MDXContext = createContextId<MDXComponents>("mdx-context");
 
 export const useMDXComponents = (
   components: MDXComponents | MergeComponents | undefined

@@ -1,4 +1,4 @@
-import { component$, useClientEffect$, useStyles$ } from "@builder.io/qwik";
+import { component$, useVisibleTask$, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 
 export interface FacebookVideoEmbedProps {
@@ -10,7 +10,7 @@ export const facebookSDK =
 
 const FacebookVideoEmbed = component$((props: FacebookVideoEmbedProps) => {
   useStyles$(styles);
-  useClientEffect$(async () => {
+  useVisibleTask$(async () => {
     const script = (await import("scriptjs")).default;
     script(facebookSDK, "facebook-sdk");
   });

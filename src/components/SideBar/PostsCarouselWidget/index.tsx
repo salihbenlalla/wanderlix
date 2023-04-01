@@ -1,13 +1,14 @@
 import {
   $,
   component$,
+  type QwikTransitionEvent,
+  type QRL,
   useSignal,
   useStore,
-  //   useStore,
   useStyles$,
-  useTask$,
+  useVisibleTask$,
+  //   useTask$,
 } from "@builder.io/qwik";
-import { isBrowser } from "@builder.io/qwik/build";
 import { v4 as uuidv4 } from "uuid";
 import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
@@ -30,7 +31,19 @@ export interface PostsCarouselWidgetProps {
 
 interface Store {
   translateValues: number[];
+  postsOrder: number[];
 }
+
+type SingleOrArray<T> = T | (SingleOrArray<T> | undefined | null)[];
+
+type HandleTransitionType =
+  | SingleOrArray<
+      (
+        event: QwikTransitionEvent<HTMLUListElement>,
+        element: HTMLUListElement
+      ) => any
+    >
+  | undefined;
 
 declare global {
   interface Window {
@@ -39,82 +52,135 @@ declare global {
 }
 
 export const getTranslateValues = (
-  posts: CarouselPost[],
-  activeIndex: number
+  postsOrder: number[],
+  margin: number = 0
 ) => {
-  const halfOfPosts = Math.floor(posts.length / 2);
-  return posts.map((post, index) => {
-    if (index > activeIndex) {
-      if (index - activeIndex <= halfOfPosts) {
-        return 298 * (index - activeIndex);
-      } else {
-        return -298 * (activeIndex + posts.length - index);
-      }
+  const halfOfPosts = Math.floor(postsOrder.length / 2);
+  return postsOrder.map((post, index) => {
+    if (index >= halfOfPosts) {
+      return (298 + margin * 2) * (index - halfOfPosts);
     } else {
-      if (activeIndex - index <= halfOfPosts) {
-        return -298 * (activeIndex - index);
-      } else {
-        return 298 * (posts.length + index - activeIndex);
-      }
+      return -(298 + margin * 2) * (halfOfPosts - index);
     }
   });
 };
 
 export default component$<PostsCarouselWidgetProps>((props) => {
   useStyles$(styles);
+  const MARGIN = 10;
 
+  const numbers = Array.from({ length: props.posts.length }, (_, i) => i);
+
+  //   const position = useSignal<number>(0);
   const ulRef = useSignal<HTMLUListElement>();
-  const activeIndex = useSignal<number>(0);
   const direction = useSignal<"prev" | "next" | null>(null);
   const carouselWidth = useSignal<number>(props.posts.length * 298);
+  const margin = useSignal(0);
+  //   const goNextRequestRef = useSignal<number | null>(null);
+  //   const goPrevRequestRef = useSignal<number | null>(null);
+
   const store = useStore<Store>(
-    { translateValues: getTranslateValues(props.posts, activeIndex.value) },
+    {
+      translateValues: getTranslateValues(numbers, margin.value),
+      postsOrder: numbers,
+    },
     { deep: true }
   );
 
-  useTask$(({ track }) => {
-    track(activeIndex);
-    if (isBrowser) {
+  //   const goNext = $(() => {
+  //     position.value = -(298 + 2 * MARGIN);
+  //   });
+
+  //   const goPrev = $(() => {
+  //     position.value = 298 + 2 * MARGIN;
+  //   });
+
+  //   useTask$(({ track }) => {
+  //     track(direction);
+  //     if (direction.value === "next") {
+  //       goNext();
+
+  //       return () => {
+  //         if (goNextRequestRef.value !== null) {
+  //           cancelAnimationFrame(goNextRequestRef.value);
+  //           position.value = 0;
+  //           direction.value = null;
+  //         }
+  //       };
+  //     }
+
+  //     if (direction.value === "prev") {
+  //       goPrev();
+  //       return () => {
+  //         if (goPrevRequestRef.value !== null) {
+  //           cancelAnimationFrame(goPrevRequestRef.value);
+  //           position.value = 0;
+  //           direction.value = null;
+  //         }
+  //       };
+  //     }
+  //   });
+
+  useVisibleTask$(() => {
+    const windowWidth = window.innerWidth;
+    if (windowWidth < 992) {
+      carouselWidth.value = props.posts.length * (298 + 2 * MARGIN);
+      margin.value = MARGIN;
       store.translateValues = getTranslateValues(
-        props.posts,
-        activeIndex.value
+        store.postsOrder,
+        margin.value
       );
-      console.log("translate values: ", store.translateValues);
     }
   });
 
   const handleNext = $(() => {
     direction.value = "next";
+    // position.value = -(298 + 2 * MARGIN);
   });
 
   const handlePrev = $(() => {
     direction.value = "prev";
+    // position.value = 298 + 2 * MARGIN;
   });
 
-  const handleTransitionEnd = $(() => {
+  const handleTransitionEnd: QRL<HandleTransitionType> = $(() => {
     if (direction.value === "next") {
-      activeIndex.value =
-        activeIndex.value + 1 === props.posts.length
-          ? 0
-          : activeIndex.value + 1;
-    } else if (direction.value === "prev") {
-      activeIndex.value =
-        activeIndex.value === 0
-          ? props.posts.length - 1
-          : activeIndex.value - 1;
+      //   position.value = 0;
+      const firstItem = store.postsOrder.shift();
+      if (typeof firstItem === "number") {
+        store.postsOrder.push(firstItem);
+      }
+      //   goNextRequestRef.value = requestAnimationFrame(() => {
+      //     goNext();
+      //   });
     }
+    if (direction.value === "prev") {
+      //   position.value = 0;
+      const lastItem = store.postsOrder.pop();
+      if (typeof lastItem === "number") {
+        store.postsOrder.unshift(lastItem);
+      }
+      //   goPrevRequestRef.value = requestAnimationFrame(() => {
+      //     goPrev();
+      //   });
+    }
+    // console.log("position value:", position.value);
+    // position.value = 0;
     direction.value = null;
   });
 
   const ulStyle = () => {
     return {
       width: carouselWidth.value,
+      //   transform: `translate3d(${298 + 2 * margin.value}px, 0, 0)`,
     };
   };
 
   const liStyle = (index: number) => {
     return {
-      transform: `translateX(${store.translateValues[index]}px)`,
+      transform: `translate3d(${store.translateValues[index]}px, 0, 0)`,
+      //   marginLeft: margin.value,
+      //   marginRight: margin.value,
     };
   };
 
@@ -124,30 +190,39 @@ export default component$<PostsCarouselWidgetProps>((props) => {
         <>
           <div class="carousel-posts-container">
             <ul
-              class={`carousel-posts-list move-${direction.value}`}
+              class={`carousel-posts-list${
+                direction.value !== null ? " move-" + direction.value : ""
+              }`}
               ref={ulRef}
               style={ulStyle()}
-              onTransitionEnd$={handleTransitionEnd}
+              onTransitionEnd$={(ev, el) => handleTransitionEnd(ev, el)}
             >
-              {props.posts.map((post, index) => {
+              {store.postsOrder.map((num, index) => {
                 return (
                   <li key={`carousel-post-${uuidv4()}`} style={liStyle(index)}>
                     <div class="carousel-post-thumbnail">
-                      <a href={post.url}>
+                      <a href={props.posts[num].url}>
                         <div class="carousel-post-thumbnail-inner">
-                          <img src={post.thumbnail} alt={post.title} />
+                          <img
+                            src={props.posts[num].thumbnail}
+                            alt={props.posts[num].title}
+                          />
                         </div>
                       </a>
                     </div>
                     <div class="carousel-post-details">
-                      <a href={post.url}>
-                        <h6 class="carousel-post-title">{post.title}</h6>
+                      <a href={props.posts[num].url}>
+                        <h6 class="carousel-post-title">
+                          {props.posts[num].title}
+                        </h6>
                       </a>
                       <ul class="carousel-post-meta">
                         <li>
-                          <a href={post.authorUrl}>{post.author}</a>
+                          <a href={props.posts[num].authorUrl}>
+                            {props.posts[num].author}
+                          </a>
                         </li>
-                        <li>{post.date}</li>
+                        <li>{props.posts[num].date}</li>
                       </ul>
                     </div>
                   </li>

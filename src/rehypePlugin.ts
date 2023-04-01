@@ -6,7 +6,13 @@ import type { LinkObj, SrcObj } from "./data/dataContext";
 import type { Root, Properties } from "hast";
 import type { Plugin } from "unified";
 import type { MdxJsxAttributeValueExpression } from "mdast-util-mdx-jsx";
-import type { MdxJsxElementFields } from "mdast-util-mdx-jsx/lib/complex-types";
+// import type { MdxJsxElementFields } from "mdast-util-mdx-jsx/lib/complex-types";
+import type {
+  MdxJsxFlowElement,
+  MdxJsxTextElement,
+} from "mdast-util-mdx-jsx/lib/complex-types";
+
+type MdxJsxElementFields = MdxJsxFlowElement | MdxJsxTextElement;
 
 interface LinkProperties extends Properties {
   href?: string;

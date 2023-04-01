@@ -1,3 +1,26 @@
+// import { cloudflarePagesAdapter } from "@builder.io/qwik-city/adapters/cloudflare-pages/vite";
+// import { extendConfig } from "@builder.io/qwik-city/vite";
+// import baseConfig from "../../vite.config";
+
+// export default extendConfig(baseConfig, () => {
+//   return {
+//     build: {
+//       ssr: true,
+//       rollupOptions: {
+//         input: ["src/entry.cloudflare-pages.tsx", "@qwik-city-plan"],
+//         external: ["@miniflare/d1", "@miniflare/shared"],
+//       },
+//     },
+//     plugins: [
+//       cloudflarePagesAdapter({
+//         ssg: {
+//           include: ["*"],
+//         },
+//       }),
+//     ],
+//   };
+// });
+
 import { cloudflarePagesAdapter } from "@builder.io/qwik-city/adapters/cloudflare-pages/vite";
 import { extendConfig } from "@builder.io/qwik-city/vite";
 import baseConfig from "../../vite.config";
@@ -11,12 +34,6 @@ export default extendConfig(baseConfig, () => {
         external: ["@miniflare/d1", "@miniflare/shared"],
       },
     },
-    plugins: [
-      cloudflarePagesAdapter({
-        ssg: {
-          include: ["*"],
-        },
-      }),
-    ],
+    plugins: [cloudflarePagesAdapter()],
   };
 });

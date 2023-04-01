@@ -24,7 +24,7 @@ declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
   }
 }
 
-export const getComments = routeLoader$(
+export const useGetComments = routeLoader$(
   async (ev: RequestEventLoader<PlatformCloudflarePages>) => {
     const comments = await handleGetComments(ev);
 
@@ -39,7 +39,7 @@ export type AddCommentReturnValue =
     }
   | undefined;
 
-export const addComment = routeAction$<AddCommentReturnValue>(
+export const useAddComment = routeAction$<AddCommentReturnValue>(
   async (comment, ev) => {
     const success = await handleAddComment(comment, ev);
     return success;
@@ -159,14 +159,14 @@ export const sidebar: SideBarProps = {
         author: "John Smith",
         authorUrl: "#",
       },
-      {
-        title: "Post 4",
-        url: "#",
-        thumbnail: "/images/thumbnail5.jpg",
-        date: "23 August 2022",
-        author: "John Smith",
-        authorUrl: "#",
-      },
+      //   {
+      //     title: "Post 4",
+      //     url: "#",
+      //     thumbnail: "/images/thumbnail5.jpg",
+      //     date: "23 August 2022",
+      //     author: "John Smith",
+      //     authorUrl: "#",
+      //   },
     ],
   },
 };
@@ -174,8 +174,8 @@ export const sidebar: SideBarProps = {
 export default component$(() => {
   useStyles$(styles);
   const head = useDocumentHead();
-  const comments = getComments().value;
-  const action = addComment();
+  const comments = useGetComments().value;
+  const action = useAddComment();
 
   return (
     <div class="post-container">

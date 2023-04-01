@@ -1,4 +1,4 @@
-import { createContext } from "@builder.io/qwik";
+import { createContextId } from "@builder.io/qwik";
 // import type { ResourceReturn } from "@builder.io/qwik";
 
 export interface LinkObj {
@@ -20,4 +20,4 @@ export interface DataContext {
   srcs: SrcObj[];
 }
 
-export const dataContext = createContext<DataContext>("data-context");
+export const dataContext = createContextId<DataContext>("data-context");
