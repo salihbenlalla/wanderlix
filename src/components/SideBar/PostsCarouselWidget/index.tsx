@@ -6,8 +6,7 @@ import {
   useSignal,
   useStore,
   useStyles$,
-  useVisibleTask$,
-  //   useTask$,
+  useOnDocument,
 } from "@builder.io/qwik";
 import { v4 as uuidv4 } from "uuid";
 import WidgetContainer from "../WidgetContainer";
@@ -67,17 +66,13 @@ export const getTranslateValues = (
 
 export default component$<PostsCarouselWidgetProps>((props) => {
   useStyles$(styles);
-  const MARGIN = 10;
+  const MARGIN = 0;
 
   const numbers = Array.from({ length: props.posts.length }, (_, i) => i);
-
-  //   const position = useSignal<number>(0);
   const ulRef = useSignal<HTMLUListElement>();
   const direction = useSignal<"prev" | "next" | null>(null);
   const carouselWidth = useSignal<number>(props.posts.length * 298);
-  const margin = useSignal(0);
-  //   const goNextRequestRef = useSignal<number | null>(null);
-  //   const goPrevRequestRef = useSignal<number | null>(null);
+  const margin = useSignal(10);
 
   const store = useStore<Store>(
     {
@@ -87,100 +82,56 @@ export default component$<PostsCarouselWidgetProps>((props) => {
     { deep: true }
   );
 
-  //   const goNext = $(() => {
-  //     position.value = -(298 + 2 * MARGIN);
-  //   });
-
-  //   const goPrev = $(() => {
-  //     position.value = 298 + 2 * MARGIN;
-  //   });
-
-  //   useTask$(({ track }) => {
-  //     track(direction);
-  //     if (direction.value === "next") {
-  //       goNext();
-
-  //       return () => {
-  //         if (goNextRequestRef.value !== null) {
-  //           cancelAnimationFrame(goNextRequestRef.value);
-  //           position.value = 0;
-  //           direction.value = null;
-  //         }
-  //       };
-  //     }
-
-  //     if (direction.value === "prev") {
-  //       goPrev();
-  //       return () => {
-  //         if (goPrevRequestRef.value !== null) {
-  //           cancelAnimationFrame(goPrevRequestRef.value);
-  //           position.value = 0;
-  //           direction.value = null;
-  //         }
-  //       };
-  //     }
-  //   });
-
-  useVisibleTask$(() => {
-    const windowWidth = window.innerWidth;
-    if (windowWidth < 992) {
-      carouselWidth.value = props.posts.length * (298 + 2 * MARGIN);
-      margin.value = MARGIN;
-      store.translateValues = getTranslateValues(
-        store.postsOrder,
-        margin.value
-      );
-    }
-  });
+  useOnDocument(
+    "load",
+    $(() => {
+      const windowWidth = window.innerWidth;
+      if (windowWidth > 991) {
+        carouselWidth.value = props.posts.length * (298 + 2 * MARGIN);
+        margin.value = MARGIN;
+        store.translateValues = getTranslateValues(
+          store.postsOrder,
+          margin.value
+        );
+      }
+    })
+  );
 
   const handleNext = $(() => {
     direction.value = "next";
-    // position.value = -(298 + 2 * MARGIN);
   });
 
   const handlePrev = $(() => {
     direction.value = "prev";
-    // position.value = 298 + 2 * MARGIN;
   });
 
   const handleTransitionEnd: QRL<HandleTransitionType> = $(() => {
     if (direction.value === "next") {
-      //   position.value = 0;
       const firstItem = store.postsOrder.shift();
       if (typeof firstItem === "number") {
         store.postsOrder.push(firstItem);
       }
-      //   goNextRequestRef.value = requestAnimationFrame(() => {
-      //     goNext();
-      //   });
     }
+
     if (direction.value === "prev") {
-      //   position.value = 0;
       const lastItem = store.postsOrder.pop();
       if (typeof lastItem === "number") {
         store.postsOrder.unshift(lastItem);
       }
-      //   goPrevRequestRef.value = requestAnimationFrame(() => {
-      //     goPrev();
-      //   });
     }
-    // console.log("position value:", position.value);
-    // position.value = 0;
+
     direction.value = null;
   });
 
   const ulStyle = () => {
     return {
       width: carouselWidth.value,
-      //   transform: `translate3d(${298 + 2 * margin.value}px, 0, 0)`,
     };
   };
 
   const liStyle = (index: number) => {
     return {
       transform: `translate3d(${store.translateValues[index]}px, 0, 0)`,
-      //   marginLeft: margin.value,
-      //   marginRight: margin.value,
     };
   };
 

@@ -60,6 +60,7 @@
   "dependencies": {
     "@types/uuid": "^9.0.1",
     "dateformat": "^5.0.3",
+    "motion": "^10.15.5",
     "scriptjs": "^2.5.9",
     "uuid": "^9.0.0"
   }
