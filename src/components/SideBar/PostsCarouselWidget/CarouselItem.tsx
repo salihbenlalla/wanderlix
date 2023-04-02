@@ -16,28 +16,16 @@ export interface CarouselItemProps {
   authorUrl?: string;
   translateValue: number;
   direction: "next" | "prev" | null;
+  itemWidth: number;
 }
 
-const getRealTranslate = (
-  translateValue: number,
-  fixup: number,
-  direction: "next" | "prev" | null
-) => {
-  if (direction === "next") {
-    return translateValue + fixup < -636 ? 318 : translateValue + fixup;
-  }
-
-  if (direction === "prev") {
-    return translateValue + fixup > 318 ? -636 : translateValue + fixup;
-  }
-  return translateValue + fixup;
-};
-
 export default component$<CarouselItemProps>((props) => {
-  // const translateValue = useSignal<number>(0);
-
   const fixup =
-    props.direction === "next" ? -318 : props.direction === "prev" ? 318 : 0;
+    props.direction === "next"
+      ? props.itemWidth
+      : props.direction === "prev"
+      ? -props.itemWidth
+      : 0;
 
   const store = useStore({
     translateValue: props.translateValue,
@@ -52,51 +40,19 @@ export default component$<CarouselItemProps>((props) => {
         animate(
           liRef.value,
           {
-            transform: `translate3d(${getRealTranslate(
-              props.translateValue,
-              fixup,
-              props.direction
-            )}px, 0, 0)`,
+            transform: `translate3d(${props.translateValue}px, 0, 0)`,
           },
           {
             duration: 0.6,
           }
-        ).finished.then(() => {
-          store.translateValue = getRealTranslate(
-            props.translateValue,
-            fixup,
-            props.direction
-          );
-        });
-
-        if (
-          getRealTranslate(props.translateValue, fixup, props.direction) ===
-            318 ||
-          getRealTranslate(props.translateValue, fixup, props.direction) ===
-            -616
-        ) {
-          animate(
-            liRef.value,
-            {
-              opacity: 0,
-            },
-            {
-              duration: 0,
-            }
-          ).finished.then(() => {
-            if (liRef.value) {
-              animate(liRef.value, { opacity: 1 }, { duration: 0, delay: 0.6 });
-            }
-          });
-        }
+        );
       }
     }
   });
 
   const liStyle = () => {
-    console.log(store.translateValue);
     return {
-      transform: `translate3d(${store.translateValue}px, 0, 0)`,
+      transform: `translate3d(${store.translateValue + fixup}px, 0, 0)`,
     };
   };
 
@@ -118,7 +74,6 @@ export default component$<CarouselItemProps>((props) => {
             <a href={props.authorUrl}>{props.author}</a>
           </li>
           <li>{props.date}</li>
-          <li>translate value: {store.translateValue}</li>
         </ul>
       </div>
     </li>

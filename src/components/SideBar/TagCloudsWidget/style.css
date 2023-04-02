@@ -1,0 +1,24 @@
+.tag-cloud__tag {
+  color: #8f9bad;
+  border: solid 1px #ebebeb;
+  border-radius: 25px;
+  font-size: 13px !important;
+  display: inline-block;
+  padding: 3px 14px;
+  margin: 4px 5px 4px 0px;
+  outline: 0;
+  text-decoration: none;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  font-weight: 400;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tag-cloud__tag:hover {
+  border-color: #fe4f70;
+  color: #fe4f70;
+}

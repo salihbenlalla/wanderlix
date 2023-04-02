@@ -12,47 +12,20 @@
   list-style: none;
   user-select: none;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 298px;
   height: 311px;
 }
 
-/* .move-next {
-  will-change: transform;
-  transform: translate3d(-298px, 0, 0);
-  transition: transform 0.6s ease-in-out;
-}
-
-.move-prev {
-  will-change: transform;
-  transform: translate3d(298px, 0, 0);
-  transition: transform 0.6s ease-in-out;
-} */
-
 .carousel-posts-list > li {
-  max-width: 298px;
-  width: 100%;
-  display: block;
-  height: auto;
-  outline: none;
-  min-height: 150px;
   position: absolute;
   top: 0;
   left: 0;
-  /* will-change: transform;
-  transition: transform 0.3s ease-in-out; */
 }
 
 @media (min-width: 992px) {
   .carousel-posts-container {
     max-width: 298px;
   }
-  /* .carousel-posts-list > li {
-    margin-left: 0;
-    margin-right: 0;
-  } */
 }
 
 .carousel-post-thumbnail {
@@ -68,7 +41,6 @@
   object-fit: cover;
   width: 100%;
   height: 200px;
-  /* transition: transform 0.6s ease-in-out; */
 }
 
 .carousel-post-thumbnail-inner img:hover {
@@ -82,7 +54,7 @@
 
 .carousel-post-title {
   margin-bottom: 0 !important;
-  margin-top: 1.5rem !important;
+  margin-top: 24px !important;
   color: #203656;
   font-family: "Poppins", sans-serif;
   font-weight: 700;

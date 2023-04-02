@@ -159,15 +159,64 @@ export const sidebar: SideBarProps = {
         author: "John Smith",
         authorUrl: "#",
       },
-      //   {
-      //     title: "Post 4",
-      //     url: "#",
-      //     thumbnail: "/images/thumbnail5.jpg",
-      //     date: "23 August 2022",
-      //     author: "John Smith",
-      //     authorUrl: "#",
-      //   },
+      {
+        title: "Post 4",
+        url: "#",
+        thumbnail: "/images/thumbnail5.jpg",
+        date: "23 August 2022",
+        author: "John Smith",
+        authorUrl: "#",
+      },
     ],
+  },
+  tagClouds: {
+    title: "Tag Clouds",
+    tags: [
+      {
+        name: "Audio",
+        url: "#",
+      },
+      {
+        name: "Content",
+        url: "#",
+      },
+      {
+        name: "Featured",
+        url: "#",
+      },
+      {
+        name: "Image",
+        url: "#",
+      },
+      {
+        name: "Inspiration",
+        url: "#",
+      },
+      {
+        name: "Lifestyle",
+        url: "#",
+      },
+      {
+        name: "Photo",
+        url: "#",
+      },
+      {
+        name: "Pick",
+        url: "#",
+      },
+      {
+        name: "Slide",
+        url: "#",
+      },
+      {
+        name: "Trending",
+        url: "#",
+      },
+    ],
+  },
+  sponsoredAd: {
+    imageUrl: "/images/ad-widget-photo.png",
+    adUrl: "#",
   },
 };
 

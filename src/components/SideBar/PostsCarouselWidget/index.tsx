@@ -29,19 +29,7 @@ export interface PostsCarouselWidgetProps {
 
 interface Store {
   translateValues: number[];
-  //   postsOrder: number[];
 }
-
-// type SingleOrArray<T> = T | (SingleOrArray<T> | undefined | null)[];
-
-// type HandleTransitionType =
-//   | SingleOrArray<
-//       (
-//         event: QwikTransitionEvent<HTMLUListElement>,
-//         element: HTMLUListElement
-//       ) => any
-//     >
-//   | undefined;
 
 declare global {
   interface Window {
@@ -51,30 +39,34 @@ declare global {
 
 export const getTranslateValues = (
   numberOfPosts: number,
-  margin: number = 0
+  margin: number = 0,
+  itemWidth: number
 ) => {
   const halfOfPosts = Math.floor(numberOfPosts / 2);
   const numbers = Array.from({ length: numberOfPosts }, (_, i) => i);
   return numbers.map((num, index) => {
     if (index >= halfOfPosts) {
-      return (298 + margin * 2) * (index - halfOfPosts);
+      return (itemWidth + margin * 2) * (index - halfOfPosts);
     } else {
-      return -(298 + margin * 2) * (halfOfPosts - index);
+      return -(itemWidth + margin * 2) * (halfOfPosts - index);
     }
   });
 };
 
 export default component$<PostsCarouselWidgetProps>((props) => {
   useStyles$(styles);
-  const MARGIN = 0;
-  const ulRef = useSignal<HTMLUListElement>();
+  const MARGIN = 10;
+  const ITEMWIDTH = 298;
   const direction = useSignal<"prev" | "next" | null>(null);
-  const carouselWidth = useSignal<number>(props.posts.length * 298);
-  const margin = useSignal(10);
+  const margin = useSignal(0);
 
   const store = useStore<Store>(
     {
-      translateValues: getTranslateValues(props.posts.length, margin.value),
+      translateValues: getTranslateValues(
+        props.posts.length,
+        margin.value,
+        ITEMWIDTH
+      ),
     },
     { deep: true }
   );
@@ -83,12 +75,12 @@ export default component$<PostsCarouselWidgetProps>((props) => {
     "load",
     $(() => {
       const windowWidth = window.innerWidth;
-      if (windowWidth > 991) {
-        carouselWidth.value = props.posts.length * (298 + 2 * MARGIN);
+      if (windowWidth < 992) {
         margin.value = MARGIN;
         store.translateValues = getTranslateValues(
           props.posts.length,
-          margin.value
+          margin.value,
+          ITEMWIDTH
         );
       }
     })
@@ -112,18 +104,12 @@ export default component$<PostsCarouselWidgetProps>((props) => {
     }
   });
 
-  const ulStyle = () => {
-    return {
-      width: carouselWidth.value,
-    };
-  };
-
   return (
     <WidgetContainer title={props.title}>
       {props.posts.length && (
         <>
           <div class="carousel-posts-container">
-            <ul class={`carousel-posts-list`} ref={ulRef} style={ulStyle()}>
+            <ul class={`carousel-posts-list`}>
               {props.posts.map((post, index) => {
                 return (
                   <CarouselItem
@@ -136,6 +122,7 @@ export default component$<PostsCarouselWidgetProps>((props) => {
                     authorUrl={post.authorUrl}
                     translateValue={store.translateValues[index]}
                     direction={direction.value}
+                    itemWidth={ITEMWIDTH + 2 * MARGIN}
                   />
                 );
               })}
