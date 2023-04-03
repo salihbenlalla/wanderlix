@@ -226,24 +226,33 @@ export default component$(() => {
   const comments = useGetComments().value;
   const action = useAddComment();
 
+  console.log("breadcrumbs: ", head.frontmatter.breadcrumbs);
+
   return (
-    <div class="post-container">
-      <div class="post-content">
-        <PostHeader
-          title={head.title}
-          authorName={head.frontmatter.authorName}
-          authorAvatar="/images/fake-avatar.jpg"
-          tagName={head.frontmatter.tagName}
-          dateModified={formatDate(head.frontmatter.dateModified)}
-          image={head.frontmatter.image}
-        />
-        <Slot />
-        <PostCommentSection comments={comments} action={action} />
+    <>
+      <PostHeader
+        title={head.title}
+        authorName={head.frontmatter.authorName}
+        authorAvatar="/images/fake-avatar.jpg"
+        tagName={head.frontmatter.tagName}
+        dateModified={formatDate(head.frontmatter.dateModified)}
+        image={head.frontmatter.image}
+        breadcrumbs={head.frontmatter.breadcrumbs}
+      />
+      <div class="main-content">
+        <div class="container">
+          <div class="post-container">
+            <div class="post-content">
+              <Slot />
+              <PostCommentSection comments={comments} action={action} />
+            </div>
+            <div class="post-sidebar">
+              <SideBar {...sidebar} />
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="post-sidebar">
-        <SideBar {...sidebar} />
-      </div>
-    </div>
+    </>
   );
 });
 

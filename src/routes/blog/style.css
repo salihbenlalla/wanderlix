@@ -1,4 +1,9 @@
+.main-content {
+  margin-top: 60px;
+}
+
 .post-container {
+  margin-top: -24px;
   display: flex;
   flex-wrap: wrap;
   color: #203656;
@@ -13,19 +18,34 @@
   }
 }
 
-@media (min-width: 1400px) {
-  .post-container {
-    max-width: 1320px;
+.container {
+  width: 100%;
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
   }
 }
 
 .post-content {
   /* max-width: 700px;
   margin: auto; */
-  flex-shrink: 0;
+  /* flex-shrink: 0;
   width: 100%;
   padding: 20px;
-  box-sizing: border-box;
+  box-sizing: border-box; */
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 24px;
+  margin-right: -12;
+  margin-left: -12;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width: 992px) {
@@ -36,7 +56,9 @@
 }
 
 .post-sidebar {
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
+  margin-top: 24px;
+  flex: 0 0 auto;
   width: 100%;
   box-sizing: border-box;
   max-width: 100%;
@@ -220,7 +242,9 @@ blockquote::after {
   font-size: 16px;
   font-weight: 300;
   line-height: 1.7em;
-  margin: 16px 8px;
+  /* margin: 16px 8px; */
+  margin-top: 0;
+  margin-bottom: 16px;
   text-align: left;
 }
 
@@ -254,6 +278,10 @@ blockquote::after {
   color: #2e383f;
   margin: 30px 0px;
   text-align: left;
+}
+
+.post-content h2:first-child {
+  margin-top: 0;
 }
 
 .post-content h3 {

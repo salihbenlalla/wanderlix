@@ -1,15 +1,16 @@
 .post-header {
-  margin-left: 0;
+  /* margin-left: 0; */
+  color: #fff;
 }
 
 .post-header h1 {
-  font-size: 40px;
-  margin-bottom: 1rem !important;
-  color: #203656;
+  font-size: 36px;
+  margin-bottom: 16px !important;
+  margin-top: 0 !important;
+  color: #fff;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   line-height: 1.4;
-  margin: 20px 0;
 }
 
 .post-header-image {
@@ -30,7 +31,7 @@
 }
 
 .post-header > ul > li.comment-count svg {
-  fill: #666;
+  fill: rgba(255, 255, 255, 0.6);
   width: "14";
   height: "14";
 }
@@ -45,7 +46,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  color: #888;
+  color: rgba(255, 255, 255, 0.6);
   margin-left: 0;
   padding-left: 0;
 }
@@ -59,9 +60,9 @@
 .post-header > ul > li::after {
   content: "";
   display: inline-block;
-  background-color: #fe4f70;
+  background-color: #fff;
   border-radius: 50%;
-  margin-left: 1rem;
+  margin-left: 16px;
   height: 3px;
   vertical-align: middle;
   position: relative;
@@ -77,15 +78,81 @@ img.author-avatar {
 
 @media only screen and (max-width: 700px) {
   .post-header > h1 {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  .post-header > ul {
-    margin-left: 10px;
-    margin-right: 10px;
+    font-size: 26px;
   }
   .post-content h2 {
     margin-left: 10px;
     margin-right: 10px;
   }
+}
+
+.breadcrumbs {
+  margin-bottom: 0;
+  color: #fff;
+}
+
+.breadcrumbs ol {
+  font-size: 14px;
+  padding: 0;
+  margin-bottom: 20px;
+  list-style: none;
+  background-color: transparent;
+  border-radius: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
+}
+
+.breadcrumbs ol li:not(:first-child)::before {
+  float: left;
+  padding-right: 0.5rem;
+  color: #8f9bad;
+  content: "/";
+}
+
+.breadcrumbs ol li {
+  padding-left: 8px;
+}
+
+.breadcrumbs ol li:first-child {
+  padding-left: 0;
+}
+
+.breadcrumbs ol li > a {
+  color: #fff;
+  text-decoration: none;
+  outline: none;
+}
+
+.breadcrumbs ol li:last-child > a {
+  color: #8f9bad;
+}
+
+.post-cover {
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 600px;
+  position: relative;
+  width: 100%;
+  /* padding-left: 12px;
+  padding-right: 12px; */
+}
+
+.post-cover::after {
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  background-color: rgba(32, 54, 86, 0.6);
+}
+
+.cover-content {
+  bottom: 60px;
+  max-width: 720px;
+  position: absolute;
+  z-index: 1;
 }

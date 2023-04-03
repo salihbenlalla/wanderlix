@@ -1,5 +1,7 @@
 .image_caption {
   margin: 16px auto;
+  display: block;
+  width: 100%;
 }
 /* .image_caption img {
   width: 100%;
