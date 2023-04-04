@@ -1,9 +1,8 @@
 .main-content {
-  margin-top: 60px;
+  margin-top: 36px;
 }
 
 .post-container {
-  margin-top: -24px;
   display: flex;
   flex-wrap: wrap;
   color: #203656;
@@ -16,14 +15,6 @@
   .post-container {
     max-width: 1140px;
   }
-}
-
-.container {
-  width: 100%;
-  padding-right: 12px;
-  padding-left: 12px;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 @media (min-width: 1200px) {
@@ -39,11 +30,9 @@
   width: 100%;
   padding: 20px;
   box-sizing: border-box; */
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 24px;
-  margin-right: -12;
-  margin-left: -12;
+  /* display: flex;
+  flex-wrap: wrap; */
+  margin-top: 12px;
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -56,15 +45,13 @@
 }
 
 .post-sidebar {
-  /* flex-shrink: 0; */
-  margin-top: 24px;
   flex: 0 0 auto;
   width: 100%;
   box-sizing: border-box;
   max-width: 100%;
-  padding-right: 11px;
-  padding-left: 11px;
-  margin-top: 22px;
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-top: 12px;
 }
 
 @media (min-width: 992px) {

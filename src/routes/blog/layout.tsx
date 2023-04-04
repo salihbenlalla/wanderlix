@@ -226,8 +226,6 @@ export default component$(() => {
   const comments = useGetComments().value;
   const action = useAddComment();
 
-  console.log("breadcrumbs: ", head.frontmatter.breadcrumbs);
-
   return (
     <>
       <PostHeader

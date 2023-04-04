@@ -139,6 +139,19 @@ img.author-avatar {
   padding-right: 12px; */
 }
 
+@media only screen and (max-width: 992px) {
+  .post-cover {
+    height: 400px;
+    background-attachment: unset;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .post-cover {
+    height: 300px;
+  }
+}
+
 .post-cover::after {
   content: "";
   display: block;

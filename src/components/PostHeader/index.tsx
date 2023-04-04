@@ -27,26 +27,15 @@ export default component$<PostHeaderProps>((props) => {
           <nav class="breadcrumbs">
             <ol>
               {props.breadcrumbs.map((breadcrumb) => {
-                //   if (index === 0) {
-                //     return (
-                //       <li key={uuidv4()} class="breadcrumb-first">
-                //         {breadcrumb}
-                //       </li>
-                //     );
-                //   }
-                //   if (index === props.breadcrumbs.length - 1) {
-                //     return (
-                //       <li key={uuidv4()} class="breadcrumb-last">
-                //         {breadcrumb}
-                //       </li>
-                //     );
-                //   }
                 return (
                   <li key={uuidv4()} class="breadcrumb">
                     <a href="#">{breadcrumb}</a>
                   </li>
                 );
               })}
+              <li key={uuidv4()} class="breadcrumb">
+                <a href="#">{props.title}</a>
+              </li>
             </ol>
           </nav>
           <div class="post-header">
