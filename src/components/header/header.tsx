@@ -1,13 +1,27 @@
-import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import { Travel2Logo } from "../icons/travel2_logo";
 import SearchIcon from "~/assets/icomoon_svg/search.svg?component";
 import styles from "./header.css?inline";
 
-export default component$(() => {
-  useStylesScoped$(styles);
+interface HeaderProps {
+  hidden?: boolean;
+  sticky?: boolean;
+}
+
+export default component$<HeaderProps>((props) => {
+  useStyles$(styles);
+
+  const headerStyle = {
+    padding: props.sticky ? "13px 0" : "28px 0",
+    position: props.sticky ? "fixed" : "relative",
+    top: 0,
+    transform: props.hidden
+      ? "translate3d(0, -100%, 0)"
+      : "translate3d(0, 0, 0)",
+  };
 
   return (
-    <header class="main-header">
+    <header class="main-header" style={headerStyle}>
       <div class="container">
         <nav class="navbar">
           <div class="logo">
