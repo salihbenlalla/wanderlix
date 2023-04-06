@@ -38,7 +38,7 @@
   color: #203656;
   text-decoration: none;
   outline: none;
-  font-size: 26px;
+  font-size: 36px;
   font-weight: 700;
   font-family: "Poppins";
 }
@@ -131,6 +131,12 @@
   transition: all 0.2s ease-in-out;
 }
 
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .header-buttons button:hover {
   background-position: bottom center;
   cursor: pointer;
@@ -138,4 +144,22 @@
 
 .header-buttons button svg {
   fill: #fff;
+}
+
+.burger-icon:before,
+.burger-icon:after {
+  content: "";
+  background: #fff;
+  display: block;
+  margin: auto;
+  height: 1px;
+  width: 15px;
+}
+
+.burger-icon:before {
+  margin-bottom: 6px;
+}
+
+.burger-icon:after {
+  margin-top: 6px;
 }

@@ -1,7 +1,8 @@
-import { component$, useStyles$ } from "@builder.io/qwik";
-import { Travel2Logo } from "../icons/travel2_logo";
+import { component$, useContext, useStyles$ } from "@builder.io/qwik";
+// import { Travel2Logo } from "../icons/travel2_logo";
 import SearchIcon from "~/assets/icomoon_svg/search.svg?component";
 import styles from "./header.css?inline";
+import { ThemeContext } from "~/routes/layout";
 
 interface HeaderProps {
   hidden?: boolean;
@@ -10,6 +11,8 @@ interface HeaderProps {
 
 export default component$<HeaderProps>((props) => {
   useStyles$(styles);
+
+  const theme = useContext(ThemeContext);
 
   const headerStyle = {
     padding: props.sticky ? "13px 0" : "28px 0",
@@ -26,7 +29,10 @@ export default component$<HeaderProps>((props) => {
         <nav class="navbar">
           <div class="logo">
             <a href="https://travel2.ml/" target="_blank">
-              <Travel2Logo /> <div>Travel2</div>
+              {/* <Travel2Logo />{" "} */}
+              <div>
+                Travel<span class="logo-two">2</span>
+              </div>
             </a>
           </div>
           <ul>
@@ -54,6 +60,9 @@ export default component$<HeaderProps>((props) => {
           <div class="header-buttons">
             <button>
               <SearchIcon width="16" height="16" viewBox="0 0 20 20" />
+            </button>
+            <button onClick$={() => (theme.sideMenuOpen = true)}>
+              <span class="burger-icon"></span>
             </button>
           </div>
         </nav>
