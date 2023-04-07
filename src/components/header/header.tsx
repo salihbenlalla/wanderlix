@@ -15,7 +15,7 @@ export default component$<HeaderProps>((props) => {
   const theme = useContext(ThemeContext);
 
   const headerStyle = {
-    padding: props.sticky ? "13px 0" : "28px 0",
+    padding: props.sticky ? "25px 0" : "40px 0",
     position: props.sticky ? "fixed" : "relative",
     top: 0,
     transform: props.hidden
@@ -47,18 +47,18 @@ export default component$<HeaderProps>((props) => {
               </a>
             </li>
             <li>
-              <a class="nav-link" href="#">
+              <a class="nav-link active" href="#">
                 Destinations
               </a>
             </li>
             <li>
-              <a class="nav-link active" href="#">
+              <a class="nav-link" href="#">
                 Login
               </a>
             </li>
           </ul>
           <div class="header-buttons">
-            <button>
+            <button onClick$={() => (theme.searchPopupOpen = true)}>
               <SearchIcon width="16" height="16" viewBox="0 0 20 20" />
             </button>
             <button onClick$={() => (theme.sideMenuOpen = true)}>

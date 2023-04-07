@@ -28,11 +28,21 @@ export default component$(() => {
       </div>
       <nav>
         <ul>
-          <li>Home</li>
-          <li>Lifestyle</li>
-          <li>Culture</li>
-          <li>Features</li>
-          <li>Shop</li>
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="#">Lifestyle</a>
+          </li>
+          <li>
+            <a href="#">Culture</a>
+          </li>
+          <li>
+            <a href="#">Features</a>
+          </li>
+          <li>
+            <a href="#">Shop</a>
+          </li>
         </ul>
       </nav>
     </div>

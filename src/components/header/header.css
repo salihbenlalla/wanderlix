@@ -38,7 +38,7 @@
   color: #203656;
   text-decoration: none;
   outline: none;
-  font-size: 36px;
+  font-size: 26px;
   font-weight: 700;
   font-family: "Poppins";
 }
@@ -56,6 +56,7 @@
   margin-left: 50px;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
+  line-height: 24px;
   padding-left: 0;
   margin-bottom: 0;
 }
@@ -72,10 +73,11 @@
 }
 
 .nav-link {
+  display: block;
   color: #79889e;
   text-decoration: none;
   outline: none;
-  padding: 9px 18px;
+  padding: 7.024px 20.8px;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;

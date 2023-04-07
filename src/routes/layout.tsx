@@ -7,22 +7,28 @@ import {
 } from "@builder.io/qwik";
 import MainOverlay from "~/components/MainOverlay";
 import ReadingBar from "~/components/ReadingBar";
+import SearchPopup from "~/components/SearchPopup";
 import SideMenu from "~/components/SideMenu";
 import Header from "../components/header";
 
 interface ThemeStore {
   sideMenuOpen: boolean;
+  searchPopupOpen: boolean;
 }
 
 export const ThemeContext = createContextId<ThemeStore>("theme-context");
 
 export default component$(() => {
-  const themeStore = useStore<ThemeStore>({ sideMenuOpen: false });
+  const themeStore = useStore<ThemeStore>({
+    sideMenuOpen: false,
+    searchPopupOpen: false,
+  });
   useContextProvider(ThemeContext, themeStore);
   return (
     <>
       <main>
         <ReadingBar />
+        <SearchPopup />
         <MainOverlay />
         <SideMenu />
         <Header />

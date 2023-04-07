@@ -9,9 +9,7 @@ export default component$(() => {
   return (
     <div
       class={`main-overlay${theme.sideMenuOpen === true ? " active" : ""}`}
-      onClick$={() => {
-        console.log(theme.sideMenuOpen);
-      }}
+      onClick$={() => (theme.sideMenuOpen = false)}
     ></div>
   );
 });
