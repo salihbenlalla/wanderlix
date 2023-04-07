@@ -2,48 +2,48 @@
 
 @font-face {
   font-family: "dm sans";
-  src: url("/fonts/dmsans-regular-webfont.woff2") format("woff2"),
-    url("/fonts/dmsans-regular-webfont.woff") format("woff");
+  src: url("dmsans-regular-webfont.woff2") format("woff2"),
+    url("dmsans-regular-webfont.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "dm sans";
-  src: url("/fonts/dmsans-italic-webfont.woff2") format("woff2"),
-    url("/fonts/dmsans-italic-webfont.woff") format("woff");
+  src: url("dmsans-italic-webfont.woff2") format("woff2"),
+    url("dmsans-italic-webfont.woff") format("woff");
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
   font-family: "dm sans";
-  src: url("/fonts/dmsans-medium-webfont.woff2") format("woff2"),
-    url("/fonts/dmsans-medium-webfont.woff") format("woff");
+  src: url("dmsans-medium-webfont.woff2") format("woff2"),
+    url("dmsans-medium-webfont.woff") format("woff");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "dm sans";
-  src: url("/fonts/dmsans-mediumitalic-webfont.woff2") format("woff2"),
-    url("/fonts/dmsans-mediumitalic-webfont.woff") format("woff");
+  src: url("dmsans-mediumitalic-webfont.woff2") format("woff2"),
+    url("dmsans-mediumitalic-webfont.woff") format("woff");
   font-weight: 500;
   font-style: italic;
 }
 
 @font-face {
   font-family: "dm sans";
-  src: url("/fonts/dmsans-bold-webfont.woff2") format("woff2"),
-    url("/fonts/dmsans-bold-webfont.woff") format("woff");
+  src: url("dmsans-bold-webfont.woff2") format("woff2"),
+    url("dmsans-bold-webfont.woff") format("woff");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "dm sans";
-  src: url("/fonts/dmsans-bolditalic-webfont.woff2") format("woff2"),
-    url("/fonts/dmsans-bolditalic-webfont.woff") format("woff");
+  src: url("dmsans-bolditalic-webfont.woff2") format("woff2"),
+    url("dmsans-bolditalic-webfont.woff") format("woff");
   font-weight: 700;
   font-style: italic;
 }

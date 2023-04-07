@@ -1,5 +1,6 @@
 .text_container {
-  background-color: #f0f2f7;
+  /* background-color: #f0f2f7; //original */
+  background-color: #f1f8ff;
   border-radius: 5px;
   padding: 25px;
   margin-top: 25px;
@@ -29,4 +30,8 @@
 
 .text_container iframe {
   width: 100%;
+}
+
+.text_container ul li::marker {
+  color: #fe4f70;
 }

@@ -31,9 +31,13 @@
   margin-bottom: 80px;
   margin-top: 50px;
   width: 100%;
+}
+
+.side-menu-logo > a {
   font-size: 26px;
   font-weight: 700;
   font-family: "Poppins", sans-serif;
+  color: #203656 !important;
 }
 
 .side-menu nav {

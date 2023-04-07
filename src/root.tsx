@@ -20,13 +20,6 @@ export default component$(() => {
   return (
     <QwikCityProvider>
       <head>
-        <meta charSet="utf-8" />
-        <link rel="manifest" href="/manifest.json" />
-        {/* <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css"
-        ></link> */}
-        <link rel="stylesheet" href="/fonts/poppins/stylesheet.css" />
         <RouterHead />
       </head>
       <body lang="en">

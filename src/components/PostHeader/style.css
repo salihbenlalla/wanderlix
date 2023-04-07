@@ -168,4 +168,6 @@ img.author-avatar {
   max-width: 720px;
   position: absolute;
   z-index: 1;
+  padding-left: 12px;
+  padding-right: 12px;
 }

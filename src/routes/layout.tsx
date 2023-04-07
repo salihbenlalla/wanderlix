@@ -36,7 +36,7 @@ export default component$(() => {
         <Slot />
         {/* </section> */}
       </main>
-      <footer>
+      <footer class="site-footer">
         <p>Copyright travel2.ml © 2022</p>
       </footer>
     </>

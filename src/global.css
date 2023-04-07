@@ -43,8 +43,8 @@ body {
 
 .container {
   width: 100%;
-  padding-right: 12px;
-  padding-left: 12px;
+  /* padding-right: 12px;
+  padding-left: 12px; */
   margin-right: auto;
   margin-left: auto;
 }
@@ -63,7 +63,7 @@ main {
   font-size: large;
 }
 
-footer {
+.site-footer {
   border-top: solid 1px #ebebeb;
   margin-top: 50px;
   padding: 40px;
@@ -71,14 +71,27 @@ footer {
   font-size: 16px;
   color: #8f9bad;
 }
-footer a {
+.site-footer a {
   text-decoration: none;
-  color: inherit;
+  color: #fe4f70;
 }
 
-footer a:hover {
+.site-footer a:hover {
   text-decoration: underline;
-  color: inherit;
+  color: #203656;
+}
+
+a {
+  color: #fe4f70;
+  outline: 0;
+  text-decoration: none;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  color: #203656;
 }
 
 .logo-two {

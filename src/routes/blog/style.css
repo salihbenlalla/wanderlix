@@ -130,8 +130,12 @@ blockquote::after {
 
 .post-content a {
   text-decoration: none;
-  color: var(--font-color-secondary);
-  font-weight: 700;
+  color: #fe4f70;
+  /* font-weight: 700; */
+}
+
+.post-content a:hover {
+  color: #203656;
 }
 
 .post-content .blockquote_wrapper {
@@ -224,7 +228,7 @@ blockquote::after {
 }
 
 .post-content p {
-  color: #2e383f;
+  color: #203656;
   font-family: "dm sans";
   font-size: 16px;
   font-weight: 300;
