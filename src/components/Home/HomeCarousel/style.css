@@ -1,0 +1,158 @@
+.carousel-posts-container {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transform: translateY(-120px);
+}
+
+.carousel-posts-list {
+  list-style: none;
+  user-select: none;
+  position: relative;
+  width: 1400px;
+  height: 600px;
+}
+
+.carousel-posts-list > li {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@media (min-width: 992px) {
+  .carousel-posts-container {
+    max-width: 1400px;
+  }
+}
+
+.carousel-post-thumbnail {
+  max-width: 1400px;
+}
+
+.carousel-post-thumbnail-inner {
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.carousel-post-thumbnail-inner img {
+  object-fit: cover;
+  width: 100vw;
+  /* height: 200px; */
+}
+
+/* .carousel-post-thumbnail-inner img:hover {
+  transform: scale(1.1);
+} */
+
+.carousel-post-details a {
+  text-decoration: none;
+  outline: 0;
+}
+
+.carousel-post-title {
+  margin-bottom: 0 !important;
+  margin-top: 24px !important;
+  color: #203656;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  line-height: 1.4;
+  font-size: 20px;
+  transition: color 0.2s ease-in-out;
+}
+
+.carousel-post-title:hover {
+  color: #fe4f70;
+}
+
+.carousel-post-meta {
+  font-size: 14px;
+  color: #8f9bad;
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 0 !important;
+  margin-top: 8px !important;
+}
+
+.carousel-post-meta li {
+  margin-right: 13px;
+  padding-top: 0;
+  display: inline-block;
+  position: relative;
+}
+
+.carousel-post-meta li:not(:last-child)::after {
+  content: "";
+  display: inline-block;
+  background-color: #fe4f70;
+  border-radius: 50%;
+  margin-left: 16px;
+  height: 3px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  width: 3px;
+}
+
+.carousel-post-meta li a {
+  color: #8f9bad;
+  font-weight: 400;
+  box-shadow: none;
+  text-decoration: none;
+  outline: 0;
+  cursor: pointer;
+}
+
+.carousel-post-meta li a:hover {
+  color: #fe4f70;
+}
+
+.carousel-arrows {
+  box-sizing: border-box;
+  text-align: center;
+  margin-top: 20px !important;
+}
+
+.carousel-arrows button {
+  cursor: pointer;
+  font-size: 10px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #fff;
+  border-radius: 50%;
+  border: solid 1px #ebebeb;
+  padding: 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  margin: 2px;
+
+  position: absolute;
+  top: 50%;
+  transform: translate3d(-50%, 0, 0);
+}
+
+.carousel-arrow-left {
+  left: 12px;
+}
+
+.carousel-arrow-right {
+  right: 12px;
+}
+
+.carousel-arrows button svg {
+  vertical-align: middle;
+  fill: #909090;
+}
+
+.carousel-arrows button:hover {
+  border-color: #fe4f70;
+}
+
+.carousel-arrows button:hover svg {
+  fill: #fe4f70;
+}

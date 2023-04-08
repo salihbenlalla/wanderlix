@@ -43,10 +43,14 @@ body {
 
 .container {
   width: 100%;
-  /* padding-right: 12px;
-  padding-left: 12px; */
   margin-right: auto;
   margin-left: auto;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
 }
 
 main {

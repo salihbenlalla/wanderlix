@@ -1,11 +1,64 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import BannerSection from "./BannerSection";
+import HomeCarousel, { type HomeCarouselProps } from "./HomeCarousel";
+
+const postsCarousel: HomeCarouselProps = {
+  posts: [
+    {
+      title: "Post 0",
+      url: "#",
+      thumbnail: "/images/place1.jpg",
+      date: "26 August 2022",
+      author: "John Doe",
+      authorUrl: "#",
+    },
+    {
+      title: "Post 1",
+      url: "#",
+      thumbnail: "/images/place2.jpg",
+      date: "23 August 2022",
+      author: "John Smith",
+      authorUrl: "#",
+    },
+    {
+      title: "Post 2",
+      url: "#",
+      thumbnail: "/images/place3.jpg",
+      date: "23 August 2022",
+      author: "matilda Smith",
+      authorUrl: "#",
+    },
+    {
+      title: "Post 3",
+      url: "#",
+      thumbnail: "/images/place4.jpg",
+      date: "23 August 2022",
+      author: "John Smith",
+      authorUrl: "#",
+    },
+    {
+      title: "Post 4",
+      url: "#",
+      thumbnail: "/images/place5.jpg",
+      date: "23 August 2022",
+      author: "John Smith",
+      authorUrl: "#",
+    },
+    {
+      title: "Post 4",
+      url: "#",
+      thumbnail: "/images/place6.jpg",
+      date: "23 August 2022",
+      author: "John Smith",
+      authorUrl: "#",
+    },
+  ],
+};
 
 export default component$(() => {
   return (
     <>
-      <BannerSection />
+      <HomeCarousel posts={postsCarousel.posts} />
     </>
   );
 });
