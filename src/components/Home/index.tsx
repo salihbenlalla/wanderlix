@@ -1,6 +1,7 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import HomeCarousel, { type HomeCarouselProps } from "./HomeCarousel";
+import styles from "./index.css?inline";
 
 const postsCarousel: HomeCarouselProps = {
   posts: [
@@ -56,9 +57,11 @@ const postsCarousel: HomeCarouselProps = {
 };
 
 export default component$(() => {
+  useStyles$(styles);
   return (
     <>
-      <HomeCarousel posts={postsCarousel.posts} />
+      {/* <HomeCarousel posts={postsCarousel.posts} /> */}
+      <div class="hero"></div>
     </>
   );
 });

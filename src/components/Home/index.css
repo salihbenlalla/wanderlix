@@ -1,0 +1,42 @@
+.hero {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0)
+    ),
+    url("/images/place6.jpg");
+  background-size: cover;
+  background-position: center;
+  height: calc(100vh - 118px);
+  overflow: hidden;
+  /* transform: rotateX(80deg); */
+  /* transform-style: preserve-3d; */
+  animation: rotate-in 1s forwards;
+  transition-timing-function: ease-out;
+  transform-origin: bottom right;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translate(100%, 100%);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes rotate-in {
+  0% {
+    transform: rotate(90deg);
+  }
+  /* 25% {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  } */
+  100% {
+    transform: rotate(0);
+  }
+}

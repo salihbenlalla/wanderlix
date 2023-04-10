@@ -5,7 +5,7 @@
   background-position: center center;
   background-attachment: scroll;
   background-size: cover;
-  border-bottom: solid 1px #ebebeb;
+  /* border-bottom: solid 1px #ebebeb; */
   margin: 0;
   transition: 0.3s transform cubic-bezier(0.3, 0.73, 0.3, 0.74);
   z-index: 4;
