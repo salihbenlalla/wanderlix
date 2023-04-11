@@ -1,0 +1,27 @@
+/* use this article: https://blog.bitsrc.io/image-perspective-distortion-with-javascript-and-html-canvas-14627233623d*/
+
+.image {
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+}
+
+/* .image > img {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  transform-origin: center center;
+  animation: ripple 5s ease-out forwards;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale3d(0, 0, 0);
+  }
+  20% {
+    transform: scale3d(10, 10, 1);
+  }
+  100% {
+    transform: scale3d(10, 10, 1);
+  }
+} */
