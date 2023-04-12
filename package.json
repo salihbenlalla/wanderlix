@@ -34,6 +34,8 @@
     "@types/node": "^18.15.9",
     "@types/node-fetch": "latest",
     "@types/scriptjs": "^0.0.2",
+    "@types/three": "^0.131.0",
+    "@types/tween.js": "^18.6.1",
     "@typescript-eslint/eslint-plugin": "5.56.0",
     "@typescript-eslint/parser": "5.56.0",
     "better-sqlite3": "^8.2.0",
@@ -58,10 +60,12 @@
     "wrangler": "latest"
   },
   "dependencies": {
+    "@tweenjs/tween.js": "^19.0.0",
     "@types/uuid": "^9.0.1",
     "dateformat": "^5.0.3",
     "motion": "^10.15.5",
     "scriptjs": "^2.5.9",
+    "three": "^0.131.0",
     "uuid": "^9.0.0"
   }
 }
