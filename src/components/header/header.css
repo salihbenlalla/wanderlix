@@ -1,7 +1,6 @@
 .main-header {
   transform: translateY(0);
-  /* background-color: #fff; */
-  display: none;
+  background-color: #fff;
   background-repeat: repeat;
   background-position: center center;
   background-attachment: scroll;

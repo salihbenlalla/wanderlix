@@ -70,9 +70,10 @@ export default component$(() => {
   useStyles$(styles);
   return (
     <>
-      {/* <HomeCarousel posts={postsCarousel.posts} /> */}
-      {/* <div class="hero"></div> */}
-      <ImageSlider />
+      <div class="hero-container">
+        <div class="hero-blur"></div>
+        <ImageSlider />
+      </div>
     </>
   );
 });
