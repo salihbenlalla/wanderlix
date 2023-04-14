@@ -64,6 +64,7 @@
     "@types/uuid": "^9.0.1",
     "dateformat": "^5.0.3",
     "motion": "^10.15.5",
+    "particles.js": "^2.0.0",
     "scriptjs": "^2.5.9",
     "three": "^0.131.0",
     "uuid": "^9.0.0"

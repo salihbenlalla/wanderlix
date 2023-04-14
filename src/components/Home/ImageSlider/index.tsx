@@ -1,9 +1,6 @@
-import {
-  $,
-  component$,
-  useSignal,
-  useStyles$,
-} from "@builder.io/qwik";
+import { $, component$, useSignal, useStyles$ } from "@builder.io/qwik";
+// import { animate } from "motion";
+import { animateSlider, type AnimateSliderOptions } from "./animateSlider";
 import styles from "./style.css?inline";
 
 const images = [
@@ -17,23 +14,49 @@ const images = [
 
 const ImageSlider = component$(() => {
   useStyles$(styles);
-  const vpRef = useSignal<HTMLDivElement>();
-  const currentIndex = useSignal<number>(0)
-  
+  const sliderRef = useSignal<HTMLCanvasElement>();
+  const currentIndex = useSignal<number>(0);
+  const scaleSignal = useSignal<number>(1);
+  const blurSignal = useSignal<number>(0);
+
+  const animateSliderOptions: Omit<AnimateSliderOptions, "direction"> = {
+    sliderRef,
+    currentIndex,
+    scaleSignal,
+    scaleValue: 5,
+    blurSignal,
+    blurValue: 5,
+    images,
+    duration: 1,
+  };
+
   const handlePrev = $(() => {
-    currentIndex.value = currentIndex.value === 0 ? images.length - 1: currentIndex.value - 1
-  })
+    animateSlider({ ...animateSliderOptions, direction: "prev" });
+  });
 
   const handleNext = $(() => {
-    currentIndex.value = currentIndex.value + 1 === images.length? 0: currentIndex.value + 1
-  })
+    animateSlider({ ...animateSliderOptions, direction: "next" });
+  });
 
-  return <div ref={vpRef} class="hero-slider-container">
-    <div >
-      <button class="hero-slider-btn prev" onClick$={handlePrev}>Prev</button>
-      <button class="hero-slider-btn next" onClick$={handleNext}>Next</button>
+  return (
+    <div class="hero-slider-container">
+      <div
+        ref={sliderRef}
+        class="hero-slider"
+        style={{
+          backgroundImage: `url("${images[currentIndex.value]}")`,
+          transform: `scale(${scaleSignal.value})`,
+          filter: `blur(${blurSignal.value}px)`,
+        }}
+      ></div>
+      <button class="hero-slider-btn-prev" onClick$={handlePrev}>
+        Prev
+      </button>
+      <button class="hero-slider-btn-next" onClick$={handleNext}>
+        Next
+      </button>
     </div>
-  </div>;
+  );
 });
 
 export default ImageSlider;
