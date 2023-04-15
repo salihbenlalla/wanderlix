@@ -28,5 +28,10 @@ export default defineConfig(() => {
     build: {
       minify: false,
     },
+    server: {
+      hmr: {
+        clientPort: 5173,
+      },
+    },
   };
 });

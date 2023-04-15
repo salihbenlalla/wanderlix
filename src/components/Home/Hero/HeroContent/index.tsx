@@ -1,18 +1,72 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
+import SlickSlider, { type HomeCarouselProps } from "./SlickSlider";
 import styles from "./style.css?inline";
+
+const SlickSliderProps: HomeCarouselProps = {
+  posts: [
+    {
+      title: "Post 0",
+      url: "#",
+      thumbnail: "/images/thumbnail4.jpg",
+      date: "26 August 2022",
+      author: "John Doe",
+      authorUrl: "#",
+    },
+    {
+      title: "Post 1",
+      url: "#",
+      thumbnail: "/images/thumbnail5.jpg",
+      date: "23 August 2022",
+      author: "John Smith",
+      authorUrl: "#",
+    },
+    {
+      title: "Post 2",
+      url: "#",
+      thumbnail: "/images/thumbnail6.jpg",
+      date: "23 August 2022",
+      author: "matilda Smith",
+      authorUrl: "#",
+    },
+    {
+      title: "Post 3",
+      url: "#",
+      thumbnail: "/images/thumbnail5.jpg",
+      date: "23 August 2022",
+      author: "John Smith",
+      authorUrl: "#",
+    },
+    {
+      title: "Post 4",
+      url: "#",
+      thumbnail: "/images/thumbnail5.jpg",
+      date: "23 August 2022",
+      author: "John Smith",
+      authorUrl: "#",
+    },
+  ],
+};
 
 export default component$(() => {
   useStyles$(styles);
   return (
-    <div class="hero-content">
-      <h1>Africa</h1>
-      <p>
-        Embark on an unforgettable adventure with our travel guides to Africa's
-        wildlife, landscapes, and history. Get inspired and start exploring now!
-      </p>
-      <button>
-        Explore guides<span class="button-arrow">&rarr;</span>
-      </button>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-content-left">
+          <h1>Africa</h1>
+          <p>
+            Embark on an unforgettable adventure with our travel guides to
+            Africa's wildlife, landscapes, and history. Get inspired and start
+            exploring now!
+          </p>
+          <button>
+            Explore guides<span class="button-arrow">&rarr;</span>
+          </button>
+        </div>
+        <div class="hero-content-right">
+          <SlickSlider posts={SlickSliderProps.posts} />
+        </div>
+      </div>
     </div>
   );
 });

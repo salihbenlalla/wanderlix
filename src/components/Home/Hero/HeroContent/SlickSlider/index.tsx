@@ -4,7 +4,6 @@ import {
   useSignal,
   useStore,
   useStyles$,
-  useOnDocument,
 } from "@builder.io/qwik";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./style.css?inline";
@@ -53,35 +52,19 @@ export const getTranslateValues = (
 
 export default component$<HomeCarouselProps>((props) => {
   useStyles$(styles);
-  const MARGIN = 0;
-  const ITEMWIDTH = 1400;
+  const MARGIN = 10;
+  const ITEMWIDTH = 150;
   const direction = useSignal<"prev" | "next" | null>(null);
-  const margin = useSignal(0);
 
   const store = useStore<Store>(
     {
       translateValues: getTranslateValues(
         props.posts.length,
-        margin.value,
+        MARGIN,
         ITEMWIDTH
       ),
     },
     { deep: true }
-  );
-
-  useOnDocument(
-    "load",
-    $(() => {
-      const windowWidth = window.innerWidth;
-      if (windowWidth < 992) {
-        margin.value = MARGIN;
-        store.translateValues = getTranslateValues(
-          props.posts.length,
-          margin.value,
-          ITEMWIDTH
-        );
-      }
-    })
   );
 
   const handleNext = $(() => {
@@ -103,15 +86,15 @@ export default component$<HomeCarouselProps>((props) => {
   });
 
   return (
-    <div class="home-carousel">
+    <div class="hero-slick-slider">
       {props.posts.length && (
         <>
-          <div class="carousel-posts-container">
-            <ul class={`carousel-posts-list`}>
+          <div class="hero-slick-slider-posts-container">
+            <ul class={`hero-slick-slider-posts-list`}>
               {props.posts.map((post, index) => {
                 return (
                   <CarouselItem
-                    key={`carousel-post-${uuidv4()}`}
+                    key={`slick-slider-post-${uuidv4()}`}
                     title={post.title}
                     thumbnail={post.thumbnail}
                     date={post.date}
@@ -126,11 +109,11 @@ export default component$<HomeCarouselProps>((props) => {
               })}
             </ul>
           </div>
-          <div class="carousel-arrows">
-            <button class="carousel-arrow-left" onClick$={handlePrev}>
+          <div class="hero-slick-slider-arrows">
+            <button class="hero-slick-slider-arrow-left" onClick$={handlePrev}>
               <CheveronLeft />
             </button>
-            <button class="carousel-arrow-right" onClick$={handleNext}>
+            <button class="hero-slick-slider-arrow-right" onClick$={handleNext}>
               <CheveronRight />
             </button>
           </div>
