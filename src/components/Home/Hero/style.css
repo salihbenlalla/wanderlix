@@ -1,0 +1,19 @@
+.hero-container {
+  position: relative;
+  height: calc(100vh - 118px);
+}
+
+.hero-blur {
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.1),
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.1)
+  );
+  z-index: 1;
+  height: calc(100vh - 118px);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
