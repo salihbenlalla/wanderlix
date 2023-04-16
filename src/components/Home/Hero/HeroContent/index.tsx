@@ -7,7 +7,7 @@ const SlickSliderProps: HomeCarouselProps = {
     {
       title: "Post 0",
       url: "#",
-      thumbnail: "/images/thumbnail4.jpg",
+      thumbnail: "/images/place1.jpg",
       date: "26 August 2022",
       author: "John Doe",
       authorUrl: "#",
@@ -15,7 +15,7 @@ const SlickSliderProps: HomeCarouselProps = {
     {
       title: "Post 1",
       url: "#",
-      thumbnail: "/images/thumbnail5.jpg",
+      thumbnail: "/images/place2.jpg",
       date: "23 August 2022",
       author: "John Smith",
       authorUrl: "#",
@@ -23,7 +23,7 @@ const SlickSliderProps: HomeCarouselProps = {
     {
       title: "Post 2",
       url: "#",
-      thumbnail: "/images/thumbnail6.jpg",
+      thumbnail: "/images/place3.jpg",
       date: "23 August 2022",
       author: "matilda Smith",
       authorUrl: "#",
@@ -31,7 +31,7 @@ const SlickSliderProps: HomeCarouselProps = {
     {
       title: "Post 3",
       url: "#",
-      thumbnail: "/images/thumbnail5.jpg",
+      thumbnail: "/images/place4.jpg",
       date: "23 August 2022",
       author: "John Smith",
       authorUrl: "#",
@@ -39,7 +39,15 @@ const SlickSliderProps: HomeCarouselProps = {
     {
       title: "Post 4",
       url: "#",
-      thumbnail: "/images/thumbnail5.jpg",
+      thumbnail: "/images/place5.jpg",
+      date: "23 August 2022",
+      author: "John Smith",
+      authorUrl: "#",
+    },
+    {
+      title: "Post 5",
+      url: "#",
+      thumbnail: "/images/place6.jpg",
       date: "23 August 2022",
       author: "John Smith",
       authorUrl: "#",
@@ -64,7 +72,7 @@ export default component$(() => {
           </button>
         </div>
         <div class="hero-content-right">
-          <SlickSlider posts={SlickSliderProps.posts} />
+          <SlickSlider currentIndex={6} posts={SlickSliderProps.posts} />
         </div>
       </div>
     </div>

@@ -4,6 +4,8 @@ import {
   useSignal,
   useStore,
   useStyles$,
+  //   useTask$,
+  //   useVisibleTask$,
 } from "@builder.io/qwik";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./style.css?inline";
@@ -22,6 +24,7 @@ export interface CarouselPost {
 
 export interface HomeCarouselProps {
   posts: CarouselPost[];
+  currentIndex: number;
 }
 
 interface Store {
@@ -66,6 +69,27 @@ export default component$<HomeCarouselProps>((props) => {
     },
     { deep: true }
   );
+  //   const prevIndex = useSignal(
+  //     store.translateValues.find((value, index) => {
+  //       if (value === 0) return index;
+  //     })
+  //   );
+
+  //   useVisibleTask$(({ track }) => {
+  //       track(props);
+
+  //     let index = prevIndex.value ?? 0;
+
+  //     while (index !== props.currentIndex) {
+  //       direction.value = "next";
+
+  //       const lastItem = store.translateValues.pop();
+  //       if (typeof lastItem === "number") {
+  //         store.translateValues.unshift(lastItem);
+  //       }
+  //       index = index + 1 === props.posts.length ? 0 : index + 1;
+  //     }
+  //   });
 
   const handleNext = $(() => {
     direction.value = "next";
@@ -85,6 +109,8 @@ export default component$<HomeCarouselProps>((props) => {
     }
   });
 
+  console.log("from slick slider");
+
   return (
     <div class="hero-slick-slider">
       {props.posts.length && (
@@ -97,10 +123,10 @@ export default component$<HomeCarouselProps>((props) => {
                     key={`slick-slider-post-${uuidv4()}`}
                     title={post.title}
                     thumbnail={post.thumbnail}
-                    date={post.date}
+                    // date={post.date}
                     url={post.url}
-                    author={post.author}
-                    authorUrl={post.authorUrl}
+                    // author={post.author}
+                    // authorUrl={post.authorUrl}
                     translateValue={store.translateValues[index]}
                     direction={direction.value}
                     itemWidth={ITEMWIDTH + 2 * MARGIN}

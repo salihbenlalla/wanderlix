@@ -12,7 +12,8 @@
   flex-direction: column;
 }
 
-.hero-content-left {
+.hero-content-left,
+.hero-content-right {
   padding: 20px;
   width: 100%;
 }
@@ -20,17 +21,22 @@
 @media only screen and (min-width: 992px) {
   .hero-content {
     flex-direction: row;
+    align-items: center;
+    height: 100%;
   }
 
-    .hero-content-left {
-      flex-grow: 1;
-      flex-shrink: 1;
-    }
-  
-    .hero-content-right {
-      flex-grow: 1;
-      flex-shrink: 1;
-    }
+  .hero-content-left {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 500px;
+  }
+
+  .hero-content-right {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 500px;
+    align-self: flex-end;
+  }
 }
 
 .hero-content-left h1 {
