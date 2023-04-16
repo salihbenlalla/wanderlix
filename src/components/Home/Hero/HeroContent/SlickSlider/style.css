@@ -1,6 +1,5 @@
 /* .hero-slick-slider {
-  width: 90%;
-  margin-right: 20px;
+  border: 1px solid red;
 } */
 
 .hero-slick-slider-posts-container {
@@ -26,6 +25,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  height: 230px;
 }
 
 /* @media (min-width: 992px) {

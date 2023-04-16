@@ -25,9 +25,9 @@ export default defineConfig(() => {
         "Cache-Control": "public, max-age=600",
       },
     },
-    build: {
-      minify: false,
-    },
+    // build: {
+    //   minify: false,
+    // },
     server: {
       hmr: {
         clientPort: 5173,
