@@ -4,14 +4,16 @@ import {
   useSignal,
   useStore,
   useStyles$,
-  //   useTask$,
-  //   useVisibleTask$,
+  useTask$,
+  useVisibleTask$,
+  // useVisibleTask$,
 } from "@builder.io/qwik";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./style.css?inline";
 import CheveronRight from "~/assets/icomoon_svg/cheveron-right.svg?component";
 import CheveronLeft from "~/assets/icomoon_svg/cheveron-left.svg?component";
 import CarouselItem from "./CarouselItem";
+import { isBrowser } from "@builder.io/qwik/build";
 
 export interface CarouselPost {
   title: string;
@@ -69,27 +71,8 @@ export default component$<HomeCarouselProps>((props) => {
     },
     { deep: true }
   );
-  //   const prevIndex = useSignal(
-  //     store.translateValues.find((value, index) => {
-  //       if (value === 0) return index;
-  //     })
-  //   );
 
-  //   useVisibleTask$(({ track }) => {
-  //       track(props);
-
-  //     let index = prevIndex.value ?? 0;
-
-  //     while (index !== props.currentIndex) {
-  //       direction.value = "next";
-
-  //       const lastItem = store.translateValues.pop();
-  //       if (typeof lastItem === "number") {
-  //         store.translateValues.unshift(lastItem);
-  //       }
-  //       index = index + 1 === props.posts.length ? 0 : index + 1;
-  //     }
-  //   });
+    
 
   const handleNext = $(() => {
     direction.value = "next";
@@ -109,7 +92,29 @@ export default component$<HomeCarouselProps>((props) => {
     }
   });
 
-  console.log("from slick slider");
+
+  useVisibleTask$(({ track }) => {
+      track(() => props.currentIndex);
+        
+      const translateValues = store.translateValues.map(value => value)
+
+      let index = store.translateValues.find((value, index) => {
+        if (value === 0) return index;
+      })?? Math.floor(props.posts.length / 2)
+
+      while (index !== props.currentIndex) {
+        console.log("from slick slider useVisibleTask$: ", props.currentIndex);
+        handleNext()
+        index = index + 1 === props.posts.length ? 0 : index + 1;
+      }
+      store.translateValues = translateValues
+
+        if (isBrowser) {
+          
+        }
+    });
+
+  
 
   return (
     <div class="hero-slick-slider">

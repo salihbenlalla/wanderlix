@@ -5,6 +5,7 @@ import {
   useStyles$,
   useVisibleTask$,
 } from "@builder.io/qwik";
+import HeroContent from "../HeroContent";
 import { animateSlider, type AnimateSliderOptions } from "./animateSlider";
 import styles from "./style.css?inline";
 
@@ -46,13 +47,15 @@ const ImageSlider = component$(() => {
   };
 
   useVisibleTask$(() => {
+    console.log('from ImageSlider: ', currentIndex.value)
     window.heroSliderTimer = setInterval(() => {
       animateSlider({ ...animateSliderOptions, direction: "next" });
+      
     }, 5000);
 
     return () => clearInterval(window.heroSliderTimer);
   });
-
+  
   const handlePrev = $(() => {
     animateSlider({ ...animateSliderOptions, direction: "prev" });
   });
@@ -62,6 +65,7 @@ const ImageSlider = component$(() => {
   });
 
   return (
+    <>
     <div class="hero-slider-container">
       <div class="hero-slider">
         <div
@@ -93,6 +97,8 @@ const ImageSlider = component$(() => {
         &rsaquo;
       </button>
     </div>
+    <HeroContent currentIndex={currentIndex.value} />
+    </>
   );
 });
 
