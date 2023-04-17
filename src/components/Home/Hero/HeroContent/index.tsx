@@ -1,4 +1,4 @@
-import { component$, useSignal, useStyles$, useVisibleTask$ } from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import SlickSlider, { type HomeCarouselProps } from "./SlickSlider";
 import styles from "./style.css?inline";
 
@@ -53,20 +53,15 @@ const SlickSliderProps: HomeCarouselProps = {
       authorUrl: "#",
     },
   ],
-  currentIndex: 0
 };
 
-interface HeroProps {
-  currentIndex: number
-}
-
-export default component$<HeroProps>((props) => {
-  const currentIndex = useSignal<number>(props.currentIndex)
+export default component$(() => {
+  //   const currentIndex = useSignal<number>(props.currentIndex);
   useStyles$(styles);
-  useVisibleTask$(({track}) => {
-    track(() => props.currentIndex)
-    
-  })
+  //   useVisibleTask$(({ track }) => {
+  //     track(() => props.currentIndex);
+  //     console.log("from HeroContent: ", currentIndex.value);
+  //   });
   return (
     <div class="container">
       <div class="hero-content">
@@ -82,7 +77,7 @@ export default component$<HeroProps>((props) => {
           </button>
         </div>
         <div class="hero-content-right">
-          <SlickSlider currentIndex={currentIndex.value} posts={SlickSliderProps.posts} />
+          <SlickSlider posts={SlickSliderProps.posts} />
         </div>
       </div>
     </div>

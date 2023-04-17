@@ -1,7 +1,13 @@
-import { component$, useStyles$ } from "@builder.io/qwik";
+import {
+  component$,
+  useContextProvider,
+  useSignal,
+  useStyles$,
+} from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 // import HomeCarousel, { type HomeCarouselProps } from "./HomeCarousel";
 import Hero from "./Hero";
+import { homeContext } from "./HomeContext";
 import styles from "./index.css?inline";
 
 // const postsCarousel: HomeCarouselProps = {
@@ -68,6 +74,9 @@ import styles from "./index.css?inline";
 
 export default component$(() => {
   useStyles$(styles);
+  const heroCurrentIndex = useSignal(0);
+
+  useContextProvider(homeContext, heroCurrentIndex);
   return (
     <>
       <div>
