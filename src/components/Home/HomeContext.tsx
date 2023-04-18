@@ -1,3 +1,4 @@
-import { createContextId, type Signal } from "@builder.io/qwik";
+import { createContextId } from "@builder.io/qwik";
+import { type HomeContextStore } from ".";
 
-export const homeContext = createContextId<Signal<number>>("home-context");
+export const homeContext = createContextId<HomeContextStore>("home-context");

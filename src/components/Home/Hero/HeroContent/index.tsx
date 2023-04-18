@@ -1,56 +1,63 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import SlickSlider, { type HomeCarouselProps } from "./SlickSlider";
+import SlickSlider from "./SlickSlider2";
+import { type SlickSliderProps } from "./SlickSlider2";
 import styles from "./style.css?inline";
 
-const SlickSliderProps: HomeCarouselProps = {
-  posts: [
+const SlickSliderProps: SlickSliderProps = {
+  slides: [
     {
       title: "Post 0",
-      url: "#",
       thumbnail: "/images/place1.jpg",
-      date: "26 August 2022",
-      author: "John Doe",
-      authorUrl: "#",
+      description: "this is a description",
+      //   url: "#",
+      //   date: "26 August 2022",
+      //   author: "John Doe",
+      //   authorUrl: "#",
     },
     {
       title: "Post 1",
-      url: "#",
       thumbnail: "/images/place2.jpg",
-      date: "23 August 2022",
-      author: "John Smith",
-      authorUrl: "#",
+      description: "this is a description",
+      //   url: "#",
+      //   date: "23 August 2022",
+      //   author: "John Smith",
+      //   authorUrl: "#",
     },
     {
       title: "Post 2",
-      url: "#",
       thumbnail: "/images/place3.jpg",
-      date: "23 August 2022",
-      author: "matilda Smith",
-      authorUrl: "#",
+      description: "this is a description",
+      //   url: "#",
+      //   date: "23 August 2022",
+      //   author: "matilda Smith",
+      //   authorUrl: "#",
     },
     {
       title: "Post 3",
-      url: "#",
       thumbnail: "/images/place4.jpg",
-      date: "23 August 2022",
-      author: "John Smith",
-      authorUrl: "#",
+      description: "this is a description",
+      //   url: "#",
+      //   date: "23 August 2022",
+      //   author: "John Smith",
+      //   authorUrl: "#",
     },
     {
       title: "Post 4",
-      url: "#",
       thumbnail: "/images/place5.jpg",
-      date: "23 August 2022",
-      author: "John Smith",
-      authorUrl: "#",
+      description: "this is a description",
+      //   url: "#",
+      //   date: "23 August 2022",
+      //   author: "John Smith",
+      //   authorUrl: "#",
     },
     {
       title: "Post 5",
-      url: "#",
       thumbnail: "/images/place6.jpg",
-      date: "23 August 2022",
-      author: "John Smith",
-      authorUrl: "#",
+      description: "this is a description",
+      //   url: "#",
+      //   date: "23 August 2022",
+      //   author: "John Smith",
+      //   authorUrl: "#",
     },
   ],
 };
@@ -77,7 +84,7 @@ export default component$(() => {
           </button>
         </div>
         <div class="hero-content-right">
-          <SlickSlider posts={SlickSliderProps.posts} />
+          <SlickSlider />
         </div>
       </div>
     </div>

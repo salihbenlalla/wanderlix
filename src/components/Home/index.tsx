@@ -1,12 +1,14 @@
 import {
   component$,
   useContextProvider,
-  useSignal,
+  //   useSignal,
+  useStore,
   useStyles$,
 } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 // import HomeCarousel, { type HomeCarouselProps } from "./HomeCarousel";
 import Hero from "./Hero";
+import { type Slide } from "./Hero/HeroContent/SlickSlider2";
 import { homeContext } from "./HomeContext";
 import styles from "./index.css?inline";
 
@@ -72,11 +74,56 @@ import styles from "./index.css?inline";
 //   "/images/place6.jpg",
 // ];
 
+export interface HomeContextStore {
+  currentIndex: number;
+  slides: Slide[];
+  direction: "next" | "prev" | undefined;
+}
+
 export default component$(() => {
   useStyles$(styles);
-  const heroCurrentIndex = useSignal(0);
+  // const heroCurrentIndex = useSignal(0);
+  const store = useStore<HomeContextStore>(
+    {
+      direction: undefined,
+      currentIndex: 0,
+      slides: [
+        {
+          title: "Post 0",
+          thumbnail: "/images/place1.jpg",
+          description: "this is a description",
+        },
+        {
+          title: "Post 1",
+          thumbnail: "/images/place2.jpg",
+          description: "this is a description",
+        },
+        {
+          title: "Post 2",
+          thumbnail: "/images/place3.jpg",
+          description: "this is a description",
+        },
+        {
+          title: "Post 3",
+          thumbnail: "/images/place4.jpg",
+          description: "this is a description",
+        },
+        {
+          title: "Post 4",
+          thumbnail: "/images/place5.jpg",
+          description: "this is a description",
+        },
+        {
+          title: "Post 5",
+          thumbnail: "/images/place6.jpg",
+          description: "this is a description",
+        },
+      ],
+    },
+    { deep: true }
+  );
 
-  useContextProvider(homeContext, heroCurrentIndex);
+  useContextProvider(homeContext, store);
   return (
     <>
       <div>

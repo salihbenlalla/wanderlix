@@ -7,6 +7,7 @@ import {
   useVisibleTask$,
 } from "@builder.io/qwik";
 import { homeContext } from "../../HomeContext";
+// import { type SlickSliderProps } from "../HeroContent/SlickSlider2";
 import { animateSlider, type AnimateSliderOptions } from "./animateSlider";
 import styles from "./style.css?inline";
 
@@ -16,40 +17,42 @@ declare global {
   }
 }
 
-const images = [
-  "/images/place1.jpg",
-  "/images/place2.jpg",
-  "/images/place3.jpg",
-  "/images/place4.jpg",
-  "/images/place5.jpg",
-  "/images/place6.jpg",
-];
+// const images = [
+//   "/images/place1.jpg",
+//   "/images/place2.jpg",
+//   "/images/place3.jpg",
+//   "/images/place4.jpg",
+//   "/images/place5.jpg",
+//   "/images/place6.jpg",
+// ];
 
 const ImageSlider = component$(() => {
   useStyles$(styles);
+
+  const homeContextStore = useContext(homeContext);
   const prevRef = useSignal<HTMLDivElement>();
   const currentRef = useSignal<HTMLDivElement>();
   const nextRef = useSignal<HTMLDivElement>();
 
-  const prevIndex = useSignal<number>(images.length - 1);
-  const currentIndex = useContext(homeContext);
+  const prevIndex = useSignal<number>(homeContextStore.slides.length - 1);
   const nextIndex = useSignal<number>(1);
+
+  //   const slides = homeContextStore.slides;
 
   const animateSliderOptions: Omit<AnimateSliderOptions, "direction"> = {
     prevRef,
     currentRef,
     nextRef,
     prevIndex,
-    currentIndex,
+    homeContextStore,
     nextIndex,
-    images,
     blurValue: 10,
     duration: 1,
   };
 
   useVisibleTask$(() => {
     window.heroSliderTimer = setInterval(() => {
-      console.log("from ImageSlider: ", currentIndex.value);
+      console.log("from ImageSlider: ", homeContextStore.currentIndex);
       animateSlider({ ...animateSliderOptions, direction: "next" });
     }, 5000);
 
@@ -72,29 +75,35 @@ const ImageSlider = component$(() => {
             ref={prevRef}
             class="slide prev"
             style={{
-              backgroundImage: `url("${images[prevIndex.value]}")`,
+              backgroundImage: `url("${
+                homeContextStore.slides[prevIndex.value].thumbnail
+              }")`,
             }}
           />
           <div
             ref={currentRef}
             class="slide current"
             style={{
-              backgroundImage: `url("${images[currentIndex.value]}")`,
+              backgroundImage: `url("${
+                homeContextStore.slides[homeContextStore.currentIndex].thumbnail
+              }")`,
             }}
           />
           <div
             ref={nextRef}
             class="slide next"
             style={{
-              backgroundImage: `url("${images[nextIndex.value]}")`,
+              backgroundImage: `url("${
+                homeContextStore.slides[nextIndex.value].thumbnail
+              }")`,
             }}
           />
         </div>
         <button class="hero-slider-btn-prev" onClick$={handlePrev}>
-          &lsaquo;
+          &#10094;
         </button>
         <button class="hero-slider-btn-next" onClick$={handleNext}>
-          &rsaquo;
+          &#10095;
         </button>
       </div>
     </>

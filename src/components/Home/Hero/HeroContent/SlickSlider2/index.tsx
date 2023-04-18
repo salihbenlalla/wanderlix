@@ -1,73 +1,103 @@
-import { $, component$, useSignal, useStyles$ } from '@builder.io/qwik';
-import styles from './style.css?inline'
+import {
+  component$,
+  useContext,
+  useStyles$,
+  useVisibleTask$,
+} from "@builder.io/qwik";
+import { homeContext } from "~/components/Home/HomeContext";
+import styles from "./style.css?inline";
 
-interface Slide {
-    imageUrl: string;
-    title: string;
-    description: string
-
+export interface Slide {
+  title: string;
+  thumbnail: string;
+  description: string;
 }
 
-interface Props {
-    slides: Slide[]
+export interface SlickSliderProps {
+  slides: Slide[];
 }
 
-const SlickSlider = component$<Props>(({ slides }) => {
-    useStyles$(styles)
-  const currentSlide = useSignal<number>(0)
+const SlickSlider = component$(() => {
+  useStyles$(styles);
 
-  const handlePrevSlide = $(() => {
-    currentSlide.value = currentSlide.value === 0 ? slides.length - 1 : currentSlide.value - 1;
+  const homeContextStore = useContext(homeContext);
+
+  useVisibleTask$(({ track }) => {
+    track(() => homeContextStore.currentIndex);
+    if (homeContextStore.currentIndex === homeContextStore.slides.length - 1) {
+      console.log("reached the end", homeContextStore.slides.length);
+    }
   });
 
-  const handleNextSlide = $(() => {
-    currentSlide.value = currentSlide.value === slides.length + 1 ? 0 : currentSlide.value + 1;
-  });
-
-  const slideWidth = 100 / (slides.length + 2);
-
-  const slideStyle = {
-    width: `${slideWidth}%`,
-    transform: `translateX(-${(currentSlide.value + 1) * slideWidth}%)`,
-    transition: 'transform 0.5s ease-in-out',
+  const slideStyles = (index: number) => {
+    const styles = {
+      left: `${(index - homeContextStore.currentIndex - 1) * 100}%`,
+      opacity: 1,
+    };
+    if (index - homeContextStore.currentIndex < 0) {
+      styles.left = `${
+        (homeContextStore.slides.length -
+          homeContextStore.currentIndex +
+          index -
+          1) *
+        100
+      }%`;
+      //   styles.opacity = 0;
+    }
+    return styles;
   };
 
   return (
-    <div class="slider-container">
-      <div
-        class="slide"
-        style={{
-          ...slideStyle,
-          backgroundImage: `url(${slides[slides.length - 1].imageUrl})`,
-          opacity: currentSlide.value === -1 ? 1 : 0,
-        }}
-      ></div>
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          class={`slide ${index === currentSlide.value ? 'active' : ''}`}
-          style={{ ...slideStyle, backgroundImage: `url(${slide.imageUrl})` }}
+    <div class={`slider2-container`}>
+      <div class="slider2-wrapper">
+        {homeContextStore.slides.map((slide, index) => (
+          <div
+            key={index}
+            class={`slide2`}
+            style={{
+              backgroundImage: `url(${slide.thumbnail})`,
+              ...slideStyles(index),
+            }}
+          >
+            <div class="slide2-content">
+              <h2>{slide.title}</h2>
+              <p>{slide.description}</p>
+            </div>
+          </div>
+        ))}
+        {/* <div
+          class={`slide2`}
+          style={{
+            backgroundImage: `url(${homeContextStore.slides[0].thumbnail})`,
+            left: `${
+              (homeContextStore.slides.length - homeContextStore.currentIndex) *
+              100
+            }%`,
+          }}
         >
-          <div class="slide-content">
-            <h2>{slide.title}</h2>
-            <p>{slide.description}</p>
+          <div class="slide2-content">
+            <h2>{homeContextStore.slides[0].title}</h2>
+            <p>{homeContextStore.slides[0].description}</p>
           </div>
         </div>
-      ))}
-      <div
-        class="slide"
-        style={{
-          ...slideStyle,
-          backgroundImage: `url(${slides[0].imageUrl})`,
-          opacity: currentSlide.value === slides.length ? 1 : 0,
-        }}
-      ></div>
-      <button class="prev" onClick$={handlePrevSlide}>
-        &#10094;
-      </button>
-      <button class="next" onClick$={handleNextSlide}>
-        &#10095;
-      </button>
+        <div
+          class={`slide2`}
+          style={{
+            backgroundImage: `url(${homeContextStore.slides[1].thumbnail})`,
+            left: `${
+              (homeContextStore.slides.length +
+                1 -
+                homeContextStore.currentIndex) *
+              100
+            }%`,
+          }}
+        >
+          <div class="slide2-content">
+            <h2>{homeContextStore.slides[1].title}</h2>
+            <p>{homeContextStore.slides[1].description}</p>
+          </div>
+        </div> */}
+      </div>
     </div>
   );
 });

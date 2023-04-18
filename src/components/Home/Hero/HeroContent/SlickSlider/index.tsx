@@ -21,6 +21,7 @@ export interface CarouselPost {
   url: string;
   author?: string;
   authorUrl?: string;
+  description?: string;
 }
 
 export interface HomeCarouselProps {

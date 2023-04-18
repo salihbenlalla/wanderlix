@@ -1,14 +1,15 @@
 import { type Signal } from "@builder.io/qwik";
 import { timeline } from "motion";
+import { type HomeContextStore } from "../..";
+// import { type Slide } from "../HeroContent/SlickSlider2";
 
 export interface AnimateSliderOptions {
   prevRef: Signal<HTMLDivElement | undefined>;
   currentRef: Signal<HTMLDivElement | undefined>;
   nextRef: Signal<HTMLDivElement | undefined>;
   prevIndex: Signal<number>;
-  currentIndex: Signal<number>;
+  homeContextStore: HomeContextStore;
   nextIndex: Signal<number>;
-  images: string[];
   blurValue: number;
   duration: number;
   direction: "prev" | "next";
@@ -16,17 +17,17 @@ export interface AnimateSliderOptions {
 
 const changeIndex = (options: AnimateSliderOptions) => {
   const prevIndex = options.prevIndex.value;
-  const currentIndex = options.currentIndex.value;
+  const currentIndex = options.homeContextStore.currentIndex;
   const nextIndex = options.nextIndex.value;
-  const lastIndex = options.images.length - 1;
+  const lastIndex = options.homeContextStore.slides.length - 1;
   if (options.direction === "prev") {
     options.prevIndex.value = prevIndex === 0 ? lastIndex : prevIndex - 1;
-    options.currentIndex.value =
+    options.homeContextStore.currentIndex =
       currentIndex === 0 ? lastIndex : currentIndex - 1;
     options.nextIndex.value = nextIndex === 0 ? lastIndex : nextIndex - 1;
   }
   if (options.direction === "next") {
-    options.currentIndex.value =
+    options.homeContextStore.currentIndex =
       currentIndex === lastIndex ? 0 : currentIndex + 1;
     options.prevIndex.value = prevIndex === lastIndex ? 0 : prevIndex + 1;
     options.nextIndex.value = nextIndex === lastIndex ? 0 : nextIndex + 1;
@@ -34,6 +35,12 @@ const changeIndex = (options: AnimateSliderOptions) => {
 };
 
 export const animateSlider = async (options: AnimateSliderOptions) => {
+  if (options.direction === "next") {
+    options.homeContextStore.direction = "next";
+  }
+  if (options.direction === "prev") {
+    options.homeContextStore.direction = "prev";
+  }
   if (
     options.prevRef.value &&
     options.nextRef.value &&
@@ -119,4 +126,5 @@ export const animateSlider = async (options: AnimateSliderOptions) => {
     ]).finished;
   }
   changeIndex(options);
+  options.homeContextStore.direction = undefined;
 };
