@@ -34,6 +34,25 @@ const changeIndex = (options: AnimateSliderOptions) => {
   }
 };
 
+const changeSlickSliderIndex = (options: AnimateSliderOptions) => {
+  //   const prevIndex = options.prevIndex.value;
+  const currentIndex = options.homeContextStore.slickSliderCurrentIndex;
+  //   const nextIndex = options.nextIndex.value;
+  const lastIndex = options.homeContextStore.slides.length - 1;
+  if (options.direction === "prev") {
+    // options.prevIndex.value = prevIndex === 0 ? lastIndex : prevIndex - 1;
+    options.homeContextStore.slickSliderCurrentIndex =
+      currentIndex === 0 ? lastIndex : currentIndex - 1;
+    // options.nextIndex.value = nextIndex === 0 ? lastIndex : nextIndex - 1;
+  }
+  if (options.direction === "next") {
+    options.homeContextStore.slickSliderCurrentIndex =
+      currentIndex === lastIndex ? 0 : currentIndex + 1;
+    // options.prevIndex.value = prevIndex === lastIndex ? 0 : prevIndex + 1;
+    // options.nextIndex.value = nextIndex === lastIndex ? 0 : nextIndex + 1;
+  }
+};
+
 export const animateSlider = async (options: AnimateSliderOptions) => {
   if (options.direction === "next") {
     options.homeContextStore.direction = "next";
@@ -46,6 +65,7 @@ export const animateSlider = async (options: AnimateSliderOptions) => {
     options.nextRef.value &&
     options.currentRef.value
   ) {
+    changeSlickSliderIndex(options);
     await timeline([
       //animate scale and opacity of prev/next slide
       [
@@ -126,5 +146,5 @@ export const animateSlider = async (options: AnimateSliderOptions) => {
     ]).finished;
   }
   changeIndex(options);
-  options.homeContextStore.direction = undefined;
+  //   options.homeContextStore.direction = "next";
 };

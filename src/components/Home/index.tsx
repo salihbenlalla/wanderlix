@@ -76,6 +76,7 @@ import styles from "./index.css?inline";
 
 export interface HomeContextStore {
   currentIndex: number;
+  slickSliderCurrentIndex: number;
   slides: Slide[];
   direction: "next" | "prev" | undefined;
 }
@@ -87,6 +88,7 @@ export default component$(() => {
     {
       direction: undefined,
       currentIndex: 0,
+      slickSliderCurrentIndex: 0,
       slides: [
         {
           title: "Post 0",

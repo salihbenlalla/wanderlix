@@ -52,7 +52,6 @@ const ImageSlider = component$(() => {
 
   useVisibleTask$(() => {
     window.heroSliderTimer = setInterval(() => {
-      console.log("from ImageSlider: ", homeContextStore.currentIndex);
       animateSlider({ ...animateSliderOptions, direction: "next" });
     }, 5000);
 
