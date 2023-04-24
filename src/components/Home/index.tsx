@@ -8,7 +8,7 @@ import {
 import type { DocumentHead } from "@builder.io/qwik-city";
 // import HomeCarousel, { type HomeCarouselProps } from "./HomeCarousel";
 import Hero from "./Hero";
-import { type Slide } from "./Hero/HeroContent/SlickSlider2";
+import { type Slide } from "./Hero/HeroContent/SlickSlider";
 import { homeContext } from "./HomeContext";
 import styles from "./index.css?inline";
 

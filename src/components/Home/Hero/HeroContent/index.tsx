@@ -1,6 +1,6 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import SlickSlider from "./SlickSlider2";
-import { type SlickSliderProps } from "./SlickSlider2";
+import SlickSlider from "./SlickSlider";
+import { type SlickSliderProps } from "./SlickSlider";
 import styles from "./style.css?inline";
 
 const SlickSliderProps: SlickSliderProps = {

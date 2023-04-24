@@ -1,157 +1,211 @@
 import {
-  //   $,
   component$,
   useContext,
   useSignal,
-  useStore,
+  //   useSignal,
   useStyles$,
   useVisibleTask$,
 } from "@builder.io/qwik";
-import { v4 as uuidv4 } from "uuid";
-import styles from "./style.css?inline";
-// import CheveronRight from "~/assets/icomoon_svg/cheveron-right.svg?component";
-// import CheveronLeft from "~/assets/icomoon_svg/cheveron-left.svg?component";
-import CarouselItem from "./CarouselItem";
+import { animate } from "motion";
 import { homeContext } from "~/components/Home/HomeContext";
+import styles from "./style.css?inline";
 
-export interface CarouselPost {
+export interface Slide {
   title: string;
-  thumbnail?: string;
-  date?: string;
-  url: string;
-  author?: string;
-  authorUrl?: string;
-  description?: string;
+  thumbnail: string;
+  description: string;
 }
 
-export interface HomeCarouselProps {
-  posts: CarouselPost[];
+export interface SlickSliderProps {
+  slides: Slide[];
 }
 
-interface Store {
-  translateValues: number[];
-}
+const SlickSlider = component$(() => {
+  useStyles$(styles);
 
-declare global {
-  interface Window {
-    timer?: ReturnType<typeof window.setTimeout>;
-  }
-}
+  const homeContextStore = useContext(homeContext);
 
-export const getTranslateValues = (
-  numberOfPosts: number,
-  margin: number = 0,
-  itemWidth: number
-) => {
-  // const halfOfPosts = Math.floor(numberOfPosts / 2);
-  const halfOfPosts = 1;
-  const numbers = Array.from({ length: numberOfPosts }, (_, i) => i);
-  return numbers.map((num, index) => {
-    // return (itemWidth + margin * 2) * index;
-    if (index >= halfOfPosts) {
-      return (itemWidth + margin * 2) * (index - halfOfPosts);
-    } else {
-      return -(itemWidth + margin * 2) * (halfOfPosts - index);
+  const prevIndex = useSignal(homeContextStore.slides.length - 1);
+  const currentIndex = useSignal(0);
+  const nextIndex = useSignal(1);
+
+  const slideStyles = (index: number) => {
+    const styles = {
+      left: `${(index - homeContextStore.slickSliderCurrentIndex) * 100}%`,
+      opacity: 1,
+    };
+    if (index - homeContextStore.slickSliderCurrentIndex < 0) {
+      styles.left = `${
+        (homeContextStore.slides.length -
+          homeContextStore.slickSliderCurrentIndex +
+          index) *
+        100
+      }%`;
+    }
+
+    if (
+      (homeContextStore.direction === "next" &&
+        index - prevIndex.value === 0) ||
+      (homeContextStore.direction === "prev" &&
+        index - currentIndex.value === 0)
+    ) {
+      styles.opacity = 0;
+    }
+    return styles;
+  };
+
+  const firstSlide = useSignal<HTMLDivElement>();
+  const lastSlide = useSignal<HTMLDivElement>();
+  useVisibleTask$(({ track }) => {
+    track(() => homeContextStore.slickSliderCurrentIndex);
+
+    prevIndex.value =
+      homeContextStore.slickSliderCurrentIndex === 0
+        ? homeContextStore.slides.length - 1
+        : homeContextStore.slickSliderCurrentIndex - 1;
+
+    nextIndex.value =
+      homeContextStore.slickSliderCurrentIndex + 1 ===
+      homeContextStore.slides.length
+        ? 0
+        : homeContextStore.slickSliderCurrentIndex + 1;
+
+    currentIndex.value = homeContextStore.slickSliderCurrentIndex;
+
+    if (firstSlide.value && lastSlide.value) {
+      if (homeContextStore.direction === "next") {
+        animate(
+          firstSlide.value,
+          { left: "-100%" },
+          { easing: "ease-out", duration: 1 }
+        );
+        animate(
+          lastSlide.value,
+          {
+            left: `${(homeContextStore.slides.length - 1) * 100}%`,
+          },
+          { easing: "ease-out", duration: 1 }
+        );
+      }
+      if (homeContextStore.direction === "prev") {
+        animate(
+          firstSlide.value,
+          { left: "0%" },
+          { easing: "ease-out", duration: 1 }
+        );
+        animate(
+          lastSlide.value,
+          {
+            left: `${homeContextStore.slides.length * 100}%`,
+          },
+          { easing: "ease-out", duration: 1 }
+        );
+      }
     }
   });
-};
-
-export default component$<HomeCarouselProps>((props) => {
-  useStyles$(styles);
-  const MARGIN = 10;
-  const ITEMWIDTH = 150;
-  const direction = useSignal<"prev" | "next" | null>(null);
-  const currentIndex = useContext(homeContext);
-
-  const store = useStore<Store>(
-    {
-      translateValues: getTranslateValues(
-        props.posts.length,
-        MARGIN,
-        ITEMWIDTH
-      ),
-    },
-    { deep: true }
-  );
-
-  //   const handleNext = $(() => {
-  //     direction.value = "next";
-
-  //     const lastItem = store.translateValues.pop();
-  //     if (typeof lastItem === "number") {
-  //       store.translateValues.unshift(lastItem);
-  //     }
-  //   });
-
-  //   const handlePrev = $(() => {
-  //     direction.value = "prev";
-
-  //     const firstItem = store.translateValues.shift();
-  //     if (typeof firstItem === "number") {
-  //       store.translateValues.push(firstItem);
-  //     }
-  //   });
-
-  useVisibleTask$(
-    ({ track }) => {
-      track(currentIndex);
-      console.log("from slick slider useVisibleTask$: ", currentIndex.value);
-
-      //   const translateValues = store.translateValues.map((value) => value);
-
-      let index =
-        store.translateValues.find((value, index) => {
-          if (value === 0) return index;
-        }) ?? 0;
-
-      direction.value = "next";
-      while (index !== currentIndex.value) {
-        // handleNext();
-        const lastItem = store.translateValues.pop();
-        if (typeof lastItem === "number") {
-          store.translateValues.unshift(lastItem);
-        }
-        index = index + 1 === props.posts.length ? 0 : index + 1;
-      }
-      //   store.translateValues = translateValues;
-    },
-    { strategy: "document-ready" }
-  );
-
   return (
-    <div class="hero-slick-slider">
-      {props.posts.length && (
-        <>
-          <div class="hero-slick-slider-posts-container">
-            <ul class={`hero-slick-slider-posts-list`}>
-              {props.posts.map((post, index) => {
-                return (
-                  <CarouselItem
-                    key={`slick-slider-post-${uuidv4()}`}
-                    title={post.title}
-                    thumbnail={post.thumbnail}
-                    // date={post.date}
-                    url={post.url}
-                    // author={post.author}
-                    // authorUrl={post.authorUrl}
-                    translateValue={store.translateValues[index]}
-                    direction={direction.value}
-                    itemWidth={ITEMWIDTH + 2 * MARGIN}
-                  />
-                );
-              })}
-            </ul>
+    <div class={`slider2-container`}>
+      <div class="slider2-wrapper">
+        <div
+          ref={firstSlide}
+          class={`slide2`}
+          style={{
+            backgroundImage: `url(${
+              homeContextStore.slides[
+                homeContextStore.direction === "next"
+                  ? prevIndex.value
+                  : currentIndex.value
+              ].thumbnail
+            })`,
+            left: homeContextStore.direction === "next" ? "0%" : "-100%",
+            opacity: 1,
+          }}
+        >
+          <div class="slide2-content">
+            <h2>
+              {
+                homeContextStore.slides[
+                  homeContextStore.direction === "next"
+                    ? prevIndex.value
+                    : currentIndex.value
+                ].title
+              }
+            </h2>
+            <p>
+              {
+                homeContextStore.slides[
+                  homeContextStore.direction === "next"
+                    ? prevIndex.value
+                    : currentIndex.value
+                ].description
+              }
+            </p>
           </div>
-          {/* <div class="hero-slick-slider-arrows">
-            <button class="hero-slick-slider-arrow-left" onClick$={handlePrev}>
-              <CheveronLeft />
-            </button>
-            <button class="hero-slick-slider-arrow-right" onClick$={handleNext}>
-              <CheveronRight />
-            </button>
-          </div> */}
-        </>
-      )}
+        </div>
+        {homeContextStore.slides.map((slide, index) => (
+          <div
+            key={index}
+            class={`slide2`}
+            style={{
+              backgroundImage: `url(${slide.thumbnail})`,
+              ...slideStyles(index),
+            }}
+          >
+            <div class="slide2-content">
+              <h2>{slide.title}</h2>
+              <p>{slide.description}</p>
+            </div>
+          </div>
+        ))}
+        <div
+          ref={lastSlide}
+          class={`slide2`}
+          //   style={{
+          //     backgroundImage: `url(${
+          //       homeContextStore.slides[prevIndex.value].thumbnail
+          //     })`,
+          //     left: `${(homeContextStore.slides.length - 1) * 100}%`,
+          //     opacity: 1,
+          //   }}
+          style={{
+            backgroundImage: `url(${
+              homeContextStore.slides[
+                homeContextStore.direction === "prev"
+                  ? currentIndex.value
+                  : prevIndex.value
+              ].thumbnail
+            })`,
+            left:
+              homeContextStore.direction === "prev"
+                ? `${(homeContextStore.slides.length - 1) * 100}%`
+                : `${homeContextStore.slides.length * 100}%`,
+            opacity: 1,
+          }}
+        >
+          <div class="slide2-content">
+            <h2>
+              {
+                homeContextStore.slides[
+                  homeContextStore.direction === "prev"
+                    ? currentIndex.value
+                    : prevIndex.value
+                ].title
+              }
+            </h2>
+            <p>
+              {
+                homeContextStore.slides[
+                  homeContextStore.direction === "prev"
+                    ? currentIndex.value
+                    : prevIndex.value
+                ].description
+              }
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 });
+
+export default SlickSlider;
