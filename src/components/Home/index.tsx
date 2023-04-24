@@ -86,7 +86,7 @@ export default component$(() => {
   // const heroCurrentIndex = useSignal(0);
   const store = useStore<HomeContextStore>(
     {
-      direction: undefined,
+      direction: "next",
       currentIndex: 0,
       slickSliderCurrentIndex: 0,
       slides: [

@@ -46,7 +46,8 @@ const SlickSlider = component$(() => {
     if (
       (homeContextStore.direction === "next" &&
         index - prevIndex.value === 0) ||
-      (homeContextStore.direction === "prev" && index - prevIndex.value === 1)
+      (homeContextStore.direction === "prev" &&
+        index - currentIndex.value === 0)
     ) {
       styles.opacity = 0;
     }
@@ -71,7 +72,6 @@ const SlickSlider = component$(() => {
 
     currentIndex.value = homeContextStore.slickSliderCurrentIndex;
 
-    console.log(prevIndex.value);
     if (firstSlide.value && lastSlide.value) {
       if (homeContextStore.direction === "next") {
         animate(
@@ -96,7 +96,7 @@ const SlickSlider = component$(() => {
         animate(
           lastSlide.value,
           {
-            left: `${(homeContextStore.slides.length + 1) * 100}%`,
+            left: `${homeContextStore.slides.length * 100}%`,
           },
           { easing: "ease-out", duration: 1 }
         );
@@ -160,17 +160,47 @@ const SlickSlider = component$(() => {
         <div
           ref={lastSlide}
           class={`slide2`}
+          //   style={{
+          //     backgroundImage: `url(${
+          //       homeContextStore.slides[prevIndex.value].thumbnail
+          //     })`,
+          //     left: `${(homeContextStore.slides.length - 1) * 100}%`,
+          //     opacity: 1,
+          //   }}
           style={{
             backgroundImage: `url(${
-              homeContextStore.slides[prevIndex.value].thumbnail
+              homeContextStore.slides[
+                homeContextStore.direction === "prev"
+                  ? currentIndex.value
+                  : prevIndex.value
+              ].thumbnail
             })`,
-            left: `${homeContextStore.slides.length * 100}%`,
+            left:
+              homeContextStore.direction === "prev"
+                ? `${(homeContextStore.slides.length - 1) * 100}%`
+                : `${homeContextStore.slides.length * 100}%`,
             opacity: 1,
           }}
         >
           <div class="slide2-content">
-            <h2>{homeContextStore.slides[prevIndex.value].title}</h2>
-            <p>{homeContextStore.slides[prevIndex.value].description}</p>
+            <h2>
+              {
+                homeContextStore.slides[
+                  homeContextStore.direction === "prev"
+                    ? currentIndex.value
+                    : prevIndex.value
+                ].title
+              }
+            </h2>
+            <p>
+              {
+                homeContextStore.slides[
+                  homeContextStore.direction === "prev"
+                    ? currentIndex.value
+                    : prevIndex.value
+                ].description
+              }
+            </p>
           </div>
         </div>
       </div>
