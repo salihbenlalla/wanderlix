@@ -2,7 +2,6 @@ import {
   component$,
   useContext,
   useSignal,
-  //   useSignal,
   useStyles$,
   useVisibleTask$,
 } from "@builder.io/qwik";
@@ -33,6 +32,7 @@ const SlickSlider = component$(() => {
     const styles = {
       left: `${(index - homeContextStore.slickSliderCurrentIndex) * 100}%`,
       opacity: 1,
+      cursor: "pointer",
     };
     if (index - homeContextStore.slickSliderCurrentIndex < 0) {
       styles.left = `${
@@ -56,6 +56,7 @@ const SlickSlider = component$(() => {
 
   const firstSlide = useSignal<HTMLDivElement>();
   const lastSlide = useSignal<HTMLDivElement>();
+
   useVisibleTask$(({ track }) => {
     track(() => homeContextStore.slickSliderCurrentIndex);
 
@@ -77,32 +78,33 @@ const SlickSlider = component$(() => {
         animate(
           firstSlide.value,
           { left: "-100%" },
-          { easing: "ease-out", duration: 1 }
+          { easing: "ease-out", duration: 1.5 }
         );
         animate(
           lastSlide.value,
           {
             left: `${(homeContextStore.slides.length - 1) * 100}%`,
           },
-          { easing: "ease-out", duration: 1 }
+          { easing: "ease-out", duration: 1.5 }
         );
       }
       if (homeContextStore.direction === "prev") {
         animate(
           firstSlide.value,
           { left: "0%" },
-          { easing: "ease-out", duration: 1 }
+          { easing: "ease-out", duration: 1.5 }
         );
         animate(
           lastSlide.value,
           {
             left: `${homeContextStore.slides.length * 100}%`,
           },
-          { easing: "ease-out", duration: 1 }
+          { easing: "ease-out", duration: 1.5 }
         );
       }
     }
   });
+
   return (
     <div class={`slider2-container`}>
       <div class="slider2-wrapper">

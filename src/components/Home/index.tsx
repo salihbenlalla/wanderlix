@@ -88,7 +88,7 @@ export default component$(() => {
     {
       direction: "next",
       currentIndex: 0,
-      slickSliderCurrentIndex: 0,
+      slickSliderCurrentIndex: 1,
       slides: [
         {
           title: "Post 0",

@@ -1,5 +1,5 @@
 import {
-  $,
+  //   $,
   component$,
   useContext,
   useSignal,
@@ -47,24 +47,24 @@ const ImageSlider = component$(() => {
     homeContextStore,
     nextIndex,
     blurValue: 10,
-    duration: 1,
+    duration: 1.5,
   };
 
   useVisibleTask$(() => {
     window.heroSliderTimer = setInterval(() => {
       animateSlider({ ...animateSliderOptions, direction: "next" });
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(window.heroSliderTimer);
   });
 
-  const handlePrev = $(() => {
-    animateSlider({ ...animateSliderOptions, direction: "prev" });
-  });
+  //   const handlePrev = $(() => {
+  //     animateSlider({ ...animateSliderOptions, direction: "prev" });
+  //   });
 
-  const handleNext = $(() => {
-    animateSlider({ ...animateSliderOptions, direction: "next" });
-  });
+  //   const handleNext = $(() => {
+  //     animateSlider({ ...animateSliderOptions, direction: "next" });
+  //   });
 
   return (
     <>
@@ -98,12 +98,12 @@ const ImageSlider = component$(() => {
             }}
           />
         </div>
-        <button class="hero-slider-btn-prev" onClick$={handlePrev}>
+        {/* <button class="hero-slider-btn-prev" onClick$={handlePrev}>
           &#10094;
         </button>
         <button class="hero-slider-btn-next" onClick$={handleNext}>
           &#10095;
-        </button>
+        </button> */}
       </div>
     </>
   );
