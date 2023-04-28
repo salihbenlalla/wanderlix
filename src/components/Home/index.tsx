@@ -75,6 +75,7 @@ import styles from "./index.css?inline";
 // ];
 
 export interface HomeContextStore {
+  generalIndex: number;
   currentIndex: number;
   slickSliderCurrentIndex: number;
   slides: Slide[];
@@ -87,6 +88,7 @@ export default component$(() => {
   const store = useStore<HomeContextStore>(
     {
       direction: "next",
+      generalIndex: 0,
       currentIndex: 0,
       slickSliderCurrentIndex: 1,
       slides: [

@@ -15,7 +15,7 @@ export interface AnimateSliderOptions {
   direction: "prev" | "next";
 }
 
-const changeIndex = (options: AnimateSliderOptions) => {
+export const changeIndex = (options: AnimateSliderOptions) => {
   const prevIndex = options.prevIndex.value;
   const currentIndex = options.homeContextStore.currentIndex;
   const nextIndex = options.nextIndex.value;

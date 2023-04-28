@@ -1,4 +1,5 @@
 import {
+  $,
   component$,
   useContext,
   useSignal,
@@ -8,6 +9,7 @@ import {
 import { animate } from "motion";
 import { homeContext } from "~/components/Home/HomeContext";
 import styles from "./style.css?inline";
+import { changeGeneralIndex } from "./changeGeneralIndex";
 
 export interface Slide {
   title: string;
@@ -16,10 +18,13 @@ export interface Slide {
 }
 
 export interface SlickSliderProps {
-  slides: Slide[];
+  //   slides: Slide[];
+  slideWidth: number;
+  slideHeight: number;
+  margin: number;
 }
 
-const SlickSlider = component$(() => {
+const SlickSlider = component$<SlickSliderProps>((props) => {
   useStyles$(styles);
 
   const homeContextStore = useContext(homeContext);
@@ -28,11 +33,18 @@ const SlickSlider = component$(() => {
   const currentIndex = useSignal(0);
   const nextIndex = useSignal(1);
 
+  const commonSlideStyles = {
+    width: `${props.slideWidth}px`,
+    marginLeft: `${props.margin}px`,
+    marginRight: `${props.margin}px`,
+  };
+
   const slideStyles = (index: number) => {
     const styles = {
       left: `${(index - homeContextStore.slickSliderCurrentIndex) * 100}%`,
       opacity: 1,
       cursor: "pointer",
+      ...commonSlideStyles,
     };
     if (index - homeContextStore.slickSliderCurrentIndex < 0) {
       styles.left = `${
@@ -105,105 +117,157 @@ const SlickSlider = component$(() => {
     }
   });
 
+  const handlePrev = $(() => {
+    changeGeneralIndex(homeContextStore, "prev");
+  });
+
+  const handleNext = $(() => {
+    changeGeneralIndex(homeContextStore, "next");
+  });
+
   return (
-    <div class={`slider2-container`}>
-      <div class="slider2-wrapper">
+    <div class="slick-slider-container">
+      <div
+        class={`slider2-container`}
+        style={{
+          width: `${
+            (props.slideWidth + 2 * props.margin) *
+            homeContextStore.slides.length
+          }px`,
+        }}
+      >
         <div
-          ref={firstSlide}
-          class={`slide2`}
+          class="slider2-wrapper"
           style={{
-            backgroundImage: `url(${
-              homeContextStore.slides[
-                homeContextStore.direction === "next"
-                  ? prevIndex.value
-                  : currentIndex.value
-              ].thumbnail
-            })`,
-            left: homeContextStore.direction === "next" ? "0%" : "-100%",
-            opacity: 1,
+            width: `${props.slideWidth + props.margin * 2}px`,
+            height: `${props.slideHeight}px`,
           }}
         >
-          <div class="slide2-content">
-            <h2>
-              {
-                homeContextStore.slides[
-                  homeContextStore.direction === "next"
-                    ? prevIndex.value
-                    : currentIndex.value
-                ].title
-              }
-            </h2>
-            <p>
-              {
-                homeContextStore.slides[
-                  homeContextStore.direction === "next"
-                    ? prevIndex.value
-                    : currentIndex.value
-                ].description
-              }
-            </p>
-          </div>
-        </div>
-        {homeContextStore.slides.map((slide, index) => (
           <div
-            key={index}
+            ref={firstSlide}
             class={`slide2`}
             style={{
-              backgroundImage: `url(${slide.thumbnail})`,
-              ...slideStyles(index),
+              backgroundImage: `url(${
+                homeContextStore.slides[
+                  homeContextStore.direction === "next"
+                    ? prevIndex.value
+                    : currentIndex.value
+                ].thumbnail
+              })`,
+              left: homeContextStore.direction === "next" ? "0%" : "-100%",
+              opacity: 1,
+              ...commonSlideStyles,
             }}
           >
             <div class="slide2-content">
-              <h2>{slide.title}</h2>
-              <p>{slide.description}</p>
+              <h2>
+                {
+                  homeContextStore.slides[
+                    homeContextStore.direction === "next"
+                      ? prevIndex.value
+                      : currentIndex.value
+                  ].title
+                }
+              </h2>
+              <p>
+                {
+                  homeContextStore.slides[
+                    homeContextStore.direction === "next"
+                      ? prevIndex.value
+                      : currentIndex.value
+                  ].description
+                }
+              </p>
             </div>
           </div>
-        ))}
-        <div
-          ref={lastSlide}
-          class={`slide2`}
-          //   style={{
-          //     backgroundImage: `url(${
-          //       homeContextStore.slides[prevIndex.value].thumbnail
-          //     })`,
-          //     left: `${(homeContextStore.slides.length - 1) * 100}%`,
-          //     opacity: 1,
-          //   }}
-          style={{
-            backgroundImage: `url(${
-              homeContextStore.slides[
+          {homeContextStore.slides.map((slide, index) => (
+            <div
+              key={index}
+              class={`slide2`}
+              style={{
+                backgroundImage: `url(${slide.thumbnail})`,
+                ...slideStyles(index),
+              }}
+            >
+              <div class="slide2-content">
+                <h2>{slide.title}</h2>
+                <p>{slide.description}</p>
+              </div>
+            </div>
+          ))}
+          <div
+            ref={lastSlide}
+            class={`slide2`}
+            //   style={{
+            //     backgroundImage: `url(${
+            //       homeContextStore.slides[prevIndex.value].thumbnail
+            //     })`,
+            //     left: `${(homeContextStore.slides.length - 1) * 100}%`,
+            //     opacity: 1,
+            //   }}
+            style={{
+              backgroundImage: `url(${
+                homeContextStore.slides[
+                  homeContextStore.direction === "prev"
+                    ? currentIndex.value
+                    : prevIndex.value
+                ].thumbnail
+              })`,
+              left:
                 homeContextStore.direction === "prev"
-                  ? currentIndex.value
-                  : prevIndex.value
-              ].thumbnail
-            })`,
-            left:
-              homeContextStore.direction === "prev"
-                ? `${(homeContextStore.slides.length - 1) * 100}%`
-                : `${homeContextStore.slides.length * 100}%`,
-            opacity: 1,
-          }}
-        >
-          <div class="slide2-content">
-            <h2>
-              {
-                homeContextStore.slides[
-                  homeContextStore.direction === "prev"
-                    ? currentIndex.value
-                    : prevIndex.value
-                ].title
-              }
-            </h2>
-            <p>
-              {
-                homeContextStore.slides[
-                  homeContextStore.direction === "prev"
-                    ? currentIndex.value
-                    : prevIndex.value
-                ].description
-              }
-            </p>
+                  ? `${(homeContextStore.slides.length - 1) * 100}%`
+                  : `${homeContextStore.slides.length * 100}%`,
+              opacity: 1,
+              ...commonSlideStyles,
+            }}
+          >
+            <div class="slide2-content">
+              <h2>
+                {
+                  homeContextStore.slides[
+                    homeContextStore.direction === "prev"
+                      ? currentIndex.value
+                      : prevIndex.value
+                  ].title
+                }
+              </h2>
+              <p>
+                {
+                  homeContextStore.slides[
+                    homeContextStore.direction === "prev"
+                      ? currentIndex.value
+                      : prevIndex.value
+                  ].description
+                }
+              </p>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <div class="hero-slider-btns">
+        <button class="hero-slider-btn-prev" onClick$={handlePrev}>
+          &#10094;
+        </button>
+        <button class="hero-slider-btn-next" onClick$={handleNext}>
+          &#10095;
+        </button>
+        <div class="progress-bar-container">
+          <div
+            class="progress-bar"
+            style={{
+              width: `${
+                ((homeContextStore.slickSliderCurrentIndex === 0
+                  ? homeContextStore.slides.length
+                  : homeContextStore.slickSliderCurrentIndex) /
+                  homeContextStore.slides.length) *
+                100
+              }%`,
+            }}
+          ></div>
+        </div>
+        <div class="progress-bar-index">
+          0{homeContextStore.currentIndex + 1}
         </div>
       </div>
     </div>

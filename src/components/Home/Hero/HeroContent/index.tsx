@@ -1,74 +1,10 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import SlickSlider from "./SlickSlider";
-import { type SlickSliderProps } from "./SlickSlider";
 import styles from "./style.css?inline";
 
-const SlickSliderProps: SlickSliderProps = {
-  slides: [
-    {
-      title: "Post 0",
-      thumbnail: "/images/place1.jpg",
-      description: "this is a description",
-      //   url: "#",
-      //   date: "26 August 2022",
-      //   author: "John Doe",
-      //   authorUrl: "#",
-    },
-    {
-      title: "Post 1",
-      thumbnail: "/images/place2.jpg",
-      description: "this is a description",
-      //   url: "#",
-      //   date: "23 August 2022",
-      //   author: "John Smith",
-      //   authorUrl: "#",
-    },
-    {
-      title: "Post 2",
-      thumbnail: "/images/place3.jpg",
-      description: "this is a description",
-      //   url: "#",
-      //   date: "23 August 2022",
-      //   author: "matilda Smith",
-      //   authorUrl: "#",
-    },
-    {
-      title: "Post 3",
-      thumbnail: "/images/place4.jpg",
-      description: "this is a description",
-      //   url: "#",
-      //   date: "23 August 2022",
-      //   author: "John Smith",
-      //   authorUrl: "#",
-    },
-    {
-      title: "Post 4",
-      thumbnail: "/images/place5.jpg",
-      description: "this is a description",
-      //   url: "#",
-      //   date: "23 August 2022",
-      //   author: "John Smith",
-      //   authorUrl: "#",
-    },
-    {
-      title: "Post 5",
-      thumbnail: "/images/place6.jpg",
-      description: "this is a description",
-      //   url: "#",
-      //   date: "23 August 2022",
-      //   author: "John Smith",
-      //   authorUrl: "#",
-    },
-  ],
-};
-
 export default component$(() => {
-  //   const currentIndex = useSignal<number>(props.currentIndex);
   useStyles$(styles);
-  //   useVisibleTask$(({ track }) => {
-  //     track(() => props.currentIndex);
-  //     console.log("from HeroContent: ", currentIndex.value);
-  //   });
+
   return (
     <div class="container">
       <div class="hero-content">
@@ -80,11 +16,12 @@ export default component$(() => {
             exploring now!
           </p>
           <button>
-            Explore guides<span class="button-arrow">&rarr;</span>
+            DISCOVER LOCATION
+            {/* <span class="button-arrow">&rarr;</span> */}
           </button>
         </div>
         <div class="hero-content-right">
-          <SlickSlider />
+          <SlickSlider slideWidth={150} slideHeight={200} margin={10} />
         </div>
       </div>
     </div>

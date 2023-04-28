@@ -1,5 +1,6 @@
 import {
   //   $,
+  //   $,
   component$,
   useContext,
   useSignal,
@@ -53,9 +54,24 @@ const ImageSlider = component$(() => {
   useVisibleTask$(() => {
     window.heroSliderTimer = setInterval(() => {
       animateSlider({ ...animateSliderOptions, direction: "next" });
+      //   changeIndex({ ...animateSliderOptions, direction: "next" });
     }, 10000);
 
     return () => clearInterval(window.heroSliderTimer);
+  });
+
+  const isInitialized = useSignal<boolean>(false);
+
+  useVisibleTask$(({ track }) => {
+    track(() => homeContextStore.generalIndex);
+    if (isInitialized.value === false) {
+      isInitialized.value = true;
+      return;
+    }
+    animateSlider({
+      ...animateSliderOptions,
+      direction: homeContextStore.direction ?? "next",
+    });
   });
 
   //   const handlePrev = $(() => {
@@ -98,12 +114,6 @@ const ImageSlider = component$(() => {
             }}
           />
         </div>
-        {/* <button class="hero-slider-btn-prev" onClick$={handlePrev}>
-          &#10094;
-        </button>
-        <button class="hero-slider-btn-next" onClick$={handleNext}>
-          &#10095;
-        </button> */}
       </div>
     </>
   );

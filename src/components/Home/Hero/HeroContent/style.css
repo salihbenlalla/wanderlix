@@ -4,6 +4,7 @@
   color: #ffffff;
   top: 50%;
   transform: translateY(-50%);
+  left: 0;
   font-family: "Poppins", sans-serif;
   display: flex;
   align-items: center;
@@ -24,6 +25,7 @@
     flex-direction: row;
     align-items: center;
     height: 100%;
+    padding-left: 50px;
   }
 
   .hero-content-left {
@@ -35,7 +37,7 @@
   .hero-content-right {
     flex-grow: 1;
     flex-shrink: 1;
-    flex-basis: 1500px;
+    /* flex-basis: 1500px; */
     overflow: hidden;
     align-self: flex-end;
     /* width: 100%; */
