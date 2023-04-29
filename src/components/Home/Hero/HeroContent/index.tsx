@@ -1,6 +1,7 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import SlickSlider from "./SlickSlider";
 import styles from "./style.css?inline";
+import HeroCaption from "./HeroCaption";
 
 export default component$(() => {
   useStyles$(styles);
@@ -9,19 +10,10 @@ export default component$(() => {
     <div class="container">
       <div class="hero-content">
         <div class="hero-content-left">
-          <h1>Africa</h1>
-          <p>
-            Embark on an unforgettable adventure with our travel guides to
-            Africa's wildlife, landscapes, and history. Get inspired and start
-            exploring now!
-          </p>
-          <button>
-            DISCOVER LOCATION
-            {/* <span class="button-arrow">&rarr;</span> */}
-          </button>
+          <HeroCaption />
         </div>
         <div class="hero-content-right">
-          <SlickSlider slideWidth={150} slideHeight={200} margin={10} />
+          <SlickSlider slideWidth={170} slideHeight={230} margin={10} />
         </div>
       </div>
     </div>

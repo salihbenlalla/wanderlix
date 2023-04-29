@@ -93,34 +93,40 @@ export default component$(() => {
       slickSliderCurrentIndex: 1,
       slides: [
         {
-          title: "Post 0",
+          title: "Europe",
           thumbnail: "/images/place1.jpg",
-          description: "this is a description",
+          description:
+            "Discover Europe's charm with our expert travel guides. Get inspired for your next adventure!",
         },
         {
-          title: "Post 1",
+          title: "Asia",
           thumbnail: "/images/place2.jpg",
-          description: "this is a description",
+          description:
+            "Explore Asia's hidden gems with our travel guides to its temples, culture, and scenery. Start your journey today!",
         },
         {
-          title: "Post 2",
+          title: "Africa",
           thumbnail: "/images/place3.jpg",
-          description: "this is a description",
+          description:
+            "Embark on an unforgettable adventure with our travel guides to Africa's wildlife, landscapes, and history. Get inspired and start exploring now!",
         },
         {
-          title: "Post 3",
+          title: "North America",
           thumbnail: "/images/place4.jpg",
-          description: "this is a description",
+          description:
+            "Find your next adventure with our travel guides to North America's cities, wonders, and history. Be amazed by the beauty of this diverse continent and start planning your trip today!",
         },
         {
-          title: "Post 4",
+          title: "South America",
           thumbnail: "/images/place5.jpg",
-          description: "this is a description",
+          description:
+            "Experience the vibrancy of South America with our travel guides to its landscapes, culture, and history. Start planning your trip today and get inspired for your journey ahead!",
         },
         {
-          title: "Post 5",
+          title: "Australia",
           thumbnail: "/images/place6.jpg",
-          description: "this is a description",
+          description:
+            "Discover Australia's iconic landmarks, beaches, and wildlife with our travel guides. Let us inspire and guide you on your journey Down Under, from the Outback to the Great Barrier Reef!",
         },
       ],
     },

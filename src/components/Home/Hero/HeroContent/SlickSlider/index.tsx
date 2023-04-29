@@ -169,7 +169,7 @@ const SlickSlider = component$<SlickSliderProps>((props) => {
                   ].title
                 }
               </h2>
-              <p>
+              {/* <p>
                 {
                   homeContextStore.slides[
                     homeContextStore.direction === "next"
@@ -177,7 +177,7 @@ const SlickSlider = component$<SlickSliderProps>((props) => {
                       : currentIndex.value
                   ].description
                 }
-              </p>
+              </p> */}
             </div>
           </div>
           {homeContextStore.slides.map((slide, index) => (
@@ -191,20 +191,13 @@ const SlickSlider = component$<SlickSliderProps>((props) => {
             >
               <div class="slide2-content">
                 <h2>{slide.title}</h2>
-                <p>{slide.description}</p>
+                {/* <p>{slide.description}</p> */}
               </div>
             </div>
           ))}
           <div
             ref={lastSlide}
             class={`slide2`}
-            //   style={{
-            //     backgroundImage: `url(${
-            //       homeContextStore.slides[prevIndex.value].thumbnail
-            //     })`,
-            //     left: `${(homeContextStore.slides.length - 1) * 100}%`,
-            //     opacity: 1,
-            //   }}
             style={{
               backgroundImage: `url(${
                 homeContextStore.slides[
@@ -231,7 +224,7 @@ const SlickSlider = component$<SlickSliderProps>((props) => {
                   ].title
                 }
               </h2>
-              <p>
+              {/* <p>
                 {
                   homeContextStore.slides[
                     homeContextStore.direction === "prev"
@@ -239,17 +232,20 @@ const SlickSlider = component$<SlickSliderProps>((props) => {
                       : prevIndex.value
                   ].description
                 }
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
       </div>
 
-      <div class="hero-slider-btns">
-        <button class="hero-slider-btn-prev" onClick$={handlePrev}>
+      <div
+        class="slick-slider-btns"
+        style={{ paddingLeft: `${props.margin}px` }}
+      >
+        <button class="slick-slider-btn-prev" onClick$={handlePrev}>
           &#10094;
         </button>
-        <button class="hero-slider-btn-next" onClick$={handleNext}>
+        <button class="slick-slider-btn-next" onClick$={handleNext}>
           &#10095;
         </button>
         <div class="progress-bar-container">

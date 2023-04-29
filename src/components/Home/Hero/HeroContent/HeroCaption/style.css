@@ -1,0 +1,73 @@
+.hero-caption h1 {
+  font-weight: 700;
+  font-size: 64px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  /* height: 100px; */
+}
+
+.hero-caption h1 > span {
+  position: relative;
+  /* bottom: 0px */
+  display: block;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero-caption p {
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.hero-caption p > span {
+  position: relative;
+  display: block;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero-caption .caption-button-container > button {
+  cursor: pointer;
+  padding: 12px 36px;
+  color: #fff;
+  border: 0;
+  border-radius: 25px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  transition: all 0.3s ease-in-out;
+  background: #fe4f70;
+  background: -webkit-linear-gradient(
+    left,
+    #fe4f70 0%,
+    #ffa387 51%,
+    #fe4f70 100%
+  );
+  background: linear-gradient(to right, #fe4f70 0%, #ffa387 51%, #fe4f70 100%);
+  background-size: 200% auto;
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  display: block;
+}
+
+.hero-caption .caption-button-container > button:hover {
+  background-position: right center;
+}
+
+.hero-caption .caption-button-container {
+  overflow: hidden;
+}
+
+.hero-caption button .button-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caption-next-element-hidden {
+  /* opacity: 0; */
+  /* display: none; */
+  position: relative;
+  /* transform: translate3d(0, 100%, 0); */
+  /* bottom: -150px; */
+}
