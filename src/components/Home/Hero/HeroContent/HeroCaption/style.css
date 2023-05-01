@@ -1,32 +1,41 @@
 .hero-caption h1 {
   font-weight: 700;
   font-size: 64px;
+  height: 64px;
   margin-bottom: 20px;
-  overflow: hidden;
-  /* height: 100px; */
-}
-
-.hero-caption h1 > span {
   position: relative;
-  /* bottom: 0px */
-  display: block;
-  transform: translate3d(0, 0, 0);
+  overflow: hidden;
 }
 
-.hero-caption p {
+/* .hero-caption h1 > div {
+  height: 72px;
+} */
+
+.hero-caption-moving-element {
+  position: absolute;
+  left: 0;
+  transition: top 0.5s linear;
+}
+
+.hero-caption .hero-caption-paragraph {
   font-size: 14px;
   line-height: 24px;
-  margin-bottom: 20px;
+  /* height: fit-content;
+  display: flex;
+  align-items: stretch; */
+  height: 78px;
   overflow: hidden;
-}
-
-.hero-caption p > span {
   position: relative;
-  display: block;
-  transform: translate3d(0, 0, 0);
 }
 
-.hero-caption .caption-button-container > button {
+.hero-caption-button-container {
+  margin-top: 20px;
+  height: 43px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-caption-button-container > button {
   cursor: pointer;
   padding: 12px 36px;
   color: #fff;
@@ -45,29 +54,15 @@
   );
   background: linear-gradient(to right, #fe4f70 0%, #ffa387 51%, #fe4f70 100%);
   background-size: 200% auto;
-  position: relative;
-  transform: translate3d(0, 0, 0);
   display: block;
 }
 
-.hero-caption .caption-button-container > button:hover {
+.hero-caption-button-container > button:hover {
   background-position: right center;
 }
 
-.hero-caption .caption-button-container {
-  overflow: hidden;
-}
-
-.hero-caption button .button-arrow {
+/* .hero-caption-button-container button .button-arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
-
-.caption-next-element-hidden {
-  /* opacity: 0; */
-  /* display: none; */
-  position: relative;
-  /* transform: translate3d(0, 100%, 0); */
-  /* bottom: -150px; */
-}
+} */

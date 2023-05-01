@@ -2,8 +2,10 @@ import {
   component$,
   useContextProvider,
   //   useSignal,
+  //   useSignal,
   useStore,
   useStyles$,
+  //   useVisibleTask$,
 } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 // import HomeCarousel, { type HomeCarouselProps } from "./HomeCarousel";
@@ -76,8 +78,15 @@ import styles from "./index.css?inline";
 
 export interface HomeContextStore {
   generalIndex: number;
+  prevIndex: number;
   currentIndex: number;
+  nextIndex: number;
+  slickSliderPrevIndex: number;
   slickSliderCurrentIndex: number;
+  slickSliderNextIndex: number;
+  captionPrevIndex: number;
+  captionCurrentIndex: number;
+  captionNextIndex: number;
   slides: Slide[];
   direction: "next" | "prev" | undefined;
 }
@@ -90,7 +99,12 @@ export default component$(() => {
       direction: "next",
       generalIndex: 0,
       currentIndex: 0,
+      //   nextIndex: 1,
+      slickSliderPrevIndex: 0,
       slickSliderCurrentIndex: 1,
+      slickSliderNextIndex: 2,
+      captionCurrentIndex: 0,
+      //   captionNextIndex: 1,
       slides: [
         {
           title: "Europe",
@@ -129,9 +143,91 @@ export default component$(() => {
             "Discover Australia's iconic landmarks, beaches, and wildlife with our travel guides. Let us inspire and guide you on your journey Down Under, from the Outback to the Great Barrier Reef!",
         },
       ],
+      get prevIndex() {
+        if (typeof this === "function") {
+          return 0;
+        }
+        return this.currentIndex === 0
+          ? this.slides.length - 1
+          : this.currentIndex - 1;
+      },
+      get nextIndex() {
+        if (typeof this === "function") {
+          return 0;
+        }
+        return this.currentIndex === this.slides.length - 1
+          ? 0
+          : this.currentIndex + 1;
+      },
+      get captionPrevIndex() {
+        if (typeof this === "function") {
+          return 0;
+        }
+        return this.captionCurrentIndex === 0
+          ? this.slides.length - 1
+          : this.captionCurrentIndex - 1;
+      },
+      get captionNextIndex() {
+        if (typeof this === "function") {
+          return 0;
+        }
+        return this.captionCurrentIndex === this.slides.length - 1
+          ? 0
+          : this.captionCurrentIndex + 1;
+      },
     },
     { deep: true }
   );
+
+  //   useVisibleTask$(({ track }) => {
+  //     track(() => store.captionCurrentIndex);
+  //     console.log(store.captionCurrentIndex);
+  //   });
+
+  // prev and current Index
+  //   useVisibleTask$(({ track }) => {
+  //     track(() => store.currentIndex);
+  //     store.prevIndex =
+  //       store.currentIndex === 0
+  //         ? store.slides.length - 1
+  //         : store.currentIndex - 1;
+  //     store.nextIndex =
+  //       store.currentIndex === store.slides.length - 1
+  //         ? 0
+  //         : store.currentIndex + 1;
+  //   });
+
+  //slick slider prev and current index
+  //   useVisibleTask$(({ track }) => {
+  //     track(() => store.slickSliderCurrentIndex);
+  //     store.slickSliderPrevIndex =
+  //       store.slickSliderCurrentIndex === 0
+  //         ? store.slides.length - 1
+  //         : store.slickSliderCurrentIndex - 1;
+  //     store.slickSliderNextIndex =
+  //       store.slickSliderCurrentIndex === store.slides.length - 1
+  //         ? 0
+  //         : store.slickSliderCurrentIndex + 1;
+  //   });
+
+  // caption prev and next index
+  //   const initialized = useSignal<boolean>(false);
+  //   useVisibleTask$(({ track }) => {
+  //     track(() => store.captionCurrentIndex);
+  //     if (initialized.value === false) {
+  //       initialized.value = true;
+  //       return;
+  //     }
+  //     console.log("caption prevIndex: ", store.captionPrevIndex);
+  //     store.captionPrevIndex =
+  //       store.captionCurrentIndex === 0
+  //         ? store.slides.length - 1
+  //         : store.captionCurrentIndex - 1;
+  //     store.captionNextIndex =
+  //       store.captionCurrentIndex === store.slides.length - 1
+  //         ? 0
+  //         : store.captionCurrentIndex + 1;
+  //   });
 
   useContextProvider(homeContext, store);
   return (

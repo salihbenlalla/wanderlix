@@ -2,94 +2,147 @@ import {
   component$,
   useContext,
   useSignal,
+  useStore,
   useStyles$,
   useVisibleTask$,
 } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 import { homeContext } from "~/components/Home/HomeContext";
-import { animateHeroCaptionElement } from "./animateHeroCaptionElement";
+
+declare global {
+  interface ChildNode {
+    clientHeight: number;
+  }
+}
 
 export default component$(() => {
   useStyles$(styles);
 
   const homeContextStore = useContext(homeContext);
-  const currentIndex = useSignal(homeContextStore.currentIndex);
-  const slides = homeContextStore.slides;
-  const prevIndex = useSignal(
-    currentIndex.value === 0 ? slides.length - 1 : currentIndex.value - 1
-  );
-  const nextIndex = useSignal(
-    currentIndex.value + 1 === slides.length ? 0 : currentIndex.value + 1
+  const store = useStore(
+    {
+      h1: [-120, 0, 120],
+    },
+    { deep: true }
   );
 
-  const h1Ref = useSignal<HTMLHeadingElement>();
-  const h1NextRef = useSignal<HTMLHeadingElement>();
-
-  const pRef = useSignal<HTMLHeadingElement>();
-  const pNextRef = useSignal<HTMLHeadingElement>();
-
-  const buttonRef = useSignal<HTMLHeadingElement>();
-  const buttonNextRef = useSignal<HTMLHeadingElement>();
-
-  const initialized = useSignal<boolean>(false);
-
-  const h1Height = useSignal<number | "initial">(64);
-  const pHeight = useSignal<number | "initial">(48);
-  const buttonHeight = useSignal<number | "initial">("initial");
+  const paragraphRef = useSignal<HTMLDivElement>();
 
   useVisibleTask$(({ track }) => {
     track(() => homeContextStore.slickSliderCurrentIndex);
-    console.log("button height", buttonRef.value?.clientHeight);
-    h1Height.value = h1Ref.value?.clientHeight ?? 0;
-    pHeight.value = pRef.value?.clientHeight ?? 0;
-    buttonHeight.value = buttonRef.value?.clientHeight ?? 0;
-    if (initialized.value === false) {
-      initialized.value = true;
-      return;
-    }
-    animateHeroCaptionElement({
-      elementRef: [h1Ref, pRef, buttonRef],
-      currentIndex,
-      slides,
-      prevIndex,
-      nextIndex,
-      direction: homeContextStore.direction,
-      typeOfElement: "current",
-    });
 
-    animateHeroCaptionElement({
-      elementRef: [h1NextRef, pNextRef, buttonNextRef],
-      currentIndex,
-      slides,
-      prevIndex,
-      nextIndex,
-      direction: homeContextStore.direction,
-      typeOfElement: "next",
+    const childNodes = paragraphRef.value?.childNodes;
+    let maxHeight = 0;
+    childNodes?.forEach((childNode) => {
+      const childHeight = childNode.clientHeight;
+      if (childHeight > maxHeight) {
+        maxHeight = childHeight;
+      }
     });
+    if (paragraphRef.value) {
+      paragraphRef.value.style.height = `${maxHeight}px`;
+    }
+
+    if (homeContextStore.direction === "next") {
+      store.h1 = store.h1.map((value) => {
+        if (value === -120) return 120;
+        if (value === 0) return -120;
+        if (value === 120) return 0;
+        return 0;
+      });
+    }
+
+    if (homeContextStore.direction === "prev") {
+      store.h1 = store.h1.map((value) => {
+        if (value === 120) return -120;
+        if (value === 0) return 120;
+        if (value === -120) return 0;
+        return 0;
+      });
+    }
   });
+
+  const extraStyles = (topValue: number) => {
+    if (homeContextStore.direction === "next") {
+      return { opacity: topValue === 120 ? 0 : 1 };
+    }
+    if (homeContextStore.direction === "prev") {
+      return { opacity: topValue === -120 ? 0 : 1 };
+    }
+  };
+
   return (
     <div class="hero-caption">
-      <h1 style={{ height: `${h1Height.value}px` }}>
-        <span ref={h1Ref}>{slides[currentIndex.value].title}</span>
-        <span ref={h1NextRef} class="caption-next-element-hidden">
-          {slides[nextIndex.value].title}
-        </span>
+      <h1>
+        <div
+          class="hero-caption-moving-element"
+          style={{ top: `${store.h1[0]}%`, ...extraStyles(store.h1[0]) }}
+        >
+          {homeContextStore.slides[homeContextStore.captionPrevIndex].title}
+        </div>
+        <div
+          class="hero-caption-moving-element"
+          style={{ top: `${store.h1[1]}%`, ...extraStyles(store.h1[1]) }}
+        >
+          {homeContextStore.slides[homeContextStore.captionCurrentIndex].title}
+        </div>
+        <div
+          class="hero-caption-moving-element"
+          style={{ top: `${store.h1[2]}%`, ...extraStyles(store.h1[2]) }}
+        >
+          {homeContextStore.slides[homeContextStore.captionNextIndex].title}
+        </div>
       </h1>
-      <p style={{ height: `${pHeight.value}px` }}>
-        <span ref={pRef}>{slides[currentIndex.value].description}</span>
-        <span ref={pNextRef} class="caption-next-element-hidden">
-          {slides[nextIndex.value].description}
-        </span>
-      </p>
-      <div
-        class="caption-button-container"
-        style={{ height: `${pHeight.value}px` }}
-      >
-        <button ref={buttonRef}>
+
+      <div ref={paragraphRef} class="hero-caption-paragraph">
+        <div
+          class="hero-caption-moving-element"
+          style={{ top: `${store.h1[0]}%`, ...extraStyles(store.h1[0]) }}
+        >
+          {
+            homeContextStore.slides[homeContextStore.captionPrevIndex]
+              .description
+          }
+        </div>
+        <div
+          class="hero-caption-moving-element"
+          style={{ top: `${store.h1[1]}%`, ...extraStyles(store.h1[1]) }}
+        >
+          {
+            homeContextStore.slides[homeContextStore.captionCurrentIndex]
+              .description
+          }
+        </div>
+        <div
+          class="hero-caption-moving-element"
+          style={{ top: `${store.h1[2]}%`, ...extraStyles(store.h1[2]) }}
+        >
+          {
+            homeContextStore.slides[homeContextStore.captionNextIndex]
+              .description
+          }
+        </div>
+      </div>
+
+      <div class="hero-caption-button-container">
+        <button
+          class="hero-caption-moving-element"
+          style={{ top: `${store.h1[0]}%`, ...extraStyles(store.h1[0]) }}
+        >
           DISCOVER LOCATION
           {/* <span class="button-arrow">&rarr;</span> */}
         </button>
-        <button ref={buttonNextRef} class="caption-next-element-hidden">
+        <button
+          class="hero-caption-moving-element"
+          style={{ top: `${store.h1[1]}%`, ...extraStyles(store.h1[1]) }}
+        >
+          DISCOVER LOCATION
+          {/* <span class="button-arrow">&rarr;</span> */}
+        </button>
+        <button
+          class="hero-caption-moving-element"
+          style={{ top: `${store.h1[2]}%`, ...extraStyles(store.h1[2]) }}
+        >
           DISCOVER LOCATION
           {/* <span class="button-arrow">&rarr;</span> */}
         </button>
