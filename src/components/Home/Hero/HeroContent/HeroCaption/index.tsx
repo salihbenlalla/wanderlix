@@ -60,6 +60,19 @@ export default component$(() => {
         return 0;
       });
     }
+    //@ts-ignore
+    // window.heroCaptionTimout = setTimeout(() => {
+    //   homeContextStore.captionCurrentIndex =
+    //     homeContextStore.captionCurrentIndex ===
+    //     homeContextStore.slides.length - 1
+    //       ? 0
+    //       : homeContextStore.captionCurrentIndex + 1;
+    // }, 1500);
+
+    // return () => {
+    //   //@ts-ignore
+    //   clearTimeout(window.heroCaptionTimout);
+    // };
   });
 
   const extraStyles = (topValue: number) => {
@@ -71,6 +84,13 @@ export default component$(() => {
     }
   };
 
+  const calculateIndex = (index: number) => {
+    // if (store.h1[index] === 0) return homeContextStore.captionCurrentIndex;
+    if (store.h1[index] === -120) return homeContextStore.captionPrevIndex;
+    if (store.h1[index] === 120) return homeContextStore.captionNextIndex;
+    return homeContextStore.currentIndex;
+  };
+
   return (
     <div class="hero-caption">
       <h1>
@@ -78,19 +98,19 @@ export default component$(() => {
           class="hero-caption-moving-element"
           style={{ top: `${store.h1[0]}%`, ...extraStyles(store.h1[0]) }}
         >
-          {homeContextStore.slides[homeContextStore.captionPrevIndex].title}
+          {homeContextStore.slides[calculateIndex(0)].title}
         </div>
         <div
           class="hero-caption-moving-element"
           style={{ top: `${store.h1[1]}%`, ...extraStyles(store.h1[1]) }}
         >
-          {homeContextStore.slides[homeContextStore.captionCurrentIndex].title}
+          {homeContextStore.slides[calculateIndex(1)].title}
         </div>
         <div
           class="hero-caption-moving-element"
           style={{ top: `${store.h1[2]}%`, ...extraStyles(store.h1[2]) }}
         >
-          {homeContextStore.slides[homeContextStore.captionNextIndex].title}
+          {homeContextStore.slides[calculateIndex(2)].title}
         </div>
       </h1>
 
