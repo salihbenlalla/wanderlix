@@ -26,11 +26,11 @@ export default component$(() => {
     { deep: true }
   );
 
+  //to adjust the size of the paragraph under the title
   const paragraphRef = useSignal<HTMLDivElement>();
 
-  useVisibleTask$(({ track }) => {
-    track(() => homeContextStore.slickSliderCurrentIndex);
-
+  useVisibleTask$(() => {
+    console.log("useVisibleTask$ run");
     const childNodes = paragraphRef.value?.childNodes;
     let maxHeight = 0;
     childNodes?.forEach((childNode) => {
@@ -42,6 +42,26 @@ export default component$(() => {
     if (paragraphRef.value) {
       paragraphRef.value.style.height = `${maxHeight}px`;
     }
+  });
+
+  const initialized = useSignal(false);
+  useVisibleTask$(({ track }) => {
+    track(() => homeContextStore.slickSliderCurrentIndex);
+
+    if (initialized.value === false) {
+      initialized.value = true;
+      return;
+    }
+    // console.log(
+    //   "captionCurrentIndex: ",
+    //   homeContextStore.slides[homeContextStore.captionNextIndex].title
+    // );
+
+    homeContextStore.captionCurrentIndex =
+      homeContextStore.captionCurrentIndex ===
+      homeContextStore.slides.length - 1
+        ? 0
+        : homeContextStore.captionCurrentIndex + 1;
 
     if (homeContextStore.direction === "next") {
       store.h1 = store.h1.map((value) => {
@@ -60,7 +80,8 @@ export default component$(() => {
         return 0;
       });
     }
-    //@ts-ignore
+
+    // @ts-ignore
     // window.heroCaptionTimout = setTimeout(() => {
     //   homeContextStore.captionCurrentIndex =
     //     homeContextStore.captionCurrentIndex ===
@@ -88,7 +109,7 @@ export default component$(() => {
     // if (store.h1[index] === 0) return homeContextStore.captionCurrentIndex;
     if (store.h1[index] === -120) return homeContextStore.captionPrevIndex;
     if (store.h1[index] === 120) return homeContextStore.captionNextIndex;
-    return homeContextStore.currentIndex;
+    return homeContextStore.captionCurrentIndex;
   };
 
   return (

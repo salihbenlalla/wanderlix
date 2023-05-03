@@ -1,11 +1,10 @@
 import {
   component$,
   useContextProvider,
-  //   useSignal,
-  //   useSignal,
+  useSignal,
   useStore,
   useStyles$,
-  //   useVisibleTask$,
+  useVisibleTask$,
 } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 // import HomeCarousel, { type HomeCarouselProps } from "./HomeCarousel";
@@ -167,13 +166,26 @@ export default component$(() => {
           ? this.slides.length - 1
           : this.captionCurrentIndex - 1;
       },
+      set captionPrevIndex(value) {
+        if (typeof this === "object") {
+          this.captionPrevIndex = value;
+        }
+      },
       get captionNextIndex() {
         if (typeof this === "function") {
           return 0;
         }
-        return this.captionCurrentIndex === this.slides.length - 1
-          ? 0
-          : this.captionCurrentIndex + 1;
+        const nextIndexx =
+          this.captionCurrentIndex === this.slides.length - 1
+            ? 0
+            : this.captionCurrentIndex + 1;
+
+        return nextIndexx;
+      },
+      set captionNextIndex(value) {
+        if (typeof this === "object") {
+          this.captionNextIndex = value;
+        }
       },
     },
     { deep: true }
@@ -211,23 +223,23 @@ export default component$(() => {
   //   });
 
   // caption prev and next index
-  //   const initialized = useSignal<boolean>(false);
-  //   useVisibleTask$(({ track }) => {
-  //     track(() => store.captionCurrentIndex);
-  //     if (initialized.value === false) {
-  //       initialized.value = true;
-  //       return;
-  //     }
-  //     console.log("caption prevIndex: ", store.captionPrevIndex);
-  //     store.captionPrevIndex =
-  //       store.captionCurrentIndex === 0
-  //         ? store.slides.length - 1
-  //         : store.captionCurrentIndex - 1;
-  //     store.captionNextIndex =
-  //       store.captionCurrentIndex === store.slides.length - 1
-  //         ? 0
-  //         : store.captionCurrentIndex + 1;
-  //   });
+  const initialized = useSignal<boolean>(false);
+  useVisibleTask$(({ track }) => {
+    track(() => store.captionCurrentIndex);
+    if (initialized.value === false) {
+      initialized.value = true;
+      return;
+    }
+    // console.log("caption prevIndex: ", store.captionPrevIndex);
+    store.captionPrevIndex =
+      store.captionCurrentIndex === 0
+        ? store.slides.length - 1
+        : store.captionCurrentIndex - 1;
+    store.captionNextIndex =
+      store.captionCurrentIndex === store.slides.length - 1
+        ? 0
+        : store.captionCurrentIndex + 1;
+  });
 
   useContextProvider(homeContext, store);
   return (
