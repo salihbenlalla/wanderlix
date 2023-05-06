@@ -1,8 +1,16 @@
-import { $, component$, useOnWindow, useSignal } from "@builder.io/qwik";
+import {
+  $,
+  component$,
+  useOnWindow,
+  useSignal,
+  useTask$,
+} from "@builder.io/qwik";
 import Header from "./header";
+import { useLocation } from "@builder.io/qwik-city";
 
 export default component$(() => {
   const isHidden = useSignal<boolean>(true);
+  const isSmall = useSignal<boolean>(false);
 
   useOnWindow(
     "scroll",
@@ -15,10 +23,17 @@ export default component$(() => {
     })
   );
 
+  const location = useLocation();
+  useTask$(() => {
+    if (location.url.pathname === "/") {
+      isSmall.value = true;
+    }
+  });
+
   return (
     <>
-      <Header />
-      <Header hidden={isHidden.value} sticky={true} />
+      <Header isSmall={isSmall.value} />
+      <Header isSmall={isSmall.value} hidden={isHidden.value} sticky={true} />
     </>
   );
 });

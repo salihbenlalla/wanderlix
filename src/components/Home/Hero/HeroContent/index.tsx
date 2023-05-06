@@ -1,19 +1,71 @@
-import { component$, useStyles$ } from "@builder.io/qwik";
+import {
+  component$,
+  useContext,
+  useSignal,
+  useStyles$,
+  useVisibleTask$,
+} from "@builder.io/qwik";
 import SlickSlider from "./SlickSlider";
 import styles from "./style.css?inline";
 import HeroCaption from "./HeroCaption";
+import { homeContext } from "../../HomeContext";
+import { animate } from "motion";
 
 export default component$(() => {
   useStyles$(styles);
 
+  const slideWidth = useSignal(170);
+  const slideHeight = useSignal(230);
+
+  useVisibleTask$(() => {
+    if (window.innerHeight <= 700 && window.innerWidth < 992) {
+      slideHeight.value = 0.28 * window.innerHeight;
+      slideWidth.value = 0.2 * window.innerHeight;
+    }
+  });
+
+  const HomeContextStore = useContext(homeContext);
+  const leftRef = useSignal<HTMLDivElement>();
+  const rightRef = useSignal<HTMLDivElement>();
+
+  useVisibleTask$(({ track }) => {
+    track(() => HomeContextStore.currentSectionIndex);
+
+    if (HomeContextStore.currentSectionIndex === 2) {
+      if (leftRef.value) {
+        animate(
+          leftRef.value,
+          { transform: `translate3d(-100%, 0, 0)`, opacity: 0 },
+          { duration: 1.5 }
+        );
+      }
+      if (rightRef.value) {
+        animate(
+          rightRef.value,
+          {
+            transform: `translate3d(100%, 0, 0)`,
+            opacity: 0,
+          },
+          {
+            duration: 1.5,
+          }
+        );
+      }
+    }
+  });
+
   return (
     <div class="container">
       <div class="hero-content">
-        <div class="hero-content-left">
+        <div ref={leftRef} class="hero-content-left">
           <HeroCaption />
         </div>
-        <div class="hero-content-right">
-          <SlickSlider slideWidth={170} slideHeight={230} margin={10} />
+        <div ref={rightRef} class="hero-content-right">
+          <SlickSlider
+            slideWidth={slideWidth.value}
+            slideHeight={slideHeight.value}
+            margin={10}
+          />
         </div>
       </div>
     </div>

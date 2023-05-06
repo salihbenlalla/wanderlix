@@ -7,6 +7,7 @@ import { ThemeContext } from "~/routes/layout";
 interface HeaderProps {
   hidden?: boolean;
   sticky?: boolean;
+  isSmall?: boolean;
 }
 
 export default component$<HeaderProps>((props) => {
@@ -15,7 +16,7 @@ export default component$<HeaderProps>((props) => {
   const theme = useContext(ThemeContext);
 
   const headerStyle = {
-    padding: props.sticky ? "25px 0" : "40px 0",
+    padding: props.isSmall || props.sticky ? "25px 0" : "40px 0",
     position: props.sticky ? "fixed" : "relative",
     top: 0,
     transform: props.hidden

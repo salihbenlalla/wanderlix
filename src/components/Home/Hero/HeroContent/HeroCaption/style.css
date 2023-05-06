@@ -1,11 +1,16 @@
 .hero-caption h1 {
   font-weight: 700;
-  font-size: 64px;
-  height: 64px;
-  margin-bottom: 20px;
+  font-size: 56px;
+  height: 56px;
   position: relative;
   overflow: hidden;
 }
+
+/* @media screen and (min-width: 769px) and (min-height: 601px) {
+  h1 {
+    font-size: 6rem;
+  }
+} */
 
 /* .hero-caption h1 > div {
   height: 72px;
@@ -18,14 +23,12 @@
 }
 
 .hero-caption .hero-caption-paragraph {
-  font-size: 14px;
+  margin-top: 20px;
+  font-size: 12px;
   line-height: 24px;
-  /* height: fit-content;
-  display: flex;
-  align-items: stretch; */
-  height: 78px;
   overflow: hidden;
   position: relative;
+  max-height: 96px;
 }
 
 .hero-caption-button-container {
@@ -59,6 +62,30 @@
 
 .hero-caption-button-container > button:hover {
   background-position: right center;
+}
+
+@media screen and (max-width: 600px) {
+  .hero-caption h1 {
+    font-size: 10vw;
+    height: 10vw;
+  }
+}
+
+@media screen and (max-height: 510px) {
+  .hero-caption h1 {
+    font-size: 7vh;
+    height: 7vh;
+  }
+
+  .hero-caption-button-container {
+    margin-top: 10px;
+    height: 31px;
+  }
+
+  .hero-caption-button-container > button {
+    padding: 6px 18px;
+    font-size: 12px;
+  }
 }
 
 /* .hero-caption-button-container button .button-arrow {

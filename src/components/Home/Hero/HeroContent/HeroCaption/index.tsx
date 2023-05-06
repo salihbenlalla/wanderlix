@@ -30,7 +30,6 @@ export default component$(() => {
   const paragraphRef = useSignal<HTMLDivElement>();
 
   useVisibleTask$(() => {
-    console.log("useVisibleTask$ run");
     const childNodes = paragraphRef.value?.childNodes;
     let maxHeight = 0;
     childNodes?.forEach((childNode) => {
@@ -52,18 +51,16 @@ export default component$(() => {
       initialized.value = true;
       return;
     }
-    // console.log(
-    //   "captionCurrentIndex: ",
-    //   homeContextStore.slides[homeContextStore.captionNextIndex].title
-    // );
-
-    homeContextStore.captionCurrentIndex =
-      homeContextStore.captionCurrentIndex ===
-      homeContextStore.slides.length - 1
-        ? 0
-        : homeContextStore.captionCurrentIndex + 1;
 
     if (homeContextStore.direction === "next") {
+      //go to next index
+      homeContextStore.captionCurrentIndex =
+        homeContextStore.captionCurrentIndex ===
+        homeContextStore.slides.length - 1
+          ? 0
+          : homeContextStore.captionCurrentIndex + 1;
+
+      // reposition slides
       store.h1 = store.h1.map((value) => {
         if (value === -120) return 120;
         if (value === 0) return -120;
@@ -73,6 +70,13 @@ export default component$(() => {
     }
 
     if (homeContextStore.direction === "prev") {
+      //go to previous index
+      homeContextStore.captionCurrentIndex =
+        homeContextStore.captionCurrentIndex === 0
+          ? homeContextStore.slides.length - 1
+          : homeContextStore.captionCurrentIndex - 1;
+
+      // reposition slides
       store.h1 = store.h1.map((value) => {
         if (value === 120) return -120;
         if (value === 0) return 120;
@@ -80,20 +84,6 @@ export default component$(() => {
         return 0;
       });
     }
-
-    // @ts-ignore
-    // window.heroCaptionTimout = setTimeout(() => {
-    //   homeContextStore.captionCurrentIndex =
-    //     homeContextStore.captionCurrentIndex ===
-    //     homeContextStore.slides.length - 1
-    //       ? 0
-    //       : homeContextStore.captionCurrentIndex + 1;
-    // }, 1500);
-
-    // return () => {
-    //   //@ts-ignore
-    //   clearTimeout(window.heroCaptionTimout);
-    // };
   });
 
   const extraStyles = (topValue: number) => {
@@ -106,7 +96,6 @@ export default component$(() => {
   };
 
   const calculateIndex = (index: number) => {
-    // if (store.h1[index] === 0) return homeContextStore.captionCurrentIndex;
     if (store.h1[index] === -120) return homeContextStore.captionPrevIndex;
     if (store.h1[index] === 120) return homeContextStore.captionNextIndex;
     return homeContextStore.captionCurrentIndex;

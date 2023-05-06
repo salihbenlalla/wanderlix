@@ -35,8 +35,8 @@ const SlickSlider = component$<SlickSliderProps>((props) => {
 
   const commonSlideStyles = {
     width: `${props.slideWidth}px`,
-    marginLeft: `${props.margin}px`,
-    marginRight: `${props.margin}px`,
+    // marginLeft: `${props.margin}px`,
+    marginRight: `${2 * props.margin}px`,
   };
 
   const slideStyles = (index: number) => {
@@ -63,6 +63,10 @@ const SlickSlider = component$<SlickSliderProps>((props) => {
     ) {
       styles.opacity = 0;
     }
+
+    // if (index - homeContextStore.slickSliderCurrentIndex === 0) {
+    //   styles.marginLeft = `${0}px`;
+    // }
     return styles;
   };
 
@@ -131,7 +135,7 @@ const SlickSlider = component$<SlickSliderProps>((props) => {
         class={`slider2-container`}
         style={{
           width: `${
-            (props.slideWidth + 2 * props.margin) *
+            (props.slideWidth + (2 * props.margin - 2)) *
             homeContextStore.slides.length
           }px`,
         }}
@@ -240,7 +244,7 @@ const SlickSlider = component$<SlickSliderProps>((props) => {
 
       <div
         class="slick-slider-btns"
-        style={{ paddingLeft: `${props.margin}px` }}
+        // style={{ paddingLeft: `${props.margin}px` }}
       >
         <button class="slick-slider-btn-prev" onClick$={handlePrev}>
           &#10094;
