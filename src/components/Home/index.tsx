@@ -1,10 +1,6 @@
 import {
-  //   $,
-  //   $,
   component$,
   useContextProvider,
-  //   useOnDocument,
-  //   useOnWindow,
   useSignal,
   useStore,
   useStyles$,
@@ -15,8 +11,6 @@ import Hero from "./Hero";
 import { type Slide } from "./Hero/HeroContent/SlickSlider";
 import { homeContext } from "./HomeContext";
 import styles from "./index.css?inline";
-import { disableScroll, enableScroll } from "~/lib/helpers/disableScroll";
-import { animateScroll } from "./scrollAnimation";
 import jump from "jump.js";
 
 declare global {
@@ -150,30 +144,9 @@ export default component$(() => {
 
   const isScrolling = useSignal(false);
 
-  const lastScrollPosition = useSignal<number>(0);
+  const lastTouchY = useSignal<number | undefined>(undefined);
 
   useVisibleTask$(() => {
-    // document.body.style.overflow = "hidden";
-    // disableScroll();
-    const getScrollDirection = () => {
-      const currentScrollPosition =
-        window.pageYOffset || document.documentElement.scrollTop;
-
-      let direction: 1 | -1 = 1;
-      if (currentScrollPosition > lastScrollPosition.value) {
-        // Scrolling down
-        direction = 1;
-        console.log("Scrolling down");
-      } else {
-        // Scrolling up
-        direction = -1;
-        console.log("Scrolling up");
-      }
-
-      lastScrollPosition.value = currentScrollPosition;
-      return direction;
-    };
-
     const handleScroll = (direction: 1 | -1) => {
       const sections = [
         section1Ref.value,
@@ -190,13 +163,19 @@ export default component$(() => {
           store.currentSectionIndex++;
           const element = sections[store.currentSectionIndex];
           if (element) {
-            jump(element, { duration: 2000, offset: -80 });
+            //@ts-ignore
+            clearTimeout(window.scrollAnimationTimeout1);
+            //@ts-ignore
+            window.scrollAnimationTimeout1 = setTimeout(
+              () => jump(element, { duration: 1000, offset: -80 }),
+              300
+            );
           }
         } else if (direction === -1 && store.currentSectionIndex > 0) {
           store.currentSectionIndex--;
           const element = sections[store.currentSectionIndex];
           if (element) {
-            jump(element, { duration: 2000, offset: -80 });
+            jump(element, { duration: 1000, offset: -80 });
           }
         }
       }
@@ -246,6 +225,24 @@ export default component$(() => {
       },
       { passive: false }
     );
+
+    window.addEventListener("touchmove", (event) => {
+      event.preventDefault();
+      const touchY = event.touches[0].clientY;
+
+      // Determine direction of touch move
+      if (lastTouchY.value) {
+        const deltaY = touchY - lastTouchY.value;
+        if (deltaY > 0) {
+          scrollHandler(1);
+        } else if (deltaY < 0) {
+          scrollHandler(-1);
+        }
+      }
+
+      // Update last touch position
+      lastTouchY.value = touchY;
+    });
     //   return () => {
     //     console.log("removing wheel event");
     //     window.removeEventListener("wheel", scrollHandler);

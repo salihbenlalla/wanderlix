@@ -31,7 +31,7 @@ export default component$(() => {
   useVisibleTask$(({ track }) => {
     track(() => HomeContextStore.currentSectionIndex);
 
-    if (HomeContextStore.currentSectionIndex === 2) {
+    if (HomeContextStore.currentSectionIndex === 1) {
       if (leftRef.value) {
         animate(
           leftRef.value,
@@ -51,6 +51,33 @@ export default component$(() => {
           }
         );
       }
+    }
+
+    if (HomeContextStore.currentSectionIndex === 0) {
+      //@ts-ignore
+      clearTimeout(window.scrollTimeout2);
+      //@ts-ignore
+      window.scrollTimeout2 = setTimeout(() => {
+        if (leftRef.value) {
+          animate(
+            leftRef.value,
+            { transform: `translate3d(0, 0, 0)`, opacity: 1 },
+            { duration: 1.5 }
+          );
+        }
+        if (rightRef.value) {
+          animate(
+            rightRef.value,
+            {
+              transform: `translate3d(0, 0, 0)`,
+              opacity: 1,
+            },
+            {
+              duration: 1.5,
+            }
+          );
+        }
+      }, 500);
     }
   });
 
