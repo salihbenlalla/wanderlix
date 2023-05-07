@@ -192,10 +192,35 @@ export default component$(() => {
             store.currentSectionIndex
           );
           store.currentSectionIndex++;
-          sections[store.currentSectionIndex]?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
+          // sections[store.currentSectionIndex]?.scrollIntoView({
+          //   behavior: "smooth",
+          //   block: "center",
+          // });
+          const element = sections[store.currentSectionIndex];
+          if (element) {
+            const elementTop = element?.getBoundingClientRect().top;
+            const duration = 2000;
+            element.style.animation = `scroll ${duration}ms ease-out forwards`;
+            element.style.animationDelay = "0s";
+            const style = document.createElement("style");
+            style.innerHTML = `
+  @keyframes scroll {
+    from {
+      transform: translateY(${elementTop}px);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+`;
+            document.head.appendChild(style);
+
+            setTimeout(() => {
+              document.body.style.overflow = "";
+              element.style.animation = "";
+              document.head.removeChild(style);
+            }, duration);
+          }
         } else if (direction === -1 && store.currentSectionIndex > 0) {
           console.log(
             "scrolling up, current section: ",
@@ -204,7 +229,15 @@ export default component$(() => {
           store.currentSectionIndex--;
           sections[store.currentSectionIndex]?.scrollIntoView({
             behavior: "smooth",
+            block: "center",
           });
+          // const element = sections[store.currentSectionIndex]
+          // if (element) {
+          //   const elementTop = element?.getBoundingClientRect().top;
+          //   const duration = 2000;
+          //   element.style.animation = `scroll ${duration}ms ease-out forwards`;
+          //   element.style.animationDelay = "0s";
+          // }
         }
       }
     };
