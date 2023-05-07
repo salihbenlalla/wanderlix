@@ -16,6 +16,8 @@ import { type Slide } from "./Hero/HeroContent/SlickSlider";
 import { homeContext } from "./HomeContext";
 import styles from "./index.css?inline";
 import { disableScroll, enableScroll } from "~/lib/helpers/disableScroll";
+import { animateScroll } from "./scrollAnimation";
+import jump from "jump.js";
 
 declare global {
   interface Window {
@@ -173,8 +175,6 @@ export default component$(() => {
     };
 
     const handleScroll = (direction: 1 | -1) => {
-      //   console.log("from handleScroll ");
-      //   const direction = getScrollDirection();
       const sections = [
         section1Ref.value,
         section2Ref.value,
@@ -187,57 +187,17 @@ export default component$(() => {
           direction === 1 &&
           store.currentSectionIndex < sections.length - 1
         ) {
-          console.log(
-            "scrolling down, current section: ",
-            store.currentSectionIndex
-          );
           store.currentSectionIndex++;
-          // sections[store.currentSectionIndex]?.scrollIntoView({
-          //   behavior: "smooth",
-          //   block: "center",
-          // });
           const element = sections[store.currentSectionIndex];
           if (element) {
-            const elementTop = element?.getBoundingClientRect().top;
-            const duration = 2000;
-            element.style.animation = `scroll ${duration}ms ease-out forwards`;
-            element.style.animationDelay = "0s";
-            const style = document.createElement("style");
-            style.innerHTML = `
-  @keyframes scroll {
-    from {
-      transform: translateY(${elementTop}px);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-`;
-            document.head.appendChild(style);
-
-            setTimeout(() => {
-              document.body.style.overflow = "";
-              element.style.animation = "";
-              document.head.removeChild(style);
-            }, duration);
+            jump(element, { duration: 2000, offset: -80 });
           }
         } else if (direction === -1 && store.currentSectionIndex > 0) {
-          console.log(
-            "scrolling up, current section: ",
-            store.currentSectionIndex
-          );
           store.currentSectionIndex--;
-          sections[store.currentSectionIndex]?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-          // const element = sections[store.currentSectionIndex]
-          // if (element) {
-          //   const elementTop = element?.getBoundingClientRect().top;
-          //   const duration = 2000;
-          //   element.style.animation = `scroll ${duration}ms ease-out forwards`;
-          //   element.style.animationDelay = "0s";
-          // }
+          const element = sections[store.currentSectionIndex];
+          if (element) {
+            jump(element, { duration: 2000, offset: -80 });
+          }
         }
       }
     };
