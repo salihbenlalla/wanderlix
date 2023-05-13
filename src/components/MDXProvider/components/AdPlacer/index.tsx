@@ -12,16 +12,16 @@ const AdPlacer = component$<AdPlacerProps>(({ kind }) => {
     <div class="ad_placer">
       {kind === "1" ? (
         // <div>ad placer 1</div>
-        <img src={adPlaceHolder} />
+        <img width="250" height="250" src={adPlaceHolder} />
       ) : kind === "2" ? (
         // <div>ad placer 2</div>
-        <img src={adPlaceHolder} />
+        <img width="250" height="250" src={adPlaceHolder} />
       ) : kind === "3" ? (
         // <div>ad placer 3</div>
-        <img src={adPlaceHolder} />
+        <img width="250" height="250" src={adPlaceHolder} />
       ) : (
         // <div>bannauto</div>
-        <img src={adPlaceHolder} />
+        <img width="250" height="250" src={adPlaceHolder} />
       )}
     </div>
   );

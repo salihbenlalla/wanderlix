@@ -20,7 +20,13 @@ export default component$<PostHeaderProps>((props) => {
   return (
     <section
       class="post-cover"
-      style={{ backgroundImage: `url(${props.image})` }}
+      //   style={{ backgroundImage: `url(${props.image})` }}
+      //   style={{
+      //     backgroundImage: `url(/images/the-essential-things-to-do-riquewihr.webp)`,
+      //   }}
+      style={{
+        background: `linear-gradient(to top, #fe4f70 0%, #ffa387 100%)`,
+      }}
     >
       <div class="container">
         <div class="cover-content">

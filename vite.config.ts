@@ -3,6 +3,7 @@ import { qwikVite } from "@builder.io/qwik/optimizer";
 import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import svgx from "@svgx/vite-plugin-qwik";
+import viteCompression from "vite-plugin-compression";
 import replaceLinkIdsRehype from "./src/rehypePlugin";
 
 export default defineConfig(() => {
@@ -19,6 +20,7 @@ export default defineConfig(() => {
       qwikVite(),
       tsconfigPaths(),
       svgx(),
+      viteCompression(),
     ],
     preview: {
       headers: {
@@ -27,6 +29,7 @@ export default defineConfig(() => {
     },
     // build: {
     //   minify: false,
+    //   sourcemap: true,
     // },
     server: {
       hmr: {

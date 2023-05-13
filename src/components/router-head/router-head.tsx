@@ -26,12 +26,52 @@ export const RouterHead = component$(() => {
       /> */}
       <meta charSet="utf-8" />
       <link rel="manifest" href="/manifest.json" />
-      <link rel="stylesheet" href="/fonts/poppins/stylesheet.css" />
-      <link href="/fonts/dmsans/stylesheet.css" rel="stylesheet" />
+      {/* <link rel="stylesheet" href="/fonts/poppins/stylesheet.css" />
+      <link href="/fonts/dmsans/stylesheet.css" rel="stylesheet" /> */}
 
       <meta property="og:site_name" content="travel2.ml" />
       {/* <meta name="twitter:site" content="@travel2" />
       <meta name="twitter:title" content="Travel2.ml" /> */}
+
+      {/* <link
+        rel="preload"
+        href="/fonts/poppins/poppins-bold-webfont.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin=""
+      />
+
+      <link
+        rel="preload"
+        href="/fonts/poppins/poppins-regular-webfont.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin=""
+      />
+
+      <link
+        rel="preload"
+        href="/fonts/dmsans/dmsans-regular-webfont.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin=""
+      />
+
+      <link
+        rel="preload"
+        href="/fonts/dmsans/dmsans-bold-webfont.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin=""
+      />
+
+      <link
+        rel="preload"
+        href="/fonts/dmsans/dmsans-italic-webfont.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin=""
+      /> */}
 
       {head.meta.map((m) => (
         <meta key={uuidv4()} {...m} />

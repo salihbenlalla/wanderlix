@@ -4,7 +4,7 @@ import {
   useSignal,
   useStore,
   useStyles$,
-  useOnDocument,
+  useVisibleTask$,
 } from "@builder.io/qwik";
 import { v4 as uuidv4 } from "uuid";
 import WidgetContainer from "../WidgetContainer";
@@ -71,20 +71,17 @@ export default component$<PostsCarouselWidgetProps>((props) => {
     { deep: true }
   );
 
-  useOnDocument(
-    "load",
-    $(() => {
-      const windowWidth = window.innerWidth;
-      if (windowWidth < 992) {
-        margin.value = MARGIN;
-        store.translateValues = getTranslateValues(
-          props.posts.length,
-          margin.value,
-          ITEMWIDTH
-        );
-      }
-    })
-  );
+  useVisibleTask$(() => {
+    const windowWidth = window.innerWidth;
+    if (windowWidth < 992) {
+      margin.value = MARGIN;
+      store.translateValues = getTranslateValues(
+        props.posts.length,
+        margin.value,
+        ITEMWIDTH
+      );
+    }
+  });
 
   const handleNext = $(() => {
     direction.value = "next";

@@ -6,6 +6,8 @@ export interface MainPaysProps {
   title?: string;
   link?: string;
   imgSrc?: string;
+  imgWidth?: string;
+  imgHeight?: string;
 }
 
 const MainPays = component$<MainPaysProps>((props) => {
@@ -15,7 +17,11 @@ const MainPays = component$<MainPaysProps>((props) => {
     <div class="read_more_card">
       <div class="read_more_card_title">{props.title}</div>
       <a href={props.link}>
-        <img src={props.imgSrc} />
+        <img
+          width={props.imgWidth}
+          height={props.imgHeight}
+          src={props.imgSrc}
+        />
         <span class="read_more_card_content">
           <Slot />
         </span>

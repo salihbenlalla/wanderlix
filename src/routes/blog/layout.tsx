@@ -5,6 +5,7 @@ import {
   type RequestEventLoader,
   type DocumentHead,
   routeAction$,
+  type RequestHandler,
 } from "@builder.io/qwik-city";
 import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 import { type D1Database } from "@miniflare/d1";
@@ -278,6 +279,18 @@ export default component$(() => {
 export const head: DocumentHead = ({ head }) => {
   return {
     title: head.title,
+    links: [
+      //   {
+      //     rel: "preload",
+      //     as: "image",
+      //     href: "/images/the-essential-things-to-do-riquewihr.webp",
+      //     fetchpriority: "high",
+      //   },
+      {
+        rel: "dns-prefetch",
+        href: "https://cdn.travel2.ml",
+      },
+    ],
     meta: [
       {
         "http-equiv": "Content-Type",
@@ -361,11 +374,9 @@ export const head: DocumentHead = ({ head }) => {
         content: head.frontmatter.readDuration,
       },
     ],
-    links: [
-      {
-        rel: "dns-prefetch",
-        href: "https://cdn.travel2.ml",
-      },
-    ],
   };
+};
+
+export const onGet: RequestHandler = (request) => {
+  request.headers.set("Cache-Control", "no-cache");
 };

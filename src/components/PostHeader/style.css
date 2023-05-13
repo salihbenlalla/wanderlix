@@ -31,7 +31,7 @@
 }
 
 .post-header > ul > li.comment-count svg {
-  fill: rgba(255, 255, 255, 0.6);
+  fill: #dadada;
   width: "14";
   height: "14";
 }
@@ -46,7 +46,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #dadada;
   margin-left: 0;
   padding-left: 0;
 }
@@ -106,7 +106,7 @@ img.author-avatar {
 .breadcrumbs ol li:not(:first-child)::before {
   float: left;
   padding-right: 0.5rem;
-  color: #8f9bad;
+  color: #dadada;
   content: "/";
 }
 
@@ -125,7 +125,7 @@ img.author-avatar {
 }
 
 .breadcrumbs ol li:last-child > a {
-  color: #8f9bad;
+  color: #dadada;
 }
 
 .post-cover {
@@ -152,7 +152,7 @@ img.author-avatar {
   }
 }
 
-.post-cover::after {
+/* .post-cover::after {
   content: "";
   display: block;
   height: 100%;
@@ -160,8 +160,8 @@ img.author-avatar {
   top: 0;
   position: absolute;
   width: 100%;
-  background-color: rgba(32, 54, 86, 0.6);
-}
+  background-color: rgba(32, 54, 86, 0.1);
+} */
 
 .cover-content {
   bottom: 60px;

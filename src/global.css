@@ -19,6 +19,190 @@
   --color-secondary: #ff7235;
 }
 
+/* load Poppins fonts */
+/* @font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-light-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-light-webfont.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-lightitalic-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-lightitalic-webfont.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-regular-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-regular-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-italic-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-italic-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-medium-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-medium-webfont.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-mediumitalic-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-mediumitalic-webfont.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-semibold-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-semibold-webfont.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-semibolditalic-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-semibolditalic-webfont.woff") format("woff");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-bold-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-bold-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-bolditalic-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-bolditalic-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-extrabold-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-extrabold-webfont.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/poppins/poppins-extrabolditalic-webfont.woff2") format("woff2"),
+    url("/fonts/poppins/poppins-extrabolditalic-webfont.woff") format("woff");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+} */
+
+/* load dm-sans fonts */
+/* @font-face {
+  font-family: "dm sans";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/dmsans/dmsans-regular-webfont.woff2") format("woff2"),
+    url("/fonts/dmsans/dmsans-regular-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "dm sans";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/dmsans/dmsans-italic-webfont.woff2") format("woff2"),
+    url("/fonts/dmsans/dmsans-italic-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "dm sans";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/dmsans/dmsans-medium-webfont.woff2") format("woff2"),
+    url("/fonts/dmsans/dmsans-medium-webfont.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "dm sans";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/dmsans/dmsans-mediumitalic-webfont.woff2") format("woff2"),
+    url("/fonts/dmsans/dmsans-mediumitalic-webfont.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "dm sans";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/dmsans/dmsans-bold-webfont.woff2") format("woff2"),
+    url("/fonts/dmsans/dmsans-bold-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "dm sans";
+  src: local("Verdana"), local("sans-serif"),
+    url("/fonts/dmsans/dmsans-bolditalic-webfont.woff2") format("woff2"),
+    url("/fonts/dmsans/dmsans-bolditalic-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+} */
+
+/* other global styles */
+
 * {
   box-sizing: border-box;
   margin: 0;
