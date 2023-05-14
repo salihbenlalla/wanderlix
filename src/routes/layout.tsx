@@ -1,16 +1,17 @@
 import {
+  $,
   component$,
   createContextId,
   Slot,
   useContextProvider,
   useStore,
 } from "@builder.io/qwik";
+import { type ImageTransformerProps, useImageProvider } from "qwik-image";
 import MainOverlay from "~/components/MainOverlay";
 import ReadingBar from "~/components/ReadingBar";
 import SearchPopup from "~/components/SearchPopup";
 import SideMenu from "~/components/SideMenu";
 import Header from "../components/header";
-// import { useLocation } from "@builder.io/qwik-city";
 
 interface ThemeStore {
   sideMenuOpen: boolean;
@@ -25,6 +26,19 @@ export default component$(() => {
     searchPopupOpen: false,
   });
   useContextProvider(ThemeContext, themeStore);
+
+  const imageTransformer$ = $(
+    ({ src, width, height }: ImageTransformerProps): string => {
+      // Here you can set your favourite image loaders service
+      return `https://res.cloudinary.com/dlzx1x20u/image/upload/w_${width},h_${height},c_lfill,f_auto/v1684082099/travel2/${src}.webp`;
+    }
+  );
+
+  useImageProvider({
+    // You can set this prop to overwrite default values [3840, 1920, 1280, 960, 640]
+    resolutions: [640],
+    imageTransformer$,
+  });
 
   //   const location = useLocation();
 

@@ -1,4 +1,5 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
+import { Image } from "qwik-image";
 import type { Comment } from "../commentHandlers";
 import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
@@ -16,7 +17,18 @@ export default component$<CommentSingleProps>(
       <article class="comments-list-comment">
         <div class="comment-author-avatar-container">
           <a href={website}>
-            <img src={avatarImage ?? "/images/comment-avatar.png"} />
+            {/* <img src={avatarImage ?? "/images/comment-avatar.png"} /> */}
+            <Image
+              layout="fullWidth"
+              objectFit="cover"
+              aspectRatio={60 / 60}
+              width={60}
+              height={60}
+              alt="alt text"
+              placeholder="#e6e6e6"
+              src={avatarImage ?? "/images/comment-avatar.png"}
+              loading="lazy"
+            />
           </a>
         </div>
         <div class="comment-details">

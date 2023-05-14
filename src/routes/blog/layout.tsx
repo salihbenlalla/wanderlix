@@ -134,7 +134,7 @@ export const sidebar: SideBarProps = {
       {
         title: "Post 0",
         url: "#",
-        thumbnail: "/images/thumbnail4.jpg",
+        thumbnail: "thumbnail4_eqbqjm",
         date: "26 August 2022",
         author: "John Doe",
         authorUrl: "#",
@@ -142,7 +142,7 @@ export const sidebar: SideBarProps = {
       {
         title: "Post 1",
         url: "#",
-        thumbnail: "/images/thumbnail5.jpg",
+        thumbnail: "thumbnail5_myxw3u",
         date: "23 August 2022",
         author: "John Smith",
         authorUrl: "#",
@@ -150,7 +150,7 @@ export const sidebar: SideBarProps = {
       {
         title: "Post 2",
         url: "#",
-        thumbnail: "/images/thumbnail6.jpg",
+        thumbnail: "thumbnail6_zvszzf",
         date: "23 August 2022",
         author: "matilda Smith",
         authorUrl: "#",
@@ -158,7 +158,7 @@ export const sidebar: SideBarProps = {
       {
         title: "Post 3",
         url: "#",
-        thumbnail: "/images/thumbnail5.jpg",
+        thumbnail: "thumbnail5_myxw3u",
         date: "23 August 2022",
         author: "John Smith",
         authorUrl: "#",
@@ -166,7 +166,7 @@ export const sidebar: SideBarProps = {
       {
         title: "Post 4",
         url: "#",
-        thumbnail: "/images/thumbnail5.jpg",
+        thumbnail: "thumbnail5_myxw3u",
         date: "23 August 2022",
         author: "John Smith",
         authorUrl: "#",

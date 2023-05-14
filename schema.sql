@@ -19,7 +19,7 @@ INSERT INTO Comments (
 ) VALUES (
     1,
     'johnsmith.com',
-    '/images/john-smith-avatar.webp',
+    '151824697-headshot-portrait-of-smiling-confident-young-caucasian-businessman-in-glasses-posing-in-office_dguabf',
     'John Smith',
     'johnsmith@gmail.com',
     '2023-03-10T12:00:20+00:00',
@@ -28,7 +28,7 @@ INSERT INTO Comments (
 (
     2,
     'johndoe.com',
-    '/images/john-doe-avatar.jpg',
+    'thoughtful-office-worker-thinking-problem-solution-looking-computer-working-serious-smart-young-businessman-employee-138893862_w804xb',
     'John Doe',
     'johndoe@gmail.com',
     '2023-03-10T12:00:20+00:00',

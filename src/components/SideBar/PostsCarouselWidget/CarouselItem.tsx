@@ -6,6 +6,7 @@ import {
 } from "@builder.io/qwik";
 import { isBrowser } from "@builder.io/qwik/build";
 import { animate } from "motion";
+import { Image } from "qwik-image";
 
 export interface CarouselItemProps {
   title: string;
@@ -61,7 +62,18 @@ export default component$<CarouselItemProps>((props) => {
       <div class="carousel-post-thumbnail">
         <a href={props.url}>
           <div class="carousel-post-thumbnail-inner">
-            <img src={props.thumbnail} alt={props.title} />
+            {/* <img src={props.thumbnail} alt={props.title} /> */}
+            <Image
+              layout="fullWidth"
+              objectFit="cover"
+              aspectRatio={298 / 200}
+              width={298}
+              height={200}
+              alt={props.title}
+              placeholder="#e6e6e6"
+              src={props.thumbnail}
+              loading="lazy"
+            />
           </div>
         </a>
       </div>

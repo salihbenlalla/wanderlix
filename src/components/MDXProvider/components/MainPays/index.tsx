@@ -1,4 +1,5 @@
 import { component$, Slot, useStyles$ } from "@builder.io/qwik";
+import { Image } from "qwik-image";
 import styles from "./style.css?inline";
 import svgxImport from "@svgx-dir:/src/assets/icomoon_svg";
 
@@ -17,10 +18,22 @@ const MainPays = component$<MainPaysProps>((props) => {
     <div class="read_more_card">
       <div class="read_more_card_title">{props.title}</div>
       <a href={props.link}>
-        <img
+        {/* <img
           width={props.imgWidth}
           height={props.imgHeight}
           src={props.imgSrc}
+        /> */}
+
+        <Image
+          layout="fullWidth"
+          objectFit="cover"
+          aspectRatio={Number(props.imgWidth) / Number(props.imgHeight)}
+          width={props.imgWidth}
+          height={props.imgHeight}
+          alt="alt text"
+          placeholder="#e6e6e6"
+          src={props.imgSrc}
+          loading="lazy"
         />
         <span class="read_more_card_content">
           <Slot />
