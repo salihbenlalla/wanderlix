@@ -8,7 +8,11 @@ import { type AddCommentReturnValue } from "~/routes/blog/layout";
 
 interface PostCommentSectionProps {
   comments: Comment[] | undefined;
-  action: ActionStore<AddCommentReturnValue, Record<string, any>, true>;
+  action: ActionStore<
+    Partial<AddCommentReturnValue>,
+    Record<string, any>,
+    true
+  >;
 }
 
 export default component$<PostCommentSectionProps>((props) => {

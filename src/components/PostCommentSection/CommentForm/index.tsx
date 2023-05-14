@@ -4,7 +4,11 @@ import { type AddCommentReturnValue } from "~/routes/blog/layout";
 import styles from "./style.css?inline";
 
 interface CommentFormProps {
-  action: ActionStore<AddCommentReturnValue, Record<string, any>, true>;
+  action: ActionStore<
+    Partial<AddCommentReturnValue>,
+    Record<string, any>,
+    true
+  >;
 }
 
 export default component$<CommentFormProps>((props) => {

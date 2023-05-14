@@ -24,8 +24,6 @@
     "wrangler": "export NO_D1_WARNING=true && wrangler -c ./wrangler.toml d1 execute DB --local --file ./schema.sql"
   },
   "devDependencies": {
-    "@builder.io/qwik": "0.100.0",
-    "@builder.io/qwik-city": "~0.100.0",
     "@miniflare/d1": "^2.12.1",
     "@svgx/vite-plugin-qwik": "^1.0.1",
     "@types/dateformat": "^5.0.0",
@@ -62,12 +60,16 @@
     "wrangler": "latest"
   },
   "dependencies": {
+    "@builder.io/qwik": "^1.1.2",
+    "@builder.io/qwik-city": "^1.1.2",
     "@tweenjs/tween.js": "^19.0.0",
     "@types/uuid": "^9.0.1",
+    "@unpic/qwik": "^0.0.17",
     "dateformat": "^5.0.3",
     "jump.js": "^1.0.2",
     "motion": "^10.15.5",
     "particles.js": "^2.0.0",
+    "qwik-image": "^0.0.4",
     "scriptjs": "^2.5.9",
     "three": "^0.131.0",
     "uuid": "^9.0.0"

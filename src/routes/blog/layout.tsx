@@ -33,17 +33,20 @@ export const useGetComments = routeLoader$(
   }
 );
 
-export type AddCommentReturnValue =
-  | {
-      success: boolean;
-      id: number;
-    }
-  | undefined;
+export type AddCommentReturnValue = {
+  success: boolean;
+  id?: number;
+};
 
 export const useAddComment = routeAction$<AddCommentReturnValue>(
   async (comment, ev) => {
     const success = await handleAddComment(comment, ev);
-    return success;
+    if (success) {
+      return success;
+    }
+    return {
+      success: false,
+    };
   }
 );
 

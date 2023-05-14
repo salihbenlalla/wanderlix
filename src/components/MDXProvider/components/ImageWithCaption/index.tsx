@@ -1,10 +1,17 @@
 import {
+  $,
   component$,
   Slot,
   //   useClientEffect$,
   //   useStore,
   useStyles$,
 } from "@builder.io/qwik";
+// import { Image } from "@unpic/qwik";
+import {
+  Image,
+  type ImageTransformerProps,
+  useImageProvider,
+} from "qwik-image";
 import styles from "./style.css?inline";
 
 export type ImageWithCaptionProps = {
@@ -16,12 +23,36 @@ export type ImageWithCaptionProps = {
 const ImageWithCaption = component$((props: ImageWithCaptionProps) => {
   useStyles$(styles);
 
-  const imgHeight = props.imgHeight;
-  const imgWidth = props.imgWidth;
+  const imgHeight = Number(props.imgHeight);
+  const imgWidth = Number(props.imgWidth);
+
+  const imageTransformer$ = $(
+    ({ src, width, height }: ImageTransformerProps): string => {
+      // Here you can set your favourite image loaders service
+      return `https://res.cloudinary.com/dlzx1x20u/image/upload/w_${width},h_${height},c_lfill,f_auto/v1684082099/travel2/${src}.webp`;
+    }
+  );
+
+  useImageProvider({
+    // You can set this prop to overwrite default values [3840, 1920, 1280, 960, 640]
+    resolutions: [640],
+    imageTransformer$,
+  });
 
   return (
     <div class="image_caption">
-      {imgHeight && imgWidth ? (
+      <Image
+        layout="fullWidth"
+        objectFit="cover"
+        aspectRatio={imgWidth / imgHeight}
+        width={imgWidth}
+        height={imgHeight}
+        alt="alt text"
+        placeholder="#e6e6e6"
+        src={props.imgSrc}
+        loading="lazy"
+      />
+      {/* {imgHeight && imgWidth ? (
         <div
           style={
             {
@@ -65,7 +96,7 @@ const ImageWithCaption = component$((props: ImageWithCaptionProps) => {
               "#ddd url(/icomoon_svg/camera.svg) no-repeat center center",
           }}
         />
-      )}
+      )} */}
       <Slot />
     </div>
   );
