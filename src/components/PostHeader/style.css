@@ -70,9 +70,12 @@
   width: 3px;
 }
 
-img.author-avatar {
+.author-avatar {
   width: 32px;
   height: 32px;
+}
+
+.author-avatar img {
   border-radius: 50%;
 }
 

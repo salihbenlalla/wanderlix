@@ -69,40 +69,16 @@
 
 .post-content ol {
   list-style-position: inside;
-  /* Start counter */
   counter-reset: list;
   padding-left: 16px;
   margin: 0 auto 16px;
 }
 
 .post-content ol li {
-  /* font-family: "Raleway", sans-serif; */
-  /* Increment counter on each list item */
   margin-top: 5px;
   margin-left: 5px;
   counter-increment: list;
 }
-
-/* .post-content ol li::marker { */
-/* font-family: "Sigmar One", cursive; */
-/* Use counter to display the current number */
-/* content: "Step " counter(list) ". "; */
-/* } */
-
-/* .post-content blockquote::before {
-  content: open-quote;
-}
-
-.post-content blockquote::after {
-  content: close-quote;
-}
-
-.post-content blockquote::before,
-blockquote::after {
-  opacity: 0.25;
-  padding: 0 10px;
-  font-size: 3em;
-} */
 
 .post-content blockquote {
   margin: 20px;
@@ -115,7 +91,7 @@ blockquote::after {
 
 .post-content blockquote p {
   color: #ff4d00;
-  font-family: "Merriweather", serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 16px;
   font-style: italic;
   font-weight: 500;
@@ -223,7 +199,7 @@ blockquote::after {
 
 .post-content p {
   color: #203656;
-  font-family: "dm sans";
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 16px;
   font-weight: 300;
   line-height: 1.7em;
@@ -244,7 +220,7 @@ blockquote::after {
 .post-content h5 {
   font-size: 24px;
   line-height: 1.4em;
-  font-family: Merriweather;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 16px;
   color: #2e383f;
   text-rendering: optimizeLegibility;

@@ -1,5 +1,6 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import { v4 as uuidv4 } from "uuid";
+import { Image } from "qwik-image";
 import BubbleIcon from "~/assets/icomoon_svg/bubble2.svg?component";
 import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
@@ -48,7 +49,20 @@ export default component$<PostHeaderProps>((props) => {
             <h1>{props.title}</h1>
             <ul>
               <li>
-                <img src={props.authorAvatar} class="author-avatar" />
+                {/* <img src={props.authorAvatar} class="author-avatar" /> */}
+                <div class="author-avatar">
+                  <Image
+                    layout="fullWidth"
+                    objectFit="cover"
+                    aspectRatio={32 / 32}
+                    width={32}
+                    height={32}
+                    alt="alt text"
+                    placeholder="#e6e6e6"
+                    src={props.authorAvatar}
+                    loading="lazy"
+                  />
+                </div>
                 <span>{props.authorName}</span>
               </li>
               <li>{props.tagName}</li>

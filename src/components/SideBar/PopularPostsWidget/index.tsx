@@ -1,4 +1,5 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
+import { Image } from "qwik-image";
 import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
 
@@ -27,7 +28,19 @@ export default component$<PopularPostsWidgetProps>((props) => {
                   <div class="post-thumbnail">
                     <a href={post.url}>
                       <div class="post-thumbnail-inner">
-                        <img src={post.thumbnail} alt={post.title} />
+                        {/* <img src={post.thumbnail} alt={post.title} /> */}
+
+                        <Image
+                          layout="fullWidth"
+                          objectFit="cover"
+                          aspectRatio={60 / 60}
+                          width={60}
+                          height={60}
+                          alt="alt text"
+                          placeholder="#e6e6e6"
+                          src={post.thumbnail}
+                          loading="lazy"
+                        />
                       </div>
                     </a>
                   </div>

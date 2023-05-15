@@ -57,19 +57,19 @@ export const sidebar: SideBarProps = {
       {
         title: "3 Easy Ways To Make Your iPhone Faster",
         url: "#",
-        thumbnail: "/images/thumbnail1.jpg",
+        thumbnail: "thumbnail1_fxv0ga",
         date: "26 August 2022",
       },
       {
         title: "Facts About Business That Will Help You Success",
         url: "#",
-        thumbnail: "/images/thumbnail2.jpg",
+        thumbnail: "thumbnail2_yiw0qd",
         date: "23 August 2022",
       },
       {
         title: "15 Unheard Ways To Achieve Greater Walker",
         url: "#",
-        thumbnail: "/images/thumbnail3.jpg",
+        thumbnail: "thumbnail3_tpszao",
         date: "24 August 2022",
       },
     ],
@@ -219,7 +219,7 @@ export const sidebar: SideBarProps = {
     ],
   },
   sponsoredAd: {
-    imageUrl: "/images/ad-widget-photo.png",
+    imageUrl: "ad-widget-photo_taucz3",
     adUrl: "#",
   },
 };
@@ -235,7 +235,7 @@ export default component$(() => {
       <PostHeader
         title={head.title}
         authorName={head.frontmatter.authorName}
-        authorAvatar="/images/fake-avatar.jpg"
+        authorAvatar="fake-avatar_uwoskp"
         tagName={head.frontmatter.tagName}
         dateModified={formatDate(head.frontmatter.dateModified)}
         image={head.frontmatter.image}

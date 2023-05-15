@@ -5,3 +5,8 @@
   margin-top: 16px;
   margin-bottom: 16px;
 }
+
+.ad_placer img {
+  display: block;
+  max-width: 250px;
+}
