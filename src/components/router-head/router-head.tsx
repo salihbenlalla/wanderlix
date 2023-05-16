@@ -16,8 +16,8 @@ export const RouterHead = component$(() => {
 
       <link rel="canonical" href={canonicalUrl} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="preload" href="/favicon.svg" as="image" />
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      {/* <link rel="preload" href="/favicon.svg" as="image" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> */}
 
       {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" /> */}
@@ -26,7 +26,7 @@ export const RouterHead = component$(() => {
         rel="stylesheet"
       /> */}
       <meta charSet="utf-8" />
-      <link rel="manifest" href="/manifest.json" />
+      {/* <link rel="manifest" href="/manifest.json" /> */}
       {/* <link rel="stylesheet" href="/fonts/poppins/stylesheet.css" />
       <link href="/fonts/dmsans/stylesheet.css" rel="stylesheet" /> */}
 
