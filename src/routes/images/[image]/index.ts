@@ -1,16 +1,45 @@
-import { type RequestHandler } from "@builder.io/qwik-city";
+import { type RequestEvent, type RequestHandler } from "@builder.io/qwik-city";
 import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 
 export const onGet: RequestHandler<PlatformCloudflarePages> = async (event) => {
   //   request.headers.set("Cache-Control", "no-cache");
   //   console.log(event.request.url);
-  const response = await handleRequest(event.request);
+  const response = await handleRequest(event);
 
   event.send(response);
 };
 
-async function serveAsset(request: Request) {
-  const url = new URL(request.url);
+async function serveAsset(event: RequestEvent<PlatformCloudflarePages>) {
+  const url = new URL(event.request.url);
+  //@ts-ignore
+  const cache = caches.default;
+  let response = await cache.match(event.request);
+  if (!response) {
+    const cloudinaryURL = convertUrl(url);
+    //   const cloudinaryURL = `${CLOUD_URL}${url.pathname}`;
+    response = await fetch(cloudinaryURL);
+    const headers = {
+      "timing-allow-origin": "*",
+      "cache-control": "public, max-age=31536000",
+    };
+    response = new Response(response.body, { ...response, headers });
+    event.platform.ctx.waitUntil(cache.put(event.request, response.clone()));
+  }
+  return response;
+}
+
+async function handleRequest(event: RequestEvent<PlatformCloudflarePages>) {
+  if (event.request.method === "GET") {
+    let response = await serveAsset(event);
+    if (response.status > 399) {
+      response = new Response(response.statusText, { status: response.status });
+    }
+    return response;
+  }
+  return new Response("Method not allowed", { status: 405 });
+}
+
+const convertUrl = (url: URL) => {
   const fullImageName = url.pathname.split("/")[2];
   const parts = fullImageName.split("-");
   const partsLen = parts.length;
@@ -19,23 +48,5 @@ async function serveAsset(request: Request) {
   const height = parts[partsLen - 1].split(".")[0].split("x")[1];
   const format = parts[partsLen - 1].split(".")[1];
 
-  const cloudinaryURL = `https://res.cloudinary.com/dlzx1x20u/image/upload/w_${width},h_${height},c_lfill,f_auto/v1684082099/travel2/${imageName}.${format}`;
-  //   const cloudinaryURL = `${CLOUD_URL}${url.pathname}`;
-  let response = await fetch(cloudinaryURL);
-  const headers = {
-    "timing-allow-origin": "*",
-  };
-  response = new Response(response.body, { ...response, headers });
-  return response;
-}
-
-async function handleRequest(request: Request) {
-  if (request.method === "GET") {
-    let response = await serveAsset(request);
-    if (response.status > 399) {
-      response = new Response(response.statusText, { status: response.status });
-    }
-    return response;
-  }
-  return new Response("Method not allowed", { status: 405 });
-}
+  return `https://res.cloudinary.com/dlzx1x20u/image/upload/w_${width},h_${height},c_lfill,f_auto/v1684082099/travel2/${imageName}.${format}`;
+};
