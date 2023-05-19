@@ -30,7 +30,7 @@ export default component$(() => {
   const imageTransformer$ = $(
     ({ src, width, height }: ImageTransformerProps): string => {
       // Here you can set your favourite image loaders service
-      return `http://localhost:5173/images/${src}-${width}x${height}.webp`;
+      return `/images/${src}-${width}x${height}.webp`;
       //   return `https://res.cloudinary.com/dlzx1x20u/image/upload/w_${width},h_${height},c_lfill,f_auto/v1684082099/travel2/${src}.webp`;
     }
   );
