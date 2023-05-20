@@ -16,7 +16,7 @@ export const RouterHead = component$(() => {
 
       <link rel="canonical" href={canonicalUrl} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link
+      {/* <link
         rel="preload"
         href="https://res.cloudinary.com/dlzx1x20u/image/upload/w_640,h_640,c_lfill,f_auto/v1684082099/travel2/fake-avatar_uwoskp.webp"
         as="image"
@@ -25,7 +25,7 @@ export const RouterHead = component$(() => {
         rel="preload"
         href="https://res.cloudinary.com/dlzx1x20u/image/upload/w_640,h_959,c_lfill,f_auto/v1684082099/travel2/the-street-of-the-general-of-gaulle_je5an7.webp"
         as="image"
-      />
+      /> */}
       {/* <link rel="preload" href="/favicon.svg" as="image" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> */}
 

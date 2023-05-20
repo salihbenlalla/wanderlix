@@ -11,9 +11,14 @@ export const onGet: RequestHandler<PlatformCloudflarePages> = async (event) => {
 
 async function serveAsset(event: RequestEvent<PlatformCloudflarePages>) {
   const url = new URL(event.request.url);
+
+  let cache: any, response: any;
   //@ts-ignore
-  const cache = caches.default;
-  let response = await cache.match(event.request);
+  if (typeof caches.default !== "undefined") {
+    //@ts-ignore
+    cache = caches.default;
+    response = await cache.match(event.request);
+  }
   if (!response) {
     const cloudinaryURL = convertUrl(url);
     //   const cloudinaryURL = `${CLOUD_URL}${url.pathname}`;
@@ -23,7 +28,10 @@ async function serveAsset(event: RequestEvent<PlatformCloudflarePages>) {
       "cache-control": "public, max-age=31536000",
     };
     response = new Response(response.body, { ...response, headers });
-    event.platform.ctx.waitUntil(cache.put(event.request, response.clone()));
+    console.log("response: ", response);
+    if (cache) {
+      event.platform.ctx.waitUntil(cache.put(event.request, response.clone()));
+    }
   }
   return response;
 }
