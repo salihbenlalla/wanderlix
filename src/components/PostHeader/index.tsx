@@ -25,10 +25,25 @@ export default component$<PostHeaderProps>((props) => {
       //   style={{
       //     backgroundImage: `url(/images/the-essential-things-to-do-riquewihr.webp)`,
       //   }}
-      style={{
-        background: `linear-gradient(to top, #fe4f70 0%, #ffa387 100%)`,
-      }}
+      //   style={{
+      //     background: `linear-gradient(to top, #fe4f70 0%, #ffa387 100%)`,
+      //   }}
     >
+      <div class="post-header-image">
+        {/* <img src={props.image} /> */}
+        <div class="post-header-overlay" />
+        <Image
+          layout="constrained"
+          objectFit="cover"
+          aspectRatio={2000 / 1332}
+          width={2000}
+          height={1332}
+          alt="alt text"
+          placeholder="#e6e6e6"
+          src={props.image}
+          loading="lazy"
+        />
+      </div>
       <div class="container">
         <div class="cover-content">
           <nav class="breadcrumbs">

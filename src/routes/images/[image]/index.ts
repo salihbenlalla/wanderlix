@@ -13,26 +13,18 @@ async function serveAsset(event: RequestEvent<PlatformCloudflarePages>) {
   const url = new URL(event.request.url);
 
   let cache: any, response: any;
-  //@ts-ignore
-  if (typeof caches.default !== "undefined") {
+  try {
     //@ts-ignore
     cache = caches.default;
     response = await cache.match(event.request);
-  }
-  if (!response) {
-    const cloudinaryURL = convertUrl(url);
-    //   const cloudinaryURL = `${CLOUD_URL}${url.pathname}`;
-    response = await fetch(cloudinaryURL);
-    const headers = {
-      "timing-allow-origin": "*",
-      "cache-control": "public, max-age=31536000",
-    };
-    response = new Response(response.body, { ...response, headers });
-    console.log("response: ", response);
-    if (cache) {
+    if (!response) {
+      response = await fetchImage(url);
       event.platform.ctx.waitUntil(cache.put(event.request, response.clone()));
     }
+  } catch (error) {
+    response = await fetchImage(url);
   }
+
   return response;
 }
 
@@ -46,6 +38,17 @@ async function handleRequest(event: RequestEvent<PlatformCloudflarePages>) {
   }
   return new Response("Method not allowed", { status: 405 });
 }
+
+const fetchImage = async (url: URL) => {
+  const cloudinaryURL = convertUrl(url);
+  let response = await fetch(cloudinaryURL);
+  const headers = {
+    "timing-allow-origin": "*",
+    "cache-control": "public, max-age=31536000",
+  };
+  response = new Response(response.body, { ...response, headers });
+  return response;
+};
 
 const convertUrl = (url: URL) => {
   const fullImageName = url.pathname.split("/")[2];
