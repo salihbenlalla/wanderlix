@@ -41,7 +41,7 @@ export default component$<PostHeaderProps>((props) => {
           alt="alt text"
           placeholder="#e6e6e6"
           src={props.image}
-          loading="lazy"
+          loading="eager"
         />
       </div>
       <div class="container">
