@@ -20,14 +20,16 @@ export const RouterHead = component$(() => {
         rel="preload"
         href="https://res.cloudinary.com/dlzx1x20u/image/upload/w_640,h_640,c_lfill,f_auto/v1684082099/travel2/fake-avatar_uwoskp.webp"
         as="image"
-      />
-      <link
+      />*/}
+      {/* <link
         rel="preload"
-        href="https://res.cloudinary.com/dlzx1x20u/image/upload/w_640,h_959,c_lfill,f_auto/v1684082099/travel2/the-street-of-the-general-of-gaulle_je5an7.webp"
+        href="/images/the-essential-things-to-do-riquewihr_lung0t-1280x1922.webp"
         as="image"
+        //@ts-ignore
+        fetchpriority="high"
       /> */}
-      {/* <link rel="preload" href="/favicon.svg" as="image" />
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> */}
+      <link rel="preload" href="/favicon.svg" as="image" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
       {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" /> */}

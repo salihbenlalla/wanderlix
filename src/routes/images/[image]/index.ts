@@ -51,6 +51,7 @@ const fetchImage = async (url: URL) => {
 };
 
 const convertUrl = (url: URL) => {
+  console.log("image url: ", url);
   const fullImageName = url.pathname.split("/")[2];
   const parts = fullImageName.split("-");
   const partsLen = parts.length;
@@ -59,5 +60,5 @@ const convertUrl = (url: URL) => {
   const height = parts[partsLen - 1].split(".")[0].split("x")[1];
   const format = parts[partsLen - 1].split(".")[1];
 
-  return `https://res.cloudinary.com/dlzx1x20u/image/upload/w_${width},h_${height},c_lfill,f_auto/v1684082099/travel2/${imageName}.${format}`;
+  return `https://res.cloudinary.com/dlzx1x20u/image/upload/w_${width},h_${height},c_lfill,f_auto,q_auto/v1684082099/travel2/${imageName}.${format}`;
 };
