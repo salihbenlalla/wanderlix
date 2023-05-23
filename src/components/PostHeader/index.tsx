@@ -31,12 +31,12 @@ export default component$<PostHeaderProps>((props) => {
     >
       <div class="post-header-image">
         {/* <img src={props.image} /> */}
-        <div class="post-header-overlay" />
+        {/* <div class="post-header-overlay" /> */}
         <Image
           layout="fullWidth"
           objectFit="cover"
-          aspectRatio={1000 / 600}
-          width={1000}
+          //   aspectRatio={16 / 9}
+          width={1280}
           height={600}
           alt="alt text"
           placeholder="#e6e6e6"

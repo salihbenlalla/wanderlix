@@ -1,4 +1,4 @@
-import { component$, Slot, useStyles$ } from "@builder.io/qwik";
+import { $, component$, Slot, useStyles$ } from "@builder.io/qwik";
 import {
   routeLoader$,
   useDocumentHead,
@@ -18,6 +18,7 @@ import {
 } from "~/components/PostCommentSection/commentHandlers";
 import styles from "./style.css?inline";
 import SideBar, { type SideBarProps } from "~/components/SideBar";
+import { getSrcSet, type ImageTransformerProps } from "qwik-image";
 
 declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
   interface PlatformCloudflarePages {
@@ -279,16 +280,41 @@ export default component$(() => {
 //   imageType: string;
 // }
 
-export const head: DocumentHead = ({ head }) => {
+const imageTransformer$ = $(
+  ({ src, width, height }: ImageTransformerProps): string => {
+    // Here you can set your favourite image loaders service
+    return `/images/${src}-${width}x${height}.webp`;
+    //   return `https://res.cloudinary.com/dlzx1x20u/image/upload/w_${width},h_${height},c_lfill,f_auto/v1684082099/travel2/${src}.webp`;
+  }
+);
+
+export const useJoke = routeLoader$(async () => {
+  // Fetch a joke from a public API
+
+  const srcSet = await getSrcSet({
+    src: "the-essential-things-to-do-riquewihr_lung0t",
+    width: 1280,
+    height: 600,
+    layout: "fullWidth",
+    resolutions: [1280, 960, 640, 320, 160],
+    imageTransformer$,
+  });
+  return srcSet;
+});
+
+export const head: DocumentHead = ({ head, resolveValue }) => {
+  const srcSet = resolveValue(useJoke);
+
   return {
     title: head.title,
     links: [
-      //   {
-      //     rel: "preload",
-      //     as: "image",
-      //     href: "/images/the-essential-things-to-do-riquewihr.webp",
-      //     fetchpriority: "high",
-      //   },
+      {
+        rel: "preload",
+        as: "image",
+        imagesrcset: srcSet,
+        imagesizes: "100vw",
+        fetchpriority: "high",
+      },
       {
         rel: "dns-prefetch",
         href: "https://cdn.travel2.ml",

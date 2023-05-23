@@ -13,7 +13,6 @@ export const RouterHead = component$(() => {
   return (
     <>
       <title>{head.title}</title>
-
       <link rel="canonical" href={canonicalUrl} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       {/* <link
@@ -28,9 +27,7 @@ export const RouterHead = component$(() => {
         //@ts-ignore
         fetchpriority="high"
       /> */}
-      <link rel="preload" href="/favicon.svg" as="image" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
       {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" /> */}
       {/* <link
@@ -41,11 +38,9 @@ export const RouterHead = component$(() => {
       {/* <link rel="manifest" href="/manifest.json" /> */}
       {/* <link rel="stylesheet" href="/fonts/poppins/stylesheet.css" />
       <link href="/fonts/dmsans/stylesheet.css" rel="stylesheet" /> */}
-
       <meta property="og:site_name" content="travel2.ml" />
       {/* <meta name="twitter:site" content="@travel2" />
       <meta name="twitter:title" content="Travel2.ml" /> */}
-
       {/* <link
         rel="preload"
         href="/fonts/poppins/poppins-bold-webfont.woff2"
@@ -85,15 +80,12 @@ export const RouterHead = component$(() => {
         type="font/woff2"
         crossOrigin=""
       /> */}
-
       {head.meta.map((m) => (
         <meta key={uuidv4()} {...m} />
       ))}
-
       {head.links.map((l) => (
         <link key={uuidv4()} {...l} />
       ))}
-
       {head.styles.map((s) => (
         <style key={uuidv4()} {...s.props} dangerouslySetInnerHTML={s.style} />
       ))}
