@@ -5,6 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import svgx from "@svgx/vite-plugin-qwik";
 import viteCompression from "vite-plugin-compression";
 import replaceLinkIdsRehype from "./src/rehypePlugin";
+import ViteCspPlugin from "vite-plugin-csp";
 
 export default defineConfig(() => {
   return {
@@ -21,6 +22,7 @@ export default defineConfig(() => {
       tsconfigPaths(),
       svgx(),
       viteCompression(),
+      ViteCspPlugin(),
     ],
     preview: {
       headers: {
