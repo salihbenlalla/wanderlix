@@ -64,7 +64,7 @@
 .post-content ul li {
   /* margin-top: 5px;
   margin-bottom: 5px; */
-  line-height: 25px;
+  line-height: 32px;
 }
 
 .post-content ol {
@@ -95,7 +95,7 @@
   font-size: 16px;
   font-style: italic;
   font-weight: 500;
-  line-height: 30px;
+  line-height: 32px;
 }
 
 .post-content a {
@@ -202,7 +202,7 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 16px;
   font-weight: 300;
-  line-height: 1.7em;
+  line-height: 32px;
   /* margin: 16px 8px; */
   margin-top: 0;
   margin-bottom: 16px;
