@@ -22,7 +22,7 @@ export default component$(() => {
         <CloseButton width="18" height="18" viewBox="0 0 20 20" />
       </button>
       <div class="side-menu-logo">
-        <a>
+        <a href="https://travel2.ml">
           Travel<span class="logo-two">2</span>
         </a>
       </div>
