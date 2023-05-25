@@ -302,12 +302,16 @@ export const useJoke = routeLoader$(async () => {
   return srcSet;
 });
 
-export const head: DocumentHead = ({ head, resolveValue }) => {
+export const head: DocumentHead = ({ head, resolveValue, url }) => {
   const srcSet = resolveValue(useJoke);
 
   return {
     title: head.title,
     links: [
+      {
+        rel: "canonical",
+        href: `https://travel2.ml${url.pathname}`,
+      },
       {
         rel: "preload",
         as: "image",

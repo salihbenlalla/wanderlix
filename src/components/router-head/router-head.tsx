@@ -7,13 +7,13 @@ import { v4 as uuidv4 } from "uuid";
  */
 export const RouterHead = component$(() => {
   const head = useDocumentHead();
-  const canonicalUrl =
-    head.links.find((obj) => obj.rel === "canonical")?.href ?? "#";
+  //   const canonicalUrl =
+  //     head.links.find((obj) => obj.rel === "canonical")?.href ?? "#";
 
   return (
     <>
       <title>{head.title}</title>
-      <link rel="canonical" href={canonicalUrl} />
+      {/* <link rel="canonical" href={canonicalUrl} /> */}
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       {/* <link
         rel="preload"
