@@ -74,6 +74,6 @@ export default component$(() => {
 export const onGet: RequestHandler = (request) => {
   request.headers.set(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self'  'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'self'; child-src 'self'; form-action 'self';"
+    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'self'; child-src 'self'; form-action 'self';"
   );
 };
