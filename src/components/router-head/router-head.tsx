@@ -15,6 +15,25 @@ export const RouterHead = component$(() => {
       <title>{head.title}</title>
       {/* <link rel="canonical" href={canonicalUrl} /> */}
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <script type="application/ld+json">
+        {`
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "${head.title}",
+      "image": [
+        "${head.frontmatter.image}"
+       ],
+      "datePublished": "${head.frontmatter.datePublished}",
+      "dateModified": "${head.frontmatter.datePublished}",
+      "author": [{
+          "@type": "Person",
+          "name": "${head.frontmatter.authorName}",
+          "url": "${head.frontmatter.authorUrl}"
+        }]
+    }
+    `}
+      </script>
       {/* <link
         rel="preload"
         href="https://res.cloudinary.com/dlzx1x20u/image/upload/w_640,h_640,c_lfill,f_auto/v1684082099/travel2/fake-avatar_uwoskp.webp"
