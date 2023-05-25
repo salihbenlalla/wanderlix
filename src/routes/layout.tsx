@@ -74,6 +74,6 @@ export default component$(() => {
 export const onGet: RequestHandler = (request) => {
   request.headers.set(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'self'; child-src 'self'; form-action 'self';"
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'sha256-g2wSyi3TrUzxFZ5KKm9Ls/e37jmA4yH9o9YUs+UhQGY=' 'sha256-Ce2y3UxMxDQ2YwcA9RP+kV6CR9Zk/zxDES+WO5tn2UY=' 'sha256-6SEQUPC2k3K33z7byFDZZc7XSx0BQse8a6eRbu+yl4Q=' 'sha256-h0pEXN30krHaDyFSS3d0de6Ybs0+gMVRgt4hB371Od8=' 'sha256-vi61YlUtCWKrrJSLDkNFNZCP/OHuROPnQXbhZrMqEDE=' 'sha256-LQ/b4wVdtWOgTe3uoea7Lr4hIJKEyP8UpO0LHRZ+z2w='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'self'; child-src 'self'; form-action 'self';"
   );
 };
