@@ -79,7 +79,7 @@ export default component$<CarouselItemProps>((props) => {
       </div>
       <div class="carousel-post-details">
         <a href={props.url}>
-          <h6 class="carousel-post-title">{props.title}</h6>
+          <h4 class="carousel-post-title">{props.title}</h4>
         </a>
         <ul class="carousel-post-meta">
           <li>
