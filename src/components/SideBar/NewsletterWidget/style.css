@@ -90,7 +90,8 @@
 }
 
 .newsletter-privacy a {
-  color: #fe4f70;
+  /* color: #fe4f70; */
+  color: #2724ff;
   outline: 0;
   text-decoration: none;
   cursor: pointer;
