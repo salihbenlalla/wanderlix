@@ -46,14 +46,11 @@ export default component$<PopularPostsWidgetProps>((props) => {
                   </div>
                   <div class="post-details">
                     <a href={post.url}>
-                      <h6 class="post-title">{post.title}</h6>
+                      <h4 class="post-title">{post.title}</h4>
                     </a>
                     <p class="post-date">{post.date}</p>
                   </div>
                 </li>
-                {index < props.posts.length - 1 && (
-                  <div class="popular-posts-list-separator"></div>
-                )}
               </>
             );
           })}

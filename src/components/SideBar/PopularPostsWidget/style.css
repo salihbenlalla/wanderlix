@@ -2,15 +2,19 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 .popular-posts-list li {
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
-.popular-posts-list-separator {
+.popular-posts-list li:not(:last-child)::after {
+  content: "";
   display: block;
   height: 1px;
   margin-bottom: 20px;
@@ -19,6 +23,11 @@
   background: #ebebeb;
   background: -webkit-linear-gradient(right, #ebebeb 0%, transparent 100%);
   background: linear-gradient(to left, #ebebeb 0%, transparent 100%);
+}
+
+.post-details {
+  flex-wrap: wrap;
+  flex: 1;
 }
 
 div.post-thumbnail {
