@@ -87,7 +87,8 @@ div.post-thumbnail::before {
 
 .post-date {
   margin: 0;
-  color: #8f9bad;
+  /* color: #8f9bad; */
+  color: #595959;
   font-size: 14px;
   margin-top: 4px;
 }

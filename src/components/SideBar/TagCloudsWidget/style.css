@@ -1,5 +1,6 @@
 .tag-cloud__tag {
-  color: #8f9bad;
+  /* color: #8f9bad; */
+  color: #595959;
   border: solid 1px #ebebeb;
   border-radius: 25px;
   font-size: 13px !important;

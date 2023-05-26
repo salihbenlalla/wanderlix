@@ -34,5 +34,6 @@
 }
 
 .text_container ul li::marker {
-  color: #fe4f70;
+  /* color: #fe4f70; */
+  color: #2724ff;
 }

@@ -263,11 +263,13 @@ main {
   padding: 40px;
   text-align: center;
   font-size: 16px;
-  color: #8f9bad;
+  /* color: #8f9bad; */
+  color: #595959;
 }
 .site-footer a {
   text-decoration: none;
-  color: #fe4f70;
+  /* color: #fe4f70; */
+  color: #2724ff;
 }
 
 .site-footer a:hover {

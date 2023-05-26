@@ -59,10 +59,16 @@ export default component$<HeaderProps>((props) => {
             </li>
           </ul>
           <div class="header-buttons">
-            <button onClick$={() => (theme.searchPopupOpen = true)}>
+            <button
+              onClick$={() => (theme.searchPopupOpen = true)}
+              aria-label="Search"
+            >
               <SearchIcon width="16" height="16" viewBox="0 0 20 20" />
             </button>
-            <button onClick$={() => (theme.sideMenuOpen = true)}>
+            <button
+              onClick$={() => (theme.sideMenuOpen = true)}
+              aria-label="Navigation Menu"
+            >
               <span class="burger-icon"></span>
             </button>
           </div>

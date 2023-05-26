@@ -31,7 +31,7 @@ export default component$<PostHeaderProps>((props) => {
     >
       <div class="post-header-image">
         {/* <img src={props.image} /> */}
-        {/* <div class="post-header-overlay" /> */}
+        <div class="post-header-overlay" />
         <Image
           layout="fullWidth"
           objectFit="cover"

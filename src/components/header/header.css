@@ -73,7 +73,9 @@
 
 .nav-link {
   display: block;
-  color: #79889e;
+  /* color: #79889e; */
+  color: #595959;
+  /* color: #203656; */
   text-decoration: none;
   outline: none;
   padding: 7.024px 20.8px;

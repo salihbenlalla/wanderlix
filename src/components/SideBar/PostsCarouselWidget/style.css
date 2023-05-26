@@ -69,7 +69,8 @@
 
 .carousel-post-meta {
   font-size: 14px;
-  color: #8f9bad;
+  /* color: #8f9bad; */
+  color: #595959;
   padding-left: 0;
   list-style: none;
   margin-bottom: 0 !important;
@@ -96,7 +97,8 @@
 }
 
 .carousel-post-meta li a {
-  color: #8f9bad;
+  /* color: #8f9bad; */
+  color: #595959;
   font-weight: 400;
   box-shadow: none;
   text-decoration: none;

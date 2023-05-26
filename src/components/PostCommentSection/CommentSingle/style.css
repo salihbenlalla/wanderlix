@@ -34,14 +34,16 @@
 }
 
 .comment-date {
-  color: #8f9bad;
+  /* color: #8f9bad; */
+  color: #595959;
   font-size: 13px;
   display: block;
   margin-bottom: 10px;
 }
 
 .comment-text {
-  color: #8f9bad;
+  /* color: #8f9bad; */
+  color: #595959;
   font-size: 15px;
   line-height: 1.7;
 }
@@ -50,7 +52,8 @@ p.comment-awaiting-moderation {
   font-style: italic;
   font-size: 13px;
   margin: 1rem 0;
-  color: #8f9bad;
+  /* color: #8f9bad; */
+  color: #595959;
 }
 
 a.comment-reply-link {

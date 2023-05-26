@@ -126,10 +126,18 @@ export default component$<PostsCarouselWidgetProps>((props) => {
             </ul>
           </div>
           <div class="carousel-arrows">
-            <button class="carousel-arrow-left" onClick$={handlePrev}>
+            <button
+              class="carousel-arrow-left"
+              onClick$={handlePrev}
+              aria-label="Previous Slide"
+            >
               <CheveronLeft />
             </button>
-            <button class="carousel-arrow-right" onClick$={handleNext}>
+            <button
+              class="carousel-arrow-right"
+              onClick$={handleNext}
+              aria-label="Next Slide"
+            >
               <CheveronRight />
             </button>
           </div>
