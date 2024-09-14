@@ -1,6 +1,24 @@
 import { D1Database, D1DatabaseAPI } from "@miniflare/d1";
 import { createSQLiteDB } from "@miniflare/shared";
 import path from "path";
+import fs from "fs";
+
+const getLatestSqliteFile = () => {
+  const dbDir = path.join(
+    process.cwd(),
+    ".wrangler/state/v3/d1/miniflare-D1DatabaseObject",
+  );
+  const files = fs.readdirSync(dbDir);
+  const sqliteFiles = files.filter((file) => file.endsWith(".sqlite"));
+  return sqliteFiles.sort(
+    (a, b) =>
+      fs.statSync(path.join(dbDir, b)).mtime.getTime() -
+      fs.statSync(path.join(dbDir, a)).mtime.getTime(),
+  )[0];
+};
+
+// Then use it in your getDB function:
+const sqliteFile = getLatestSqliteFile();
 
 let devDb: D1Database | undefined;
 
@@ -10,7 +28,7 @@ const getDB = async () => {
       path.join(
         process.cwd(),
         ".wrangler/state/v3/d1/miniflare-D1DatabaseObject",
-        "6e80d6088f6ca11a8adb3037f967e619013a65977a2958584d8e3b54323d2613.sqlite",
+        sqliteFile,
       ),
     );
     devDb = new D1Database(new D1DatabaseAPI(sqlLite));
