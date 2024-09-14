@@ -12,7 +12,7 @@
   "trustedDependencies-annotation": "Needed for bun to allow running install scripts",
   "type": "module",
   "scripts": {
-    "build": "pnpm run fill.db && qwik build > /dev/null",
+    "build": "pnpm run init.db && qwik build > /dev/null",
     "build.client": "node --max_old_space_size=16384 ./node_modules/vite/bin/vite.js build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "node --max_old_space_size=16384 ./node_modules/vite/bin/vite.js build -c adapters/cloudflare-pages/vite.config.ts",
@@ -34,7 +34,7 @@
     "empty.db": "npx wrangler d1 execute db --remote --file=empty_db.sql",
     "export.db": "npx wrangler d1 export db --remote --output=./database.sql",
     "download.db": "rm -f ./database.sql && npx wrangler d1 export db --remote --output=./database.sql",
-    "fill.db": "wrangler -c ./wrangler.toml d1 execute db --local --file=empty_db.sql --json && wrangler -c ./wrangler.toml d1 execute DB --local --file ./database.sql --json",
+    "fill.db": "wrangler -c ./wrangler.toml d1 execute db --local --file=empty_db.sql --json > /dev/null && wrangler -c ./wrangler.toml d1 execute DB --local --file ./database.sql --json > /dev/null",
     "init.db": "pnpm run download.db && pnpm run fill.db"
   },
   "devDependencies": {
