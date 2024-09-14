@@ -58,8 +58,6 @@ export default component$(() => {
           body: JSON.stringify(values),
         });
 
-        const responseData = await response.json();
-
         if (response.status === 200) {
           resetForm();
 

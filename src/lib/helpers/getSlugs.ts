@@ -3,8 +3,6 @@ import type { D1Database, D1Result } from "@miniflare/d1";
 // import fs from "fs";
 // import path from "path";
 
-import slugs from "~/data/slugs.json";
-
 declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
   interface PlatformCloudflarePages {
     DB: D1Database;

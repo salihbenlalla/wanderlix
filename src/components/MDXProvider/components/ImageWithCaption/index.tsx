@@ -28,7 +28,8 @@ const ImageWithCaption = component$((props: ImageWithCaptionProps) => {
         objectFit="fill"
         aspectRatio={imgWidth / imgHeight}
         width={imgWidth}
-        height={imgHeight}
+        //@ts-ignore
+        height="auto"
         alt="alt text"
         placeholder="#e6e6e6"
         src={props.imgSrc}

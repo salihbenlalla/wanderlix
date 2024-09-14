@@ -8,13 +8,9 @@ import { qwikCity } from "@salihbenlalla/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
 import svgx from "@svgx/vite-plugin-qwik";
-// import inspectPlugin from "./src/vite-inspect-plugin";
 import resolvePlatform from "./src/vite-plugin-resolve-platform";
 import replaceLinkIdsRehype from "./src/rehypePlugin";
-// import { getDB } from "./src/lib/helpers/getDB";
 import createGetDevDB from "./src/lib/helpers/createGetDevDB";
-// import postsPlugin from "./src/postsPlugin";
-import path from 'path';
 
 const { dependencies = {}, devDependencies = {} } = pkg as any as {
   dependencies: Record<string, string>;
@@ -30,8 +26,6 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
 
   return {
     plugins: [
-      // inspectPlugin(),
-      // postsPlugin(),
       resolvePlatform(),
       qwikCity({
         mdx: {
