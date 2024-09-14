@@ -3,7 +3,6 @@ import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/c
 
 export const onGet: RequestHandler<PlatformCloudflarePages> = async (event) => {
   //   request.headers.set("Cache-Control", "no-cache");
-  //   console.log(event.request.url);
   const response = await handleRequest(event);
 
   event.send(response);

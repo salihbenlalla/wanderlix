@@ -29,7 +29,6 @@ export default component$(() => {
     );
   }
 
-  console.log("from destinations/index.js: ", destinations[0].image);
   return (
     <>
       <div class="sub-header">

@@ -7,7 +7,6 @@ export default function postsPlugin(): Plugin {
     enforce: "pre",
     resolveId(id: string) {
       if (id.includes("qwik-city")) {
-        console.log("from posts-plugin: ", id);
       }
       return null;
     },

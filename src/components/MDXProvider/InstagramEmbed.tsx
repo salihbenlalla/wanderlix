@@ -17,7 +17,6 @@ const InstagramEmbed = component$<InstagramEmbedProps>((props) => {
       if (message.origin === "https://www.instagram.com") {
         const iFrameData = JSON.parse(message.data);
 
-        console.log("from InstagramEmbed component, data: ", iFrameData);
         if (iFrameData.type === "MEASURE") {
           const iFrameHeight = iFrameData.details.height;
           state.height = iFrameHeight;

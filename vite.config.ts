@@ -28,8 +28,6 @@ const { dependencies = {}, devDependencies = {} } = pkg as any as {
 export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
   const DB = await (await createGetDevDB())()
 
-  // console.log("from vite.config: ", path.resolve(__dirname, './adapters/cloudflare-pages/platform.ts'))
-
   return {
     plugins: [
       // inspectPlugin(),

@@ -193,7 +193,7 @@ export default component$(() => {
 
       // wait for 100 milliseconds after last scroll event to consider scrolling has stopped
       clearTimeout(window.scrollTimeout);
-      window.scrollTimeout = setTimeout(function () {
+      window.scrollTimeout = setTimeout(function() {
         isScrolling.value = false;
       }, 100);
     };
@@ -203,9 +203,7 @@ export default component$(() => {
       (event) => {
         event.preventDefault();
         //   enableScroll();
-        //   console.log("scrolling ...");
         // event.preventDefault();
-        //   console.log(event);
         const direction = event.deltaY > 0 ? 1 : -1;
         scrollHandler(direction);
       },
@@ -215,7 +213,6 @@ export default component$(() => {
     window.addEventListener(
       "keydown",
       (event) => {
-        console.log("key down", event.code);
         if (["ArrowDown", "Space", "PageDown", "End"].includes(event.code)) {
           event.preventDefault();
           scrollHandler(1);
@@ -248,7 +245,6 @@ export default component$(() => {
       lastTouchY.value = touchY;
     });
     //   return () => {
-    //     console.log("removing wheel event");
     //     window.removeEventListener("wheel", scrollHandler);
     //   };
   });
@@ -265,7 +261,6 @@ export default component$(() => {
   //           // if user just started scrolling
   //           isScrolling.value = true;
   //           if (store.section <= 5) {
-  //             console.log("scrolling...");
   //             store.section++;
   //           }
   //         }
@@ -321,7 +316,7 @@ export default component$(() => {
       <div
         ref={homeContainerRef}
         class="home-container"
-        // style={{ height: sectionHeight.value }}
+      // style={{ height: sectionHeight.value }}
       >
         <div
           ref={section1Ref}

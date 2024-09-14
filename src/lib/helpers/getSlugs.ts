@@ -25,8 +25,6 @@ export const getSlugsFromDB = async (DB: D1Database | void) => {
       `SELECT slug FROM Posts`
     ).all()) as D1Result<SlugResult[]>;
     
-    console.log("form getSlugsFromDB, results: ", results);
-
     if (!results || !results?.length) {
       throw new Error(`getSlugs: slugs not found`);
     }
@@ -44,7 +42,5 @@ interface getSlugsOpts {
 }
 
 export const getSlugs = async (opts: getSlugsOpts) => {
-  console.log("from getSlugs: ", opts)
-  
   return await getSlugsFromDB(opts.platform.env.DB)
 };

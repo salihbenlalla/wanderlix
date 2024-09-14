@@ -58,7 +58,6 @@ export const getDB = async (
     | undefined
 ): Promise<D1Database | void> => {
 
-  console.log(context?.platform)
   if (context?.platform.env?.DB) {
     return context.platform.env.DB;
   }

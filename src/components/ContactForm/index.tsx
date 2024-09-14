@@ -59,7 +59,6 @@ export default component$(() => {
         });
 
         const responseData = await response.json();
-        console.log("from handleSubmit", responseData);
 
         if (response.status === 200) {
           resetForm();

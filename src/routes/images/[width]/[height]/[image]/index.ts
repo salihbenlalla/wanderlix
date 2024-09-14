@@ -4,7 +4,6 @@ import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/c
 
 export const onGet: RequestHandler<PlatformCloudflarePages> = async (event) => {
   //   request.headers.set("Cache-Control", "no-cache");
-  //   console.log(event.request.url);
   const response = await handleRequest(event);
 
   event.send(response);
@@ -54,8 +53,6 @@ async function serveAsset(event: RequestEvent<PlatformCloudflarePages>) {
   //   if (import.meta.env.DEV) {
   //     response = cache[event.request.url];
   //     if (!response) {
-  //       console.log("******************************************");
-  //       console.log(Object.keys(cache));
   //       response = await fetchImage(url);
   //       cache[event.request.url] = response;
   //     }

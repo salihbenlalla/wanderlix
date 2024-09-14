@@ -7,8 +7,6 @@ export const onPost: RequestHandler<PlatformCloudflarePages> = async (ev) => {
 
   const dbResult = await handleAddSubscriber(subscriber, ev);
 
-  console.log("dbResult: ", dbResult);
-
   if (dbResult.failed) {
     ev.json(500, dbResult);
   } else {

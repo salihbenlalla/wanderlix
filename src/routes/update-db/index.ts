@@ -24,7 +24,6 @@ export const onGet: RequestHandler<PlatformCloudflarePages> = async (ev) => {
           imageNames.push(imageName);
         }
       }
-      console.log(imageNames.length);
       ev.json(200, imageNames);
     }
   }

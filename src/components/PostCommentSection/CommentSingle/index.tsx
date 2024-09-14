@@ -64,7 +64,6 @@ export default component$<CommentSingleProps>(
           window.getComputedStyle(commentTextRef.value).lineHeight,
           10
         );
-        console.log("comment text lineHeight: ", lineHeight);
         const maxHeight = lineHeight * 3;
 
         if (commentHeight > maxHeight) {

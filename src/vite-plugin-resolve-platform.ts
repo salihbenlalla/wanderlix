@@ -10,10 +10,9 @@ function resolvePlatform(): Plugin {
 
     resolveId(id) {
       if (id === PLATFORM) {
-        console.log("from resolvePlatform plugin: ", id);
         return path.resolve(
           process.cwd(),
-          "/adapters/cloudflare-pages/platform"
+          "/adapters/cloudflare-pages/platform",
         );
       }
     },
