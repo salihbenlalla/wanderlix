@@ -34,7 +34,7 @@
     "empty.db": "npx wrangler d1 execute db --remote --file=empty_db.sql",
     "export.db": "npx wrangler d1 export db --remote --output=./database.sql",
     "download.db": "rm -f ./database.sql && npx wrangler d1 export db --remote --output=./database.sql",
-    "fill.db": "wrangler -c ./wrangler.toml d1 execute db --local --file=empty_db.sql && wrangler -c ./wrangler.toml d1 execute DB --local --file ./database.sql",
+    "fill.db": "wrangler -c ./wrangler.toml d1 execute db --local --file=empty_db.sql --silent && wrangler -c ./wrangler.toml d1 execute DB --local --file ./database.sql --silent",
     "init.db": "pnpm run download.db && pnpm run fill.db"
   },
   "devDependencies": {
