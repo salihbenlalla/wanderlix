@@ -1,0 +1,45 @@
+.main-content {
+  margin-top: 60px;
+}
+
+.contact-cards {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.contact-cards > .contact-card-container:not(:last-child) {
+  padding-right: 20px;
+  padding-bottom: 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-cards {
+    flex-wrap: wrap;
+  }
+
+  .contact-cards > .contact-card-container:not(:last-child) {
+    padding-right: 0px;
+    padding-bottom: 20px;
+  }
+}
+
+.spacer {
+  height: 30px;
+}
+
+.contact-page-section-header {
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.contact-page-section-header h3 {
+  font-size: 24px;
+  line-height: 34px;
+}
+
+.contact-page-section-header svg {
+  margin-top: 10px;
+}

@@ -12,6 +12,7 @@ import { type Slide } from "./Hero/HeroContent/SlickSlider";
 import { homeContext } from "./HomeContext";
 import styles from "./index.css?inline";
 import jump from "jump.js";
+import { areAllDefined } from "~/lib/helpers/areAllDefined";
 
 declare global {
   interface Window {
@@ -50,37 +51,41 @@ export default component$(() => {
       slides: [
         {
           title: "Europe",
-          thumbnail: "/images/place1.jpg",
+          thumbnail: "/images/1280/705/in-which-district-loger-cork.webp",
           description:
             "Discover Europe's charm with our expert travel guides. Get inspired for your next adventure! your journey today!",
         },
         {
           title: "Asia",
-          thumbnail: "/images/place2.jpg",
+          thumbnail:
+            "/images/1280/855/visit-the-connemara-in-irish-tickets-hourly-rates.webp",
           description:
             "Explore Asia's hidden gems with our travel guides to its temples, culture, and scenery. Start your journey today!",
         },
         {
           title: "Africa",
-          thumbnail: "/images/place3.jpg",
+          thumbnail:
+            "/images/1280/854/the-bay-of-boyeeghter-or-irish-in-all-its-splendor.webp",
           description:
             "Embark on an unforgettable adventure with our travel guides to Africa's wildlife, landscapes, and history. Get !",
         },
         {
           title: "North America",
-          thumbnail: "/images/place4.jpg",
+          thumbnail:
+            "/images/1280/853/visit-the-kerry-ring-from-cork-rservations-rates.webp",
           description:
             "Find your next adventure with our travel guides to North America's cities, wonders, and history. Be amazed by t!",
         },
         {
           title: "South America",
-          thumbnail: "/images/place5.jpg",
+          thumbnail:
+            "/images/1280/835/visit-the-count-of-wicklow-rservations-rates.webp",
           description:
             "Experience the vibrancy of South America with our travel guides to its landscapes, culture, and history. Start y!",
         },
         {
           title: "Australia",
-          thumbnail: "/images/place6.jpg",
+          thumbnail: "/images/1280/675/in-which-area-loger-auckland.webp",
           description:
             "Discover Australia's iconic landmarks, beaches, and wildlife with our travel guides. Let us inspire and guide yo!",
         },
@@ -146,6 +151,7 @@ export default component$(() => {
 
   const lastTouchY = useSignal<number | undefined>(undefined);
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     const handleScroll = (direction: 1 | -1) => {
       const sections = [
@@ -155,28 +161,26 @@ export default component$(() => {
         section4Ref.value,
         section5Ref.value,
       ];
-      if (sections) {
+      if (areAllDefined(sections)) {
         if (
           direction === 1 &&
           store.currentSectionIndex < sections.length - 1
         ) {
           store.currentSectionIndex++;
           const element = sections[store.currentSectionIndex];
-          if (element) {
-            //@ts-ignore
-            clearTimeout(window.scrollAnimationTimeout1);
-            //@ts-ignore
-            window.scrollAnimationTimeout1 = setTimeout(
-              () => jump(element, { duration: 1000, offset: -80 }),
-              300
-            );
-          }
+
+          //@ts-ignore
+          clearTimeout(window.scrollAnimationTimeout1);
+          //@ts-ignore
+          window.scrollAnimationTimeout1 = setTimeout(
+            () => jump(element, { duration: 1000, offset: -80 }),
+            300
+          );
         } else if (direction === -1 && store.currentSectionIndex > 0) {
           store.currentSectionIndex--;
           const element = sections[store.currentSectionIndex];
-          if (element) {
-            jump(element, { duration: 1000, offset: -80 });
-          }
+
+          jump(element, { duration: 1000, offset: -80 });
         }
       }
     };
@@ -281,6 +285,8 @@ export default component$(() => {
   //     })
   //   );
   const initialized = useSignal<boolean>(false);
+
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => store.captionCurrentIndex);
     if (initialized.value === false) {
@@ -300,6 +306,7 @@ export default component$(() => {
 
   const sectionHeight = useSignal<number | string>("calc(100vh - 80px)");
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     sectionHeight.value = `${document.documentElement.clientHeight - 80}px`;
   });

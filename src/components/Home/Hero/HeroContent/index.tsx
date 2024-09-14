@@ -17,6 +17,7 @@ export default component$(() => {
   const slideWidth = useSignal(170);
   const slideHeight = useSignal(230);
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     if (window.innerHeight <= 700 && window.innerWidth < 992) {
       slideHeight.value = 0.28 * window.innerHeight;
@@ -28,6 +29,7 @@ export default component$(() => {
   const leftRef = useSignal<HTMLDivElement>();
   const rightRef = useSignal<HTMLDivElement>();
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => HomeContextStore.currentSectionIndex);
 

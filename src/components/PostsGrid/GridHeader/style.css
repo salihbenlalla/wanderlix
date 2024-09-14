@@ -1,0 +1,18 @@
+.posts-grid-header {
+  background: #f1f8ff;
+  /* background-color: #f1f8ff;
+  background-repeat: repeat;
+  background-position: center center;
+  background-attachment: scroll;
+  background-size: cover; */
+  padding: 40px 0;
+}
+
+.posts-grid-header-title {
+  color: #203656;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 20px 0;
+  text-align: center !important;
+}

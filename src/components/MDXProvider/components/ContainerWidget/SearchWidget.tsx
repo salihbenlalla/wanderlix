@@ -14,6 +14,7 @@ const SearchWidget = component$<SearchWidgetProps>((props) => {
 
   return (
     <div class="widget_search">
+      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
       {SVGIcon && <SVGIcon width="32" height="32" />}
       {props.text}
     </div>

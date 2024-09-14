@@ -1,5 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import { useDocumentHead } from "@builder.io/qwik-city";
+import { useDocumentHead, useLocation } from "@builder.io/qwik-city";
 import { v4 as uuidv4 } from "uuid";
 
 /**
@@ -7,33 +7,35 @@ import { v4 as uuidv4 } from "uuid";
  */
 export const RouterHead = component$(() => {
   const head = useDocumentHead();
-  //   const canonicalUrl =
-  //     head.links.find((obj) => obj.rel === "canonical")?.href ?? "#";
+  const loc = useLocation();
 
   return (
     <>
       <title>{head.title}</title>
-      {/* <link rel="canonical" href={canonicalUrl} /> */}
+
+      <link rel="canonical" href={loc.url.href} />
+
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <script type="application/ld+json">
-        {`
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={`
     {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
       "headline": "${head.title}",
       "image": [
-        "${head.frontmatter.image}"
+        "${head.links.find((obj) => obj.rel === "preload" && obj.as === "image")?.href}"
        ],
-      "datePublished": "${head.frontmatter.datePublished}",
-      "dateModified": "${head.frontmatter.datePublished}",
+      "datePublished": "${head.meta.find((obj) => obj.property === "article:published_time")?.content}",
+      "dateModified": "${head.meta.find((obj) => obj.property === "article:published_time")?.content}",
       "author": [{
           "@type": "Person",
-          "name": "${head.frontmatter.authorName}",
-          "url": "${head.frontmatter.authorUrl}"
+          "name": "${head.meta.find((obj) => obj.name === "author")?.content}",
+          "url": "/author/${head.meta.find((obj) => obj.name === "author")?.content}"
         }]
     }
     `}
-      </script>
+      />
       {/* <link
         rel="preload"
         href="https://res.cloudinary.com/dlzx1x20u/image/upload/w_640,h_640,c_lfill,f_auto/v1684082099/travel2/fake-avatar_uwoskp.webp"
@@ -53,7 +55,7 @@ export const RouterHead = component$(() => {
         href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap"
         rel="stylesheet"
       /> */}
-      <meta charSet="utf-8" />
+      {/* <meta charSet="utf-8" /> */}
       {/* <link rel="manifest" href="/manifest.json" /> */}
       {/* <link rel="stylesheet" href="/fonts/poppins/stylesheet.css" />
       <link href="/fonts/dmsans/stylesheet.css" rel="stylesheet" /> */}
@@ -107,6 +109,10 @@ export const RouterHead = component$(() => {
       ))}
       {head.styles.map((s) => (
         <style key={uuidv4()} {...s.props} dangerouslySetInnerHTML={s.style} />
+      ))}
+
+      {head.scripts.map((s) => (
+        <script key={s.key} {...s.props} dangerouslySetInnerHTML={s.script} />
       ))}
     </>
   );

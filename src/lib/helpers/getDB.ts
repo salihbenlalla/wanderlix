@@ -1,39 +1,39 @@
 import {
+  RequestEvent,
+  RequestEventBase,
   type RequestEventAction,
   type RequestEventLoader,
 } from "@builder.io/qwik-city";
 import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 import { type D1Database } from "@miniflare/d1";
 
-const createGetDevDB = async () => {
-  let getDevDb: () => Promise<D1Database> | void = () => {};
+// declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
+//   interface PlatformCloudflarePages {
+//     env: {
+//       DB: D1Database;
+//     }
+//   }
+// }
 
-  if (import.meta.env.DEV) {
-    const { D1Database, D1DatabaseAPI } = await import("@miniflare/d1");
-    const { createSQLiteDB } = await import("@miniflare/shared");
-
-    let devDb: D1Database;
-
-    getDevDb = async () => {
-      if (!devDb) {
-        const sqlLite = await createSQLiteDB(".wrangler/state/d1/DB.sqlite3");
-        devDb = new D1Database(new D1DatabaseAPI(sqlLite));
-      }
-      return devDb;
-    };
-  }
-  return getDevDb;
-};
+interface StaticOptions { static: boolean, node: string, env: Record<string, any> | undefined, DB: D1Database }
 
 export const getDB = async (
-  context:
-    | RequestEventLoader<PlatformCloudflarePages>
-    | RequestEventAction<PlatformCloudflarePages>
-) => {
-  if (context.platform.DB) {
-    return context.platform.DB;
+  context?:
+    | RequestEventLoader<PlatformCloudflarePages | StaticOptions>
+    | RequestEventAction<PlatformCloudflarePages | StaticOptions>
+    | RequestEvent<PlatformCloudflarePages | StaticOptions>
+    | RequestEventBase<PlatformCloudflarePages | StaticOptions>
+    | undefined
+): Promise<D1Database | void> => {
+  if (context?.platform.env?.DB) {
+    return context.platform.env.DB;
   }
-  const getDevDb = await createGetDevDB();
 
-  return getDevDb();
+  // if (import.meta.env?.DEV){
+  //   const createGetDevDB = (await import("./createGetDevDB")).default
+
+  //   const getDevDb = await createGetDevDB();
+
+  //   return getDevDb();
+  // }
 };

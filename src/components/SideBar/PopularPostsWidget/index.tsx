@@ -1,13 +1,16 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import { Image } from "qwik-image";
+// import { Image } from "qwik-image";
 import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
+import { formatDate } from "~/lib/helpers/formatDate";
+import { v4 as uuidv4 } from "uuid";
+import { Link } from "@builder.io/qwik-city";
 
 export interface PopularPost {
   title: string;
-  thumbnail?: string;
-  date?: string;
-  url: string;
+  image: string;
+  dateModified: string;
+  slug: string;
 }
 
 export interface PopularPostsWidgetProps {
@@ -17,41 +20,34 @@ export interface PopularPostsWidgetProps {
 
 export default component$<PopularPostsWidgetProps>((props) => {
   useStyles$(styles);
+
   return (
     <WidgetContainer title={props.title}>
       {props.posts.length && (
         <ul class="popular-posts-list">
-          {props.posts.map((post, index) => {
+          {props.posts.map((post) => {
             return (
-              <>
-                <li key={`post-${index}`}>
-                  <div class="post-thumbnail">
-                    <a href={post.url}>
-                      <div class="post-thumbnail-inner">
-                        {/* <img src={post.thumbnail} alt={post.title} /> */}
-
-                        <Image
-                          layout="fullWidth"
-                          objectFit="cover"
-                          aspectRatio={60 / 60}
-                          width={60}
-                          height={60}
-                          alt="alt text"
-                          placeholder="#e6e6e6"
-                          src={post.thumbnail}
-                          loading="lazy"
-                        />
-                      </div>
-                    </a>
-                  </div>
-                  <div class="post-details">
-                    <a href={post.url}>
-                      <h4 class="post-title">{post.title}</h4>
-                    </a>
-                    <p class="post-date">{post.date}</p>
-                  </div>
-                </li>
-              </>
+              <li key={uuidv4()}>
+                <div class="post-thumbnail">
+                  <Link href={`/post/${post.slug}/`}>
+                    <div class="post-thumbnail-inner">
+                      <img
+                        src={`/images/thumbnail/${post.image}`}
+                        alt={post.title}
+                        width={60}
+                        height={60}
+                        loading="lazy"
+                      />
+                    </div>
+                  </Link>
+                </div>
+                <div class="post-details">
+                  <Link href={`/post/${post.slug}/`}>
+                    <h4 class="post-title">{post.title}</h4>
+                  </Link>
+                  <p class="post-date">{formatDate(post.dateModified)}</p>
+                </div>
+              </li>
             );
           })}
         </ul>

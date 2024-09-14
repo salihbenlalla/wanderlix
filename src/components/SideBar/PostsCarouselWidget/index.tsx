@@ -12,14 +12,17 @@ import styles from "./style.css?inline";
 import CheveronRight from "/src/assets/icomoon_svg/cheveron-right.svg?component";
 import CheveronLeft from "/src/assets/icomoon_svg/cheveron-left.svg?component";
 import CarouselItem from "./CarouselItem";
+import { formatDate } from "~/lib/helpers/formatDate";
 
 export interface CarouselPost {
   title: string;
-  thumbnail?: string;
-  date?: string;
-  url: string;
-  author?: string;
-  authorUrl?: string;
+  image: string;
+  imageWidth: number;
+  imageHeight: number;
+  dateModified: string;
+  slug: string;
+  authorName: string;
+  authorUrl: string;
 }
 
 export interface PostsCarouselWidgetProps {
@@ -71,6 +74,7 @@ export default component$<PostsCarouselWidgetProps>((props) => {
     { deep: true }
   );
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     const windowWidth = window.innerWidth;
     if (windowWidth < 992) {
@@ -112,10 +116,12 @@ export default component$<PostsCarouselWidgetProps>((props) => {
                   <CarouselItem
                     key={`carousel-post-${uuidv4()}`}
                     title={post.title}
-                    thumbnail={post.thumbnail}
-                    date={post.date}
-                    url={post.url}
-                    author={post.author}
+                    thumbnail={`/images/320/120/${post.image}`}
+                    imageWidth={post.imageWidth}
+                    imageHeight={post.imageHeight}
+                    date={formatDate(post.dateModified)}
+                    url={`/post/${post.slug}`}
+                    author={post.authorName}
                     authorUrl={post.authorUrl}
                     translateValue={store.translateValues[index]}
                     direction={direction.value}

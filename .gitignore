@@ -3,14 +3,15 @@
 /lib
 /lib-types
 /server
+/tmp
 
 # Development
 node_modules
+*.local
 
 # Cache
 .cache
 .mf
-.vscode
 .rollup.cache
 tsconfig.tsbuildinfo
 
@@ -24,7 +25,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Editor
-!.vscode/extensions.json
+.vscode/*
+!.vscode/launch.json
+!.vscode/*.code-snippets
+
 .idea
 .DS_Store
 *.suo
@@ -39,3 +43,7 @@ lerna-debug.log*
 
 # Cloudflare
 functions/**/*.js
+.wrangler/
+
+# temporary database
+database.sql

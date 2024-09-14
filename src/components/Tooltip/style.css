@@ -1,0 +1,57 @@
+/* Tooltip.css */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  /* cursor: pointer; */
+}
+
+.tooltip-text {
+  position: absolute;
+  bottom: 100%; /* Position above the element */
+  visibility: hidden;
+  z-index: 1;
+  border: solid 1px #ebebeb;
+  border-radius: 5px;
+  background-color: #595959;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 12px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  width: 280px;
+  max-width: 100vw;
+  /* text-align: center; */
+  /* margin-left: -40px; */
+}
+
+.tooltip-text.is-checkbox {
+  left: -31px;
+}
+
+.tooltip-link {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fe4f70;
+  text-decoration: underline;
+  /* display: inline-block; */
+  cursor: pointer;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Tooltip arrow */
+.tooltip-container .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 37px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent; /* Arrow color */
+}

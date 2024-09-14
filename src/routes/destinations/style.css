@@ -1,0 +1,19 @@
+.destinations-grid {
+  display: grid;
+  /* flex-direction: row;
+  flex-wrap: wrap; */
+  grid-template-columns: repeat(auto-fit, minmax(162px, 1fr));
+  /* margin-top: 24px; */
+  gap: 24px;
+}
+
+.destinations-container {
+  padding: 24px;
+}
+
+@media (max-width: 403px) {
+  .destinations-container {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}

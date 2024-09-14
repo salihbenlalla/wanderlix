@@ -4,10 +4,15 @@
   border-radius: 10px !important;
 }
 
-.comment-form p,
-.comment-form * {
+.comment-form > p,
+.comment-form > div {
   color: #595959;
-  /* color: #8f9bad; */
+  margin-bottom: 16px;
+}
+
+.comment-form > div label {
+  color: #595959;
+  padding: 8px;
 }
 
 .comment-form-field {
@@ -32,6 +37,11 @@
   border: solid 1px #ebebeb;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+.comment-form-field input.error,
+.comment-form-field textarea.error {
+  border-color: #ff0000;
 }
 
 .comment-form-field input:focus,
@@ -74,4 +84,11 @@
   .comment-form-website {
     max-width: 100%;
   }
+}
+
+.comment-form-error-message {
+  color: #ff0000;
+  height: 18px;
+  font-size: 14px;
+  padding-left: 8px;
 }

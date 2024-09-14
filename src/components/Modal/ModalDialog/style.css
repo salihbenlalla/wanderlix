@@ -1,0 +1,63 @@
+.modal-dialog {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.modal-dialog-message {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-dialog-buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+button.modal-dialog-cancel {
+  color: #595959;
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+button.modal-dialog-action {
+  padding: 7px 20px;
+  font-size: 14px;
+  line-height: 24px;
+  color: #fff;
+  background: linear-gradient(to right, #fe4f70 0%, #ffa387 51%, #fe4f70 100%);
+  background-size: 200% auto;
+  border: 0;
+  border-radius: 25px;
+  transition: all 0.3s ease-in-out;
+  outline: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button.modal-dialog-action:hover {
+  color: #fff;
+  background-position: right center;
+  text-decoration: none;
+  margin: 0;
+}

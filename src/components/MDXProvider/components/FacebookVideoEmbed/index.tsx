@@ -10,6 +10,8 @@ export const facebookSDK =
 
 const FacebookVideoEmbed = component$((props: FacebookVideoEmbedProps) => {
   useStyles$(styles);
+
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async () => {
     const script = (await import("scriptjs")).default;
     script(facebookSDK, "facebook-sdk");
@@ -17,7 +19,12 @@ const FacebookVideoEmbed = component$((props: FacebookVideoEmbedProps) => {
 
   return (
     <div class="fb-video-container">
-      <div class="fb-video" data-href={props.videoUrl} data-width="500"></div>
+      <div
+        class="fb-video"
+        data-href={props.videoUrl}
+        data-width="500"
+        data-height="278"
+      ></div>
     </div>
   );
 });

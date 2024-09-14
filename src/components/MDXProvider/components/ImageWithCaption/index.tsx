@@ -25,7 +25,7 @@ const ImageWithCaption = component$((props: ImageWithCaptionProps) => {
     <div class="image_caption">
       <Image
         layout="fullWidth"
-        objectFit="cover"
+        objectFit="fill"
         aspectRatio={imgWidth / imgHeight}
         width={imgWidth}
         height={imgHeight}
@@ -34,51 +34,6 @@ const ImageWithCaption = component$((props: ImageWithCaptionProps) => {
         src={props.imgSrc}
         loading="lazy"
       />
-      {/* {imgHeight && imgWidth ? (
-        <div
-          style={
-            {
-              // paddingBottom: `calc((${Number(imgHeight)}/${Number(
-              //   imgWidth
-              // )}) * 100%)`,
-              // position: "relative",
-            }
-          }
-        >
-          <img
-            src={props.imgSrc}
-            loading="lazy"
-            width={props.imgWidth}
-            height={props.imgHeight}
-            style={{
-              height: "auto",
-              width: "100%",
-              //   position: "absolute",
-              //   top: 0,
-              //   bottom: 0,
-              //   right: 0,
-              //   left: 0,
-              //   width: "100%",
-              //   borderRadius: "5px",
-              //   background:
-              //     "#ddd url(/icomoon_svg/camera.svg) no-repeat center center",
-            }}
-            alt=""
-          />
-        </div>
-      ) : (
-        <img
-          src={props.imgSrc}
-          loading="lazy"
-          alt=""
-          style={{
-            width: "100%",
-            borderRadius: "5px",
-            background:
-              "#ddd url(/icomoon_svg/camera.svg) no-repeat center center",
-          }}
-        />
-      )} */}
       <Slot />
     </div>
   );

@@ -3,6 +3,7 @@ import DestinationsWidget, {
   type DestinationsWidgetProps,
 } from "./DestinationsWidget";
 import NewsletterWidget, {
+  // type NewsletterFormInput,
   type NewsletterWidgetProps,
 } from "./NewsletterWidget";
 import PopularPostsWidget, {
@@ -19,7 +20,7 @@ import TagCloudsWidget, { type TagCloudsWidgetProps } from "./TagCloudsWidget";
 export interface SideBarProps {
   popularPosts?: PopularPostsWidgetProps;
   destinations?: DestinationsWidgetProps;
-  newsletter?: NewsletterWidgetProps;
+  newsletter?: Omit<NewsletterWidgetProps, "newsletterFormLoader">;
   postsCarousel?: PostsCarouselWidgetProps;
   tagClouds?: TagCloudsWidgetProps;
   sponsoredAd?: SponsoredAdWidgetProps;

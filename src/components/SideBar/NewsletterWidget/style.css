@@ -4,7 +4,7 @@
   color: #203656;
   display: block;
   text-align: center !important;
-  margin-bottom: 16px;
+  margin-bottom: 26px;
 }
 
 .email-input {
@@ -36,6 +36,13 @@
   box-shadow: none;
   color: #212529;
   background-color: #fff;
+}
+
+.newsletter-form-error-message {
+  height: 18px;
+  font-size: 14px;
+  padding-left: 8px;
+  color: #ff0000;
 }
 
 .newsletter-button {
@@ -91,9 +98,9 @@
 
 .newsletter-privacy a {
   /* color: #fe4f70; */
-  color: #2724ff;
+  color: #a2011e;
   outline: 0;
-  text-decoration: none;
+  /* text-decoration: none; */
   cursor: pointer;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
@@ -101,5 +108,5 @@
 }
 
 .newsletter-privacy a:hover {
-  color: #203656;
+  color: #630012;
 }

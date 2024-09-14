@@ -1,4 +1,15 @@
-[[ d1_databases ]]
+name = "travel2"
+
+pages_build_output_dir = "./dist"
+
+# To enable Node js APIs
+compatibility_flags = [ "nodejs_compat" ]
+
+# Opt into backwards-incompatible changes through April 19, 2024.
+compatibility_date = "2024-04-19"
+
+[[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB
-database_name = "DB"
-database_id = "fc8afa45-6ee8-4781-bb5a-f3d06c904715"
+database_name = "db"
+database_id = "e7c0beb8-0020-4542-96b6-068bf370b755"
+

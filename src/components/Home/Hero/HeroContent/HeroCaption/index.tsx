@@ -29,6 +29,7 @@ export default component$(() => {
   //to adjust the size of the paragraph under the title
   const paragraphRef = useSignal<HTMLDivElement>();
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     const childNodes = paragraphRef.value?.childNodes;
     let maxHeight = 0;
@@ -44,6 +45,8 @@ export default component$(() => {
   });
 
   const initialized = useSignal(false);
+
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => homeContextStore.slickSliderCurrentIndex);
 

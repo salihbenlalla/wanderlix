@@ -73,6 +73,7 @@ const SlickSlider = component$<SlickSliderProps>((props) => {
   const firstSlide = useSignal<HTMLDivElement>();
   const lastSlide = useSignal<HTMLDivElement>();
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => homeContextStore.slickSliderCurrentIndex);
 

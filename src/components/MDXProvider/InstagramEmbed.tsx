@@ -4,14 +4,20 @@ interface InstagramEmbedProps {
   postId: string;
 }
 
+interface StoreState {
+  height: number | null;
+}
+
 const InstagramEmbed = component$<InstagramEmbedProps>((props) => {
-  const state = useStore({ height: null });
+  const state = useStore<StoreState>({ height: null });
   useOnWindow(
     "message",
     $((message: any) => {
       if (!message.data) return;
       if (message.origin === "https://www.instagram.com") {
         const iFrameData = JSON.parse(message.data);
+
+        console.log("from InstagramEmbed component, data: ", iFrameData);
         if (iFrameData.type === "MEASURE") {
           const iFrameHeight = iFrameData.details.height;
           state.height = iFrameHeight;
@@ -39,7 +45,9 @@ const InstagramEmbed = component$<InstagramEmbedProps>((props) => {
           boxShadow: "0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)",
           // width: "99.375%",
           // width: "-webkit-calc(100% - 2px)",
-          width: "calc(100% - 2px)",
+          // width: "calc(100% - 2px)",
+          width: 400,
+          height: 608,
         }}
         src={`https://www.instagram.com/p/${props.postId}/embed/`}
         width="400"
@@ -47,6 +55,8 @@ const InstagramEmbed = component$<InstagramEmbedProps>((props) => {
         frameBorder="0"
         scrolling="no"
         allowTransparency={true}
+        title="Embeded instagram post"
+        sandbox=""
       />
     </div>
   );

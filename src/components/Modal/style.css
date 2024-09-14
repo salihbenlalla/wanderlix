@@ -1,0 +1,88 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  filter: blur(2px);
+  background: #fff;
+  opacity: 0.8;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.modal-close-button svg {
+  fill: #203656;
+}
+
+.modal-content {
+  max-height: calc(
+    100vh - 80px
+  ); /* 100vh minus 40px top margin and 40px bottom margin */
+  margin-top: 40px;
+  margin-bottom: 40px;
+  background: #fff;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: -4px 0px 20px rgba(32, 54, 86, 0.3);
+  transition: all 0.3s ease-in-out;
+  padding: 40px 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 435px;
+}
+
+@media (max-width: 455px) {
+  .modal-content {
+    max-width: calc(100% - 20px);
+  }
+}
+
+.custom-scrollbar {
+  /* styles for your scrollable element */
+  overflow-y: scroll; /* enable vertical scrollbar */
+  /*height: 200px;*/ /* set a height to ensure scrollbar appears */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* adjust for desired thickness */
+  border-radius: 8px; /* rounded corners */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* background color for the track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #999; /* color for the thumb */
+  border-radius: 8px; /* rounded corners for the thumb */
+}
+
+/* Hide the buttons using opacity */
+.custom-scrollbar::-webkit-scrollbar-button {
+  display: none;
+}

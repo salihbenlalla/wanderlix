@@ -25,23 +25,25 @@ export const handleAnchorProps = (
   props: AnchorProps,
   use?: "none" | "originalHref" | "newHref"
 ) => {
-  const foundLink = props.href.startsWith("https://travel2.ml")
+  const foundLink = props.href?.startsWith("https://travel2.ml")
     ? undefined
-    : linkObjs.find((o) => o.id === Number(props.href.replace("link_id:", "")));
+    : linkObjs.find(
+        (o) => o.id === Number(props.href?.replace("link_id:", ""))
+      );
 
   const iHref =
     use === "none"
       ? undefined
       : use
-      ? foundLink?.[use]
-      : foundLink?.use === "none"
-      ? undefined
-      : foundLink?.[foundLink.use];
+        ? foundLink?.[use]
+        : foundLink?.use === "none"
+          ? undefined
+          : foundLink?.[foundLink.use];
   const iTitle =
-    !props.href.startsWith("https://travel2.ml") && !iHref
+    !props.href?.startsWith("https://travel2.ml") && !iHref
       ? undefined
       : props.title;
-  const iProps = props.href.startsWith("https://travel2.ml")
+  const iProps = props.href?.startsWith("https://travel2.ml")
     ? props
     : {
         ...props,

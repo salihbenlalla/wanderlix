@@ -1,9 +1,4 @@
-import {
-  component$,
-  useSignal,
-  useStyles$,
-  useVisibleTask$,
-} from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import style from "./style.css?inline";
 
 export type IframeProps = {
@@ -13,17 +8,20 @@ export type IframeProps = {
 };
 
 const Iframe = component$((props: IframeProps) => {
-  const { src } = props;
   useStyles$(style);
 
-  const srcSignal = useSignal<string | undefined>();
+  const { src, height, width } = props;
 
-  useVisibleTask$(() => {
-    srcSignal.value = src;
-  });
   return (
     <div class="iframe_container">
-      {/* <iframe src={srcSignal.value} {...rest} loading="lazy" /> */}
+      <iframe
+        src={src}
+        height={height}
+        width={width}
+        loading="lazy"
+        title="embeded content from another website"
+        sandbox=""
+      />
     </div>
   );
 });

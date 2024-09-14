@@ -1,16 +1,32 @@
-import { visit } from "unist-util-visit";
-import yaml from "js-yaml";
-import fs from "fs";
-import path from "path";
-import type { LinkObj, SrcObj } from "./data/dataContext";
-import type { Root, Properties } from "hast";
-import type { Plugin } from "unified";
+import type { RootContent } from "hast";
+import type { Properties } from "hast";
+// import type { Plugin } from "unified";
 import type { MdxJsxAttributeValueExpression } from "mdast-util-mdx-jsx";
-// import type { MdxJsxElementFields } from "mdast-util-mdx-jsx/lib/complex-types";
-import type {
-  MdxJsxFlowElement,
-  MdxJsxTextElement,
-} from "mdast-util-mdx-jsx/lib/complex-types";
+import type { MdxJsxFlowElement, MdxJsxTextElement } from "mdast-util-mdx-jsx";
+import { type D1Database } from "@miniflare/d1";
+import { getLink } from "./lib/helpers/getLinks";
+import { getIframeSrc } from "./lib/helpers/getIframeSrcs";
+
+type VisitorAsync = (node: RootContent, parent?: RootContent) => Promise<void>;
+async function visit(
+  // node: MyNode | MyParent,
+  node: RootContent,
+  visitor: VisitorAsync,
+  parent?: RootContent
+): Promise<void> {
+  await visitor(node, parent);
+
+  if ("children" in node) {
+    const parentForChildren = node;
+    const children = parentForChildren.children;
+
+    if (children.length) {
+      for (const child of children) {
+        await visit(child, visitor, parentForChildren);
+      }
+    }
+  }
+}
 
 type MdxJsxElementFields = MdxJsxFlowElement | MdxJsxTextElement;
 
@@ -21,31 +37,30 @@ interface LinkProperties extends Properties {
   rel?: "noopener noreferrer";
 }
 
-const handleLink = (
-  linkObjs: LinkObj[],
+const handleLink = async (
+  DB: D1Database,
   href?: string | null,
   title?: string,
   use?: "none" | "originalHref" | "newHref"
-): LinkProperties => {
-  if (href?.startsWith("https://travel2.ml")) return { href, title };
+): Promise<LinkProperties> => {
+  if (href?.startsWith("/post")) return { href, title };
 
   if (!href?.startsWith("link_id:")) return { href: undefined };
 
-  const foundLink = linkObjs.find(
-    (o) => o.id === Number(href?.replace("link_id:", ""))
-  );
+  const linkId = Number(href.replace("link_id:", ""));
+
+  const foundLink = await getLink(DB, linkId);
 
   const iHref =
     use === "none"
       ? undefined
       : use
-      ? foundLink?.[use]
-      : foundLink?.use === "none"
-      ? undefined
-      : foundLink?.[foundLink.use];
+        ? foundLink?.[use]
+        : foundLink?.use === "none"
+          ? undefined
+          : foundLink?.[foundLink.use];
 
-  const iTitle =
-    !href?.startsWith("https://travel2.ml") && !iHref ? undefined : title;
+  const iTitle = !href.startsWith("/post") && !iHref ? undefined : title;
   if (!iHref)
     return {
       href: iHref,
@@ -61,17 +76,17 @@ const handleLink = (
 };
 
 type FindSrcFunc = (
-  srcObjs: SrcObj[],
+  DB: D1Database,
   src?: string | MdxJsxAttributeValueExpression | null | undefined,
   use?: "none" | "originalSrc" | "newSrc"
-) => string | MdxJsxAttributeValueExpression | null | undefined;
+) => Promise<string | MdxJsxAttributeValueExpression | null | undefined>;
 
-export const findSrc: FindSrcFunc = (srcObjs, src, use) => {
-  if (typeof src === "object" || src?.startsWith("https://travel2.ml"))
-    return src;
-  const foundSrc = srcObjs.find(
-    (o) => o.id === Number(src?.replace("srcId:", "").replace("src_id:", ""))
-  );
+export const findSrc: FindSrcFunc = async (DB, src, use) => {
+  if (typeof src === "object" || src?.startsWith("/post")) return src;
+
+  const srcId = Number(src?.replace("srcId:", "").replace("src_id:", ""));
+
+  const foundSrc = await getIframeSrc(DB, srcId);
 
   if (use === "none") return;
 
@@ -79,7 +94,7 @@ export const findSrc: FindSrcFunc = (srcObjs, src, use) => {
 
   if (foundSrc?.use === "none") return;
 
-  return foundSrc?.[foundSrc?.use];
+  return foundSrc?.[foundSrc.use];
 };
 
 const attributeExists = (
@@ -92,33 +107,20 @@ const attributeExists = (
   return false;
 };
 
-const replaceLinkIds: Plugin<[], Root> = () => {
-  const linkObjs = yaml.load(
-    fs.readFileSync(
-      path.join(process.cwd(), "/src/data", "linkIds.yml"),
-      "utf-8"
-    )
-  ) as LinkObj[];
-
-  const srcObjs = yaml.load(
-    fs.readFileSync(
-      path.join(process.cwd(), "/src/data", "iframeSrcs.yml"),
-      "utf-8"
-    )
-  ) as SrcObj[];
-
-  return (tree) => {
-    visit(tree, (node) => {
-      if (node?.type === "element" && node.tagName == "a") {
+// const replaceLinkIds: Plugin<[D1Database], RootContent> = (DB: D1Database) => {
+const replaceLinkIds = (DB: D1Database) => {
+  return async (tree: RootContent) => {
+    await visit(tree, async (node) => {
+      if (node.type === "element" && node.tagName == "a") {
         const { href, title } = node.properties as LinkProperties;
-        const newLinkProperties = handleLink(
-          linkObjs,
+        const newLinkProperties = await handleLink(
+          DB,
           href,
           title,
           "originalHref"
         );
 
-        node.properties = node.properties ?? {};
+        node.properties = {};
         node.properties.href = newLinkProperties.href;
         node.properties.title = newLinkProperties.title;
         node.properties.target = newLinkProperties.target;
@@ -127,49 +129,62 @@ const replaceLinkIds: Plugin<[], Root> = () => {
 
       //components with linkId
       if (
-        node?.type === "mdxJsxFlowElement" &&
+        node.type === "mdxJsxFlowElement" &&
         attributeExists(node.attributes, "linkId")
       ) {
-        const newAttributes = node.attributes.map((attr) => {
-          if (attr.type === "mdxJsxAttribute" && attr.name === "linkId") {
-            const { href } =
-              typeof attr.value !== "object"
-                ? handleLink(linkObjs, attr.value, undefined, "originalHref")
-                : { href: undefined };
-            attr.value = href;
-          }
-          return attr;
-        });
+        const newAttributes = await Promise.all(
+          node.attributes.map(async (attr: any) => {
+            if (attr.type === "mdxJsxAttribute" && attr.name === "linkId") {
+              const returnedObj = await handleLink(
+                DB,
+                attr.value,
+                undefined,
+                "originalHref"
+              );
+              const { href } =
+                typeof attr.value !== "object"
+                  ? returnedObj
+                  : { href: undefined };
+              attr.value = href;
+            }
+            return attr;
+          })
+        );
         node.attributes = newAttributes;
       }
       // components with SrcId
-      if (node?.type === "mdxJsxFlowElement" && node.name == "Iframe") {
-        const newAttributes = node.attributes.map((attr) => {
-          if (attr.type === "mdxJsxAttribute" && attr.name === "src") {
-            const src = attr.value;
-            const newSrc = findSrc(srcObjs, src, "originalSrc");
-            attr.value = newSrc;
-          }
-          return attr;
-        });
+      if (node.type === "mdxJsxFlowElement" && node.name == "Iframe") {
+        const newAttributes = await Promise.all(
+          node.attributes.map(async (attr: any) => {
+            if (attr.type === "mdxJsxAttribute" && attr.name === "src") {
+              const src = attr.value;
+              const newSrc = await findSrc(DB, src, "originalSrc");
+
+              attr.value = newSrc;
+            }
+            return attr;
+          })
+        );
         node.attributes = newAttributes;
       }
 
       // <a> tags
-      if (node?.type === "mdxJsxFlowElement" && node.name == "a") {
-        const newAttributes = node.attributes.map((attr) => {
-          if (attr.type === "mdxJsxAttribute" && attr.name === "href") {
-            const href = attr.value;
-            const newHref = handleLink(
-              linkObjs,
-              href as string,
-              undefined,
-              "originalHref"
-            );
-            attr.value = newHref.href;
-          }
-          return attr;
-        });
+      if (node.type === "mdxJsxFlowElement" && node.name == "a") {
+        const newAttributes = await Promise.all(
+          node.attributes.map(async (attr: any) => {
+            if (attr.type === "mdxJsxAttribute" && attr.name === "href") {
+              const href = attr.value;
+              const newHref = await handleLink(
+                DB,
+                href as string,
+                undefined,
+                "originalHref"
+              );
+              attr.value = newHref.href;
+            }
+            return attr;
+          })
+        );
         newAttributes.push({
           type: "mdxJsxAttribute",
           name: "target",
@@ -184,20 +199,22 @@ const replaceLinkIds: Plugin<[], Root> = () => {
       }
 
       // <ImageAd aHref="link_id">
-      if (node?.type === "mdxJsxFlowElement" && node.name == "ImageAd") {
-        const newAttributes = node.attributes.map((attr) => {
-          if (attr.type === "mdxJsxAttribute" && attr.name === "aHref") {
-            const href = attr.value;
-            const newHref = handleLink(
-              linkObjs,
-              href as string,
-              undefined,
-              "originalHref"
-            );
-            attr.value = newHref.href;
-          }
-          return attr;
-        });
+      if (node.type === "mdxJsxFlowElement" && node.name == "ImageAd") {
+        const newAttributes = await Promise.all(
+          node.attributes.map(async (attr: any) => {
+            if (attr.type === "mdxJsxAttribute" && attr.name === "aHref") {
+              const href = attr.value;
+              const newHref = await handleLink(
+                DB,
+                href as string,
+                undefined,
+                "originalHref"
+              );
+              attr.value = newHref.href;
+            }
+            return attr;
+          })
+        );
         node.attributes = newAttributes;
       }
     });

@@ -2,10 +2,12 @@ import { component$, useStyles$ } from "@builder.io/qwik";
 import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
 import CheveronRight from "/src/assets/icomoon_svg/cheveron-right.svg?component";
+import { v4 as uuidv4 } from "uuid";
+import { Link } from "@builder.io/qwik-city";
 
 export interface Destination {
-  name: string;
-  url: string;
+  countryName: string;
+  countryParam: string;
   count: number;
 }
 
@@ -20,18 +22,15 @@ export default component$<DestinationsWidgetProps>((props) => {
     <WidgetContainer title={props.title}>
       {props.destinations.length && (
         <ul class="dest-list">
-          {props.destinations.map((destination, index) => {
+          {props.destinations.map((destination) => {
             return (
-              <>
-                <li key={`destination-${index}`} class="dest-item">
-                  <CheveronRight fill="#fe4f70" />
-                  <a href={destination.url}>{destination.name}</a>
-                  <span class="widget-count">({destination.count})</span>
-                </li>
-                {/* {index < props.posts.length - 1 && (
-                  <div class="popular-posts-list-separator"></div>
-                )} */}
-              </>
+              <li class="dest-item" key={uuidv4()}>
+                <CheveronRight fill="#fe4f70" />
+                <Link href={`/destination/${destination.countryParam}`}>
+                  {destination.countryName}
+                </Link>
+                <span class="widget-count">({destination.count})</span>
+              </li>
             );
           })}
         </ul>

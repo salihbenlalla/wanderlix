@@ -1,6 +1,4 @@
 import {
-  //   $,
-  //   $,
   component$,
   useContext,
   useSignal,
@@ -14,18 +12,9 @@ import styles from "./style.css?inline";
 
 declare global {
   interface Window {
-    heroSliderTimer: NodeJS.Timer | undefined;
+    heroSliderTimer: NodeJS.Timeout | undefined;
   }
 }
-
-// const images = [
-//   "/images/place1.jpg",
-//   "/images/place2.jpg",
-//   "/images/place3.jpg",
-//   "/images/place4.jpg",
-//   "/images/place5.jpg",
-//   "/images/place6.jpg",
-// ];
 
 const ImageSlider = component$(() => {
   useStyles$(styles);
@@ -38,8 +27,6 @@ const ImageSlider = component$(() => {
   const prevIndex = useSignal<number>(homeContextStore.slides.length - 1);
   const nextIndex = useSignal<number>(1);
 
-  //   const slides = homeContextStore.slides;
-
   const animateSliderOptions: Omit<AnimateSliderOptions, "direction"> = {
     prevRef,
     currentRef,
@@ -51,6 +38,7 @@ const ImageSlider = component$(() => {
     duration: 1.5,
   };
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     window.heroSliderTimer = setInterval(() => {
       animateSlider({ ...animateSliderOptions, direction: "next" });
@@ -62,6 +50,7 @@ const ImageSlider = component$(() => {
 
   const isInitialized = useSignal<boolean>(false);
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => homeContextStore.generalIndex);
     if (isInitialized.value === false) {

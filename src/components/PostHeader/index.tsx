@@ -1,9 +1,17 @@
-import { component$, useStyles$ } from "@builder.io/qwik";
-import { v4 as uuidv4 } from "uuid";
-import { Image } from "qwik-image";
+import {
+  $,
+  component$,
+  useContext,
+  useSignal,
+  useStyles$,
+  useTask$,
+} from "@builder.io/qwik";
+import { type ImageTransformerProps, getSrcSet } from "qwik-image";
 import BubbleIcon from "~/assets/icomoon_svg/bubble2.svg?component";
 import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
+import { ThemeContext } from "~/routes/layout";
+import { Link } from "@builder.io/qwik-city";
 
 interface PostHeaderProps {
   title: string;
@@ -11,52 +19,96 @@ interface PostHeaderProps {
   tagName: string;
   dateModified: string;
   image: string;
+  imageWidth: number;
+  imageHeight: number;
   authorAvatar: string;
-  breadcrumbs: string[];
+  countryName: string;
+  countryParam: string;
+  stateName: string | null;
+  stateParam: string | null;
+  cityName: string | null;
+  cityParam: string | null;
 }
 
-export default component$<PostHeaderProps>((props) => {
+const PostHeader = component$<PostHeaderProps>((props) => {
   useStyles$(styles);
+  const theme = useContext(ThemeContext);
+  const authorUrl = `/author/${props.authorName
+    .toLowerCase()
+    .replace(/ /g, "-")}`;
+
+  const tagUrl = `/tag/${props.tagName.replace(/ /g, "-")}`;
+
+  const srcSet = useSignal<string>("");
+
+  const imageTransformer$ = $(
+    ({ src, width, height }: ImageTransformerProps): string => {
+      return `/images/${width}/${height}/${src.split("/")[4]}`;
+    }
+  );
+
+  useTask$(async () => {
+    const imgSrc = `/images/${props.imageWidth}/${props.imageHeight}/${props.image}`;
+    srcSet.value = await getSrcSet({
+      src: imgSrc,
+      width: props.imageWidth,
+      height: props.imageHeight,
+      layout: "fullWidth",
+      resolutions: [1280, 960, 640, 320, 160],
+      aspectRatio:
+        props.imageWidth && props.imageHeight
+          ? props.imageWidth / props.imageHeight
+          : undefined,
+      imageTransformer$,
+    });
+  });
 
   return (
-    <section
-      class="post-cover"
-      //   style={{ backgroundImage: `url(${props.image})` }}
-      //   style={{
-      //     backgroundImage: `url(/images/the-essential-things-to-do-riquewihr.webp)`,
-      //   }}
-      //   style={{
-      //     background: `linear-gradient(to top, #fe4f70 0%, #ffa387 100%)`,
-      //   }}
-    >
+    <section class="post-cover">
       <div class="post-header-image">
-        {/* <img src={props.image} /> */}
         <div class="post-header-overlay" />
-        <Image
-          layout="fullWidth"
-          objectFit="cover"
-          //   aspectRatio={16 / 9}
-          width={1280}
-          height={600}
-          alt="alt text"
-          placeholder="#e6e6e6"
-          src={props.image}
+        <img
+          src={`/images/${props.imageWidth}/${props.imageHeight}/${props.image}`}
+          srcset={srcSet.value}
+          alt="Post image"
           loading="eager"
+          width={props.imageWidth}
+          height={props.imageHeight}
         />
       </div>
       <div class="container">
         <div class="cover-content">
           <nav class="breadcrumbs">
             <ol>
-              {props.breadcrumbs.map((breadcrumb) => {
-                return (
-                  <li key={uuidv4()} class="breadcrumb">
-                    <a href="#">{breadcrumb}</a>
-                  </li>
-                );
-              })}
-              <li key={uuidv4()} class="breadcrumb">
-                <a href="#">{props.title}</a>
+              {props.countryName && (
+                <li class="breadcrumb">
+                  <Link href={`/destination/${props.countryParam}`}>
+                    {props.countryName}
+                  </Link>
+                </li>
+              )}
+
+              {props.stateName && (
+                <li class="breadcrumb">
+                  <Link
+                    href={`/destination/${props.countryParam}/${props.stateParam}`}
+                  >
+                    {props.stateName}
+                  </Link>
+                </li>
+              )}
+
+              {props.cityName && (
+                <li class="breadcrumb">
+                  <Link
+                    href={`/destination/${props.countryParam}/${props.stateParam}/${props.cityParam}`}
+                  >
+                    {props.cityName}
+                  </Link>
+                </li>
+              )}
+              <li class="breadcrumb">
+                <span>{props.title}</span>
               </li>
             </ol>
           </nav>
@@ -64,9 +116,16 @@ export default component$<PostHeaderProps>((props) => {
             <h1>{props.title}</h1>
             <ul>
               <li>
-                {/* <img src={props.authorAvatar} class="author-avatar" /> */}
-                <div class="author-avatar">
-                  <Image
+                <span class="author-avatar">
+                  <Link href={authorUrl} title={`Posts by ${props.authorName}`}>
+                    <img
+                      src={props.authorAvatar}
+                      alt={props.authorName}
+                      width="32"
+                      height="32"
+                    />
+                  </Link>
+                  {/* <Image
                     layout="fullWidth"
                     objectFit="cover"
                     aspectRatio={32 / 32}
@@ -76,14 +135,21 @@ export default component$<PostHeaderProps>((props) => {
                     placeholder="#e6e6e6"
                     src={props.authorAvatar}
                     loading="lazy"
-                  />
-                </div>
-                <span>{props.authorName}</span>
+                  /> */}
+                </span>
+                <Link href={authorUrl} title={`Posts by ${props.authorName}`}>
+                  {props.authorName}
+                </Link>
               </li>
-              <li>{props.tagName}</li>
+              <li>
+                <Link href={tagUrl} title={`Posts tagged ${props.tagName}`}>
+                  {props.tagName}
+                </Link>
+              </li>
               <li>{formatDate(props.dateModified)}</li>
               <li class="comment-count">
-                <BubbleIcon viewbox="0 0 32 32" width="16" height="16" /> (0)
+                <BubbleIcon viewBox="0 0 32 32" width="16" height="16" /> (
+                {theme.commentsCount})
               </li>
             </ul>
             {/* <div class="post-header-image">
@@ -95,3 +161,5 @@ export default component$<PostHeaderProps>((props) => {
     </section>
   );
 });
+
+export default PostHeader;

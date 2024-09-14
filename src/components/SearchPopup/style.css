@@ -90,6 +90,14 @@
   background-color: #fff;
 }
 
+.search-popup .search-content form input:focus-visible {
+  border-color: #fe4f70;
+  outline: 0;
+  box-shadow: none;
+  color: #212529;
+  background-color: #fff;
+}
+
 .search-popup .search-content form button {
   border: 0;
   border-radius: 25px;

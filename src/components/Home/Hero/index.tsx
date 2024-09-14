@@ -13,6 +13,7 @@ const Hero = component$(() => {
 
   const heroHeight = useSignal<number | string>("calc(100vh - 87px)");
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     heroHeight.value = `${document.documentElement.clientHeight - 87}px`;
   });

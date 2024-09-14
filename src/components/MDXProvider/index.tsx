@@ -1,5 +1,10 @@
-import { createContextId, Slot, useContextProvider } from "@builder.io/qwik";
-import type { MDXComponents } from "mdx/types";
+import {
+  component$,
+  createContextId,
+  Slot,
+  useContextProvider,
+} from "@builder.io/qwik";
+import { type MDXComponents } from "mdx/types";
 import { contextComponents } from "./contextComponents";
 // import {h} from '@builder.io/qwik'
 
@@ -8,7 +13,7 @@ type MergeComponents = (components: MDXComponents) => MDXComponents;
 export const MDXContext = createContextId<MDXComponents>("mdx-context");
 
 export const useMDXComponents = (
-  components: MDXComponents | MergeComponents | undefined
+  components?: MDXComponents | MergeComponents | undefined
 ): MDXComponents => {
   if (typeof components === "undefined") {
     return contextComponents;
@@ -24,20 +29,26 @@ export const useMDXComponents = (
 
 const emptyObject = {};
 
-export const MDXProvider: (props: any) => any = ({
-  components,
-  disableParentContext,
-}) => {
-  let allComponents = useMDXComponents(components);
+interface MdxProviderProps {
+  components?: MDXComponents | MergeComponents | undefined;
+  disableParentContext: boolean;
+}
 
-  if (disableParentContext) {
-    allComponents = components || emptyObject;
+export const MDXProvider = component$<MdxProviderProps>(
+  ({ components, disableParentContext }) => {
+    let allComponents = useMDXComponents(components);
+
+    if (disableParentContext) {
+      allComponents = components || emptyObject;
+    }
+
+    useContextProvider(MDXContext, allComponents);
+    return (
+      <>
+        <Slot />
+      </>
+    );
   }
+);
 
-  useContextProvider(MDXContext, allComponents);
-  return (
-    <>
-      <Slot />
-    </>
-  );
-};
+export default MDXProvider;

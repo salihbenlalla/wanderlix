@@ -29,8 +29,8 @@ const ActivityList = component$((props: ActivityListProps) => {
               .replace("https://cdn.travel2.ml/", "")
               .replace("-", " ")
               .slice(0, props.activityImage.length - 4)}
-            // width="200"
-            // height="150"
+            width="200"
+            height="150"
           />
         </div>
         <div class="activity_description">

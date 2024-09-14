@@ -35,6 +35,8 @@ export const methodName = "createTweet";
 export const TweetEmbed = component$((props: TweetProps) => {
   const state = useStore({ isLoading: true, isComponentMounted: true });
   const ref = useSignal<HTMLDivElement>();
+
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async () => {
     //   let isComponentMounted = true;
     const script = (await import("scriptjs")).default;
@@ -53,7 +55,7 @@ export const TweetEmbed = component$((props: TweetProps) => {
 
         window.twttr.widgets[methodName](
           props.tweetId,
-          ref?.value,
+          ref.value,
           props.options
         ).then(() => {
           state.isLoading = false;
@@ -66,12 +68,16 @@ export const TweetEmbed = component$((props: TweetProps) => {
       state.isComponentMounted = false;
     };
   });
+
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        width: 550,
+        height: 648,
+        margin: "16px auto",
       }}
       ref={ref}
     ></div>

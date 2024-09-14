@@ -27,9 +27,9 @@ const MainPays = component$<MainPaysProps>((props) => {
         <Image
           layout="fullWidth"
           objectFit="cover"
-          aspectRatio={Number(props.imgWidth) / Number(props.imgHeight)}
-          width={props.imgWidth}
-          height={props.imgHeight}
+          // aspectRatio={Number(props.imgWidth) / Number(props.imgHeight)}
+          width={parseInt(props.imgWidth || "")}
+          height={parseInt(props.imgHeight || "")}
           alt="alt text"
           placeholder="#e6e6e6"
           src={props.imgSrc}

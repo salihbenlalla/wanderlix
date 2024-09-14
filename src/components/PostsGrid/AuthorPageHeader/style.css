@@ -1,0 +1,84 @@
+.author-page-header-inner-container {
+  background: #f1f8ff;
+  margin-left: 12px;
+  margin-right: 12px;
+  display: flex;
+  gap: 20px;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.author-page-header-thumbnail img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.author-page-header-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+  .author-page-header-inner-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .author-page-header-details {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.author-page-header-details h1 {
+  color: #203656;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.author-page-header-details p {
+  margin-bottom: 10px;
+  margin-top: 0;
+  color: #8f9bad;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.author-page-header-details > ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.author-page-header-details > ul > li {
+  list-style: none;
+  height: 26px;
+}
+
+.author-page-header-details > ul > li:not(:last-child) {
+  padding-right: 16px;
+}
+
+.author-page-header-details > ul li span svg {
+  fill: #203656;
+  cursor: pointer;
+}
+
+.author-page-header-details > ul li span svg:hover {
+  fill: #fe4f70;
+}
+
+.posts-grid-header-title {
+  color: #203656;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 20px 0;
+  text-align: center !important;
+}

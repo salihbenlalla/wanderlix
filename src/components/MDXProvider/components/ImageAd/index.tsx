@@ -11,10 +11,29 @@ const ImageAd = component$((props: ElementProps) => {
   const imgHeight = props.imgHeight;
   const imgWidth = props.imgWidth;
 
+  if (!imgHeight || !imgWidth) {
+    throw new Error(
+      "ImageAd component: the image does not have a width or height"
+    );
+  }
+
   return (
     <div class="image_ad">
       <a href={props.aHref} target="_blank" rel="nofollow noopener noreferrer">
-        {imgHeight && imgWidth ? (
+        <img
+          src={props.imgSrc}
+          loading="lazy"
+          alt=""
+          style={{
+            width: "100%",
+            borderRadius: "5px",
+            background:
+              "#ddd url(/icomoon_svg/camera.svg) no-repeat center center",
+          }}
+          width={imgWidth}
+          height={imgHeight}
+        />
+        {/* {imgHeight && imgWidth ? (
           <div
             style={{
               paddingBottom: `calc((${Number(imgHeight)}/${Number(
@@ -53,7 +72,7 @@ const ImageAd = component$((props: ElementProps) => {
               cursor: "pointer",
             }}
           />
-        )}
+        )} */}
       </a>
     </div>
   );

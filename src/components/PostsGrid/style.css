@@ -1,0 +1,14 @@
+.posts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+@media (min-width: 576px) {
+  .posts-grid.format-list {
+    border: solid 1px #ebebeb;
+    padding: 30px !important;
+    border-radius: 10px !important;
+    gap: 0;
+  }
+}
