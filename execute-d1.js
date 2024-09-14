@@ -2,9 +2,13 @@ import { execSync } from "child_process";
 
 const executeD1 = (command) => {
   try {
-    const output = execSync(command, { encoding: "utf-8" });
+    const output = execSync(command, {
+      encoding: "utf-8",
+      maxBuffer: 1024 * 1024 * 10,
+    });
     const lines = output.split("\n");
     const filteredLines = lines.filter((line) => {
+      if (line.trim() === "") return false;
       try {
         const parsed = JSON.parse(line);
         return !(
@@ -16,7 +20,9 @@ const executeD1 = (command) => {
         return true;
       }
     });
-    console.log(filteredLines.join("\n"));
+    if (filteredLines.length > 0) {
+      console.log(filteredLines.join("\n"));
+    }
   } catch (error) {
     console.error("Error executing command:", error.message);
     process.exit(1);
