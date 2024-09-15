@@ -8,8 +8,12 @@ compatibility_flags = [ "nodejs_compat" ]
 # Opt into backwards-incompatible changes through April 19, 2024.
 compatibility_date = "2024-04-19"
 
+# [[d1_databases]]
+# binding = "DB" # i.e. available in your Worker on env.DB
+# database_name = "db"
+# database_id = "e7c0beb8-0020-4542-96b6-068bf370b755"
+
 [[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB
-database_name = "db"
-database_id = "e7c0beb8-0020-4542-96b6-068bf370b755"
-
+database_name = "DB"
+database_id = "835d38b8-043d-49ce-9a03-ffe3fdf34963"

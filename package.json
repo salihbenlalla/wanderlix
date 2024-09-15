@@ -30,11 +30,11 @@
     "qwik": "qwik",
     "wrangler": "wrangler",
     "migrate": "wrangler -c ./wrangler.toml d1 execute DB --local --file ./schema.sql",
-    "import.db": "pnpm run empty.db && npx wrangler d1 execute db --remote --file=/home/salih/D/programming/Qwik/travel3/travel2/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/db.sql --batch-size=5000",
-    "empty.db": "npx wrangler d1 execute db --remote --file=empty_db.sql",
-    "export.db": "npx wrangler d1 export db --remote --output=./database.sql",
-    "download.db": "rm -f ./database.sql && npx wrangler d1 export db --remote --output=./database.sql",
-    "fill.db": "wrangler -c ./wrangler.toml d1 execute db --local --file=empty_db.sql --json > /dev/null && wrangler -c ./wrangler.toml d1 execute DB --local --file ./database.sql --json > /dev/null",
+    "import.db": "pnpm run empty.db && npx wrangler d1 execute DB --remote --file=/home/salih/D/programming/Qwik/travel3/travel2/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/db.sql --batch-size=5000",
+    "empty.db": "npx wrangler d1 execute DB --remote --file=empty_db.sql",
+    "export.db": "npx wrangler d1 export DB --remote --output=./database.sql",
+    "download.db": "rm -f ./database.sql && npx wrangler d1 export DB --remote --output=./database.sql",
+    "fill.db": "wrangler -c ./wrangler.toml d1 execute DB --local --file=empty_db.sql --json > /dev/null && wrangler -c ./wrangler.toml d1 execute DB --local --file ./database.sql --json > /dev/null",
     "init.db": "pnpm run download.db && pnpm run fill.db"
   },
   "devDependencies": {
