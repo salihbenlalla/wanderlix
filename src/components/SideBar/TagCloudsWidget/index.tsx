@@ -24,7 +24,7 @@ export default component$<TagCloudsWidgetProps>((props) => {
           {props.tags.map((tag) => (
             <SingleTag
               key={uuidv4()}
-              url={`/tag/${tag.url}`}
+              url={`${tag.url}`}
               tagName={tag.name}
             />
             // <Link

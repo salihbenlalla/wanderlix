@@ -12,7 +12,7 @@
   "trustedDependencies-annotation": "Needed for bun to allow running install scripts",
   "type": "module",
   "scripts": {
-    "build": "pnpm run init.db && qwik build > /dev/null",
+    "build": "qwik build > /dev/null",
     "build.client": "node --max_old_space_size=16384 ./node_modules/vite/bin/vite.js build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "node --max_old_space_size=16384 ./node_modules/vite/bin/vite.js build -c adapters/cloudflare-pages/vite.config.ts",
