@@ -2,7 +2,6 @@ import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/c
 import type { RequestHandler } from "@builder.io/qwik-city";
 import { getDB } from "~/lib/helpers/getDB";
 import { type D1Result } from "@miniflare/d1";
-import { Tag } from "~/components/SideBar/TagCloudsWidget";
 
 export const onGet: RequestHandler<PlatformCloudflarePages> = async (ev) => {
   const DB = await getDB(ev);
