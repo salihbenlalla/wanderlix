@@ -123,3 +123,10 @@
     width: 100%;
   }
 }
+
+.search-form-error-message {
+  height: 18px;
+  font-size: 14px;
+  padding-left: 8px;
+  color: #ff0000;
+}

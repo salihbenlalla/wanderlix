@@ -1,7 +1,7 @@
 import { cloudflarePagesAdapter } from "@salihbenlalla/qwik-city/adapters/cloudflare-pages/vite";
 import { extendConfig } from "@salihbenlalla/qwik-city/vite";
 import baseConfig from "../../vite.config";
-import createGetDevDB from "../../src/lib/helpers/createGetDevDB";
+// import createGetDevDB from "../../src/lib/helpers/createGetDevDB";
 
 export default extendConfig(baseConfig, () => {
 

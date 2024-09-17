@@ -36,9 +36,11 @@ export default component$<PaginationButtonsProps>((props) => {
               <li key={uuidv4()}>
                 <Link
                   class="page-number"
-                  href={`${pathname}${
-                    searchParams.size > 0 ? `?${searchParams.toString()}` : ""
-                  }${isSearchPage ? "&page=1" : ""}`}
+                  // href={`${pathname}${
+                  //   searchParams.size > 0 ? `?${searchParams.toString()}` : ""
+                  // }${isSearchPage ? "&page=1" : ""}`}
+
+                  href={`${pathname}`}
                 >
                   «
                 </Link>
@@ -48,9 +50,10 @@ export default component$<PaginationButtonsProps>((props) => {
               <li key={uuidv4()}>
                 <Link
                   class="page-number"
-                  href={`${pathname}${!isSearchPage ? props.pageNumber - 1 : ""}${
-                    searchParams.size > 0 ? `?${searchParams.toString()}` : ""
-                  }${isSearchPage ? `&page=${props.pageNumber - 1}` : ""}`}
+                  // href={`${pathname}${!isSearchPage ? props.pageNumber - 1 : ""}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""
+                  //   }${isSearchPage ? `&page=${props.pageNumber - 1}` : ""}`}
+
+                  href={`${pathname}${props.pageNumber - 1}`}
                 >
                   {props.pageNumber - 1}
                 </Link>
@@ -63,9 +66,10 @@ export default component$<PaginationButtonsProps>((props) => {
               <li key={uuidv4()}>
                 <Link
                   class="page-number"
-                  href={`${pathname}${!isSearchPage ? props.pageNumber + 1 : ""}${
-                    searchParams.size > 0 ? `?${searchParams.toString()}` : ""
-                  }${isSearchPage ? `&page=${props.pageNumber + 1}` : ""}`}
+                  // href={`${pathname}${!isSearchPage ? props.pageNumber + 1 : ""}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""
+                  //   }${isSearchPage ? `&page=${props.pageNumber + 1}` : ""}`}
+
+                  href={`${pathname}${props.pageNumber + 1}`}
                 >
                   {props.pageNumber + 1}
                 </Link>
@@ -75,9 +79,10 @@ export default component$<PaginationButtonsProps>((props) => {
               <li key={uuidv4()}>
                 <Link
                   class="page-number"
-                  href={`${pathname}${!isSearchPage ? props.totalPages : ""}${
-                    searchParams.size > 0 ? `?${searchParams.toString()}` : ""
-                  }${isSearchPage ? `&page=${props.totalPages}` : ""}`}
+                  // href={`${pathname}${!isSearchPage ? props.totalPages : ""}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""
+                  //   }${isSearchPage ? `&page=${props.totalPages}` : ""}`}
+
+                  href={`${pathname}${props.totalPages}`}
                 >
                   »
                 </Link>

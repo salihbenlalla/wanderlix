@@ -3,16 +3,64 @@ import {
   useContext,
   useSignal,
   useStyles$,
+  $,
+  QRL
 } from "@builder.io/qwik";
+import { useNavigate } from '@builder.io/qwik-city';
 import { ThemeContext } from "~/routes/layout";
 import SearchIcon from "~/assets/icomoon_svg/search.svg?component";
 import CloseButton from "~/assets/icomoon_svg/close.svg?component";
+import { minLength, object, string } from "valibot";
+import {
+  useForm,
+  valiForm$,
+  reset,
+  type SubmitHandler,
+} from "@modular-forms/qwik";
 import styles from "./style.css?inline";
+
+
+export interface searchFormInput {
+  searchQuery: string;
+  [key: string]: string;
+}
+
+const searchFormSchema = object({
+  searchQuery: string([
+    minLength(1, "Please enter your search terms."),
+  ]),
+});
 
 export default component$(() => {
   useStyles$(styles);
   const theme = useContext(ThemeContext);
-  const inputValue = useSignal("");
+
+
+  const searchFormLoader = useSignal<searchFormInput>({
+    searchQuery: "",
+  });
+
+  const [searchForm, { Form, Field }] = useForm<searchFormInput>({
+    loader: searchFormLoader,
+    fieldArrays: [],
+    validate: valiForm$(searchFormSchema),
+  });
+
+  const resetForm = $(() => {
+    reset(searchForm);
+  });
+
+  const navigate = useNavigate()
+
+  const themeContext = useContext(ThemeContext);
+
+  const handleSubmit: QRL<SubmitHandler<searchFormInput>> = $(
+    async (values, _ /*event*/) => {
+      await navigate(`/search/${values.searchQuery}`);
+      resetForm();
+      themeContext.searchPopupOpen = false;
+    }
+  );
 
   return (
     <div
@@ -28,18 +76,40 @@ export default component$(() => {
       </button>
       <div class="search-content">
         <h3>Press ESC to close</h3>
-        <form method="GET" action="/search">
-          <input
-            type="text"
-            name="q"
-            id="search"
-            placeholder="What do you want to search for ?"
-            value={inputValue.value}
-          />
+        <Form onSubmit$={handleSubmit} id="searchform" class="search-form">
+
+          <Field name="searchQuery">
+            {(field, props) => {
+              return (
+                <>
+                  <input
+                    {...props}
+                    value={field.value}
+                    type="text"
+                    id="search"
+                    placeholder="What do you want to search for ?"
+                    aria-describedby="search input"
+                    required
+                  />
+                  <div class="search-form-error-message">
+                    {field.error && <span>{field.error}</span>}
+                  </div>
+                </>
+              )
+            }}
+          </Field>
+
+          { /*<input
+              type="text"
+              name="q"
+              id="search"
+              placeholder="What do you want to search for ?"
+              value={inputValue.value}
+            />*/ }
           <button type="submit">
             <SearchIcon width="16" height="16" viewBox="0 0 20 20" />
           </button>
-        </form>
+        </Form>
       </div>
     </div>
   );

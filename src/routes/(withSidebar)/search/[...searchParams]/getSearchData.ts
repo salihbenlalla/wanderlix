@@ -6,6 +6,8 @@ import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/c
 import { type D1Result } from "@miniflare/d1";
 import { type PostCardData } from "~/components/PostsGrid/PostCard";
 import { getDB } from "~/lib/helpers/getDB";
+import isNumber from "~/lib/helpers/isNumber";
+import splitStringWithoutEmpty from "~/lib/helpers/splitStringWithoutEmpty";
 
 export interface SearchData {
   posts: PostCardData[];
@@ -19,14 +21,23 @@ interface SearchDBData extends PostCardData {
 }
 
 export const getSearchData = async (
-  ev: RequestEventLoader<PlatformCloudflarePages>
+  ev: RequestEventLoader<PlatformCloudflarePages>,
 ): Promise<SearchData | FailReturn<{ message: string }>> => {
   // const pageNumber = Number(ev.query.get("page")) || 1;
-  const pageNumber = Number(ev.query.get("page"))
-    ? Number(ev.query.get("page"))
-    : 1;
+  // const pageNumber = Number(ev.query.get("page"))
+  //   ? Number(ev.query.get("page"))
+  //   : 1;
+
+  const params = splitStringWithoutEmpty(ev.params.searchParams, "/");
+
+  const lastParamIsNumber = isNumber(params[params.length - 1]);
+
+  const pageNumber = lastParamIsNumber ? Number(params.pop()) : 1;
+
   const offset = (pageNumber - 1) * 10;
-  const searchPhrase = ev.query.get("q")?.trim();
+  // const searchPhrase = ev.query.get("q")?.trim();
+  const searchPhrase = params[params.length - 1];
+
   const searchQuery = `%${searchPhrase}%`;
 
   if (!searchQuery) {
@@ -58,6 +69,8 @@ LIMIT 10 OFFSET ?;
 
   const DB = await getDB(ev);
 
+  // console.log("DB: ", DB);
+
   if (!DB) {
     return ev.fail(500, { message: "Internal server error" });
   }
@@ -73,7 +86,7 @@ LIMIT 10 OFFSET ?;
         searchQuery,
         searchQuery,
         searchQuery,
-        offset
+        offset,
       )
       .all()) as D1Result<SearchDBData>;
 
@@ -94,7 +107,7 @@ LIMIT 10 OFFSET ?;
   } catch (error) {
     console.error(
       "getSearchData: Error while getting search data from DB:",
-      error
+      error,
     );
     return ev.fail(500, { message: "Internal server error" });
   }
