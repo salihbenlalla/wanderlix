@@ -22,7 +22,7 @@ export default component$<PaginationButtonsProps>((props) => {
     ? "/" + pathname.slice(0, pathname.length - 1).join("/") + "/"
     : "/" + pathname.join("/") + "/";
 
-  const isSearchPage = pathname === "/search/";
+  // const isSearchPage = pathname === "/search/";
 
   const searchParams = loc.url.searchParams;
   searchParams.delete("page");

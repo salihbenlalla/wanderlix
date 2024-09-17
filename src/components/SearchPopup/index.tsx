@@ -4,7 +4,7 @@ import {
   useSignal,
   useStyles$,
   $,
-  QRL
+  type QRL
 } from "@builder.io/qwik";
 import { useNavigate } from '@builder.io/qwik-city';
 import { ThemeContext } from "~/routes/layout";
