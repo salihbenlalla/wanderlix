@@ -15,9 +15,20 @@ export default extendConfig(baseConfig, () => {
         // external: ["esbuild", "@miniflare/d1", "@miniflare/core", "@miniflare/shared", "@iarna/toml", "wrangler", "./src/lib/helpers/createGetDevDB.ts"],
       },
     },
+    
     plugins: [cloudflarePagesAdapter({
       ssg: {
+        origin: process.env.CF_PAGES_URL ? process.env.CF_PAGES_URL: "http://localhost:8788/",
         include: ["/*"],
+        exclude: [
+          "/search/*",
+          "/author/*",
+          "/update-db/*",
+          "/newsletter/*",
+          "/contact/*",
+          "/comments/*",
+          "/images/*"
+        ],
         serverData: { x: "Hello World" },
         // maxWorkers: 0,
         // platform: {
