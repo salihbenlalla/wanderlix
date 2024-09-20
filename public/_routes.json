@@ -3,6 +3,10 @@
   "include": [
     "/search/*",
     "/author/*",
+    "/update-db/*",
+    "/newsletter/*",
+    "/contact/*",
+    "/comments/*",
     "/images/*"
   ],
   "exclude": [
