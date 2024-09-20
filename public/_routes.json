@@ -2,7 +2,8 @@
   "version": 1,
   "include": [
     "/search/*",
-    "/author/*"
+    "/author/*",
+    "/images/*"
   ],
   "exclude": [
     "/*"
