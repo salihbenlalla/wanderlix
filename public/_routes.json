@@ -1,15 +1,33 @@
 {
   "version": 1,
   "include": [
-    "/search/*",
-    "/author/*",
-    "/update-db/*",
-    "/newsletter/*",
-    "/contact/*",
-    "/comments/*",
-    "/images/*"
+    "/*",
+    "/contact/message/*",
   ],
   "exclude": [
-    "/*"
+    "/",
+    "/post/*",
+    "/destinations/*",
+    "/destination/*",
+    "/contact/*",
+    "/about-us/*",
+    "/privacy-policy/*",
+    "/tag/*",
+    "/index.html",
+    "/q-data.json",
+    "/_routes.json",
+    "/favicon-192.png",
+    "/favicon.png",
+    "/favicon.svg",
+    "/fonts/*",
+    "/manifest.json",
+    "/maskable_icon.png",
+    "/robots.txt",
+    "/build/*",
+    "/service-worker.js",
+    "/q-manifest.json",
+    "/qwik-prefetch-service-worker.js",
+    "/sitemap.xml",
+    "/404.html"
   ]
 }

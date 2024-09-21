@@ -20,15 +20,15 @@ export default extendConfig(baseConfig, () => {
       ssg: {
         origin: process.env.CF_PAGES_URL ? process.env.CF_PAGES_URL: "http://localhost:8788/",
         include: ["/*"],
-        exclude: [
-          "/search/*",
-          "/author/*",
-          "/update-db/*",
-          "/newsletter/*",
-          "/contact/*",
-          "/comments/*",
-          "/images/*"
-        ],
+        // exclude: [
+        //   "/search/*",
+        //   "/author/*",
+        //   "/update-db/*",
+        //   "/newsletter/*",
+        //   "/contact/*",
+        //   "/comments/*",
+        //   "/images/*"
+        // ],
         serverData: { x: "Hello World" },
         // maxWorkers: 0,
         // platform: {
