@@ -1,15 +1,14 @@
 {
   "version": 1,
   "include": [
-    "/*",
-    "/contact/message/*",
+    "/*"
   ],
   "exclude": [
     "/",
     "/post/*",
     "/destinations/*",
     "/destination/*",
-    "/contact/*",
+    "/contact/",
     "/about-us/*",
     "/privacy-policy/*",
     "/tag/*",
