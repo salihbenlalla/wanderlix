@@ -1,5 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import { useDocumentHead, useLocation } from "@builder.io/qwik-city";
+import { useDocumentHead } from "@builder.io/qwik-city";
 import { v4 as uuidv4 } from "uuid";
 
 /**
@@ -7,15 +7,21 @@ import { v4 as uuidv4 } from "uuid";
  */
 export const RouterHead = component$(() => {
   const head = useDocumentHead();
-  const loc = useLocation();
 
   return (
     <>
       <title>{head.title}</title>
 
-      <link rel="canonical" href={loc.url.href} />
-
+      <meta charSet="utf-8" />
+      <meta name="theme-color" content="#01a0c6" />
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta property="og:locale" content="en_US" />
+      <meta property="og:site_name" content="travel2.ml" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <link rel="manifest" href="/manifest.json" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={`
@@ -48,7 +54,6 @@ export const RouterHead = component$(() => {
         //@ts-ignore
         fetchpriority="high"
       /> */}
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" /> */}
       {/* <link
@@ -59,7 +64,6 @@ export const RouterHead = component$(() => {
       {/* <link rel="manifest" href="/manifest.json" /> */}
       {/* <link rel="stylesheet" href="/fonts/poppins/stylesheet.css" />
       <link href="/fonts/dmsans/stylesheet.css" rel="stylesheet" /> */}
-      <meta property="og:site_name" content="travel2.ml" />
       {/* <meta name="twitter:site" content="@travel2" />
       <meta name="twitter:title" content="Travel2.ml" /> */}
       {/* <link

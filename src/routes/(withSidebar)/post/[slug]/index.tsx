@@ -19,6 +19,7 @@ import { getSlugs } from "~/lib/helpers/getSlugs";
 import NextPrevPost from "~/components/NextPrevPost";
 import AboutAuthor from "~/components/AboutAuthor";
 import PostFooter from "~/components/PostFooter";
+import { getOrigin } from "~/lib/helpers/getOrigin";
 
 export const useGetPost = routeLoader$(
   async (ev: RequestEventLoader<PlatformCloudflarePages>) => {
@@ -118,16 +119,18 @@ export const useDocumentHeadData = routeLoader$(async ({ resolveValue }) => {
   return { post, srcSet, imgSrc };
 });
 
-export const head: DocumentHead = ({ resolveValue }) => {
+export const head: DocumentHead = ({ resolveValue, url }) => {
   const { post, srcSet, imgSrc } = resolveValue(useDocumentHeadData);
+  const origin = getOrigin(url);
+
 
   return {
     title: post.title,
     links: [
-      // {
-      //   rel: "canonical",
-      //   href: `https://travel2.ml/post/${post.slug}`,
-      // },
+      {
+        rel: "canonical",
+        href: `${origin}/post/${post.slug}/`
+      },
       {
         rel: "preload",
         as: "image",
@@ -136,32 +139,11 @@ export const head: DocumentHead = ({ resolveValue }) => {
         fetchpriority: "high",
         href: imgSrc,
       },
-      // {
-      //   rel: "dns-prefetch",
-      //   href: "https://cdn.travel2.ml",
-      // },
     ],
     meta: [
       {
         name: "description",
         content: post.description,
-      },
-      {
-        "http-equiv": "Content-Type",
-        content: "text/html; charset=utf-8",
-      },
-      {
-        name: "theme-color",
-        content: "#01a0c6",
-      },
-      {
-        name: "robots",
-        content:
-          "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-      },
-      {
-        property: "og:locale",
-        content: "en_US",
       },
       {
         property: "og:type",
@@ -173,16 +155,12 @@ export const head: DocumentHead = ({ resolveValue }) => {
       },
       {
         property: "og:description",
-        content: post.title,
+        content: post.description,
       },
       {
         property: "og:url",
-        content: `https://travel2.ml/post/${post.slug}/`,
+        content: `${origin}/post/${post.slug}/`,
       },
-      // {
-      //   property: "og:site_name",
-      //   content: "travel2.ml"
-      // },
       // {
       //   property: "article:publisher",
       //   content: "https://www.facebook.com/travel2"
@@ -200,7 +178,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
         content: `${post.imageWidth}`,
       },
       {
-        property: "og:image:Height",
+        property: "og:image:height",
         content: `${post.imageHeight}`,
       },
       {

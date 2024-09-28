@@ -3,12 +3,15 @@ import {
   type RequestEventLoader,
   routeLoader$,
   type StaticGenerateHandler,
+  type DocumentHead,
 } from "@builder.io/qwik-city";
 import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 import PostsGrid from "~/components/PostsGrid";
 import GridHeader from "~/components/PostsGrid/GridHeader";
 import { getDestinationData } from "./getDestinationData";
 import getDestinationParams from "./getDestinationParams";
+import { constructDestinationPath } from "~/lib/helpers/constructDestinationPath";
+import { getOrigin } from "~/lib/helpers/getOrigin";
 
 export const useDestinationData = routeLoader$(
   async (ev: RequestEventLoader<PlatformCloudflarePages>) => {
@@ -60,5 +63,90 @@ export const onStaticGenerate: StaticGenerateHandler = async (env) => {
     params: catchAlls.map((catchAll) => {
       return { catchAll };
     }),
+  };
+};
+
+export const head: DocumentHead = ({ resolveValue, url }) => {
+  const data = resolveValue(useDestinationData); // Fetch destination data
+  const destinationPath = constructDestinationPath(data);
+
+  const destinationName =
+    data.cityName ||
+    data.stateName ||
+    data.countryName;
+  const currentPage = data.currentPage;
+  const origin = getOrigin(url);
+
+  const destinationImage = data.posts ? data.posts[0].image : "";
+  const imageWidth = data.posts ? data.posts[0].imageWidth : "";
+  const imageHeight = data.posts ? data.posts[0].imageHeight : "";
+
+  // Build the canonical URL based on the current page number
+  const canonicalUrl = currentPage && currentPage > 1
+    ? `${origin}/destination/${destinationPath}/${currentPage}/`
+    : `${origin}/destination/${destinationPath}/`;
+
+  return {
+    title: `Explore ${destinationName}`,
+    links: [
+      {
+        rel: "canonical",
+        href: canonicalUrl,
+      },
+    ],
+    meta: [
+      {
+        name: "description",
+        content: `Discover posts about traveling to ${destinationName}.`,
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:title",
+        content: `Explore ${destinationName}`,
+      },
+      {
+        property: "og:description",
+        content: `Discover exciting travel tips, stories, and posts about ${destinationName}.`,
+      },
+      {
+        property: "og:url",
+        content: canonicalUrl,
+      },
+      {
+        property: "og:image",
+        content: `${origin}/images/${imageWidth}/${imageHeight}/${destinationImage}`,
+      },
+      {
+        property: "og:image:width",
+        content: `${imageWidth}`,
+      },
+      {
+        property: "og:image:height",
+        content: `${imageHeight}`,
+      },
+      {
+        property: "og:image:type",
+        content: "image/webp",
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:title",
+        content: `Explore ${destinationName}`,
+      },
+      {
+        name: "twitter:description",
+        content: `Discover exciting travel tips, stories, and posts about ${destinationName}.`,
+      },
+      {
+        name: "twitter:image",
+        content: `${origin}/images/${imageWidth}/${imageHeight}/${destinationImage}`,
+      },
+    ],
   };
 };

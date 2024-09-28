@@ -12,6 +12,7 @@ import splitStringWithoutEmpty from "~/lib/helpers/splitStringWithoutEmpty";
 export interface TagData {
   posts: PostCardData[];
   tagName: string;
+  tagUrl: string;
   totalPages: number;
   currentPage: number;
 }
@@ -21,7 +22,7 @@ interface TagDBData extends PostCardData {
 }
 
 export const getTagData = async (
-  ev: RequestEventLoader<PlatformCloudflarePages>
+  ev: RequestEventLoader<PlatformCloudflarePages>,
 ): Promise<TagData | FailReturn<{ message: string }>> => {
   // const tagName =
   //   typeof ev.params.tagName !== "undefined"
@@ -83,6 +84,7 @@ LIMIT 10 OFFSET ?;
     return {
       posts: tagPosts,
       tagName: results2[0].tagName,
+      tagUrl: results2[0].tagUrl,
       totalPages: results2[0].totalPages,
       currentPage: pageNumber,
     };

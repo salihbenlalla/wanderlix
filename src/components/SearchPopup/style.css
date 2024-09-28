@@ -63,13 +63,22 @@
 
 .search-popup .search-content form {
   display: flex !important;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
   margin-top: 0em;
+  width: 100%;
+}
+.search-popup .search-content form .search-inputs {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
-.search-popup .search-content form input {
+.search-popup .search-content form .search-input input {
   display: block;
-  border-radius: 25px;
   width: 100%;
+  border-radius: 25px;
   padding: 8px 24px;
   font-size: 14px;
   line-height: 1.6;
@@ -80,6 +89,25 @@
   -webkit-box-shadow: none;
   box-shadow: none;
   margin-right: 8px;
+  margin-top: 2px;
+}
+
+.search-popup .search-content form .search-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-popup .search-content form .search-checkbox {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  color: #595959;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-popup .search-content form .search-checkbox label {
+  margin-left: 10px;
 }
 
 .search-popup .search-content form input:hover {

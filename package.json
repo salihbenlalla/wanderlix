@@ -13,7 +13,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm run init.db && qwik build > /dev/null",
-    "build.local": "pnpm run fill.db && qwik build",
+    "build.local": "pnpm run fill.db.local && qwik build",
     "build.client": "node --max_old_space_size=16384 ./node_modules/vite/bin/vite.js build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "node --max_old_space_size=16384 ./node_modules/vite/bin/vite.js build -c adapters/cloudflare-pages/vite.config.ts",
@@ -36,6 +36,7 @@
     "export.db": "npx wrangler d1 export DB --remote --output=./database.sql",
     "download.db": "rm -f ./database.sql && npx wrangler d1 export DB --remote --output=./database.sql",
     "fill.db": "wrangler -c ./wrangler.toml d1 execute DB --local --file=empty_db.sql --json > /dev/null && wrangler -c ./wrangler.toml d1 execute DB --local --file ./database.sql --json > /dev/null",
+    "fill.db.local": "wrangler -c ./wrangler.toml d1 execute DB --local --file=empty_db.sql && wrangler -c ./wrangler.toml d1 execute DB --local --file ./database.sql",
     "init.db": "pnpm run download.db && pnpm run fill.db"
   },
   "devDependencies": {

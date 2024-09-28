@@ -2,13 +2,15 @@ import { component$ } from "@builder.io/qwik";
 import {
   type RequestEventLoader,
   routeLoader$,
-  // type StaticGenerateHandler,
+  type DocumentHead,
 } from "@builder.io/qwik-city";
 import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 import PostsGrid from "~/components/PostsGrid";
 import AuthorPageHeader from "~/components/PostsGrid/AuthorPageHeader";
 import { getAuthorData } from "./getAuthorData";
 import GridHeader from "~/components/PostsGrid/GridHeader";
+import truncateParagraph from "~/lib/helpers/truncateParagraph";
+import { getOrigin } from "~/lib/helpers/getOrigin";
 // import getAuthorParams from "./getAuthorParams";
 
 /**
@@ -51,6 +53,91 @@ export default component$(() => {
     </>
   );
 });
+
+
+export const head: DocumentHead = ({ resolveValue, url }) => {
+  const data = resolveValue(useGetAuthor);
+  const authorData = data.author;
+  const currentPage = data.currentPage;
+  const origin = getOrigin(url);
+
+  // Build the canonical URL based on the current page number
+  const canonicalUrl = currentPage && currentPage > 1
+    ? `${origin}/tag/${authorData?.url}/${currentPage}/`
+    : `${origin}/tag/${authorData?.url}/`;
+
+  if (!authorData) {
+    return {}
+  }
+
+  return {
+    title: `Author: ${authorData.name}`,
+    links: [
+      {
+        rel: "canonical",
+        href: canonicalUrl
+      }
+    ],
+    meta: [
+      {
+        name: "description",
+        content: truncateParagraph(authorData.bio),
+      },
+      {
+        property: "og:type",
+        content: "profile",
+      },
+      {
+        property: "og:title",
+        content: `Author: ${authorData.name}`,
+      },
+      {
+        property: "og:description",
+        content: truncateParagraph(authorData.bio),
+      },
+      {
+        property: "og:url",
+        content: canonicalUrl,
+      },
+      {
+        property: "og:image",
+        content: authorData.imageUrl,
+      },
+      {
+        property: "og:image:width",
+        content: "1280",
+      },
+      {
+        property: "og:image:height",
+        content: "1280",
+      },
+      {
+        property: "og:image:type",
+        content: "image/webp",
+      },
+      {
+        name: "author",
+        content: authorData.name,
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:title",
+        content: `Author: ${authorData.name}`,
+      },
+      {
+        name: "twitter:description",
+        content: truncateParagraph(authorData.bio),
+      },
+      {
+        name: "twitter:image",
+        content: authorData.imageUrl,
+      },
+    ],
+  }
+}
 
 // export const onStaticGenerate: StaticGenerateHandler = async (env) => {
 //   // eslint-disable-next-line

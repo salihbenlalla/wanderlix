@@ -10,7 +10,7 @@ import { useNavigate } from '@builder.io/qwik-city';
 import { ThemeContext } from "~/routes/layout";
 import SearchIcon from "~/assets/icomoon_svg/search.svg?component";
 import CloseButton from "~/assets/icomoon_svg/close.svg?component";
-import { minLength, object, string } from "valibot";
+import { boolean, minLength, object, string } from "valibot";
 import {
   useForm,
   valiForm$,
@@ -22,13 +22,15 @@ import styles from "./style.css?inline";
 
 export interface searchFormInput {
   searchQuery: string;
-  [key: string]: string;
+  searchTitlesOnly: boolean;
+  [key: string]: string | boolean;
 }
 
 const searchFormSchema = object({
   searchQuery: string([
     minLength(1, "Please enter your search terms."),
   ]),
+  searchTitlesOnly: boolean("this field should have a boolean value"),
 });
 
 export default component$(() => {
@@ -38,6 +40,7 @@ export default component$(() => {
 
   const searchFormLoader = useSignal<searchFormInput>({
     searchQuery: "",
+    searchTitlesOnly: true
   });
 
   const [searchForm, { Form, Field }] = useForm<searchFormInput>({
@@ -56,7 +59,7 @@ export default component$(() => {
 
   const handleSubmit: QRL<SubmitHandler<searchFormInput>> = $(
     async (values, _ /*event*/) => {
-      await navigate(`/search/${values.searchQuery}`);
+      await navigate(`/search/${values.searchQuery}/?searchTitlesOnly=${values.searchTitlesOnly}`);
       resetForm();
       themeContext.searchPopupOpen = false;
     }
@@ -78,26 +81,56 @@ export default component$(() => {
         <h3>Press ESC to close</h3>
         <Form onSubmit$={handleSubmit} id="searchform" class="search-form">
 
-          <Field name="searchQuery">
-            {(field, props) => {
-              return (
-                <>
-                  <input
-                    {...props}
-                    value={field.value}
-                    type="text"
-                    id="search"
-                    placeholder="What do you want to search for ?"
-                    aria-describedby="search input"
-                    required
-                  />
-                  <div class="search-form-error-message">
-                    {field.error && <span>{field.error}</span>}
-                  </div>
-                </>
-              )
-            }}
-          </Field>
+          <div class="search-inputs">
+            <div class="search-input">
+              <Field name="searchQuery">
+                {(field, props) => {
+                  return (
+                    <>
+                      <input
+                        {...props}
+                        value={field.value}
+                        type="text"
+                        id="search"
+                        placeholder="What do you want to search for ?"
+                        aria-describedby="search input"
+                        required
+                      />
+                      <div class="search-form-error-message">
+                        {field.error && <span>{field.error}</span>}
+                      </div>
+                    </>
+                  )
+                }}
+              </Field>
+            </div>
+
+            <div class="search-checkbox">
+              <Field name="searchTitlesOnly" type="boolean">
+                {(field, props) => (
+                  <>
+                    <input
+                      {...props}
+                      checked={field.value}
+                      type="checkbox"
+                      id="searchTitlesOnly"
+                      class={field.error ? "error" : ""}
+                    />
+                    <label for="searchTitlesOnly">
+                      Search titles only
+                    </label>
+                    <div class="search-form-error-message">
+                      {field.error && <span>{field.error}</span>}
+                    </div>
+                  </>
+                )}
+              </Field>
+            </div>
+          </div>
+
+          <button type="submit">
+            <SearchIcon width="16" height="16" viewBox="0 0 20 20" />
+          </button>
 
           { /*<input
               type="text"
@@ -106,9 +139,6 @@ export default component$(() => {
               placeholder="What do you want to search for ?"
               value={inputValue.value}
             />*/ }
-          <button type="submit">
-            <SearchIcon width="16" height="16" viewBox="0 0 20 20" />
-          </button>
         </Form>
       </div>
     </div>

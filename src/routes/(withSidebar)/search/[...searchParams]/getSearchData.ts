@@ -22,7 +22,9 @@ interface SearchDBData extends PostCardData {
 
 export const getSearchData = async (
   ev: RequestEventLoader<PlatformCloudflarePages>,
-): Promise<SearchData | FailReturn<{ message: string }>> => {
+): Promise<
+  SearchData | FailReturn<{ message: string; searchQuery?: string }>
+> => {
   // const pageNumber = Number(ev.query.get("page")) || 1;
   // const pageNumber = Number(ev.query.get("page"))
   //   ? Number(ev.query.get("page"))
@@ -38,11 +40,27 @@ export const getSearchData = async (
   // const searchPhrase = ev.query.get("q")?.trim();
   const searchPhrase = params[params.length - 1];
 
+  if (!searchPhrase) {
+    return ev.fail(404, { message: "No search query" });
+  }
+
   const searchQuery = `%${searchPhrase}%`;
 
-  if (!searchQuery) {
-    return ev.fail(404, { message: "No search query entered" });
-  }
+  // Get the "searchTitlesOnly" flag from the query (pass it from the frontend)
+  const searchTitlesOnly = ev.query.get("searchTitlesOnly") === "true";
+
+  // SQL query for searching only in the title or across all fields
+  const titleSearchCondition = `title LIKE ?`;
+  const allFieldsSearchCondition = `
+    title LIKE ?
+    OR content LIKE ?
+    OR description LIKE ?
+    OR slug LIKE ?
+  `;
+
+  const whereCondition = searchTitlesOnly
+    ? titleSearchCondition
+    : allFieldsSearchCondition;
 
   const query = `
 WITH PageCountCTE AS (
@@ -50,20 +68,14 @@ WITH PageCountCTE AS (
   FROM Posts
   LEFT JOIN Authors ON Posts.author_id = Authors.id
   LEFT JOIN Tags ON Posts.tag_id = Tags.id
-  WHERE title LIKE ?
-    OR content LIKE ?
-    OR description LIKE ?
-    OR slug LIKE ?
+  WHERE ${whereCondition}
 )
 SELECT Posts.title, Posts.dateModified, Posts.slug, Posts.description, Posts.image, Posts.imageWidth, Posts.imageHeight, Authors.name AS authorName, Authors.avatarUrl AS authorAvatar, Authors.url AS authorUrl, Tags.name As tagName, Tags.url AS tagUrl, totalPages
 FROM Posts
 LEFT JOIN Authors ON Posts.author_id = Authors.id
 LEFT JOIN Tags ON Posts.tag_id = Tags.id
 LEFT JOIN PageCountCTE ON 1=1
-WHERE title LIKE ?
-  OR content LIKE ?
-  OR description LIKE ?
-  OR slug LIKE ?
+WHERE ${whereCondition}
 LIMIT 10 OFFSET ?;
 `;
 
@@ -75,17 +87,29 @@ LIMIT 10 OFFSET ?;
     return ev.fail(500, { message: "Internal server error" });
   }
 
+  if (!searchPhrase) {
+    return ev.fail(400, { message: "No search query" });
+  }
+
   try {
     const { results } = (await DB.prepare(query)
       .bind(
         searchQuery,
         searchQuery,
-        searchQuery,
-        searchQuery,
-        searchQuery,
-        searchQuery,
-        searchQuery,
-        searchQuery,
+        // searchQuery,
+        // searchQuery,
+        // searchQuery,
+        // Bind additional parameters only if searching all fields
+        ...(searchTitlesOnly
+          ? []
+          : [
+              searchQuery,
+              searchQuery,
+              searchQuery,
+              searchQuery,
+              searchQuery,
+              searchQuery,
+            ]),
         offset,
       )
       .all()) as D1Result<SearchDBData>;
@@ -93,7 +117,12 @@ LIMIT 10 OFFSET ?;
     const results2: SearchDBData[] = JSON.parse(JSON.stringify(results)) ?? [];
 
     if (!results || results.length === 0) {
-      return ev.fail(404, { message: "No results found" });
+      return {
+        posts: [],
+        searchQuery: `${searchPhrase}`,
+        totalPages: 1,
+        currentPage: 1,
+      };
     }
 
     const searchPosts = results2.map(({ totalPages: _, ...rest }) => rest);
@@ -109,6 +138,9 @@ LIMIT 10 OFFSET ?;
       "getSearchData: Error while getting search data from DB:",
       error,
     );
-    return ev.fail(500, { message: "Internal server error" });
+    return ev.fail(500, {
+      message: "Internal server error",
+      searchQuery: searchPhrase,
+    });
   }
 };

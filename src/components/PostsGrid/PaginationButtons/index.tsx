@@ -40,7 +40,7 @@ export default component$<PaginationButtonsProps>((props) => {
                   //   searchParams.size > 0 ? `?${searchParams.toString()}` : ""
                   // }${isSearchPage ? "&page=1" : ""}`}
 
-                  href={`${pathname}`}
+                  href={`${pathname}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""}`}
                 >
                   «
                 </Link>
@@ -53,7 +53,7 @@ export default component$<PaginationButtonsProps>((props) => {
                   // href={`${pathname}${!isSearchPage ? props.pageNumber - 1 : ""}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""
                   //   }${isSearchPage ? `&page=${props.pageNumber - 1}` : ""}`}
 
-                  href={`${pathname}${props.pageNumber - 1}`}
+                  href={`${pathname}${props.pageNumber - 1}/${searchParams.size > 0 ? `?${searchParams.toString()}` : ""}`}
                 >
                   {props.pageNumber - 1}
                 </Link>
@@ -69,7 +69,7 @@ export default component$<PaginationButtonsProps>((props) => {
                   // href={`${pathname}${!isSearchPage ? props.pageNumber + 1 : ""}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""
                   //   }${isSearchPage ? `&page=${props.pageNumber + 1}` : ""}`}
 
-                  href={`${pathname}${props.pageNumber + 1}`}
+                  href={`${pathname}${props.pageNumber + 1}/${searchParams.size > 0 ? `?${searchParams.toString()}` : ""}`}
                 >
                   {props.pageNumber + 1}
                 </Link>
@@ -82,7 +82,7 @@ export default component$<PaginationButtonsProps>((props) => {
                   // href={`${pathname}${!isSearchPage ? props.totalPages : ""}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""
                   //   }${isSearchPage ? `&page=${props.totalPages}` : ""}`}
 
-                  href={`${pathname}${props.totalPages}`}
+                  href={`${pathname}${props.totalPages}/${searchParams.size > 0 ? `?${searchParams.toString()}` : ""}`}
                 >
                   »
                 </Link>
