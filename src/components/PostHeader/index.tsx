@@ -17,6 +17,7 @@ interface PostHeaderProps {
   title: string;
   authorName: string;
   tagName: string;
+  tagUrl: string;
   dateModified: string;
   image: string;
   imageWidth: number;
@@ -36,8 +37,6 @@ const PostHeader = component$<PostHeaderProps>((props) => {
   const authorUrl = `/author/${props.authorName
     .toLowerCase()
     .replace(/ /g, "-")}`;
-
-  const tagUrl = `/tag/${props.tagName.replace(/ /g, "-")}`;
 
   const srcSet = useSignal<string>("");
 
@@ -142,7 +141,7 @@ const PostHeader = component$<PostHeaderProps>((props) => {
                 </Link>
               </li>
               <li>
-                <Link href={tagUrl} title={`Posts tagged ${props.tagName}`}>
+                <Link href={props.tagUrl} title={`Posts tagged ${props.tagName}`}>
                   {props.tagName}
                 </Link>
               </li>

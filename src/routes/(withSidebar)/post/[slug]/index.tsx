@@ -63,6 +63,7 @@ export default component$(() => {
           stateParam={post.stateParam}
           cityName={post.cityName}
           cityParam={post.cityParam}
+          tagUrl={post.tagUrl}
         />
       </div>
       <div class="page-content">

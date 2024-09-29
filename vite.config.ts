@@ -44,6 +44,9 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
       tsconfigPaths(),
       svgx(),
     ],
+    define: {
+      'import.meta.env.PUBLIC_CF_PAGES_URL': JSON.stringify(process.env.CF_PAGES_URL),
+    },
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
       // Put problematic deps that break bundling here, mostly those with binaries.

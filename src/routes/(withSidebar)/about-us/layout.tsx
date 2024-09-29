@@ -24,6 +24,7 @@ export default component$(() => {
 export const head: DocumentHead = ({ url }) => {
   const origin = getOrigin(url);
 
+
   const siteName = getSiteName();
 
   return {
