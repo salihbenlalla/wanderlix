@@ -4,12 +4,12 @@
  * @returns A string containing the full origin (protocol + domain + port if applicable).
  */
 export function getOrigin(url?: URL): string | undefined {
- // return import.meta.env.CF_PAGES_URL;
-  if (import.meta.env.CF_PAGES_URL){
-    return import.meta.env.CF_PAGES_URL;
-  } else if (process.env.CF_PAGES_URL) {
-    return process.env.CF_PAGES_URL;
-  }
+ return import.meta.env.PUBLIC_CF_PAGES_URL;
+  // if (import.meta.env.CF_PAGES_URL){
+  //   return import.meta.env.CF_PAGES_URL;
+  // } else if (process.env.CF_PAGES_URL) {
+  //   return process.env.CF_PAGES_URL;
+  // }
 
   // let origin = "http://localhost:5173"; // Fallback origin
   // if (process.env.CF_PAGES_URL) {
