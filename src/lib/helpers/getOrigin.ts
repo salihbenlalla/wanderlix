@@ -4,14 +4,14 @@
  * @returns A string containing the full origin (protocol + domain + port if applicable).
  */
 export function getOrigin(url: URL): string | undefined {
-
-  if (process.env.NODE_ENV === 'development') {
+  return import.meta.env.PUBLIC_CF_PAGES_URL;
+  /*if (process.env.NODE_ENV === 'development') {
     // Local development (using Vite, get port dynamically)
     const port = import.meta.env.VITE_PORT || url?.port || 3000; // Default to 3000 if no port is specified
     return `http://localhost:${port}`;
   } else {
     return import.meta.env.PUBLIC_CF_PAGES_URL;
-  }
+  }*/
  //  if (import.meta.env.CF_PAGES_URL){
  //    return import.meta.env.CF_PAGES_URL;
  //  } else if (process.env.CF_PAGES_URL) {
