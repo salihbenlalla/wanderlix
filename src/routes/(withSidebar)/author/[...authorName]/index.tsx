@@ -75,8 +75,8 @@ export const head: DocumentHead = ({ resolveValue }) => {
 
   // Build the canonical URL based on the current page number
   const canonicalUrl = currentPage && currentPage > 1
-    ? `${origin}/tag/${authorData?.url}/${currentPage}/`
-    : `${origin}/tag/${authorData?.url}/`;
+    ? `${origin}/author/${authorData?.url}/${currentPage}/`
+    : `${origin}/author/${authorData?.url}/`;
 
   if (!authorData) {
     return {}
