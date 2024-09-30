@@ -37,6 +37,7 @@ const PostHeader = component$<PostHeaderProps>((props) => {
   const authorUrl = `/author/${props.authorName
     .toLowerCase()
     .replace(/ /g, "-")}`;
+  const tagUrl = `/tag/${props.tagUrl}/`
 
   const srcSet = useSignal<string>("");
 
@@ -141,7 +142,7 @@ const PostHeader = component$<PostHeaderProps>((props) => {
                 </Link>
               </li>
               <li>
-                <Link href={props.tagUrl} title={`Posts tagged ${props.tagName}`}>
+                <Link href={tagUrl} title={`Posts tagged ${props.tagName}`}>
                   {props.tagName}
                 </Link>
               </li>
