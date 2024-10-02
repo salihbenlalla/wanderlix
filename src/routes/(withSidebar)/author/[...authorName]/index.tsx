@@ -10,7 +10,7 @@ import AuthorPageHeader from "~/components/PostsGrid/AuthorPageHeader";
 import { getAuthorData } from "./getAuthorData";
 import GridHeader from "~/components/PostsGrid/GridHeader";
 import truncateParagraph from "~/lib/helpers/truncateParagraph";
-// import { getOrigin } from "~/lib/helpers/getOrigin";
+import { getOrigin } from "~/lib/helpers/getOrigin";
 // import getAuthorParams from "./getAuthorParams";
 
 /**
@@ -20,16 +20,6 @@ export const useGetAuthor = routeLoader$(
   async (ev: RequestEventLoader<PlatformCloudflarePages>) =>
     await getAuthorData(ev)
 );
-
-
-/**
- * used mainly to provide context env vars to the head function
- */
-export const useEnvVars = routeLoader$(({ env }) => {
-  return {
-    cfPagesUrl: env.get('CF_PAGES_URL'),
-  };
-});
 
 /**
  * Renders the author page.
@@ -67,11 +57,9 @@ export default component$(() => {
 
 export const head: DocumentHead = ({ resolveValue }) => {
   const data = resolveValue(useGetAuthor);
-  const envVars = resolveValue(useEnvVars);
   const authorData = data.author;
   const currentPage = data.currentPage;
-  // const origin = getOrigin(url);
-  const origin = envVars.cfPagesUrl;
+  const origin = getOrigin();
 
   // Build the canonical URL based on the current page number
   const canonicalUrl = currentPage && currentPage > 1

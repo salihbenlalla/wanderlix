@@ -120,9 +120,9 @@ export const useDocumentHeadData = routeLoader$(async ({ resolveValue }) => {
   return { post, srcSet, imgSrc };
 });
 
-export const head: DocumentHead = ({ resolveValue, url }) => {
+export const head: DocumentHead = ({ resolveValue }) => {
   const { post, srcSet, imgSrc } = resolveValue(useDocumentHeadData);
-  const origin = getOrigin(url);
+  const origin = getOrigin();
 
 
   return {
@@ -162,10 +162,10 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
         property: "og:url",
         content: `${origin}/post/${post.slug}/`,
       },
-      // {
-      //   property: "article:publisher",
-      //   content: "https://www.facebook.com/travel2"
-      // },
+      {
+        property: "article:publisher",
+        content: origin
+      },
       {
         property: "article:published_time",
         content: post.datePublished,
@@ -205,6 +205,10 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
       {
         name: "twitter:data2",
         content: `${post.readDuration} minutes`,
+      },
+      {
+        name: "robots",
+        content: "index, follow"
       },
     ],
   };

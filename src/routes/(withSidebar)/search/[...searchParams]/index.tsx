@@ -60,135 +60,49 @@ export default component$(() => {
 });
 
 
-export const head: DocumentHead = ({ resolveValue, url }) => {
+export const head: DocumentHead = ({ resolveValue }) => {
   const data = resolveValue(useGetSearchData);
   const searchQuery = data.searchQuery;
-  const noSearchResults = !data.posts || data.posts.length === 0;
-  const currentPage = data.currentPage;
-  const origin = getOrigin(url);
+  const origin = getOrigin();
 
-  // Handle various failure cases with `data.failed`
+  let title = "Search";
+  let description = "Search for travel posts and destinations.";
+  let ogUrl = `${origin}/search/`;
+
   if (data.failed) {
-    if (!searchQuery) {
-      // Case 1: No search query entered
-      return {
-        title: "No search query",
-        meta: [
-          {
-            name: "description",
-            content: "No search query was entered. Please enter a query to search for",
-          },
-          {
-            property: "og:title",
-            content: "No search query",
-          },
-          {
-            property: "og:description",
-            content: "No search query was entered. Please enter a query to search for",
-          },
-          {
-            property: "og:url",
-            content: `${origin}/search/`,
-          },
-        ],
-      };
-    } else {
-      // Case 3: Error occurred during search
-      return {
-        title: "Search error",
-        meta: [
-          {
-            name: "description",
-            content: "An error occurred during the search. Please try again later.",
-          },
-          {
-            property: "og:title",
-            content: "Search error",
-          },
-          {
-            property: "og:description",
-            content: "An error occurred during the search. Please try again later.",
-          },
-          {
-            property: "og:url",
-            content: `${origin}/search/`,
-          },
-        ],
-      };
-    }
+    title = searchQuery ? "Search error" : "No search query";
+    description = searchQuery
+      ? "An error occurred during the search. Please try again later."
+      : "No search query was entered. Please enter a query to search.";
+  } else if (!data.posts || data.posts.length === 0) {
+    title = `No results for "${searchQuery}"`;
+    description = `No results were found for "${searchQuery}". Try another search.`;
+    ogUrl = `${origin}/search/${searchQuery}/`;
+  } else {
+    // Successful search
+    const currentPage = data.currentPage;
+    title = `Search results for "${searchQuery}"`;
+    description = `Explore posts and travel stories related to "${searchQuery}".`;
+    ogUrl = currentPage && currentPage > 1
+      ? `${origin}/search/${searchQuery}/${currentPage}/`
+      : `${origin}/search/${searchQuery}/`;
   }
-
-  if (noSearchResults) {
-    // Case 2: No results found for the search query
-    return {
-      title: `No results for "${searchQuery}"`,
-      meta: [
-        {
-          name: "description",
-          content: `No results were found for the query "${searchQuery}". Try another search.`,
-        },
-        {
-          property: "og:title",
-          content: `No results for "${searchQuery}"`,
-        },
-        {
-          property: "og:description",
-          content: `No results were found for the query "${searchQuery}". Try another search.`,
-        },
-        {
-          property: "og:url",
-          content: `${origin}/search/${searchQuery}/`,
-        },
-      ],
-    };
-  }
-
-  // Case 4: Successful search with results
-  const canonicalUrl = currentPage && currentPage > 1
-    ? `${origin}/search/${searchQuery}/${currentPage}/`
-    : `${origin}/search/${searchQuery}/`;
 
   return {
-    title: `Search results for "${searchQuery}"`,
+    title,
     links: [
-      {
-        rel: "canonical",
-        href: canonicalUrl,
-      },
+      { rel: "canonical", href: ogUrl },
     ],
     meta: [
-      {
-        name: "description",
-        content: `Search results for "${searchQuery}". Explore relevant posts and travel information.`,
-      },
-      {
-        property: "og:type",
-        content: "website",
-      },
-      {
-        property: "og:title",
-        content: `Search results for "${searchQuery}"`,
-      },
-      {
-        property: "og:description",
-        content: `Explore posts and travel stories related to "${searchQuery}".`,
-      },
-      {
-        property: "og:url",
-        content: canonicalUrl,
-      },
-      {
-        name: "twitter:card",
-        content: "summary_large_image",
-      },
-      {
-        name: "twitter:title",
-        content: `Search results for "${searchQuery}" on Travel2`,
-      },
-      {
-        name: "twitter:description",
-        content: `Explore posts and travel stories related to "${searchQuery}".`,
-      },
+      { name: "description", content: description },
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:url", content: ogUrl },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+      { name: "robots", content: "noindex, nofollow" }, // noindex for all search pages
     ],
   };
 };

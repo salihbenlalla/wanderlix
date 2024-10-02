@@ -48,11 +48,11 @@ export default component$(() => {
 });
 
 
-export const head: DocumentHead = ({ resolveValue, url }) => {
+export const head: DocumentHead = ({ resolveValue }) => {
   const data = resolveValue(useTagData); // Assuming you have a hook for fetching tag data
   const tagData = { url: data.tagUrl, name: data.tagName };
   const currentPage = data.currentPage;
-  const origin = getOrigin(url);
+  const origin = getOrigin();
 
   // Build the canonical URL based on the current page number
   const canonicalUrl = currentPage && currentPage > 1

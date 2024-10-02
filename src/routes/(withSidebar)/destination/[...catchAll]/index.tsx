@@ -66,7 +66,7 @@ export const onStaticGenerate: StaticGenerateHandler = async (env) => {
   };
 };
 
-export const head: DocumentHead = ({ resolveValue, url }) => {
+export const head: DocumentHead = ({ resolveValue }) => {
   const data = resolveValue(useDestinationData); // Fetch destination data
   const destinationPath = constructDestinationPath(data);
 
@@ -75,7 +75,7 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
     data.stateName ||
     data.countryName;
   const currentPage = data.currentPage;
-  const origin = getOrigin(url);
+  const origin = getOrigin();
 
   const destinationImage = data.posts ? data.posts[0].image : "";
   const imageWidth = data.posts ? data.posts[0].imageWidth : "";

@@ -21,9 +21,9 @@ export default component$(() => {
 });
 
 
-export const head: DocumentHead = ({ url }) => {
-  const origin = getOrigin(url);
+export const head: DocumentHead = () => {
 
+  const origin = getOrigin();
 
   const siteName = getSiteName();
 
@@ -46,7 +46,7 @@ export const head: DocumentHead = ({ url }) => {
       },
       {
         property: "og:title",
-        content: "About Us - travel2.ml",
+        content: `About Us - ${siteName}`,
       },
       {
         property: "og:description",
@@ -54,43 +54,23 @@ export const head: DocumentHead = ({ url }) => {
       },
       {
         property: "og:url",
-        content: `${origin}/about/`, // About page URL
-      },
-      {
-        property: "og:image",
-        content: `${origin}/assets/about-us-cover.jpg`, // Image representing the about page
-      },
-      {
-        property: "og:image:width",
-        content: "1200", // Ensure good social media preview size
-      },
-      {
-        property: "og:image:height",
-        content: "630",
-      },
-      {
-        property: "og:image:type",
-        content: "image/jpeg",
+        content: `${origin}/about-us/`, // About page URL
       },
       {
         name: "author",
-        content: "travel2.ml",
+        content: origin,
       },
       {
         name: "twitter:card",
-        content: "summary_large_image", // Twitter card type for a large image
+        content: "summary", // Twitter card type for a large image
       },
       {
         name: "twitter:title",
-        content: "About Us - travel2.ml",
+        content: `About Us - ${siteName}`,
       },
       {
         name: "twitter:description",
-        content: "Learn more about travel2.ml, your go-to platform for discovering amazing travel destinations, tips, and guides.",
-      },
-      {
-        name: "twitter:image",
-        content: `${origin}/assets/about-us-cover.jpg`, // Image for Twitter card
+        content: `Learn more about ${siteName}, your go-to platform for discovering amazing travel destinations, tips, and guides.`,
       },
       {
         name: "robots",
