@@ -5,5 +5,6 @@
  * @returns A string containing the full origin (protocol + domain + port if applicable).
  */
 export function getSiteName(): string | undefined {
-  return import.meta.env.PUBLIC_SITE_NAME
+  // return import.meta.env.PUBLIC_SITE_NAME
+  return "Travel2"
 }

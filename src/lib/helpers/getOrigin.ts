@@ -4,7 +4,8 @@
  * @returns A string containing the full origin (protocol + domain + port if applicable).
  */
 export function getOrigin(): string | undefined {
-  return import.meta.env.PUBLIC_CF_PAGES_URL;
+  return "https://dev.travel2-eiq.pages.dev"
+  // return import.meta.env.PUBLIC_CF_PAGES_URL;
   /*if (process.env.NODE_ENV === 'development') {
     // Local development (using Vite, get port dynamically)
     const port = import.meta.env.VITE_PORT || url?.port || 3000; // Default to 3000 if no port is specified
