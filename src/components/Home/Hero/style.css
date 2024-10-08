@@ -3,6 +3,7 @@
   width: 100%;
   height: 100%;
   /* height: calc(100vh - 88.03px); */
+  overflow: hidden;
 }
 
 .hero-blur {

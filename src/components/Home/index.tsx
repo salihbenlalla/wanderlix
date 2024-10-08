@@ -13,10 +13,12 @@ import { homeContext } from "./HomeContext";
 import styles from "./index.css?inline";
 import jump from "jump.js";
 import { areAllDefined } from "~/lib/helpers/areAllDefined";
+import Section2 from "./Section2";
 
 declare global {
   interface Window {
     scrollTimeout: NodeJS.Timeout;
+    generalIndexTimeout: NodeJS.Timeout;
   }
 }
 
@@ -186,16 +188,17 @@ export default component$(() => {
     };
     const scrollHandler = (direction: 1 | -1) => {
       if (!isScrolling.value) {
+        handleScroll(direction);
         // if user just started scrolling
         isScrolling.value = true;
-        handleScroll(direction);
+        // Allow new scroll only after animation ends
+        clearTimeout(window.scrollTimeout);
+        // wait for 1000/1300 milliseconds after last scroll event to consider scrolling has stopped
+        const scrollDuration = direction === 1 ? 1300 : 1000;
+        window.scrollTimeout = setTimeout(() => {
+          isScrolling.value = false;
+        }, scrollDuration);
       }
-
-      // wait for 100 milliseconds after last scroll event to consider scrolling has stopped
-      clearTimeout(window.scrollTimeout);
-      window.scrollTimeout = setTimeout(function() {
-        isScrolling.value = false;
-      }, 100);
     };
 
     window.addEventListener(
@@ -332,7 +335,7 @@ export default component$(() => {
           id="home-section-2"
           style={{ height: sectionHeight.value }}
         >
-          <h1>Section 2</h1>
+          <Section2 />
         </div>
         <div
           ref={section3Ref}
