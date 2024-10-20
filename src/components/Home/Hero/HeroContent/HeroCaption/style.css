@@ -1,44 +1,69 @@
 .hero-caption h1 {
   font-weight: 700;
   font-size: 56px;
-  height: 56px;
+  height: 62px;
   position: relative;
   overflow: hidden;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* @media screen and (min-width: 769px) and (min-height: 601px) {
-  h1 {
-    font-size: 6rem;
-  }
-} */
-
-/* .hero-caption h1 > div {
-  height: 72px;
-} */
-
-.hero-caption-moving-element {
+.hero-caption h1 > div {
   position: absolute;
-  left: 0;
-  transition: top 0.5s linear;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 198px;
 }
 
-.hero-caption .hero-caption-paragraph {
+.hero-caption h1 > div > div {
+  line-height: 66px;
+}
+
+.hero-caption div.hero-caption-paragraph-container {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 12px;
+  line-height: 24px;
+  overflow: hidden;
+  position: relative;
+  height: 62px;
+}
+
+div.hero-caption-paragraph {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 186px;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+}
+
+div.hero-caption-paragraph > div {
+  height: 62px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-caption div.hero-caption-button-container {
   margin-top: 20px;
   font-size: 12px;
   line-height: 24px;
   overflow: hidden;
   position: relative;
-  max-height: 96px;
+  height: 53px;
 }
 
-.hero-caption-button-container {
-  margin-top: 20px;
-  height: 43px;
-  overflow: hidden;
-  position: relative;
+div.hero-caption-button-inner {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 149px;
 }
 
-.hero-caption-button-container > button {
+div.hero-caption-button-inner > a {
+  /* height: 96px; */
+  /* display: flex; */
+  /* align-items: center; */
+
+  text-decoration: none;
   cursor: pointer;
   padding: 12px 36px;
   color: #fff;
@@ -58,24 +83,72 @@
   background: linear-gradient(to right, #fe4f70 0%, #ffa387 51%, #fe4f70 100%);
   background-size: 200% auto;
   display: block;
+  height: 43px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.hero-caption-button-container > button:hover {
+div.hero-caption-button-inner > a:hover {
   background-position: right center;
 }
 
+/* .hero-caption-button-container { */
+/*   margin-top: 20px; */
+/*   height: 43px; */
+/*   overflow: hidden; */
+/*   position: relative; */
+/* } */
+
+/* .hero-caption-button-container > a { */
+/*   text-decoration: none; */
+/*   cursor: pointer; */
+/*   padding: 12px 36px; */
+/*   color: #fff; */
+/*   border: 0; */
+/*   border-radius: 25px; */
+/*   font-family: "Roboto", sans-serif; */
+/*   font-size: 14px; */
+/*   font-weight: 400; */
+/*   transition: all 0.3s ease-in-out; */
+/*   background: #fe4f70; */
+/*   background: -webkit-linear-gradient( */
+/*     left, */
+/*     #fe4f70 0%, */
+/*     #ffa387 51%, */
+/*     #fe4f70 100% */
+/*   ); */
+/*   background: linear-gradient(to right, #fe4f70 0%, #ffa387 51%, #fe4f70 100%); */
+/*   background-size: 200% auto; */
+/*   display: block; */
+/* } */
+
+/* .hero-caption-button-container > button:hover { */
+/*   background-position: right center; */
+/* } */
+
 @media screen and (max-width: 600px) {
   .hero-caption h1 {
-    font-size: 10vw;
-    height: 10vw;
+    /* font-size: 10vw; */
+    /* height: 10vw; */
+    font-weight: 700;
+    font-size: 40px;
+    height: 44px;
+  }
+
+  .hero-caption h1 > div {
+    height: 132px;
+  }
+
+  .hero-caption h1 > div > div {
+    line-height: 44px;
   }
 }
 
 @media screen and (max-height: 510px) {
-  .hero-caption h1 {
-    font-size: 7vh;
-    height: 7vh;
-  }
+  /* .hero-caption h1 { */
+  /*   font-size: 7vh; */
+  /*   height: 7vh; */
+  /* } */
 
   .hero-caption-button-container {
     margin-top: 10px;

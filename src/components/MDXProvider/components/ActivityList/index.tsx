@@ -1,5 +1,6 @@
 import { component$, Slot, useStore, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
+import { formatImageAlt } from "~/lib/helpers/formatImageAlt";
 
 export type ActivityListProps = {
   activityHeader: string;
@@ -17,6 +18,8 @@ const ActivityList = component$((props: ActivityListProps) => {
   useStyles$(styles);
   const state = useStore<Store>({ showCTA: true });
 
+  const imageAlt = formatImageAlt(props.activityImage);
+
   return (
     <div class="activity_list">
       <div class="activity_header">{props.activityHeader}</div>
@@ -25,10 +28,7 @@ const ActivityList = component$((props: ActivityListProps) => {
           <img
             loading="lazy"
             src={props.activityImage}
-            alt={props.activityImage
-              .replace("https://cdn.travel2.ml/", "")
-              .replace("-", " ")
-              .slice(0, props.activityImage.length - 4)}
+            alt={imageAlt}
             width="200"
             height="150"
           />

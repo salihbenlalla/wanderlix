@@ -1,10 +1,11 @@
-import { component$, useContext, useStyles$ } from "@builder.io/qwik";
+import { component$, useContext, useStyles$, $ } from "@builder.io/qwik";
 import CloseButton from "~/assets/icomoon_svg/close.svg?component";
 import { ThemeContext } from "~/routes/layout";
 import styles from "./style.css?inline";
 import navigationLinks from "../navigationLinksData";
 import { Link, useLocation } from "@builder.io/qwik-city";
 import { v4 as uuidv4 } from "uuid";
+import { Logo } from "~/components/Logo";
 
 export default component$(() => {
   useStyles$(styles);
@@ -15,6 +16,8 @@ export default component$(() => {
     /^\/(post|destination)\/.*/,
     "/destinations/"
   );
+
+  const toggleMenu = $(() => (theme.sideMenuOpen = false));
 
   return (
     <div
@@ -27,14 +30,12 @@ export default component$(() => {
         type="button"
         class="btn-close "
         aria-label="Close"
-        onClick$={() => (theme.sideMenuOpen = false)}
+        onClick$={toggleMenu}
       >
         <CloseButton width="18" height="18" viewBox="0 0 20 20" />
       </button>
       <div class="side-menu-logo">
-        <a href="https://travel2.ml">
-          Travel<span class="logo-two">2</span>
-        </a>
+        <Logo />
       </div>
       <nav>
         <ul>
@@ -43,6 +44,7 @@ export default component$(() => {
               <Link
                 class={`${activeRoute === link.href ? " active" : ""}`}
                 href={link.href}
+                onClick$={toggleMenu}
               >
                 {link.text}
               </Link>

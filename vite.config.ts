@@ -32,7 +32,7 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
           providerImportSource: "~/components/MDXProvider/",
           jsxRuntime: "automatic",
           jsxImportSource: "@builder.io/qwik",
-          rehypePlugins: [[replaceLinkIdsRehype, DB]],
+          rehypePlugins: [[replaceLinkIdsRehype, DB]]
         },
         platform: {
           env: {

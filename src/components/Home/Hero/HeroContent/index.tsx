@@ -16,7 +16,6 @@ export default component$(() => {
 
   const slideWidth = useSignal(170);
   const slideHeight = useSignal(230);
-
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     if (window.innerHeight <= 700 && window.innerWidth < 992) {

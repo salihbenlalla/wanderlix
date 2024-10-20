@@ -1,7 +1,4 @@
 .home-container {
-  /* scroll-snap-type: y mandatory; */
-  /* overflow-x: hidden;
-  overflow-y: scroll; */
   width: 100vw;
 }
 
@@ -11,25 +8,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* scroll-snap-align: start; */
-  /* scroll-snap-time: 2s; */
-  /* scroll-behavior: smooth; */
-}
-
-#home-section-2 {
-  background: #fab452;
-}
-
-#home-section-3 {
-  background: #aa45bf;
-}
-
-#home-section-4 {
-  background: #bbff45;
-}
-
-#home-section-5 {
-  background: #eeaa11;
 }
 
 .scroll-buttons {

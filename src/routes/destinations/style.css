@@ -17,3 +17,23 @@
     padding-right: 0px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .destinations-container .continent-name {
+    font-size: 30px;
+  }
+}
+
+.continent-name {
+  font-size: 40px;
+  line-height: 114%;
+  letter-spacing: 0.02em;
+  margin: 53px 0 26px;
+  display: flex;
+  align-items: center;
+  scroll-margin-top: 100px;
+}
+
+.destinations-container .continent-name:first-child {
+  margin-top: 0px;
+}

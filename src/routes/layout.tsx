@@ -15,6 +15,8 @@ import Header from "../components/navigation/header";
 import { Toast } from "../components/Toast";
 import { type FormStore } from "@modular-forms/qwik";
 import { type CommentFormInput } from "~/components/PostCommentSection/CommentForm";
+import { useLocation } from "@salihbenlalla/qwik-city";
+import { getDomainName } from "~/lib/helpers/getDomainName";
 
 interface Toast {
   type: "success" | "error";
@@ -93,14 +95,9 @@ export default component$(() => {
     imageTransformer$,
   });
 
-  //   const location = useLocation();
+  const loc = useLocation();
+  const isHomePage = loc.url.pathname === "/";
 
-  //   const mainStyles =
-  //     location.url.pathname === "/"
-  //       ? {
-  //           height: "100vh",
-  //         }
-  //       : {};
   return (
     <div style={{ width: "100%" }}>
       <ReadingBar />
@@ -110,13 +107,14 @@ export default component$(() => {
       <SideMenu />
       <Header />
       <main>
-        {/* <section> */}
         <Slot />
-        {/* </section> */}
       </main>
-      <footer class="site-footer">
-        <p>Copyright travel2.ml © 2022</p>
-      </footer>
+
+      {
+        !isHomePage && <footer class="site-footer">
+          <p>Copyright {getDomainName()} © 2022</p>
+        </footer>
+      }
     </div>
   );
 });

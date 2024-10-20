@@ -6,13 +6,16 @@ import type { MdxJsxFlowElement, MdxJsxTextElement } from "mdast-util-mdx-jsx";
 import { type D1Database } from "@miniflare/d1";
 import { getLink } from "./lib/helpers/getLinks";
 import { getIframeSrc } from "./lib/helpers/getIframeSrcs";
+import { getSiteName } from "./lib/helpers/getSiteName";
+import { getOrigin } from "./lib/helpers/getOrigin";
+import { getDomainName } from "./lib/helpers/getDomainName";
 
 type VisitorAsync = (node: RootContent, parent?: RootContent) => Promise<void>;
 async function visit(
   // node: MyNode | MyParent,
   node: RootContent,
   visitor: VisitorAsync,
-  parent?: RootContent
+  parent?: RootContent,
 ): Promise<void> {
   await visitor(node, parent);
 
@@ -41,9 +44,15 @@ const handleLink = async (
   DB: D1Database,
   href?: string | null,
   title?: string,
-  use?: "none" | "originalHref" | "newHref"
+  use?: "none" | "originalHref" | "newHref",
 ): Promise<LinkProperties> => {
   if (href?.startsWith("/post")) return { href, title };
+
+  if (href?.startsWith("@@SITE_ORIGIN@@")) {
+    const pathname = href.replace("@@SITE_ORIGIN@@", "");
+    const siteOrigin = getOrigin();
+    return { href: `${siteOrigin}${pathname}` };
+  }
 
   if (!href?.startsWith("link_id:")) return { href: undefined };
 
@@ -78,7 +87,7 @@ const handleLink = async (
 type FindSrcFunc = (
   DB: D1Database,
   src?: string | MdxJsxAttributeValueExpression | null | undefined,
-  use?: "none" | "originalSrc" | "newSrc"
+  use?: "none" | "originalSrc" | "newSrc",
 ) => Promise<string | MdxJsxAttributeValueExpression | null | undefined>;
 
 export const findSrc: FindSrcFunc = async (DB, src, use) => {
@@ -99,7 +108,7 @@ export const findSrc: FindSrcFunc = async (DB, src, use) => {
 
 const attributeExists = (
   attributesArr: MdxJsxElementFields["attributes"],
-  attribute: string
+  attribute: string,
 ): boolean => {
   for (const attr of attributesArr) {
     if (attr.type === "mdxJsxAttribute" && attr.name === attribute) return true;
@@ -117,7 +126,7 @@ const replaceLinkIds = (DB: D1Database) => {
           DB,
           href,
           title,
-          "originalHref"
+          "originalHref",
         );
 
         node.properties = {};
@@ -139,7 +148,7 @@ const replaceLinkIds = (DB: D1Database) => {
                 DB,
                 attr.value,
                 undefined,
-                "originalHref"
+                "originalHref",
               );
               const { href } =
                 typeof attr.value !== "object"
@@ -148,7 +157,7 @@ const replaceLinkIds = (DB: D1Database) => {
               attr.value = href;
             }
             return attr;
-          })
+          }),
         );
         node.attributes = newAttributes;
       }
@@ -163,7 +172,7 @@ const replaceLinkIds = (DB: D1Database) => {
               attr.value = newSrc;
             }
             return attr;
-          })
+          }),
         );
         node.attributes = newAttributes;
       }
@@ -178,12 +187,12 @@ const replaceLinkIds = (DB: D1Database) => {
                 DB,
                 href as string,
                 undefined,
-                "originalHref"
+                "originalHref",
               );
               attr.value = newHref.href;
             }
             return attr;
-          })
+          }),
         );
         newAttributes.push({
           type: "mdxJsxAttribute",
@@ -208,14 +217,29 @@ const replaceLinkIds = (DB: D1Database) => {
                 DB,
                 href as string,
                 undefined,
-                "originalHref"
+                "originalHref",
               );
               attr.value = newHref.href;
             }
             return attr;
-          })
+          }),
         );
         node.attributes = newAttributes;
+      }
+
+      if (node.type === "text" && node.value.includes("@@SITE_DOMAIN_NAME@@")) {
+        const domainName = getDomainName();
+        node.value = node.value.replaceAll("@@SITE_DOMAIN_NAME@@", domainName);
+      }
+
+      if (node.type === "text" && node.value.includes("@@SITE_NAME@@")) {
+        const domainName = getSiteName();
+        node.value = node.value.replaceAll("@@SITE_NAME@@", domainName);
+      }
+
+      if (node.type === "text" && node.value.includes("@@SITE_ORIGIN@@")) {
+        const domainName = getOrigin();
+        node.value = node.value.replaceAll("@@SITE_ORIGIN@@", domainName);
       }
     });
   };

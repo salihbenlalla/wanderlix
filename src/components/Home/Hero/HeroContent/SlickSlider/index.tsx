@@ -13,6 +13,7 @@ import { changeGeneralIndex } from "./changeGeneralIndex";
 
 export interface Slide {
   title: string;
+  url: string;
   thumbnail: string;
   description: string;
 }

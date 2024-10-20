@@ -43,7 +43,7 @@ const ImageSlider = component$(() => {
     window.heroSliderTimer = setInterval(() => {
       animateSlider({ ...animateSliderOptions, direction: "next" });
       //   changeIndex({ ...animateSliderOptions, direction: "next" });
-    }, 100000);
+    }, 5000);
 
     return () => clearInterval(window.heroSliderTimer);
   });
@@ -79,27 +79,24 @@ const ImageSlider = component$(() => {
             ref={prevRef}
             class="slide prev"
             style={{
-              backgroundImage: `url("${
-                homeContextStore.slides[prevIndex.value].thumbnail
-              }")`,
+              backgroundImage: `url("${homeContextStore.slides[prevIndex.value].thumbnail
+                }")`,
             }}
           />
           <div
             ref={currentRef}
             class="slide current"
             style={{
-              backgroundImage: `url("${
-                homeContextStore.slides[homeContextStore.currentIndex].thumbnail
-              }")`,
+              backgroundImage: `url("${homeContextStore.slides[homeContextStore.currentIndex].thumbnail
+                }")`,
             }}
           />
           <div
             ref={nextRef}
             class="slide next"
             style={{
-              backgroundImage: `url("${
-                homeContextStore.slides[nextIndex.value].thumbnail
-              }")`,
+              backgroundImage: `url("${homeContextStore.slides[nextIndex.value].thumbnail
+                }")`,
             }}
           />
         </div>

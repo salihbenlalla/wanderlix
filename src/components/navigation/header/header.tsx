@@ -4,13 +4,13 @@ import {
   useContext,
   useStyles$,
 } from "@builder.io/qwik";
-// import { Travel2Logo } from "../icons/travel2_logo";
 import SearchIcon from "~/assets/icomoon_svg/search.svg?component";
 import styles from "./header.css?inline";
 import { ThemeContext } from "~/routes/layout";
 import { Link, useLocation } from "@builder.io/qwik-city";
 import { v4 as uuidv4 } from "uuid";
 import navigationLinks from "../navigationLinksData";
+import { Logo } from "~/components/Logo";
 
 interface HeaderProps {
   hidden?: boolean;
@@ -43,14 +43,7 @@ export default component$<HeaderProps>((props) => {
     <header class="main-header" style={headerStyle}>
       <div class="container">
         <nav class="navbar">
-          <div class="logo">
-            <Link href="/">
-              {/* <Travel2Logo />{" "} */}
-              <div>
-                Travel<span class="logo-two">2</span>
-              </div>
-            </Link>
-          </div>
+          <Logo />
           <ul>
             {navigationLinks.map((link) => (
               <li key={uuidv4()}>

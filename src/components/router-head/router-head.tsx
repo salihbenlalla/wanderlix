@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { useDocumentHead } from "@builder.io/qwik-city";
 import { v4 as uuidv4 } from "uuid";
+import { getSiteName } from "~/lib/helpers/getSiteName";
 
 /**
  * The RouterHead component is placed inside of the document `<head>` element.
@@ -16,7 +17,7 @@ export const RouterHead = component$(() => {
       <meta name="theme-color" content="#01a0c6" />
       <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       <meta property="og:locale" content="en_US" />
-      <meta property="og:site_name" content="travel2.ml" />
+      <meta property="og:site_name" content={getSiteName()} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
       <link rel="manifest" href="/manifest.json" />
@@ -42,69 +43,6 @@ export const RouterHead = component$(() => {
     }
     `}
       />
-      {/* <link
-        rel="preload"
-        href="https://res.cloudinary.com/dlzx1x20u/image/upload/w_640,h_640,c_lfill,f_auto/v1684082099/travel2/fake-avatar_uwoskp.webp"
-        as="image"
-      />*/}
-      {/* <link
-        rel="preload"
-        href="/images/the-essential-things-to-do-riquewihr_lung0t-1280x1922.webp"
-        as="image"
-        //@ts-ignore
-        fetchpriority="high"
-      /> */}
-      {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" /> */}
-      {/* <link
-        href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap"
-        rel="stylesheet"
-      /> */}
-      {/* <meta charSet="utf-8" /> */}
-      {/* <link rel="manifest" href="/manifest.json" /> */}
-      {/* <link rel="stylesheet" href="/fonts/poppins/stylesheet.css" />
-      <link href="/fonts/dmsans/stylesheet.css" rel="stylesheet" /> */}
-      {/* <meta name="twitter:site" content="@travel2" />
-      <meta name="twitter:title" content="Travel2.ml" /> */}
-      {/* <link
-        rel="preload"
-        href="/fonts/poppins/poppins-bold-webfont.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin=""
-      />
-
-      <link
-        rel="preload"
-        href="/fonts/poppins/poppins-regular-webfont.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin=""
-      />
-
-      <link
-        rel="preload"
-        href="/fonts/dmsans/dmsans-regular-webfont.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin=""
-      />
-
-      <link
-        rel="preload"
-        href="/fonts/dmsans/dmsans-bold-webfont.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin=""
-      />
-
-      <link
-        rel="preload"
-        href="/fonts/dmsans/dmsans-italic-webfont.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin=""
-      /> */}
       {head.meta.map((m) => (
         <meta key={uuidv4()} {...m} />
       ))}

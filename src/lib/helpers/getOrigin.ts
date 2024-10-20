@@ -3,7 +3,7 @@
  * @param url - Optional URL object to extract port or other information.
  * @returns A string containing the full origin (protocol + domain + port if applicable).
  */
-export function getOrigin(): string | undefined {
+export function getOrigin(): string {
   return "https://dev.travel2-eiq.pages.dev"
   // return import.meta.env.PUBLIC_CF_PAGES_URL;
   /*if (process.env.NODE_ENV === 'development') {

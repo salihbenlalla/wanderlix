@@ -1,5 +1,5 @@
 import { component$, Slot } from "@builder.io/qwik";
-import { DocumentHead } from "@salihbenlalla/qwik-city";
+import { type DocumentHead } from "@salihbenlalla/qwik-city";
 import GridHeader from "~/components/PostsGrid/GridHeader";
 import { getOrigin } from "~/lib/helpers/getOrigin";
 import { getSiteName } from "~/lib/helpers/getSiteName";

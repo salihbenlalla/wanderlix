@@ -1,0 +1,14 @@
+.logo > a {
+  display: flex;
+  align-items: center;
+  color: #203656;
+  text-decoration: none;
+  outline: none;
+  font-size: 26px;
+  font-weight: 700;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.logo-two {
+  color: #fe4f70;
+}

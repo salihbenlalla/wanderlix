@@ -1,35 +1,34 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import { type RequestEventLoader, routeLoader$, DocumentHead } from "@builder.io/qwik-city";
-import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
+import { DocumentHead } from "@builder.io/qwik-city";
 import GridHeader from "~/components/PostsGrid/GridHeader";
-import { getDestinations } from "./getDestinations";
+// import { type Continent } from "./getDestinations";
 import { v4 as uuidv4 } from "uuid";
-import DestinationCard from "~/components/DestinationCard";
+import DestinationCard, { type DestinationCardProps } from "~/components/DestinationCard";
 import styles from "./style.css?inline";
 import { getOrigin } from "~/lib/helpers/getOrigin";
 import { getSiteName } from "~/lib/helpers/getSiteName";
+import destinationsByContinent from "./destinationsByContinent.json"
 
-export const useGetDestinations = routeLoader$(
-  async (ev: RequestEventLoader<PlatformCloudflarePages>) => {
-    return await getDestinations(ev);
-  }
-);
+interface Continent {
+  contintentName: string,
+  continentId: string,
+  destinations: DestinationCardProps[],
+}
+
+interface Continents {
+  Europe: Continent;
+  North_America: Continent;
+  South_America: Continent;
+  Africa: Continent;
+  Asia: Continent;
+  Oceania: Continent;
+  World: Continent;
+}
 
 export default component$(() => {
   useStyles$(styles);
 
-  const destinations = useGetDestinations().value;
-
-  if ("failed" in destinations) {
-    return (
-      <>
-        <div class="sub-header">
-          <GridHeader pageTitle={destinations.message} />
-        </div>
-        <div class="container destinations-container"></div>
-      </>
-    );
-  }
+  const destinations: Continents = destinationsByContinent;
 
   return (
     <>
@@ -37,19 +36,24 @@ export default component$(() => {
         <GridHeader pageTitle={`Destinations`} />
       </div>
       <div class="container destinations-container">
-        <div class="destinations-grid">
-          {destinations.map((destination) => (
-            <DestinationCard
-              key={uuidv4()}
-              country={destination.country}
-              image={destination.image}
-              imageWidth={destination.imageWidth}
-              imageHeight={destination.imageHeight}
-              param={destination.param}
-              post_count={destination.post_count}
-            />
-          ))}
-        </div>
+        {(Object.values(destinations) as Continent[]).map((continent) => (
+          <>
+            <h2 class="continent-name" id={continent.continentId}># {continent.contintentName}</h2>
+            <div class="destinations-grid">
+              {continent.destinations.map(destination => (
+                <DestinationCard
+                  key={uuidv4()}
+                  country={destination.country}
+                  image={destination.image}
+                  imageWidth={destination.imageWidth}
+                  imageHeight={destination.imageHeight}
+                  param={destination.param}
+                  post_count={destination.post_count}
+                />
+              ))}
+            </div>
+          </>
+        ))}
       </div>
     </>
   );

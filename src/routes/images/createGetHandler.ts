@@ -10,6 +10,7 @@ const createGetHandler = (
 
     if (request.method !== "GET") {
       event.send(new Response("Method Not Allowed", { status: 405 }));
+      return;
     }
 
     try {
@@ -19,6 +20,7 @@ const createGetHandler = (
           `Asset not found: ${request.url}, status: ${response.status}`,
         );
         event.send(new Response("Image Not Found", { status: 404 }));
+        return;
       }
 
       const imageBlob = await response.blob();
