@@ -1,7 +1,6 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import { DocumentHead } from "@builder.io/qwik-city";
+import { type DocumentHead } from "@builder.io/qwik-city";
 import GridHeader from "~/components/PostsGrid/GridHeader";
-// import { type Continent } from "./getDestinations";
 import { v4 as uuidv4 } from "uuid";
 import DestinationCard, { type DestinationCardProps } from "~/components/DestinationCard";
 import styles from "./style.css?inline";

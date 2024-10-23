@@ -3,6 +3,7 @@ import {
   type RequestEventLoader,
   routeLoader$,
   type DocumentHead,
+  type StaticGenerateHandler,
 } from "@builder.io/qwik-city";
 import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 import PostsGrid from "~/components/PostsGrid";
@@ -11,7 +12,7 @@ import { getAuthorData } from "./getAuthorData";
 import GridHeader from "~/components/PostsGrid/GridHeader";
 import truncateParagraph from "~/lib/helpers/truncateParagraph";
 import { getOrigin } from "~/lib/helpers/getOrigin";
-// import getAuthorParams from "./getAuthorParams";
+import getAuthorParams from "./getAuthorParams";
 
 /**
  * loads the author's data and posts from the database.
@@ -139,13 +140,13 @@ export const head: DocumentHead = ({ resolveValue }) => {
   }
 }
 
-// export const onStaticGenerate: StaticGenerateHandler = async (env) => {
-//   // eslint-disable-next-line
-//   const authorNames = await getAuthorParams(env);
-//
-//   return {
-//     params: authorNames.map((authorName) => {
-//       return { authorName };
-//     }),
-//   };
-// };
+export const onStaticGenerate: StaticGenerateHandler = async (env) => {
+  // eslint-disable-next-line
+  const authorNames = await getAuthorParams(env);
+
+  return {
+    params: authorNames.map((authorName) => {
+      return { authorName };
+    }),
+  };
+};

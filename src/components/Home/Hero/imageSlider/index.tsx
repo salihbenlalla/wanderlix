@@ -43,7 +43,7 @@ const ImageSlider = component$(() => {
     window.heroSliderTimer = setInterval(() => {
       animateSlider({ ...animateSliderOptions, direction: "next" });
       //   changeIndex({ ...animateSliderOptions, direction: "next" });
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(window.heroSliderTimer);
   });

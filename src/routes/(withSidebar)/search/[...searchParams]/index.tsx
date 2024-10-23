@@ -74,7 +74,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
     description = searchQuery
       ? "An error occurred during the search. Please try again later."
       : "No search query was entered. Please enter a query to search.";
-  } else if (!data.posts || data.posts.length === 0) {
+  } else if (data.posts.length === 0) {
     title = `No results for "${searchQuery}"`;
     description = `No results were found for "${searchQuery}". Try another search.`;
     ogUrl = `${origin}/search/${searchQuery}/`;

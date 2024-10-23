@@ -6,6 +6,7 @@ import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/c
 import { type D1Result } from "@miniflare/d1";
 import { type PostCardData } from "~/components/PostsGrid/PostCard";
 import { getDB } from "~/lib/helpers/getDB";
+import { getGridPostsNumber } from "~/lib/helpers/getGridPostsNumber";
 import isNumber from "~/lib/helpers/isNumber";
 import splitStringWithoutEmpty from "~/lib/helpers/splitStringWithoutEmpty";
 
@@ -40,11 +41,13 @@ export const getDestinationData = async (
 
   const stateFilter = state ? ` AND States.param = '${state}'` : "";
   const cityFilter = city ? ` AND Cities.param = '${city}'` : "";
-  const offset = (pageNumber - 1) * 10;
+
+  const gridPostsNumber = getGridPostsNumber();
+  const offset = (pageNumber - 1) * gridPostsNumber;
 
   const query = `
 WITH PageCountCTE AS (
-  SELECT CEIL(CAST(COUNT(*) AS FLOAT) / 10) AS totalPages
+  SELECT CEIL(CAST(COUNT(*) AS FLOAT) / ${gridPostsNumber}) AS totalPages
   FROM Posts
   LEFT JOIN Authors ON Posts.author_id = Authors.id
   LEFT JOIN Tags ON Posts.tag_id = Tags.id
@@ -66,7 +69,7 @@ LEFT JOIN PageCountCTE ON 1=1
 WHERE Countries.param = ?
 ${stateFilter}
 ${cityFilter}
-LIMIT 10 OFFSET ?;
+LIMIT ${gridPostsNumber} OFFSET ?;
 `;
 
   const DB = await getDB(ev);

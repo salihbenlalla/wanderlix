@@ -56,15 +56,15 @@ export default component$(() => {
         {
           title: "Europe",
           url: "/destinations/#europe",
-          thumbnail: "/images/1280/705/in-which-district-loger-cork.webp",
+          thumbnail: "/images/1280/854/megve-5.webp",
           description:
-            "Discover Europe's charm with our expert travel guides. Get inspired for your next adventure! your journey today!",
+            "Discover Europe's charm with our expert travel guides. Get inspired for your next adventure!",
         },
         {
           title: "Asia",
           url: "/destinations/#asia",
           thumbnail:
-            "/images/1280/855/visit-the-connemara-in-irish-tickets-hourly-rates.webp",
+            "/images/etc/myanmar-home.webp",
           description:
             "Explore Asia's hidden gems with our travel guides to its temples, culture, and scenery. Start your journey today!",
         },
@@ -72,32 +72,32 @@ export default component$(() => {
           title: "Africa",
           url: "/destinations/#africa",
           thumbnail:
-            "/images/1280/854/the-bay-of-boyeeghter-or-irish-in-all-its-splendor.webp",
+            "/images/1280/851/the-most-beautiful-places-to-visit-in-camroun.webp",
           description:
-            "Embark on an unforgettable adventure with our travel guides to Africa's wildlife, landscapes, and history. Get !",
+            "Embark on an unforgettable adventure with our travel guides to Africa's wildlife, landscapes, and history.",
         },
         {
           title: "North America",
           url: "/destinations/#north_america",
           thumbnail:
-            "/images/1280/853/visit-the-kerry-ring-from-cork-rservations-rates.webp",
+            "/images/etc/north-america-home.webp",
           description:
-            "Find your next adventure with our travel guides to North America's cities, wonders, and history. Be amazed by t!",
+            "Find your next adventure with our travel guides to North America's cities, wonders, and history.",
         },
         {
           title: "South America",
           url: "/destinations/#south_america",
           thumbnail:
-            "/images/1280/835/visit-the-count-of-wicklow-rservations-rates.webp",
+            "/images/1280/854/discover-the-silver-in-pictures.webp",
           description:
-            "Experience the vibrancy of South America with our travel guides to its landscapes, culture, and history. Start y!",
+            "Experience the vibrancy of South America with our travel guides to its landscapes, culture, and history.",
         },
         {
-          title: "Australia",
-          url: "/destinations/#australia",
-          thumbnail: "/images/1280/675/in-which-area-loger-auckland.webp",
+          title: "Oceania",
+          url: "/destinations/#oceania",
+          thumbnail: "/images/etc/oceania-home.webp",
           description:
-            "Discover Australia's iconic landmarks, beaches, and wildlife with our travel guides. Let us inspire and guide yo!",
+            "Discover Oceania's iconic landmarks, beaches, and wildlife with our travel guides. Let us inspire and guide you!",
         },
       ],
       get prevIndex() {
@@ -159,8 +159,6 @@ export default component$(() => {
     },
     { deep: true }
   );
-
-  console.log("form homecontextstore: ", store.captionNextIndex)
 
   const homeContainerRef = useSignal<HTMLDivElement>();
 

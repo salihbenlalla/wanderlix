@@ -1,5 +1,6 @@
 import { type EnvGetter } from "@builder.io/qwik-city/middleware/request-handler";
 import type { D1Result, D1Database } from "@miniflare/d1";
+import { getGridPostsNumber } from "~/lib/helpers/getGridPostsNumber";
 
 interface GetAuthorParamsOpts {
   env: EnvGetter;
@@ -26,13 +27,14 @@ GROUP BY Authors.id
 `;
 
   const { results } = (await DB.prepare(
-    query
+    query,
   ).all()) as D1Result<AuthorParamsDBResult>;
 
   const slugs = [];
+  const gridPostsNumber = getGridPostsNumber();
 
   for (const result of results ?? []) {
-    const pagesCount = Math.ceil(result.postsCount / 10);
+    const pagesCount = Math.ceil(result.postsCount / gridPostsNumber);
     for (let i = 1; i <= pagesCount; i++) {
       if (i === 1) {
         slugs.push(result.author.replace("/author/", ""));

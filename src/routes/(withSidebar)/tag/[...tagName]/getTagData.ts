@@ -6,6 +6,7 @@ import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/c
 import { type D1Result } from "@miniflare/d1";
 import { type PostCardData } from "~/components/PostsGrid/PostCard";
 import { getDB } from "~/lib/helpers/getDB";
+import { getGridPostsNumber } from "~/lib/helpers/getGridPostsNumber";
 import isNumber from "~/lib/helpers/isNumber";
 import splitStringWithoutEmpty from "~/lib/helpers/splitStringWithoutEmpty";
 
@@ -42,11 +43,12 @@ export const getTagData = async (
   }
 
   // const pageNumber = Number(ev.query.get("page")) || 1;
-  const offset = (pageNumber - 1) * 10;
+  const gridPostsNumber = getGridPostsNumber();
+  const offset = (pageNumber - 1) * gridPostsNumber;
 
   const query = `
 WITH PageCountCTE AS (
-SELECT CEIL(CAST(COUNT(*) AS FLOAT) / 10) AS totalPages
+SELECT CEIL(CAST(COUNT(*) AS FLOAT) / ${gridPostsNumber}) AS totalPages
 FROM Posts
 LEFT JOIN Authors ON Posts.author_id = Authors.id
 LEFT JOIN Tags ON Posts.tag_id = Tags.id
@@ -58,7 +60,7 @@ LEFT JOIN Authors ON Posts.author_id = Authors.id
 LEFT JOIN Tags ON Posts.tag_id = Tags.id
 LEFT JOIN PageCountCTE ON 1=1
 WHERE tagUrl COLLATE NOCASE = ?
-LIMIT 10 OFFSET ?;
+LIMIT ${gridPostsNumber} OFFSET ?;
 `;
 
   const DB = await getDB(ev);

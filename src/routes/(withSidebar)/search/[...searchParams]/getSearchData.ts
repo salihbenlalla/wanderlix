@@ -6,6 +6,7 @@ import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/c
 import { type D1Result } from "@miniflare/d1";
 import { type PostCardData } from "~/components/PostsGrid/PostCard";
 import { getDB } from "~/lib/helpers/getDB";
+import { getGridPostsNumber } from "~/lib/helpers/getGridPostsNumber";
 import isNumber from "~/lib/helpers/isNumber";
 import splitStringWithoutEmpty from "~/lib/helpers/splitStringWithoutEmpty";
 
@@ -36,7 +37,8 @@ export const getSearchData = async (
 
   const pageNumber = lastParamIsNumber ? Number(params.pop()) : 1;
 
-  const offset = (pageNumber - 1) * 10;
+  const gridPostsNumber = getGridPostsNumber();
+  const offset = (pageNumber - 1) * gridPostsNumber;
   // const searchPhrase = ev.query.get("q")?.trim();
   const searchPhrase = params[params.length - 1];
 
@@ -64,7 +66,7 @@ export const getSearchData = async (
 
   const query = `
 WITH PageCountCTE AS (
-  SELECT CEIL(CAST(COUNT(*) AS FLOAT) / 10) AS totalPages
+  SELECT CEIL(CAST(COUNT(*) AS FLOAT) / ${gridPostsNumber}) AS totalPages
   FROM Posts
   LEFT JOIN Authors ON Posts.author_id = Authors.id
   LEFT JOIN Tags ON Posts.tag_id = Tags.id
@@ -76,12 +78,10 @@ LEFT JOIN Authors ON Posts.author_id = Authors.id
 LEFT JOIN Tags ON Posts.tag_id = Tags.id
 LEFT JOIN PageCountCTE ON 1=1
 WHERE ${whereCondition}
-LIMIT 10 OFFSET ?;
+LIMIT ${gridPostsNumber} OFFSET ?;
 `;
 
   const DB = await getDB(ev);
-
-  // console.log("DB: ", DB);
 
   if (!DB) {
     return ev.fail(500, { message: "Internal server error" });
@@ -96,10 +96,6 @@ LIMIT 10 OFFSET ?;
       .bind(
         searchQuery,
         searchQuery,
-        // searchQuery,
-        // searchQuery,
-        // searchQuery,
-        // Bind additional parameters only if searching all fields
         ...(searchTitlesOnly
           ? []
           : [

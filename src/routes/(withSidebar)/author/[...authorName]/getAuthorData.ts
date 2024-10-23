@@ -6,6 +6,7 @@ import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/c
 import { type D1Result } from "@miniflare/d1";
 import { type PostCardData } from "~/components/PostsGrid/PostCard";
 import { getDB } from "~/lib/helpers/getDB";
+import { getGridPostsNumber } from "~/lib/helpers/getGridPostsNumber";
 import isNumber from "~/lib/helpers/isNumber";
 import splitStringWithoutEmpty from "~/lib/helpers/splitStringWithoutEmpty";
 
@@ -31,7 +32,7 @@ interface AuthorDBData extends PostCardData {
 }
 
 export const getAuthorData = async (
-  ev: RequestEventLoader<PlatformCloudflarePages>
+  ev: RequestEventLoader<PlatformCloudflarePages>,
 ): Promise<AuthorData | FailReturn<{ message: string }>> => {
   // const authorUrl = decodeURI(ev.pathname.substr(0, ev.pathname.length - 1));
   // const pageNumber = Number(ev.query.get("page")) || 1;
@@ -44,11 +45,12 @@ export const getAuthorData = async (
 
   const authorUrl = decodeURI(params[0]);
 
-  const offset = (pageNumber - 1) * 10;
+  const gridPostsNumber = getGridPostsNumber();
+  const offset = (pageNumber - 1) * gridPostsNumber;
 
   const query = `
 WITH PageCountCTE AS (
-  SELECT CEIL(CAST(COUNT(*) AS FLOAT) / 10) AS totalPages
+  SELECT CEIL(CAST(COUNT(*) AS FLOAT) / ${gridPostsNumber.toString()}) AS totalPages
   FROM Posts
   LEFT JOIN Authors ON Posts.author_id = Authors.id
   LEFT JOIN Tags ON Posts.tag_id = Tags.id
@@ -60,7 +62,7 @@ LEFT JOIN Authors ON Posts.author_id = Authors.id
 LEFT JOIN Tags ON Posts.tag_id = Tags.id
 LEFT JOIN PageCountCTE ON 1=1
 WHERE authorUrl = ?
-LIMIT 10 OFFSET ?;
+LIMIT ${gridPostsNumber.toString()} OFFSET ?;
 `;
 
   const DB = await getDB(ev);
@@ -80,7 +82,7 @@ LIMIT 10 OFFSET ?;
     }
 
     const authorPosts = results2.map(
-      ({ totalPages: _, authorBio: __, authorImage: ___, ...rest }) => rest
+      ({ totalPages: _, authorBio: __, authorImage: ___, ...rest }) => rest,
     );
 
     return {
@@ -98,7 +100,7 @@ LIMIT 10 OFFSET ?;
   } catch (error) {
     console.error(
       "getAuthorData: Error while getting author data from DB:",
-      error
+      error,
     );
     return ev.fail(500, { message: "Internal server error" });
   }
