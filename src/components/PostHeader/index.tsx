@@ -1,12 +1,9 @@
 import {
-  $,
   component$,
   useContext,
-  useSignal,
   useStyles$,
-  useTask$,
 } from "@builder.io/qwik";
-import { type ImageTransformerProps, getSrcSet } from "qwik-image";
+import { Image } from "qwik-image";
 import BubbleIcon from "~/assets/icomoon_svg/bubble2.svg?component";
 import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
@@ -39,41 +36,54 @@ const PostHeader = component$<PostHeaderProps>((props) => {
     .replace(/ /g, "-")}`;
   const tagUrl = `/tag/${props.tagUrl}/`
 
-  const srcSet = useSignal<string>("");
-
-  const imageTransformer$ = $(
-    ({ src, width, height }: ImageTransformerProps): string => {
-      return `/images/${width}/${height}/${src.split("/")[4]}`;
-    }
-  );
-
-  useTask$(async () => {
-    const imgSrc = `/images/${props.imageWidth}/${props.imageHeight}/${props.image}`;
-    srcSet.value = await getSrcSet({
-      src: imgSrc,
-      width: props.imageWidth,
-      height: props.imageHeight,
-      layout: "fullWidth",
-      resolutions: [1280, 960, 640, 320, 160],
-      aspectRatio:
-        props.imageWidth && props.imageHeight
-          ? props.imageWidth / props.imageHeight
-          : undefined,
-      imageTransformer$,
-    });
-  });
+  // const srcSet = useSignal<string | undefined>();
+  //
+  // const imageTransformer$ = $(
+  //   ({ src, width, height }: ImageTransformerProps): string => {
+  //     return `/images/${width}/${height}/${src.split("/")[4]}`;
+  //   }
+  // );
+  //
+  //
+  // useTask$(async ({ track }) => {
+  //   track(() => props.image)
+  //   const imgSrc = `/images/${props.imageWidth}/${props.imageHeight}/${props.image}`;
+  //   srcSet.value = await getSrcSet({
+  //     src: imgSrc,
+  //     width: props.imageWidth,
+  //     height: props.imageHeight,
+  //     layout: "fullWidth",
+  //     resolutions: [1280, 960, 640, 320, 160],
+  //     aspectRatio:
+  //       props.imageWidth && props.imageHeight
+  //         ? props.imageWidth / props.imageHeight
+  //         : undefined,
+  //     imageTransformer$,
+  //   });
+  // });
 
   return (
     <section class="post-cover">
       <div class="post-header-image">
         <div class="post-header-overlay" />
-        <img
+        {/*
+          <img
+            src={`/images/${props.imageWidth}/${props.imageHeight}/${props.image}`}
+            srcset={srcSet.value}
+            alt="Post image"
+            loading="eager"
+            width={props.imageWidth}
+            height={props.imageHeight}
+          />
+       */}
+        <Image
+          layout="fullWidth"
+          objectFit="cover"
+          height={600}
+          alt="alt text"
+          placeholder="#e6e6e6"
           src={`/images/${props.imageWidth}/${props.imageHeight}/${props.image}`}
-          srcset={srcSet.value}
-          alt="Post image"
-          loading="eager"
-          width={props.imageWidth}
-          height={props.imageHeight}
+          loading="lazy"
         />
       </div>
       <div class="container">

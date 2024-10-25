@@ -29,7 +29,7 @@ export default component$<PopularPostsWidgetProps>((props) => {
             return (
               <li key={uuidv4()}>
                 <div class="post-thumbnail">
-                  <Link href={`/post/${post.slug}/`}>
+                  <Link href={`/post/${post.slug}`}>
                     <div class="post-thumbnail-inner">
                       <img
                         src={`/images/thumbnail/${post.image}`}
@@ -42,7 +42,7 @@ export default component$<PopularPostsWidgetProps>((props) => {
                   </Link>
                 </div>
                 <div class="post-details">
-                  <Link href={`/post/${post.slug}/`}>
+                  <Link href={`/post/${post.slug}`}>
                     <h4 class="post-title">{post.title}</h4>
                   </Link>
                   <p class="post-date">{formatDate(post.dateModified)}</p>

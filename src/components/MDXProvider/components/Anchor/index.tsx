@@ -14,7 +14,7 @@ const Anchor = component$((props: AnchorProps) => {
     return <Slot />;
   }
 
-  if (props.href.startsWith("/post/")) {
+  if (props.href.startsWith("/post/") || props.href.startsWith("/test/")) {
     return (
       <Link {...props}>
         <Slot />

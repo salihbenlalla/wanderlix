@@ -46,7 +46,8 @@ const handleLink = async (
   title?: string,
   use?: "none" | "originalHref" | "newHref",
 ): Promise<LinkProperties> => {
-  if (href?.startsWith("/post")) return { href, title };
+  if (href?.startsWith("/post") || href?.startsWith("/test"))
+    return { href, title };
 
   if (href?.startsWith("@@SITE_ORIGIN@@")) {
     const pathname = href.replace("@@SITE_ORIGIN@@", "");
@@ -69,7 +70,10 @@ const handleLink = async (
           ? undefined
           : foundLink?.[foundLink.use];
 
-  const iTitle = !href.startsWith("/post") && !iHref ? undefined : title;
+  const iTitle =
+    (!href.startsWith("/post") || !href.startsWith("/test")) && !iHref
+      ? undefined
+      : title;
   if (!iHref)
     return {
       href: iHref,
@@ -91,7 +95,12 @@ type FindSrcFunc = (
 ) => Promise<string | MdxJsxAttributeValueExpression | null | undefined>;
 
 export const findSrc: FindSrcFunc = async (DB, src, use) => {
-  if (typeof src === "object" || src?.startsWith("/post")) return src;
+  if (
+    typeof src === "object" ||
+    src?.startsWith("/post") ||
+    src?.startsWith("/test")
+  )
+    return src;
 
   const srcId = Number(src?.replace("srcId:", "").replace("src_id:", ""));
 

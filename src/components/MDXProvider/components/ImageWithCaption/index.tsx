@@ -23,6 +23,20 @@ const ImageWithCaption = component$((props: ImageWithCaptionProps) => {
 
   return (
     <div class="image_caption">
+      {/*
+      <img
+        // layout="fullWidth"
+        // objectFit="fill"
+        aspectRatio={imgWidth / imgHeight}
+        width={imgWidth}
+        //@ts-ignore
+        height="auto"
+        alt="alt text"
+        // placeholder="#e6e6e6"
+        src={props.imgSrc}
+        loading="lazy"
+      />
+      */}
       <Image
         layout="fullWidth"
         objectFit="fill"
