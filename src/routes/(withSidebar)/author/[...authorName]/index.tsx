@@ -19,7 +19,7 @@ import getAuthorParams from "./getAuthorParams";
  */
 export const useGetAuthor = routeLoader$(
   async (ev: RequestEventLoader<PlatformCloudflarePages>) =>
-    await getAuthorData(ev)
+    await getAuthorData(ev),
 );
 
 /**
@@ -55,7 +55,6 @@ export default component$(() => {
   );
 });
 
-
 export const head: DocumentHead = ({ resolveValue }) => {
   const data = resolveValue(useGetAuthor);
   const authorData = data.author;
@@ -63,12 +62,13 @@ export const head: DocumentHead = ({ resolveValue }) => {
   const origin = getOrigin();
 
   // Build the canonical URL based on the current page number
-  const canonicalUrl = currentPage && currentPage > 1
-    ? `${origin}/author/${authorData?.url}/${currentPage}/`
-    : `${origin}/author/${authorData?.url}/`;
+  const canonicalUrl =
+    currentPage && currentPage > 1
+      ? `${origin}/author/${authorData?.url}/${currentPage}/`
+      : `${origin}/author/${authorData?.url}/`;
 
   if (!authorData) {
-    return {}
+    return {};
   }
 
   return {
@@ -76,8 +76,8 @@ export const head: DocumentHead = ({ resolveValue }) => {
     links: [
       {
         rel: "canonical",
-        href: canonicalUrl
-      }
+        href: canonicalUrl,
+      },
     ],
     meta: [
       {
@@ -137,8 +137,8 @@ export const head: DocumentHead = ({ resolveValue }) => {
         content: authorData.imageUrl,
       },
     ],
-  }
-}
+  };
+};
 
 export const onStaticGenerate: StaticGenerateHandler = async (env) => {
   // eslint-disable-next-line
