@@ -3,7 +3,6 @@ import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
 import CheveronRight from "/src/assets/icomoon_svg/cheveron-right.svg?component";
 import { v4 as uuidv4 } from "uuid";
-import { Link } from "@builder.io/qwik-city";
 
 export interface Destination {
   countryName: string;
@@ -26,9 +25,9 @@ export default component$<DestinationsWidgetProps>((props) => {
             return (
               <li class="dest-item" key={uuidv4()}>
                 <CheveronRight fill="#fe4f70" />
-                <Link href={`/destination/${destination.countryParam}`}>
+                <a href={`/destination/${destination.countryParam}`}>
                   {destination.countryName}
-                </Link>
+                </a>
                 <span class="widget-count">({destination.count})</span>
               </li>
             );

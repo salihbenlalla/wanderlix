@@ -4,9 +4,7 @@ import {
   useStore,
   useVisibleTask$,
 } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
 import { animate } from "motion";
-// import { Image } from "qwik-image";
 
 export interface CarouselItemProps {
   title: string;
@@ -61,7 +59,7 @@ export default component$<CarouselItemProps>((props) => {
   return (
     <li ref={liRef} style={liStyle()}>
       <div class="carousel-post-thumbnail">
-        <Link href={props.url}>
+        <a href={props.url}>
           <div class="carousel-post-thumbnail-inner">
             <img
               src={props.thumbnail}
@@ -70,27 +68,16 @@ export default component$<CarouselItemProps>((props) => {
               width={Math.round(props.imageWidth / 4)}
               height={Math.round(props.imageHeight / 4)}
             />
-            {/* <Image
-              layout="fullWidth"
-              objectFit="cover"
-              // aspectRatio={298 / 200}
-              width={298}
-              height={200}
-              alt={props.title}
-              placeholder="#e6e6e6"
-              src={props.thumbnail}
-              loading="lazy"
-            /> */}
           </div>
-        </Link>
+        </a>
       </div>
       <div class="carousel-post-details">
-        <Link href={props.url}>
+        <a href={props.url}>
           <h4 class="carousel-post-title">{props.title}</h4>
-        </Link>
+        </a>
         <ul class="carousel-post-meta">
           <li>
-            <Link href={`/author/${props.authorUrl}`}>{props.author}</Link>
+            <a href={`/author/${props.authorUrl}`}>{props.author}</a>
           </li>
           <li>{props.date}</li>
         </ul>

@@ -8,7 +8,6 @@ import {
 } from "@builder.io/qwik";
 import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
-import { Link } from "@builder.io/qwik-city";
 import { email, minLength, object, string } from "valibot";
 import {
   useForm,
@@ -121,7 +120,7 @@ export default component$<NewsletterWidgetProps>((props) => {
             </button>
             <span class="newsletter-privacy">
               By signing up, you agree to our{" "}
-              <Link href="/privacy-policy/">Privacy Policy</Link>
+              <a href="/privacy-policy/">Privacy Policy</a>
             </span>
           </div>
         </div>

@@ -1,10 +1,8 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-// import { Image } from "qwik-image";
 import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
 import { formatDate } from "~/lib/helpers/formatDate";
 import { v4 as uuidv4 } from "uuid";
-import { Link } from "@builder.io/qwik-city";
 
 export interface PopularPost {
   title: string;
@@ -29,7 +27,7 @@ export default component$<PopularPostsWidgetProps>((props) => {
             return (
               <li key={uuidv4()}>
                 <div class="post-thumbnail">
-                  <Link href={`/post/${post.slug}`}>
+                  <a href={`/post/${post.slug}`}>
                     <div class="post-thumbnail-inner">
                       <img
                         src={`/images/thumbnail/${post.image}`}
@@ -39,12 +37,12 @@ export default component$<PopularPostsWidgetProps>((props) => {
                         loading="lazy"
                       />
                     </div>
-                  </Link>
+                  </a>
                 </div>
                 <div class="post-details">
-                  <Link href={`/post/${post.slug}`}>
+                  <a href={`/post/${post.slug}`}>
                     <h4 class="post-title">{post.title}</h4>
-                  </Link>
+                  </a>
                   <p class="post-date">{formatDate(post.dateModified)}</p>
                 </div>
               </li>

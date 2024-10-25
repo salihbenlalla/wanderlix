@@ -8,7 +8,6 @@ import BubbleIcon from "~/assets/icomoon_svg/bubble2.svg?component";
 import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
 import { ThemeContext } from "~/routes/layout";
-import { Link } from "@builder.io/qwik-city";
 
 interface PostHeaderProps {
   title: string;
@@ -92,29 +91,29 @@ const PostHeader = component$<PostHeaderProps>((props) => {
             <ol>
               {props.countryName && (
                 <li class="breadcrumb">
-                  <Link href={`/destination/${props.countryParam}`}>
+                  <a href={`/destination/${props.countryParam}`}>
                     {props.countryName}
-                  </Link>
+                  </a>
                 </li>
               )}
 
               {props.stateName && (
                 <li class="breadcrumb">
-                  <Link
+                  <a
                     href={`/destination/${props.countryParam}/${props.stateParam}`}
                   >
                     {props.stateName}
-                  </Link>
+                  </a>
                 </li>
               )}
 
               {props.cityName && (
                 <li class="breadcrumb">
-                  <Link
+                  <a
                     href={`/destination/${props.countryParam}/${props.stateParam}/${props.cityParam}`}
                   >
                     {props.cityName}
-                  </Link>
+                  </a>
                 </li>
               )}
               <li class="breadcrumb">
@@ -127,34 +126,23 @@ const PostHeader = component$<PostHeaderProps>((props) => {
             <ul>
               <li>
                 <span class="author-avatar">
-                  <Link href={authorUrl} title={`Posts by ${props.authorName}`}>
+                  <a href={authorUrl} title={`Posts by ${props.authorName}`}>
                     <img
                       src={props.authorAvatar}
                       alt={props.authorName}
                       width="32"
                       height="32"
                     />
-                  </Link>
-                  {/* <Image
-                    layout="fullWidth"
-                    objectFit="cover"
-                    aspectRatio={32 / 32}
-                    width={32}
-                    height={32}
-                    alt="alt text"
-                    placeholder="#e6e6e6"
-                    src={props.authorAvatar}
-                    loading="lazy"
-                  /> */}
+                  </a>
                 </span>
-                <Link href={authorUrl} title={`Posts by ${props.authorName}`}>
+                <a href={authorUrl} title={`Posts by ${props.authorName}`}>
                   {props.authorName}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href={tagUrl} title={`Posts tagged ${props.tagName}`}>
+                <a href={tagUrl} title={`Posts tagged ${props.tagName}`}>
                   {props.tagName}
-                </Link>
+                </a>
               </li>
               <li>{formatDate(props.dateModified)}</li>
               <li class="comment-count">
@@ -162,9 +150,6 @@ const PostHeader = component$<PostHeaderProps>((props) => {
                 {theme.commentsCount})
               </li>
             </ul>
-            {/* <div class="post-header-image">
-            <img src={props.image} />
-          </div> */}
           </div>
         </div>
       </div>

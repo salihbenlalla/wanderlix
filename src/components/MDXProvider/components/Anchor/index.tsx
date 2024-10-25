@@ -1,6 +1,5 @@
 import { component$, Slot, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
-import { Link } from "@builder.io/qwik-city";
 
 export interface AnchorProps {
   href?: string;
@@ -14,11 +13,11 @@ const Anchor = component$((props: AnchorProps) => {
     return <Slot />;
   }
 
-  if (props.href.startsWith("/post/") || props.href.startsWith("/test/")) {
+  if (props.href.startsWith("/post/")) {
     return (
-      <Link {...props}>
+      <a {...props}>
         <Slot />
-      </Link>
+      </a>
     );
   }
 

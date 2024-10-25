@@ -8,7 +8,6 @@ import LinkedInIcon from "~/assets/icomoon_svg/linkedin1.svg?component";
 import XTwitterIcon from "~/assets/icomoon_svg/square-x-twitter.svg?component";
 import YoutubeIcon from "~/assets/icomoon_svg/youtube1.svg?component";
 import AuthorTooltip from "./AuthorTooltip";
-import { Link } from "@builder.io/qwik-city";
 
 type GridHeaderProps = Omit<Author, "avatarUrl">;
 
@@ -22,7 +21,7 @@ export default component$<GridHeaderProps>((props) => {
       </div>
       <div class="about-author-details">
         <h6>
-          <Link href={`/author/${props.url}/`}>{props.name}</Link>
+          <a href={`/author/${props.url}/`}>{props.name}</a>
         </h6>
         <p>{props.bio}</p>
         <ul>
