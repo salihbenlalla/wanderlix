@@ -83,6 +83,9 @@ export default component$(() => {
   const imageTransformer$ = $(
     ({ src, width, height }: ImageTransformerProps): string => {
       const newSrc = src.split("/")[4];
+      if (src === "/images/1280/855/how-and-o-rent-a-campingcar-in-the-rgion-of-marseille.webp") {
+        console.log("width form imageTransformer$: ", height);
+      }
 
       // Here you can set your favourite image loaders service
       return `/images/${width}/${height}/${newSrc}`;

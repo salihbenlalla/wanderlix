@@ -1,13 +1,17 @@
 import {
   component$,
   useContext,
+  useSignal,
   useStyles$,
+  $,
+  useTask$
 } from "@builder.io/qwik";
-import { Image } from "qwik-image";
 import BubbleIcon from "~/assets/icomoon_svg/bubble2.svg?component";
 import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
 import { ThemeContext } from "~/routes/layout";
+import { ImageTransformerProps, getSrcSet } from "qwik-image";
+import { ImageWithFallback } from "../ImageWithFallback";
 
 interface PostHeaderProps {
   title: string;
@@ -35,54 +39,43 @@ const PostHeader = component$<PostHeaderProps>((props) => {
     .replace(/ /g, "-")}`;
   const tagUrl = `/tag/${props.tagUrl}/`
 
-  // const srcSet = useSignal<string | undefined>();
-  //
-  // const imageTransformer$ = $(
-  //   ({ src, width, height }: ImageTransformerProps): string => {
-  //     return `/images/${width}/${height}/${src.split("/")[4]}`;
-  //   }
-  // );
-  //
-  //
-  // useTask$(async ({ track }) => {
-  //   track(() => props.image)
-  //   const imgSrc = `/images/${props.imageWidth}/${props.imageHeight}/${props.image}`;
-  //   srcSet.value = await getSrcSet({
-  //     src: imgSrc,
-  //     width: props.imageWidth,
-  //     height: props.imageHeight,
-  //     layout: "fullWidth",
-  //     resolutions: [1280, 960, 640, 320, 160],
-  //     aspectRatio:
-  //       props.imageWidth && props.imageHeight
-  //         ? props.imageWidth / props.imageHeight
-  //         : undefined,
-  //     imageTransformer$,
-  //   });
-  // });
+  const srcSet = useSignal<string | undefined>();
+
+  const imageTransformer$ = $(
+    ({ src, width, height }: ImageTransformerProps): string => {
+      return `/images/${width}/${height}/${src.split("/")[4]}`;
+    }
+  );
+
+
+  useTask$(async ({ track }) => {
+    track(() => props.image)
+    const imgSrc = `/images/${props.imageWidth}/${props.imageHeight}/${props.image}`;
+    srcSet.value = await getSrcSet({
+      src: imgSrc,
+      width: props.imageWidth,
+      height: props.imageHeight,
+      layout: "fullWidth",
+      resolutions: [1280, 960, 640, 320, 160],
+      aspectRatio:
+        props.imageWidth && props.imageHeight
+          ? props.imageWidth / props.imageHeight
+          : undefined,
+      imageTransformer$,
+    });
+  });
 
   return (
     <section class="post-cover">
       <div class="post-header-image">
         <div class="post-header-overlay" />
-        {/*
-          <img
-            src={`/images/${props.imageWidth}/${props.imageHeight}/${props.image}`}
-            srcset={srcSet.value}
-            alt="Post image"
-            loading="eager"
-            width={props.imageWidth}
-            height={props.imageHeight}
-          />
-       */}
-        <Image
-          layout="fullWidth"
-          objectFit="cover"
-          height={600}
-          alt="alt text"
-          placeholder="#e6e6e6"
+        <ImageWithFallback
           src={`/images/${props.imageWidth}/${props.imageHeight}/${props.image}`}
-          loading="lazy"
+          srcset={srcSet.value}
+          alt="Post image"
+          loading="eager"
+          width={props.imageWidth}
+          height={props.imageHeight}
         />
       </div>
       <div class="container">
@@ -127,11 +120,12 @@ const PostHeader = component$<PostHeaderProps>((props) => {
               <li>
                 <span class="author-avatar">
                   <a href={authorUrl} title={`Posts by ${props.authorName}`}>
-                    <img
+                    <ImageWithFallback
                       src={props.authorAvatar}
                       alt={props.authorName}
-                      width="32"
-                      height="32"
+                      width={32}
+                      height={32}
+                      loading="eager"
                     />
                   </a>
                 </span>

@@ -2,7 +2,9 @@ import { component$, useStyles$ } from "@builder.io/qwik";
 import ShareIcon from "~/assets/icomoon_svg/share2.svg?component";
 import MoreIcon from "~/assets/icomoon_svg/morehoriz.svg?component";
 import styles from "./style.css?inline";
+// import { type PostCard } from "~/lib/helpers/getPosts";
 import { formatDate } from "~/lib/helpers/formatDate";
+import { Link } from "@builder.io/qwik-city";
 
 export interface PostCardData {
   title: string;
@@ -39,31 +41,33 @@ export default component$<PostCardProps>((props) => {
     <div class={`post-card${isList ? " format-list" : ""}`}>
       <div class={`post-card-content${isList ? " format-list" : ""}`}>
         <div class={`post-card-image${isList ? " format-list" : ""}`}>
-          <a href={`/post/${props.slug}`}>
+          <Link href={`/post/${props.slug}`}>
             <img
               src={`/images/${imageWidth}/${imageHeight}/${props.image}`}
+              // width={isList ? 330 : 550}
+              // height={isList ? 250 : 367}
               width={imageWidth}
               height={imageHeight}
             />
-          </a>
+          </Link>
         </div>
         <div class={`post-card-body${isList ? " format-list" : ""}`}>
           <div class={`post-card-details${isList ? " format-list" : ""}`}>
             <ul>
               <li>
-                <a
+                <Link
                   href={`/author/${props.authorUrl}`}
                   title={`Posts by ${props.authorName}`}
                   rel="author"
                 >
                   <img width="32" height="32" src={props.authorAvatar} />
                   {props.authorName}
-                </a>
+                </Link>
               </li>
               <li>{formatDate(props.dateModified)}</li>
             </ul>
             <h5>
-              <a href={`/post/${props.slug}`}>{props.title}</a>
+              <Link href={`/post/${props.slug}`}>{props.title}</Link>
             </h5>
             <p>{props.description}</p>
           </div>

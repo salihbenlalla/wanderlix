@@ -66,7 +66,7 @@
     "mdx": "^0.3.1",
     "motion": "^10.17.0",
     "prettier": "^3.2.5",
-    "qwik-image": "^0.0.13",
+    "qwik-image": "^0.0.15",
     "scriptjs": "^2.5.9",
     "ts-node": "^10.9.2",
     "typescript": "5.3.3",

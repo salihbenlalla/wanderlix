@@ -3,6 +3,7 @@ import WidgetContainer from "../WidgetContainer";
 import styles from "./style.css?inline";
 import { formatDate } from "~/lib/helpers/formatDate";
 import { v4 as uuidv4 } from "uuid";
+import { ImageWithFallback } from "~/components/ImageWithFallback";
 
 export interface PopularPost {
   title: string;
@@ -29,7 +30,7 @@ export default component$<PopularPostsWidgetProps>((props) => {
                 <div class="post-thumbnail">
                   <a href={`/post/${post.slug}`}>
                     <div class="post-thumbnail-inner">
-                      <img
+                      <ImageWithFallback
                         src={`/images/thumbnail/${post.image}`}
                         alt={post.title}
                         width={60}

@@ -15,9 +15,9 @@ export function suppress403Errors(): Plugin {
         const message = chunk.toString();
 
         if (
-          (message.includes("Asset not found") &&
-            message.includes("status: 403")) ||
-          message.includes("can not fetch") // Suppress fetch error messages
+          message.includes("Asset not found") ||
+          message.includes("can not fetch") || // Suppress fetch error messages
+          message.includes("Failed to fetch image")
         ) {
           // Suppress these specific error messages
           return true; // Indicate that the message was handled

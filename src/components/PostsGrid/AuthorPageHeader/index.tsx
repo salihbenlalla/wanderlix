@@ -8,6 +8,7 @@ import LinkedInIcon from "~/assets/icomoon_svg/linkedin1.svg?component";
 import XTwitterIcon from "~/assets/icomoon_svg/square-x-twitter.svg?component";
 import YoutubeIcon from "~/assets/icomoon_svg/youtube1.svg?component";
 import AuthorTooltip from "./AuthorTooltip";
+import { ImageWithFallback } from "~/components/ImageWithFallback";
 
 type GridHeaderProps = Author;
 
@@ -19,7 +20,8 @@ export default component$<GridHeaderProps>((props) => {
       <div class="container">
         <div class="author-page-header-inner-container">
           <div class="author-page-header-thumbnail">
-            <img src={props.imageUrl} width={100} height={100} />
+            {/*<img src={props.imageUrl} width={100} height={100} />*/}
+            <ImageWithFallback loading="lazy" alt={props.name} src={props.imageUrl} width={100} height={100} />
           </div>
           <div class="author-page-header-details">
             <h1>{props.name}</h1>

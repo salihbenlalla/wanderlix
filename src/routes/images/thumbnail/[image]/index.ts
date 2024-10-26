@@ -5,7 +5,5 @@ export const onGet = createGetHandler(convertUrl);
 function convertUrl(url: URL) {
   const imagePath = url.pathname.split("/");
   const imageName = imagePath[3];
-  const encodedImageName = encodeURIComponent(imageName);
-
-  return `https://f004.backblazeb2.com/file/travel22/thumbnails/${encodedImageName}`;
+  return `https://f004.backblazeb2.com/file/travel22/thumbnails/${imageName}`;
 }

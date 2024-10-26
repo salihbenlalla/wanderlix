@@ -5,6 +5,7 @@ import {
   useVisibleTask$,
 } from "@builder.io/qwik";
 import { animate } from "motion";
+import { ImageWithFallback } from "~/components/ImageWithFallback";
 
 export interface CarouselItemProps {
   title: string;
@@ -61,12 +62,14 @@ export default component$<CarouselItemProps>((props) => {
       <div class="carousel-post-thumbnail">
         <a href={props.url}>
           <div class="carousel-post-thumbnail-inner">
-            <img
+            <ImageWithFallback
               src={props.thumbnail}
               alt={props.title}
               loading="lazy"
               width={Math.round(props.imageWidth / 4)}
               height={Math.round(props.imageHeight / 4)}
+              minWidth={244}
+              minHeight={163}
             />
           </div>
         </a>
