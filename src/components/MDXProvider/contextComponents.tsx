@@ -3,7 +3,6 @@ import InstagramEmbed from "./InstagramEmbed";
 import TextContainer from "./components/TextContainer";
 import type { TextContainerProps } from "./components/TextContainer";
 import Anchor from "./components/Anchor";
-import ImageAd from "./components/ImageAd";
 import ActivityList from "./components/ActivityList";
 import type { ActivityListProps } from "./components/ActivityList";
 import AlignCenter from "./components/AlignCenter";
@@ -39,15 +38,14 @@ import GiftBlock from "./components/GiftBlock";
 import DisplayGenerique from "./components/DisplayGenerique";
 import DisplayGeneriqueBody from "./components/DisplayGenerique/DisplayGeneriqueBody";
 import PartenaireTop from "./components/PartenaireTop";
+import ImageAd from "./components/ImageAd";
 
-type ElementProps = {
-  [key: string]: any;
-};
+type ElementProps = Record<string, any>
 
 export const contextComponents = {
   a: (props: ElementProps) => <Anchor {...props} />,
-  ImageAd: (props: ElementProps) => <ImageAd {...props} />,
   TweetEmbed: (props: ElementProps) => <TweetEmbed tweetId={props.tweetId} />,
+  ImageAd: (props: ElementProps) => <ImageAd aHref={props.aHref} imgSrc={props.imgSrc} imgHeight={props.imgHeight} imgWidth={props.imgWidth} />,
   InstagramEmbed: (props: ElementProps) => (
     <InstagramEmbed postId={props.postId} />
   ),

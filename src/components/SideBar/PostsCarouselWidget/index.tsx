@@ -47,7 +47,7 @@ export const getTranslateValues = (
 ) => {
   const halfOfPosts = Math.floor(numberOfPosts / 2);
   const numbers = Array.from({ length: numberOfPosts }, (_, i) => i);
-  return numbers.map((num, index) => {
+  return numbers.map((_, index) => {
     if (index >= halfOfPosts) {
       return (itemWidth + margin * 2) * (index - halfOfPosts);
     } else {
@@ -86,6 +86,18 @@ export default component$<PostsCarouselWidgetProps>((props) => {
       );
     }
   });
+
+  // useOnWindow("resize", $(() => {
+  //   const windowWidth = window.innerWidth;
+  //   if (windowWidth < 992) {
+  //     margin.value = MARGIN;
+  //     store.translateValues = getTranslateValues(
+  //       props.posts.length,
+  //       margin.value,
+  //       ITEMWIDTH
+  //     );
+  //   }
+  // }));
 
   const handleNext = $(() => {
     direction.value = "next";

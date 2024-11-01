@@ -1,6 +1,7 @@
 import { component$, Slot, useStore, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 import { formatImageAlt } from "~/lib/helpers/formatImageAlt";
+import { ImageWithFallback } from "~/components/ImageWithFallback";
 
 export type ActivityListProps = {
   activityHeader: string;
@@ -25,12 +26,13 @@ const ActivityList = component$((props: ActivityListProps) => {
       <div class="activity_header">{props.activityHeader}</div>
       <div class="activity_body">
         <div class="activity_image">
-          <img
+          <ImageWithFallback
             loading="lazy"
             src={props.activityImage}
             alt={imageAlt}
-            width="200"
-            height="150"
+            width={200}
+            height={150}
+          // aspectRatio={200 / 150}
           />
         </div>
         <div class="activity_description">

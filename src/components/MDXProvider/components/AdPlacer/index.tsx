@@ -1,6 +1,7 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 // import { Image } from "qwik-image";
 import styles from "./style.css?inline";
+import { ImageWithFallback } from "~/components/ImageWithFallback";
 // import adPlaceHolder from "./ad_placeholder.jpg";
 
 export interface AdPlacerProps {
@@ -13,62 +14,29 @@ const AdPlacer = component$<AdPlacerProps>(({ kind }) => {
   return (
     <div class="ad_placer">
       {kind === "1" ? (
-        <img
-          width="250"
-          height="250"
+        <ImageWithFallback
+          width={250}
+          height={250}
           src={adPlaceHolderUrl}
           alt="Advertisement"
           loading="lazy"
         />
-      ) : // <Image
-      //   layout="constrained"
-      //   objectFit="cover"
-      //   // aspectRatio={250 / 250}
-      //   width={250}
-      //   height={250}
-      //   alt="ad"
-      //   placeholder="#e6e6e6"
-      //   src={adPlaceHolderUrl}
-      //   loading="lazy"
-      // />
-      kind === "2" ? (
-        <img
-          width="250"
-          height="250"
+      ) : kind === "2" ? (
+        <ImageWithFallback
+          width={250}
+          height={250}
           src={adPlaceHolderUrl}
           alt="Advertisement"
           loading="lazy"
         />
       ) : (
-        // <Image
-        //   layout="constrained"
-        //   objectFit="cover"
-        //   // aspectRatio={250 / 250}
-        //   width={250}
-        //   height={250}
-        //   alt="ad"
-        //   placeholder="#e6e6e6"
-        //   src={adPlaceHolderUrl}
-        //   loading="lazy"
-        // />
-        <img
-          width="250"
-          height="250"
+        <ImageWithFallback
+          width={250}
+          height={250}
           src={adPlaceHolderUrl}
           alt="Advertisement"
           loading="lazy"
         />
-        // <Image
-        //   layout="constrained"
-        //   objectFit="cover"
-        //   // aspectRatio={250 / 250}
-        //   width={250}
-        //   height={250}
-        //   alt="ad"
-        //   placeholder="#e6e6e6"
-        //   src={adPlaceHolderUrl}
-        //   loading="lazy"
-        // />
       )}
     </div>
   );

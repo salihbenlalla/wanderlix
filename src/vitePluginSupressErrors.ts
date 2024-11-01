@@ -1,4 +1,4 @@
-import { Plugin } from "vite";
+import { type Plugin } from "vite";
 
 export function suppress403Errors(): Plugin {
   return {

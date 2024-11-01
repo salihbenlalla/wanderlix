@@ -140,6 +140,12 @@ export const head: DocumentHead = ({ resolveValue }) => {
         fetchpriority: "high",
         href: imgSrc,
       },
+      {
+        rel: "preload",
+        as: "image",
+        fetchpriority: "high",
+        href: post.authorAvatar,
+      },
     ],
     meta: [
       {

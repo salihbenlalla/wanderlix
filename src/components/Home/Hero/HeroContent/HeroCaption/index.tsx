@@ -8,7 +8,6 @@ import {
 } from "@builder.io/qwik";
 import styles from "./style.css?inline";
 import { homeContext } from "~/components/Home/HomeContext";
-import { Link } from "@salihbenlalla/qwik-city";
 import { slideDown, slideUp } from "./slideHandlers";
 import { changeIndex } from "./changeIndex";
 
@@ -142,26 +141,26 @@ export default component$(() => {
 
       <div class="hero-caption-button-container">
         <div ref={buttonRef} class="hero-caption-button-inner">
-          <Link
+          <a
             href={transitioning.value ? buttonPlaceholder.value : homeContextStore.slides[homeContextStore.captionPrevIndex].url}
           >
-            DISCOVER LOCATION
-          </Link>
+            <span>DISCOVER LOCATION</span> <span class="button-arrow">&rarr;</span>
+          </a>
 
-          <Link
+          <a
             href={transitioning.value ? buttonPlaceholder.value : homeContextStore.slides[homeContextStore.captionCurrentIndex].url}
           >
-            DISCOVER LOCATION
-          </Link>
+            <span>DISCOVER LOCATION</span> <span class="button-arrow">&rarr;</span>
+          </a>
 
-          <Link
+          <a
             href={transitioning.value ? buttonPlaceholder.value : homeContextStore.slides[homeContextStore.captionNextIndex].url}
           >
-            DISCOVER LOCATION
-          </Link>
+            <span>DISCOVER LOCATION</span> <span class="button-arrow">&rarr;</span>
+          </a>
         </div>
 
-        {/* <span class="button-arrow">&rarr;</span> */}
+
       </div>
     </div>
   );

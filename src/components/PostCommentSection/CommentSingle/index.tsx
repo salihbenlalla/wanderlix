@@ -6,27 +6,14 @@ import {
   useStyles$,
   useVisibleTask$,
 } from "@builder.io/qwik";
-// import { Image } from "qwik-image";
 import type { Comment } from "../commentHandlers";
 import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
 import { getCookie } from "~/lib/helpers/cookies";
-// import { type ActionStore } from "@builder.io/qwik-city";
 import { ThemeContext } from "~/routes/layout";
-import ImgCommentAvatar from "~/assets/comment-avatar.jpg?jsx";
-// import ImgCommentAvatar from "~/assets/comment-avatar.jpg";
+import { ImageWithFallback } from "~/components/ImageWithFallback";
 
 export type CommentSingleProps = Comment & {
-  // editCommentAction: ActionStore<
-  //   Partial<CommentHandlersReturnValue>,
-  //   Record<string, any>,
-  //   true
-  // >;
-  // deleteCommentAction: ActionStore<
-  //   Partial<CommentHandlersReturnValue>,
-  //   Record<string, unknown>,
-  //   true
-  // >;
 };
 
 export default component$<CommentSingleProps>(
@@ -104,20 +91,15 @@ export default component$<CommentSingleProps>(
                 alt="Comment author avatar"
               />
             ) : (
-              <ImgCommentAvatar alt="Comment author avatar" />
+              <ImageWithFallback
+                width={60}
+                height={60}
+                src="/comment-avatar.jpg"
+                alt="Comment author avatar"
+                loading="lazy"
+                exactDimensions
+              />
             )}
-
-            {/* <Image
-              layout="fullWidth"
-              objectFit="cover"
-              // aspectRatio={60 / 60}
-              width={60}
-              height={60}
-              alt="alt text"
-              placeholder="#e6e6e6"
-              src={ImgCommentAvatar}
-              loading="lazy"
-            /> */}
           </a>
         </div>
         <div class="comment-details">

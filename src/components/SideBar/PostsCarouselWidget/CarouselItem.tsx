@@ -68,8 +68,9 @@ export default component$<CarouselItemProps>((props) => {
               loading="lazy"
               width={Math.round(props.imageWidth / 4)}
               height={Math.round(props.imageHeight / 4)}
-              minWidth={244}
-              minHeight={163}
+            // aspectRatio={Math.round(props.imageWidth / 4) / Math.round(props.imageHeight / 4)}
+            // minWidth={244}
+            // minHeight={163}
             />
           </div>
         </a>

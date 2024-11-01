@@ -7,7 +7,7 @@ import {
 import SearchIcon from "~/assets/icomoon_svg/search.svg?component";
 import styles from "./header.css?inline";
 import { ThemeContext } from "~/routes/layout";
-import { Link, useLocation } from "@builder.io/qwik-city";
+import { useLocation } from "@builder.io/qwik-city";
 import { v4 as uuidv4 } from "uuid";
 import navigationLinks from "../navigationLinksData";
 import { Logo } from "~/components/Logo";
@@ -47,12 +47,12 @@ export default component$<HeaderProps>((props) => {
           <ul>
             {navigationLinks.map((link) => (
               <li key={uuidv4()}>
-                <Link
+                <a
                   class={`nav-link${activeRoute === link.href ? " active" : ""}`}
                   href={link.href}
                 >
                   {link.text}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

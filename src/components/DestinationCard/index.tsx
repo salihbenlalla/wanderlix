@@ -1,5 +1,6 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
+import { ImageWithFallback } from "../ImageWithFallback";
 
 export interface DestinationCardProps {
   country: string;
@@ -15,11 +16,12 @@ export default component$<DestinationCardProps>((props) => {
 
   return (
     <a href={`/destination/${props.param}`} class="destination-card">
-      <img
+      <ImageWithFallback
         src={`/images/${320}/${Math.round(props.imageHeight / 4)}/${props.image}`}
-        width="768"
-        height="576"
+        width={768}
+        height={576}
         loading="lazy"
+        alt={props.country}
       />
       <div class="destination-card-info">
         <span class="destination-card-title">{props.country}</span>

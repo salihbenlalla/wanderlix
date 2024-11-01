@@ -34,16 +34,13 @@
   .activity_image {
     float: left;
     margin-right: 16px;
+    border-radius: 5px;
+    width: 200px;
+    height: 150px;
   }
 
   .clear {
     clear: both;
-  }
-
-  .activity_image img {
-    border-radius: 5px;
-    max-width: 200px;
-    max-height: 150px;
   }
 
   .activity_body {

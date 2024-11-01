@@ -1,6 +1,6 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-// import { Image } from "qwik-image";
 import styles from "./style.css?inline";
+import { ImageWithFallback } from "~/components/ImageWithFallback";
 
 export interface SponsoredAdWidgetProps {
   imageUrl: string;
@@ -10,28 +10,17 @@ export interface SponsoredAdWidgetProps {
 export default component$<SponsoredAdWidgetProps>((props) => {
   useStyles$(styles);
   return (
-    <div class="textwidget custom-html-widget">
+    <div class="ad-widget">
       <span class="ads-title">- Sponsored Ad -</span>
       <a href={props.adUrl} class="widget-ads">
-        <img
+        <ImageWithFallback
           src={props.imageUrl}
           alt="Advertisement"
-          width="356"
-          height="361"
-          loading="lazy"
-        />
-
-        {/* <Image
-          layout="fullWidth"
-          objectFit="cover"
-          aspectRatio={356 / 361}
           width={356}
           height={361}
-          alt="alt text"
-          placeholder="#e6e6e6"
-          src={props.imageUrl}
+          aspectRatio={356 / 361}
           loading="lazy"
-        /> */}
+        />
       </a>
     </div>
   );

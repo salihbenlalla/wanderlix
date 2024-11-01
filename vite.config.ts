@@ -11,7 +11,7 @@ import svgx from "@svgx/vite-plugin-qwik";
 import resolvePlatform from "./src/vite-plugin-resolve-platform";
 import replaceLinkIdsRehype from "./src/rehypePlugin";
 import createGetDevDB from "./src/lib/helpers/createGetDevDB";
-import { suppress403Errors } from "./src/vitePluginSupressErrors";
+// import { suppress403Errors } from "./src/vitePluginSupressErrors";
 
 const { dependencies = {}, devDependencies = {} } = pkg as any as {
   dependencies: Record<string, string>;
@@ -44,7 +44,7 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
       qwikVite(),
       tsconfigPaths(),
       svgx(),
-      suppress403Errors()
+      // suppress403Errors()
     ],
     define: {
       'import.meta.env.PUBLIC_CF_PAGES_URL': JSON.stringify(process.env.CF_PAGES_URL),

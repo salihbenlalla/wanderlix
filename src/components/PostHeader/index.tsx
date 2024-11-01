@@ -10,7 +10,7 @@ import BubbleIcon from "~/assets/icomoon_svg/bubble2.svg?component";
 import { formatDate } from "~/lib/helpers/formatDate";
 import styles from "./style.css?inline";
 import { ThemeContext } from "~/routes/layout";
-import { ImageTransformerProps, getSrcSet } from "qwik-image";
+import { type ImageTransformerProps, getSrcSet } from "qwik-image";
 import { ImageWithFallback } from "../ImageWithFallback";
 
 interface PostHeaderProps {
@@ -76,6 +76,7 @@ const PostHeader = component$<PostHeaderProps>((props) => {
           loading="eager"
           width={props.imageWidth}
           height={props.imageHeight}
+          noFallback
         />
       </div>
       <div class="container">
@@ -125,7 +126,8 @@ const PostHeader = component$<PostHeaderProps>((props) => {
                       alt={props.authorName}
                       width={32}
                       height={32}
-                      loading="eager"
+                      loading="lazy"
+                      exactDimensions
                     />
                   </a>
                 </span>
