@@ -22,10 +22,7 @@ export default component$<PaginationButtonsProps>((props) => {
     ? "/" + pathname.slice(0, pathname.length - 1).join("/") + "/"
     : "/" + pathname.join("/") + "/";
 
-  // const isSearchPage = pathname === "/search/";
-
   const searchParams = loc.url.searchParams;
-  searchParams.delete("page");
 
   return (
     <>
@@ -34,29 +31,22 @@ export default component$<PaginationButtonsProps>((props) => {
           <ul>
             {props.pageNumber > 2 && (
               <li key={uuidv4()}>
-                <Link
+                <a
                   class="page-number"
-                  // href={`${pathname}${
-                  //   searchParams.size > 0 ? `?${searchParams.toString()}` : ""
-                  // }${isSearchPage ? "&page=1" : ""}`}
-
                   href={`${pathname}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""}`}
                 >
                   «
-                </Link>
+                </a>
               </li>
             )}
             {props.pageNumber > 1 && (
               <li key={uuidv4()}>
-                <Link
+                <a
                   class="page-number"
-                  // href={`${pathname}${!isSearchPage ? props.pageNumber - 1 : ""}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""
-                  //   }${isSearchPage ? `&page=${props.pageNumber - 1}` : ""}`}
-
-                  href={`${pathname}${props.pageNumber - 1}/${searchParams.size > 0 ? `?${searchParams.toString()}` : ""}`}
+                  href={`${pathname}${props.pageNumber - 1 !== 1 ? `${props.pageNumber - 1}/` : ""}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""}`}
                 >
                   {props.pageNumber - 1}
-                </Link>
+                </a>
               </li>
             )}
             <li key={uuidv4()}>
@@ -64,28 +54,22 @@ export default component$<PaginationButtonsProps>((props) => {
             </li>
             {props.pageNumber !== props.totalPages && (
               <li key={uuidv4()}>
-                <Link
+                <a
                   class="page-number"
-                  // href={`${pathname}${!isSearchPage ? props.pageNumber + 1 : ""}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""
-                  //   }${isSearchPage ? `&page=${props.pageNumber + 1}` : ""}`}
-
                   href={`${pathname}${props.pageNumber + 1}/${searchParams.size > 0 ? `?${searchParams.toString()}` : ""}`}
                 >
                   {props.pageNumber + 1}
-                </Link>
+                </a>
               </li>
             )}
             {props.pageNumber < props.totalPages - 1 && (
               <li key={uuidv4()}>
-                <Link
+                <a
                   class="page-number"
-                  // href={`${pathname}${!isSearchPage ? props.totalPages : ""}${searchParams.size > 0 ? `?${searchParams.toString()}` : ""
-                  //   }${isSearchPage ? `&page=${props.totalPages}` : ""}`}
-
                   href={`${pathname}${props.totalPages}/${searchParams.size > 0 ? `?${searchParams.toString()}` : ""}`}
                 >
                   »
-                </Link>
+                </a>
               </li>
             )}
           </ul>
