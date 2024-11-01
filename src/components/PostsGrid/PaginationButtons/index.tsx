@@ -1,6 +1,6 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import styles from "./style.css?inline";
-import { Link, useLocation } from "@builder.io/qwik-city";
+import { useLocation } from "@builder.io/qwik-city";
 import { v4 as uuidv4 } from "uuid";
 import isNumber from "~/lib/helpers/isNumber";
 import splitStringWithoutEmpty from "~/lib/helpers/splitStringWithoutEmpty";
