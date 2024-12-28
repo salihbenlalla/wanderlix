@@ -1,9 +1,9 @@
 import {
   component$,
   useStyles$,
-  useVisibleTask$,
   useContext,
   $,
+  useTask$,
 } from "@builder.io/qwik";
 import CloseIcon from "~/assets/icomoon_svg/closex.svg";
 import styles from "./style.css?inline";
@@ -15,7 +15,7 @@ export const Toast = component$(() => {
   useStyles$(styles);
 
   // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(({ track }) => {
+  useTask$(({ track }) => {
     track(() => theme.toast.isVisible);
     if (theme.toast.isVisible) {
       delay(3000).then(() => {

@@ -1,7 +1,6 @@
 import { type Signal } from "@builder.io/qwik";
 import { timeline } from "motion";
 import { type HomeContextStore } from "../..";
-// import { type Slide } from "../HeroContent/SlickSlider2";
 
 export interface AnimateSliderOptions {
   prevRef: Signal<HTMLDivElement | undefined>;
@@ -15,41 +14,77 @@ export interface AnimateSliderOptions {
   direction: "prev" | "next";
 }
 
-export const changeIndex = (options: AnimateSliderOptions) => {
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function correctionAnimation(options: AnimateSliderOptions) {
+  if (
+    !options.currentRef.value ||
+    !options.prevRef.value ||
+    !options.nextRef.value
+  ) {
+    return;
+  }
+  await timeline([
+    [
+      options.currentRef.value,
+      {
+        opacity: 1,
+        transform: `scale(1)`,
+      },
+      {
+        duration: 0,
+      },
+    ],
+    [
+      options.direction === "prev"
+        ? options.prevRef.value
+        : options.nextRef.value,
+      {
+        opacity: 0,
+        transform: `scale(5)`,
+      },
+      {
+        duration: 0,
+      },
+    ],
+  ]).finished;
+}
+
+export const changeIndex = async (options: AnimateSliderOptions) => {
   const prevIndex = options.prevIndex.value;
   const currentIndex = options.homeContextStore.currentIndex;
   const nextIndex = options.nextIndex.value;
   const lastIndex = options.homeContextStore.slides.length - 1;
   if (options.direction === "prev") {
-    options.prevIndex.value = prevIndex === 0 ? lastIndex : prevIndex - 1;
     options.homeContextStore.currentIndex =
       currentIndex === 0 ? lastIndex : currentIndex - 1;
+    await sleep(1);
+    await correctionAnimation(options);
+    options.prevIndex.value = prevIndex === 0 ? lastIndex : prevIndex - 1;
     options.nextIndex.value = nextIndex === 0 ? lastIndex : nextIndex - 1;
   }
   if (options.direction === "next") {
     options.homeContextStore.currentIndex =
       currentIndex === lastIndex ? 0 : currentIndex + 1;
+    await sleep(1);
+    await correctionAnimation(options);
     options.prevIndex.value = prevIndex === lastIndex ? 0 : prevIndex + 1;
     options.nextIndex.value = nextIndex === lastIndex ? 0 : nextIndex + 1;
   }
 };
 
 const changeSlickSliderIndex = (options: AnimateSliderOptions) => {
-  //   const prevIndex = options.prevIndex.value;
   const currentIndex = options.homeContextStore.slickSliderCurrentIndex;
-  //   const nextIndex = options.nextIndex.value;
   const lastIndex = options.homeContextStore.slides.length - 1;
   if (options.direction === "prev") {
-    // options.prevIndex.value = prevIndex === 0 ? lastIndex : prevIndex - 1;
     options.homeContextStore.slickSliderCurrentIndex =
       currentIndex === 0 ? lastIndex : currentIndex - 1;
-    // options.nextIndex.value = nextIndex === 0 ? lastIndex : nextIndex - 1;
   }
   if (options.direction === "next") {
     options.homeContextStore.slickSliderCurrentIndex =
       currentIndex === lastIndex ? 0 : currentIndex + 1;
-    // options.prevIndex.value = prevIndex === lastIndex ? 0 : prevIndex + 1;
-    // options.nextIndex.value = nextIndex === lastIndex ? 0 : nextIndex + 1;
   }
 };
 
@@ -115,7 +150,6 @@ export const animateSlider = async (options: AnimateSliderOptions) => {
         {
           opacity: 0,
           transform: `scale(5)`,
-          filter: `blur(${options.blurValue}px)`,
         },
         { duration: options.duration, easing: "ease-in", at: 0 },
       ],
@@ -144,7 +178,7 @@ export const animateSlider = async (options: AnimateSliderOptions) => {
         },
       ],
     ]).finished;
+
+    changeIndex(options);
   }
-  changeIndex(options);
-  //   options.homeContextStore.direction = "next";
 };

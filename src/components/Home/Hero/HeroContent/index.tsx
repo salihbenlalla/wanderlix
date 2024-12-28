@@ -14,16 +14,6 @@ import { animate } from "motion";
 export default component$(() => {
   useStyles$(styles);
 
-  const slideWidth = useSignal(170);
-  const slideHeight = useSignal(230);
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    if (window.innerHeight <= 700 && window.innerWidth < 992) {
-      slideHeight.value = 0.28 * window.innerHeight;
-      slideWidth.value = 0.2 * window.innerHeight;
-    }
-  });
-
   const HomeContextStore = useContext(homeContext);
   const leftRef = useSignal<HTMLDivElement>();
   const rightRef = useSignal<HTMLDivElement>();
@@ -89,11 +79,7 @@ export default component$(() => {
           <HeroCaption />
         </div>
         <div ref={rightRef} class="hero-content-right">
-          <SlickSlider
-            slideWidth={slideWidth.value}
-            slideHeight={slideHeight.value}
-            margin={10}
-          />
+          <SlickSlider />
         </div>
       </div>
     </div>

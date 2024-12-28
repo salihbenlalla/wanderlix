@@ -1,4 +1,5 @@
 .button {
+  /* color: #fff; */
   font-size: 16px;
   font-weight: 400;
   width: fit-content;
@@ -19,35 +20,38 @@
   text-decoration: none;
 }
 
-.button_orange {
-  background-color: var(--color-secondary);
-  border: 1px solid var(--color-secondary);
-}
-
 .button_blue {
-  background-color: #15a7ca;
-  border: 1px solid #15a7ca;
+  background-color: #0c5d74;
+  border: 1px solid #0c5d74;
+  color: #fff;
 }
 
 .button_blue a {
-  color: var(--color-pure-white);
+  color: #fff;
 }
 
 .button_blue svg {
-  fill: var(--color-pure-white);
+  fill: #fff;
+}
+
+.button_orange {
+  background-color: #9e2e00;
+  border: 1px solid #9e2e00;
+  color: #fff;
 }
 
 .button_orange a {
-  color: var(--color-pure-white);
+  color: #fff;
 }
 
 .button_orange svg {
-  fill: var(--color-pure-white);
+  fill: #fff;
 }
 
 .button_gray {
   background-color: #fff;
   border: 1px solid #2e383f;
+  color: #2e383f;
 }
 
 .button_gray a {
@@ -67,14 +71,14 @@
 }
 
 .button:hover {
-  background-color: #15a7ca;
+  background-color: #0c5e73;
   border: 1px solid #fff;
 }
 
 .button:hover a {
-  color: var(--color-pure-white);
+  color: #fff;
 }
 
 .button:hover svg {
-  fill: var(--color-pure-white);
+  fill: #fff;
 }

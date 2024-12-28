@@ -43,7 +43,7 @@ declare global {
 export const getTranslateValues = (
   numberOfPosts: number,
   margin: number = 0,
-  itemWidth: number
+  itemWidth: number,
 ) => {
   const halfOfPosts = Math.floor(numberOfPosts / 2);
   const numbers = Array.from({ length: numberOfPosts }, (_, i) => i);
@@ -61,17 +61,17 @@ export default component$<PostsCarouselWidgetProps>((props) => {
   const MARGIN = 10;
   const ITEMWIDTH = 298;
   const direction = useSignal<"prev" | "next" | null>(null);
-  const margin = useSignal(0);
+  const margin = useSignal(MARGIN);
 
   const store = useStore<Store>(
     {
       translateValues: getTranslateValues(
         props.posts.length,
         margin.value,
-        ITEMWIDTH
+        ITEMWIDTH,
       ),
     },
-    { deep: true }
+    { deep: true },
   );
 
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -82,7 +82,7 @@ export default component$<PostsCarouselWidgetProps>((props) => {
       store.translateValues = getTranslateValues(
         props.posts.length,
         margin.value,
-        ITEMWIDTH
+        ITEMWIDTH,
       );
     }
   });

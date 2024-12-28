@@ -8,6 +8,9 @@ interface ButtonProps {
 }
 
 const Button = component$<ButtonProps>((props) => {
+  if (props.color !== "button_gray") {
+    return <></>;
+  }
   useStyles$(styles);
   const SVGIcon = props.icon ? svgxImport(props.icon) : "";
   return (

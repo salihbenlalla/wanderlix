@@ -21,8 +21,8 @@ import {
   string,
   boolean,
   number,
-  url,
   nullish,
+  custom,
 } from "valibot";
 import {
   useForm,
@@ -43,7 +43,14 @@ const CommentSchema = object({
   ]),
   authorName: string([minLength(1, "Please enter your name.")]),
   commentText: string([minLength(1, "Please enter your comment text.")]),
-  website: string([url("please enter a valid URL")]),
+  website: string([
+    minLength(1, "Please enter a website."),
+    custom((input) => {
+      const urlPattern =
+        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\w .-]*)*\/?$/;
+      return urlPattern.test(input);
+    }, "Please enter a valid URL or domain name."),
+  ]),
   comment_cookies_consent: boolean(),
   commenter_id: nullish(string([])),
   commentId: nullish(number()),
@@ -306,7 +313,7 @@ export default component$<CommentFormProps>((props) => {
         </Tooltip>
       </div>
       <div class="comment-form-email comment-form-field">
-        <label for="email">Email *</label>
+        <label for="comment-form-email">Email *</label>
         <Tooltip>
           <Field name="email">
             {(field, props) => (
@@ -316,7 +323,7 @@ export default component$<CommentFormProps>((props) => {
                   value={field.value}
                   disabled={theme.userInfoRemembered}
                   type="email"
-                  id="email"
+                  id="comment-form-email"
                   class={field.error ? "error" : ""}
                   aria-describedby="email-notes"
                   size={30}

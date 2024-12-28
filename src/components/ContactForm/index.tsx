@@ -53,7 +53,7 @@ export default component$(() => {
   const handleSubmit: QRL<SubmitHandler<ContactFormInput>> = $(
     async (values, _ /*event*/) => {
       try {
-        const response = await fetch("/contact/message", {
+        const response = await fetch("/contact-message", {
           method: "POST",
           body: JSON.stringify(values),
         });

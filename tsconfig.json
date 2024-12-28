@@ -29,7 +29,8 @@
     "src",
     "./*.d.ts",
     "./*.config.ts",
-    "adapters/cloudflare-pages/platform.ts"
+    "adapters/cloudflare-pages/platform.ts",
+    "./tailwind.config.js"
   ],
   "exclude": [
     "wrangler",

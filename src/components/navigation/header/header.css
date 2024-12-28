@@ -1,32 +1,18 @@
 .main-header {
-  transform: translateY(0);
   background-color: #fff;
   background-repeat: repeat;
   background-position: center center;
   background-attachment: scroll;
   background-size: cover;
-  /* border-bottom: solid 1px #ebebeb; */
   margin: 0;
   transition: 0.3s transform cubic-bezier(0.3, 0.73, 0.3, 0.74);
   z-index: 4;
   width: 100%;
 }
 
-/* .main-header::after {
-  background-color: rgba(255, 255, 255, 0);
-  content: "";
-  display: block;
-  left: 0;
-  top: 0;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-} */
-
 .navbar {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -66,16 +52,12 @@
   }
   .navbar {
     justify-content: space-between;
-    /* padding-left: 0;
-    padding-right: 0; */
   }
 }
 
 .nav-link {
   display: block;
-  /* color: #79889e; */
   color: #595959;
-  /* color: #203656; */
   text-decoration: none;
   outline: none;
   padding: 7.024px 20.8px;

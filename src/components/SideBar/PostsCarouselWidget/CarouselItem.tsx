@@ -1,5 +1,7 @@
 import {
+  $,
   component$,
+  useOnDocument,
   useSignal,
   useStore,
   useVisibleTask$,
@@ -46,19 +48,31 @@ export default component$<CarouselItemProps>((props) => {
         },
         {
           duration: 0.6,
-        }
+        },
       );
     }
   });
 
-  const liStyle = () => {
-    return {
-      transform: `translate3d(${store.translateValue + fixup}px, 0, 0)`,
-    };
-  };
+  useOnDocument(
+    "load",
+    $(() => {
+      if (liRef.value) {
+        liRef.value.style.transform = `translate3d(${store.translateValue + fixup}px, 0, 0)`;
+      }
+    }),
+  );
 
   return (
-    <li ref={liRef} style={liStyle()}>
+    <li
+      ref={liRef}
+      class={{
+        "translate-x-0": store.translateValue + fixup === 0,
+        "translate-x-[-298px]": store.translateValue + fixup === -298,
+        "translate-x-[298px]": store.translateValue + fixup === 298,
+        "translate-x-[-318px]": store.translateValue + fixup === -318,
+        "translate-x-[318px]": store.translateValue + fixup === 318,
+      }}
+    >
       <div class="carousel-post-thumbnail">
         <a href={props.url}>
           <div class="carousel-post-thumbnail-inner">
@@ -68,9 +82,9 @@ export default component$<CarouselItemProps>((props) => {
               loading="lazy"
               width={Math.round(props.imageWidth / 4)}
               height={Math.round(props.imageHeight / 4)}
-            // aspectRatio={Math.round(props.imageWidth / 4) / Math.round(props.imageHeight / 4)}
-            // minWidth={244}
-            // minHeight={163}
+              // aspectRatio={Math.round(props.imageWidth / 4) / Math.round(props.imageHeight / 4)}
+              // minWidth={244}
+              // minHeight={163}
             />
           </div>
         </a>

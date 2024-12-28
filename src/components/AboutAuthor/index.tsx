@@ -19,12 +19,18 @@ export default component$<GridHeaderProps>((props) => {
     <div class="about-author-container">
       <div class="about-author-thumbnail">
         {/*<img src={props.imageUrl} width={100} height={100} />*/}
-        <ImageWithFallback src={props.imageUrl} width={100} height={100} loading="lazy" alt={props.name} />
+        <ImageWithFallback
+          src={props.imageUrl}
+          width={100}
+          height={100}
+          loading="lazy"
+          alt={props.name}
+        />
       </div>
       <div class="about-author-details">
-        <h6>
+        <p class="about-author-name">
           <a href={`/author/${props.url}/`}>{props.name}</a>
-        </h6>
+        </p>
         <p>{props.bio}</p>
         <ul>
           <li>

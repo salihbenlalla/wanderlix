@@ -6,6 +6,7 @@ import navigationLinks from "../navigationLinksData";
 import { useLocation } from "@builder.io/qwik-city";
 import { v4 as uuidv4 } from "uuid";
 import { Logo } from "~/components/Logo";
+import { cn } from "~/lib/helpers/cn";
 
 export default component$(() => {
   useStyles$(styles);
@@ -14,17 +15,17 @@ export default component$(() => {
   const loc = useLocation();
   const activeRoute = loc.url.pathname.replace(
     /^\/(post|destination)\/.*/,
-    "/destinations/"
+    "/destinations/",
   );
 
   const toggleMenu = $(() => (theme.sideMenuOpen = false));
 
   return (
     <div
-      class="side-menu"
-      style={{
-        transform: `translate3d(${theme.sideMenuOpen ? 0 : 100}%, 0, 0)`,
-      }}
+      class={cn("side-menu", {
+        "translate-x-0": theme.sideMenuOpen,
+        "translate-x-full": !theme.sideMenuOpen,
+      })}
     >
       <button
         type="button"

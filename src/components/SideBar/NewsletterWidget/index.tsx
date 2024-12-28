@@ -90,7 +90,7 @@ export default component$<NewsletterWidgetProps>((props) => {
       <Form onSubmit$={handleSubmit} id="contactform" class="contact-form">
         <div>
           <div>
-            <span class="newsletter-headline">Join 70,000 subscribers!</span>
+            <span class="newsletter-headline">Join 12,536 subscribers!</span>
             <div class="email-input">
               <Field name="email">
                 {(field, props) => (
@@ -99,7 +99,7 @@ export default component$<NewsletterWidgetProps>((props) => {
                       {...props}
                       value={field.value}
                       type="email"
-                      id="email"
+                      id="newsletter-email"
                       placeholder="Email address…"
                       class={field.error ? "error" : ""}
                       aria-describedby="email-notes"

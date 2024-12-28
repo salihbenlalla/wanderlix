@@ -1,9 +1,4 @@
-import {
-  type CSSProperties,
-  component$,
-  useContext,
-  useStyles$,
-} from "@builder.io/qwik";
+import { component$, useContext, useStyles$ } from "@builder.io/qwik";
 import SearchIcon from "~/assets/icomoon_svg/search.svg?component";
 import styles from "./header.css?inline";
 import { ThemeContext } from "~/routes/layout";
@@ -11,6 +6,7 @@ import { useLocation } from "@builder.io/qwik-city";
 import { v4 as uuidv4 } from "uuid";
 import navigationLinks from "../navigationLinksData";
 import { Logo } from "~/components/Logo";
+import { cn } from "~/lib/helpers/cn";
 
 interface HeaderProps {
   hidden?: boolean;
@@ -26,21 +22,24 @@ export default component$<HeaderProps>((props) => {
   const loc = useLocation();
   const activeRoute = loc.url.pathname.replace(
     /^\/(post|destination)\/.*/,
-    "/destinations/"
+    "/destinations/",
   );
 
-  const headerStyle: CSSProperties = {
-    padding: props.isSmall || props.sticky ? "25px 0" : "40px 0",
-    position: props.sticky ? "fixed" : "relative",
-    top: 0,
-    transform: props.hidden
-      ? "translate3d(0, -100%, 0)"
-      : "translate3d(0, 0, 0)",
-    borderBottom: props.sticky ? "solid 1px #ebebeb" : "none",
-  };
+  const isHome = activeRoute === "/";
 
   return (
-    <header class="main-header" style={headerStyle}>
+    <header
+      class={cn("main-header top-0", {
+        "py-[25px]": props.isSmall || props.sticky,
+        "py-[40px]": !props.isSmall && !props.sticky,
+        fixed: props.sticky,
+        relative: !props.sticky,
+        "-translate-y-full": props.hidden,
+        "translate-y-0": !props.hidden,
+        "border-b border-solid border-gray-200": props.sticky || !isHome,
+        "border-none": !props.sticky && isHome,
+      })}
+    >
       <div class="container">
         <nav class="navbar">
           <Logo />

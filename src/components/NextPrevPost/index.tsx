@@ -15,7 +15,7 @@ export default component$<NextPrevPostProps>((props) => {
       <div class="nextprev-prevcontainer prev">
         <div class="next-prev-post prev">
           <div class="next-prev-text">Previous Post</div>
-          <h6 class="next-prev-post-title">
+          <p class="next-prev-post-title">
             <a
               aria-label="previous post link"
               title="previous post"
@@ -23,13 +23,13 @@ export default component$<NextPrevPostProps>((props) => {
             >
               {props.prevPostTitle}
             </a>
-          </h6>
+          </p>
         </div>
       </div>
       <div class="nextprev-prevcontainer next">
         <div class="next-prev-post next">
           <div class="next-prev-text">Next Post</div>
-          <h6 class="next-prev-post-title">
+          <p class="next-prev-post-title">
             <a
               aria-label="previous post link"
               title="previous post"
@@ -37,7 +37,7 @@ export default component$<NextPrevPostProps>((props) => {
             >
               {props.nextPostTitle}
             </a>
-          </h6>
+          </p>
         </div>
       </div>
     </div>

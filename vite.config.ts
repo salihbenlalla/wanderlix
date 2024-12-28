@@ -11,7 +11,7 @@ import svgx from "@svgx/vite-plugin-qwik";
 import resolvePlatform from "./src/vite-plugin-resolve-platform";
 import replaceLinkIdsRehype from "./src/rehypePlugin";
 import createGetDevDB from "./src/lib/helpers/createGetDevDB";
-// import { suppress403Errors } from "./src/vitePluginSupressErrors";
+import { suppress403Errors } from "./src/vitePluginSupressErrors";
 
 const { dependencies = {}, devDependencies = {} } = pkg as any as {
   dependencies: Record<string, string>;
@@ -23,7 +23,7 @@ const { dependencies = {}, devDependencies = {} } = pkg as any as {
  * Note that Vite normally starts from `index.html` but the qwikCity plugin makes start at `src/entry.ssr.tsx` instead.
  */
 export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
-  const DB = await (await createGetDevDB())()
+  const DB = await (await createGetDevDB())();
 
   return {
     plugins: [
@@ -33,29 +33,76 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
           providerImportSource: "~/components/MDXProvider/",
           jsxRuntime: "automatic",
           jsxImportSource: "@builder.io/qwik",
-          rehypePlugins: [[replaceLinkIdsRehype, DB]]
+          rehypePlugins: [[replaceLinkIdsRehype, DB]],
         },
         platform: {
           env: {
-          DB: DB
-          }
-        }
+            DB: DB,
+          },
+        },
       }),
-      qwikVite(),
+      qwikVite({
+        entryStrategy: {
+          type: "smart",
+          manual: {
+            ...bundle("initialbundle", [
+              "_hW",
+              "s_LcO2OGTEA00",
+              "s_OvpTnKZsgbw",
+              "s_e0Qzq1fIk78",
+              "s_OvpTnKZsgbw",
+            ]),
+          },
+        },
+      }),
       tsconfigPaths(),
       svgx(),
-      // suppress403Errors()
+      suppress403Errors(),
     ],
     define: {
-      'import.meta.env.PUBLIC_CF_PAGES_URL': JSON.stringify(process.env.CF_PAGES_URL),
-      // 'import.meta.env.PUBLIC_SITE_NAME': JSON.stringify(process.env.PUBLIC_SITE_NAME),
-      // 'import.meta.env.PUBLIC_SITE_DOMAIN_NAME': JSON.stringify(process.env.PUBLIC_SITE_DOMAIN_NAME)
+      "import.meta.env.PUBLIC_CF_PAGES_URL": JSON.stringify(
+        process.env.CF_PAGES_URL
+      ),
+    },
+    build: {
+      minify: "esbuild",
+      target: "es2020",
+      cssMinify: true,
+      rollupOptions: {
+        external: [
+          "better-sqlite3",
+          "@miniflare/d1",
+          "@miniflare/core",
+          "@miniflare/shared",
+          "@iarna/toml",
+        ],
+        output: {
+          // manualChunks(id) {
+          //   if (id.includes("@builder.io/qwik") || id.includes("@salihbenlalla/qwik-city")) {
+          //     return "vendor";
+          //   }
+          //   if (id.includes("@modular-forms/qwik")) {
+          //     return "forms";
+          //   }
+          //   if (id.includes("dateformat") || id.includes("uuid") || id.includes("valibot")) {
+          //     return "utils";
+          //   }
+          // },
+        },
+      },
     },
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
       // Put problematic deps that break bundling here, mostly those with binaries.
       // For example ['better-sqlite3'] if you use that in server functions.
-      exclude: []
+      exclude: [
+        "better-sqlite3",
+        "@miniflare/d1",
+        "@miniflare/shared",
+        "miniflare",
+        "@builder.io/qwik",
+        "@salihbenlalla/qwik-city",
+      ],
     },
     // This tells Vite how to bundle the server code.
     ssr:
@@ -69,7 +116,7 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
             // For example, if something uses `bcrypt` but you don't have it as a dep, you can write
             // external: [...Object.keys(dependencies), 'bcrypt']
             external: [
-              ...Object.keys(dependencies)
+              ...Object.keys(dependencies),
               // "@miniflare/d1",
               // "@miniflare/core",
               // "@miniflare/shared",
@@ -89,14 +136,14 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
         ignored: ["./src/routes/**/*.mdx"],
       },
 
-      preTransformRequests: false
+      preTransformRequests: false,
 
       // from previous project
       // hmr: {
       //   clientPort: 5173,
       // }
     },
-    
+
     preview: {
       headers: {
         // Do cache the server response in preview (non-adapter production build)
@@ -104,21 +151,32 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
       },
     },
     // from previous project
-    build: {
-      minify: false,
-      sourcemap: true,
-      // rollupOptions: {
-      //   external: ["src/lib/helpers/createGetDevDB.ts", "src/lib/helpers/getDB_copy.ts", "esbuild", "@miniflare/d1", "@miniflare/core", "@miniflare/shared", "@iarna/toml"]
-      // }
-    },
+    // build: {
+    //   minify: true,
+    //   sourcemap: false,
+    //   // rollupOptions: {
+    //   //   external: ["src/lib/helpers/createGetDevDB.ts", "src/lib/helpers/getDB_copy.ts", "esbuild", "@miniflare/d1", "@miniflare/core", "@miniflare/shared", "@iarna/toml"]
+    //   // }
+    // },
     resolve: {
-    // alias: [
-    //   { find: /^@builder\.io\/qwik(.*)$/, replacement: '@builder/qwik$1' }
+      // alias: [
+      //   { find: /^@builder\.io\/qwik(.*)$/, replacement: '@builder/qwik$1' }
       // ]
       alias: {
-        '@builder.io/qwik-city': '@salihbenlalla/qwik-city'
+        "@builder.io/qwik-city": "@salihbenlalla/qwik-city",
       },
-      extensions: [".ts", ".js", ".tsx", ".jsx"]
-  }
+      extensions: [".ts", ".js", ".tsx", ".jsx"],
+    },
   };
 });
+
+function bundle(bundleName: string, symbols: string[]) {
+  return symbols.reduce(
+    (obj, key) => {
+      // Sometimes symbols are prefixed with `s_`, remove it.
+      obj[key.replace("s_", "")] = obj[key] = bundleName;
+      return obj;
+    },
+    {} as Record<string, string>
+  );
+}

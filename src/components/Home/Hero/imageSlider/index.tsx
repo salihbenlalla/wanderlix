@@ -6,7 +6,6 @@ import {
   useVisibleTask$,
 } from "@builder.io/qwik";
 import { homeContext } from "../../HomeContext";
-// import { type SlickSliderProps } from "../HeroContent/SlickSlider2";
 import { animateSlider, type AnimateSliderOptions } from "./animateSlider";
 import styles from "./style.css?inline";
 
@@ -38,16 +37,6 @@ const ImageSlider = component$(() => {
     duration: 1.5,
   };
 
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    window.heroSliderTimer = setInterval(() => {
-      animateSlider({ ...animateSliderOptions, direction: "next" });
-      //   changeIndex({ ...animateSliderOptions, direction: "next" });
-    }, 10000);
-
-    return () => clearInterval(window.heroSliderTimer);
-  });
-
   const isInitialized = useSignal<boolean>(false);
 
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -63,41 +52,49 @@ const ImageSlider = component$(() => {
     });
   });
 
-  //   const handlePrev = $(() => {
-  //     animateSlider({ ...animateSliderOptions, direction: "prev" });
-  //   });
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(({ track }) => {
+    track(() => homeContextStore.generalIndex);
+    window.heroSliderTimer = setInterval(async () => {
+      homeContextStore.animationIsRunning = true;
+      await animateSlider({ ...animateSliderOptions, direction: "next" });
+      homeContextStore.animationIsRunning = false;
+    }, 5000);
 
-  //   const handleNext = $(() => {
-  //     animateSlider({ ...animateSliderOptions, direction: "next" });
-  //   });
+    return () => clearInterval(window.heroSliderTimer);
+  });
 
   return (
     <>
       <div class="hero-slider-container">
         <div class="hero-slider">
-          <div
+          <img
             ref={prevRef}
             class="slide prev"
-            style={{
-              backgroundImage: `url("${homeContextStore.slides[prevIndex.value].thumbnail
-                }")`,
-            }}
+            src={homeContextStore.slides[prevIndex.value].thumbnail}
+            alt={homeContextStore.slides[prevIndex.value].title}
+            width={1280}
+            height={720}
           />
-          <div
+
+          <img
             ref={currentRef}
             class="slide current"
-            style={{
-              backgroundImage: `url("${homeContextStore.slides[homeContextStore.currentIndex].thumbnail
-                }")`,
-            }}
+            src={
+              homeContextStore.slides[homeContextStore.currentIndex].thumbnail
+            }
+            alt={homeContextStore.slides[homeContextStore.currentIndex].title}
+            width={1280}
+            height={720}
           />
-          <div
+
+          <img
             ref={nextRef}
             class="slide next"
-            style={{
-              backgroundImage: `url("${homeContextStore.slides[nextIndex.value].thumbnail
-                }")`,
-            }}
+            src={homeContextStore.slides[nextIndex.value].thumbnail}
+            alt={homeContextStore.slides[nextIndex.value].title}
+            width={1280}
+            height={720}
           />
         </div>
       </div>

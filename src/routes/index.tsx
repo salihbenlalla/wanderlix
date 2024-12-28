@@ -43,7 +43,7 @@ export const head: DocumentHead = () => {
       },
       {
         property: "og:image",
-        content: `${origin}/images/1280/854/megve-5.webp`, // Replace with actual image path
+        content: `${origin}/images/etc/wanderlix-logo.webp`,
       },
       {
         property: "og:image:width",
@@ -71,7 +71,7 @@ export const head: DocumentHead = () => {
       },
       {
         name: "twitter:image",
-        content: `${origin}/images/1280/854/megve-5.webp`, // Replace with actual image path
+        content: `${origin}/images/etc/wanderlix-logo.webp`,
       },
     ],
   };

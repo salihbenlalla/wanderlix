@@ -15,7 +15,7 @@ import Header from "../components/navigation/header";
 import { Toast } from "../components/Toast";
 import { type FormStore } from "@modular-forms/qwik";
 import { type CommentFormInput } from "~/components/PostCommentSection/CommentForm";
-import { useLocation } from "@salihbenlalla/qwik-city";
+import { type RequestHandler, useLocation } from "@salihbenlalla/qwik-city";
 import { getDomainName } from "~/lib/helpers/getDomainName";
 
 interface Toast {
@@ -86,7 +86,7 @@ export default component$(() => {
 
       // Here you can set your favourite image loaders service
       return `/images/${width}/${height}/${newSrc}`;
-    }
+    },
   );
 
   useImageProvider({
@@ -99,7 +99,7 @@ export default component$(() => {
   const isHomePage = loc.url.pathname === "/";
 
   return (
-    <div style={{ width: "100%" }}>
+    <div class="w-full">
       <ReadingBar />
       <SearchPopup />
       <MainOverlay />
@@ -110,18 +110,22 @@ export default component$(() => {
         <Slot />
       </main>
 
-      {
-        !isHomePage && <footer class="site-footer">
-          <p>Copyright {getDomainName()} © 2022</p>
+      {!isHomePage && (
+        <footer class="site-footer">
+          <p>
+            Copyright {getDomainName()} © {new Date().getFullYear()}
+          </p>
         </footer>
-      }
+      )}
     </div>
   );
 });
 
-// export const onGet: RequestHandler = (request) => {
-//   request.headers.set(
-//     "Content-Security-Policy",
-//     "default-src 'self'; script-src 'self' 'unsafe-inline' 'sha256-g2wSyi3TrUzxFZ5KKm9Ls/e37jmA4yH9o9YUs+UhQGY=' 'sha256-Ce2y3UxMxDQ2YwcA9RP+kV6CR9Zk/zxDES+WO5tn2UY=' 'sha256-6SEQUPC2k3K33z7byFDZZc7XSx0BQse8a6eRbu+yl4Q=' 'sha256-xAsnfAjBo+mB8c67j0jB7DVC2AN7A7wNVJq1TCfGI5c=' 'sha256-vi61YlUtCWKrrJSLDkNFNZCP/OHuROPnQXbhZrMqEDE=' 'sha256-LQ/b4wVdtWOgTe3uoea7Lr4hIJKEyP8UpO0LHRZ+z2w=' ; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'self'; child-src 'self'; form-action 'self';"
-//   );
-// };
+export const onGet: RequestHandler = (request) => {
+  request.headers.set(
+    // "Content-Security-Policy",
+    // "default-src 'self'; script-src 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'self'; child-src 'self'; form-action 'self';"
+    "Access-Control-Allow-Origin",
+    "https://instagram.faae1-2.fna.fbcdn.net",
+  );
+};

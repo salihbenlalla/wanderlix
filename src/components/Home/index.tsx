@@ -4,7 +4,6 @@ import {
   useSignal,
   useStore,
   useStyles$,
-  useVisibleTask$,
 } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import Hero from "./Hero";
@@ -36,6 +35,7 @@ export interface HomeContextStore {
   currentSectionIndex: number;
   slides: Slide[];
   direction: "next" | "prev" | undefined;
+  animationIsRunning: boolean;
 }
 
 export default component$(() => {
@@ -52,6 +52,7 @@ export default component$(() => {
       _captionPrevIndex: 0,
       _captionNextIndex: 0,
       currentSectionIndex: 0,
+      animationIsRunning: false,
       slides: [
         {
           title: "Europe",
@@ -63,8 +64,7 @@ export default component$(() => {
         {
           title: "Asia",
           url: "/destinations/#asia",
-          thumbnail:
-            "/images/etc/myanmar-home.webp",
+          thumbnail: "/images/etc/myanmar-home.webp",
           description:
             "Explore Asia's hidden gems with our travel guides to its temples, culture, and scenery. Start your journey today!",
         },
@@ -79,16 +79,14 @@ export default component$(() => {
         {
           title: "North America",
           url: "/destinations/#north_america",
-          thumbnail:
-            "/images/etc/north-america-home.webp",
+          thumbnail: "/images/etc/north-america-home.webp",
           description:
             "Find your next adventure with our travel guides to North America's cities, wonders, and history.",
         },
         {
           title: "South America",
           url: "/destinations/#south_america",
-          thumbnail:
-            "/images/1280/854/discover-the-silver-in-pictures.webp",
+          thumbnail: "/images/1280/854/discover-the-silver-in-pictures.webp",
           description:
             "Experience the vibrancy of South America with our travel guides to its landscapes, culture, and history.",
         },
@@ -120,12 +118,10 @@ export default component$(() => {
       set captionCurrentIndex(value: number) {
         if (typeof this === "object") {
           this._captionCurrentIndex = value;
-          this._captionPrevIndex = value === 0
-            ? this.slides.length - 1
-            : value - 1;
-          this._captionNextIndex = value === this.slides.length - 1
-            ? 0
-            : value + 1;
+          this._captionPrevIndex =
+            value === 0 ? this.slides.length - 1 : value - 1;
+          this._captionNextIndex =
+            value === this.slides.length - 1 ? 0 : value + 1;
         }
       },
       get captionCurrentIndex() {
@@ -163,26 +159,12 @@ export default component$(() => {
   const homeContainerRef = useSignal<HTMLDivElement>();
 
   const section1Ref = useSignal<HTMLDivElement>();
-  const sectionHeight = useSignal<number | string>("calc(100vh - 80px)");
-
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    sectionHeight.value = `${document.documentElement.clientHeight - 80}px`;
-  });
 
   useContextProvider(homeContext, store);
   return (
     <>
-      <div
-        ref={homeContainerRef}
-        class="home-container"
-      >
-        <div
-          ref={section1Ref}
-          class="home-section"
-          id="home-section-1"
-          style={{ height: sectionHeight.value }}
-        >
+      <div ref={homeContainerRef} class="home-container">
+        <div ref={section1Ref} class="home-section" id="home-section-1">
           <Hero />
         </div>
       </div>

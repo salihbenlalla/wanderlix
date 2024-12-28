@@ -22,40 +22,19 @@ const InstagramEmbed = component$<InstagramEmbedProps>((props) => {
           state.height = iFrameHeight;
         }
       }
-    })
+    }),
   );
   return (
-    <div
-      class="instagram-media"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <div class="instagram-media flex flex-col items-center">
       <iframe
-        style={{
-          background: "#FFF",
-          border: 0,
-          borderRadius: "3px",
-          margin: "1px",
-          maxWidth: "550px",
-          padding: 0,
-          boxShadow: "0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)",
-          // width: "99.375%",
-          // width: "-webkit-calc(100% - 2px)",
-          // width: "calc(100% - 2px)",
-          width: 400,
-          height: 608,
-        }}
+        class="m-px h-[608px] w-[400px] max-w-[550px] overflow-hidden rounded-[3px] border-0 bg-white p-0 shadow-lg"
+        // frameBorder="0"
+        // scrolling="no"
         src={`https://www.instagram.com/p/${props.postId}/embed/`}
         width="400"
         height={state.height || 0}
-        frameBorder="0"
-        scrolling="no"
         allowTransparency={true}
         title="Embeded instagram post"
-        sandbox=""
       />
     </div>
   );

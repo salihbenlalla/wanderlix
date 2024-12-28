@@ -77,5 +77,6 @@
 }
 
 .side-menu nav ul li a.active {
-  color: #fe4f70;
+  /* color: #fe4f70; */
+  color: #b20122;
 }

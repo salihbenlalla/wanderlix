@@ -5,6 +5,7 @@
 .home-section {
   scroll-margin-top: 80px;
   width: 100vw;
+  height: calc(100vh - 87px);
   display: flex;
   align-items: center;
   justify-content: center;

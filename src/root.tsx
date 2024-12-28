@@ -19,6 +19,16 @@ export default component$(() => {
   return (
     <QwikCityProvider>
       <head>
+        <script
+          dangerouslySetInnerHTML={`
+          window.symbols = [];
+          document.addEventListener('qsymbol', (e) => {
+          if (!window.symbols.includes(e.detail.symbol)) {
+            window.symbols.push(e.detail.symbol);
+          }
+          });
+        `}
+        />
         <RouterHead />
         <ServiceWorkerRegister />
       </head>

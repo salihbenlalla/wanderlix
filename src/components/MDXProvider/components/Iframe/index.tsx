@@ -12,6 +12,10 @@ const Iframe = component$((props: IframeProps) => {
 
   const { src, height, width } = props;
 
+  if (typeof src !== "string" || src.length === 0) {
+    return <></>;
+  }
+
   return (
     <div class="iframe_container">
       <iframe
@@ -20,7 +24,6 @@ const Iframe = component$((props: IframeProps) => {
         width={width}
         loading="lazy"
         title="embeded content from another website"
-        sandbox=""
       />
     </div>
   );

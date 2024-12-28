@@ -12,9 +12,8 @@ import PopularPostsWidget, {
 import PostsCarouselWidget, {
   type PostsCarouselWidgetProps,
 } from "./PostsCarouselWidget";
-import SponsoredAdWidget, {
-  type SponsoredAdWidgetProps,
-} from "./SponsoredAdWidget";
+// import SponsoredAdWidget from "./SponsoredAdWidget";
+import { type SponsoredAdWidgetProps } from "./SponsoredAdWidget";
 import TagCloudsWidget, { type TagCloudsWidgetProps } from "./TagCloudsWidget";
 
 export interface SideBarProps {
@@ -34,7 +33,7 @@ export default component$<SideBarProps>((props) => {
       {props.newsletter && <NewsletterWidget {...props.newsletter} />}
       {props.postsCarousel && <PostsCarouselWidget {...props.postsCarousel} />}
       {props.tagClouds && <TagCloudsWidget {...props.tagClouds} />}
-      {props.sponsoredAd && <SponsoredAdWidget {...props.sponsoredAd} />}
+      {/*props.sponsoredAd && <SponsoredAdWidget {...props.sponsoredAd} />*/}
     </div>
   );
 });

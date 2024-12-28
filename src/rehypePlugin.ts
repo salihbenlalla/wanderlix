@@ -15,7 +15,7 @@ async function visit(
   // node: MyNode | MyParent,
   node: RootContent,
   visitor: VisitorAsync,
-  parent?: RootContent,
+  parent?: RootContent
 ): Promise<void> {
   await visitor(node, parent);
 
@@ -44,9 +44,12 @@ const handleLink = async (
   DB: D1Database,
   href?: string | null,
   title?: string,
-  use?: "none" | "originalHref" | "newHref",
+  use?: "none" | "originalHref" | "newHref"
 ): Promise<LinkProperties> => {
-  if (href?.startsWith("/post")) return { href, title };
+  const origin = getOrigin();
+  if (href?.startsWith("/post") || href?.startsWith(origin)) {
+    return { href, title };
+  }
 
   if (href?.startsWith("@@SITE_ORIGIN@@")) {
     const pathname = href.replace("@@SITE_ORIGIN@@", "");
@@ -87,7 +90,7 @@ const handleLink = async (
 type FindSrcFunc = (
   DB: D1Database,
   src?: string | MdxJsxAttributeValueExpression | null | undefined,
-  use?: "none" | "originalSrc" | "newSrc",
+  use?: "none" | "originalSrc" | "newSrc"
 ) => Promise<string | MdxJsxAttributeValueExpression | null | undefined>;
 
 export const findSrc: FindSrcFunc = async (DB, src, use) => {
@@ -108,7 +111,7 @@ export const findSrc: FindSrcFunc = async (DB, src, use) => {
 
 const attributeExists = (
   attributesArr: MdxJsxElementFields["attributes"],
-  attribute: string,
+  attribute: string
 ): boolean => {
   for (const attr of attributesArr) {
     if (attr.type === "mdxJsxAttribute" && attr.name === attribute) return true;
@@ -122,12 +125,7 @@ const replaceLinkIds = (DB: D1Database) => {
     await visit(tree, async (node) => {
       if (node.type === "element" && node.tagName == "a") {
         const { href, title } = node.properties as LinkProperties;
-        const newLinkProperties = await handleLink(
-          DB,
-          href,
-          title,
-          "originalHref",
-        );
+        const newLinkProperties = await handleLink(DB, href, title);
 
         node.properties = {};
         node.properties.href = newLinkProperties.href;
@@ -144,12 +142,7 @@ const replaceLinkIds = (DB: D1Database) => {
         const newAttributes = await Promise.all(
           node.attributes.map(async (attr: any) => {
             if (attr.type === "mdxJsxAttribute" && attr.name === "linkId") {
-              const returnedObj = await handleLink(
-                DB,
-                attr.value,
-                undefined,
-                "originalHref",
-              );
+              const returnedObj = await handleLink(DB, attr.value, undefined);
               const { href } =
                 typeof attr.value !== "object"
                   ? returnedObj
@@ -157,7 +150,7 @@ const replaceLinkIds = (DB: D1Database) => {
               attr.value = href;
             }
             return attr;
-          }),
+          })
         );
         node.attributes = newAttributes;
       }
@@ -167,12 +160,12 @@ const replaceLinkIds = (DB: D1Database) => {
           node.attributes.map(async (attr: any) => {
             if (attr.type === "mdxJsxAttribute" && attr.name === "src") {
               const src = attr.value;
-              const newSrc = await findSrc(DB, src, "originalSrc");
+              const newSrc = await findSrc(DB, src);
 
               attr.value = newSrc;
             }
             return attr;
-          }),
+          })
         );
         node.attributes = newAttributes;
       }
@@ -183,16 +176,11 @@ const replaceLinkIds = (DB: D1Database) => {
           node.attributes.map(async (attr: any) => {
             if (attr.type === "mdxJsxAttribute" && attr.name === "href") {
               const href = attr.value;
-              const newHref = await handleLink(
-                DB,
-                href as string,
-                undefined,
-                "originalHref",
-              );
+              const newHref = await handleLink(DB, href as string, undefined);
               attr.value = newHref.href;
             }
             return attr;
-          }),
+          })
         );
         newAttributes.push({
           type: "mdxJsxAttribute",
@@ -213,16 +201,11 @@ const replaceLinkIds = (DB: D1Database) => {
           node.attributes.map(async (attr: any) => {
             if (attr.type === "mdxJsxAttribute" && attr.name === "aHref") {
               const href = attr.value;
-              const newHref = await handleLink(
-                DB,
-                href as string,
-                undefined,
-                "originalHref",
-              );
+              const newHref = await handleLink(DB, href as string, undefined);
               attr.value = newHref.href;
             }
             return attr;
-          }),
+          })
         );
         node.attributes = newAttributes;
       }

@@ -34,6 +34,7 @@ export default component$<PostFooterProps>((props) => {
                 <a
                   href={`https://www.facebook.com/sharer/sharer.php?u=${postHref}`}
                   target="_blank"
+                  aria-label="Share on facebook"
                 >
                   <FacebookIcon width={16} height={17} />
                 </a>
@@ -42,6 +43,7 @@ export default component$<PostFooterProps>((props) => {
                 <a
                   href={`https://twitter.com/intent/tweet?url=${postHref}&text=${props.postTitle}`}
                   target="_blank"
+                  aria-label="Share on X"
                 >
                   <XTwitterIcon width={17} height={17} />
                 </a>
@@ -50,6 +52,7 @@ export default component$<PostFooterProps>((props) => {
                 <a
                   href={`https://www.linkedin.com/shareArticle?mini=true&url=${postHref}&title=${props.postTitle}`}
                   target="_blank"
+                  aria-label="Share on Linkedin"
                 >
                   <LinkedInIcon width={14} height={17} />
                 </a>
@@ -58,6 +61,7 @@ export default component$<PostFooterProps>((props) => {
                 <a
                   href={`https://pinterest.com/pin/create/button/?url=${postHref}&media=${props.postImage}&description=${props.postDescription}`}
                   target="_blank"
+                  aria-label="Share on Pinterest"
                 >
                   <PinterestIcon width={16} height={17} />
                 </a>
@@ -66,6 +70,7 @@ export default component$<PostFooterProps>((props) => {
                 <a
                   href={`https://t.me/share/url?url=${postHref}&text=${props.postTitle}`}
                   target="_blank"
+                  aria-label="Send by Telegram"
                 >
                   <TelegramIcon width={16} height={17} />
                 </a>
@@ -74,6 +79,7 @@ export default component$<PostFooterProps>((props) => {
                 <a
                   href={`mailto:info@example.com?&subject=${props.postTitle}&cc=&bcc=&body=${postHref}`}
                   target="_blank"
+                  aria-label="Send by Email"
                 >
                   <EnvelopeIcon width={17} height={17} />
                 </a>

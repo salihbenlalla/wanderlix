@@ -48,7 +48,7 @@ export const TweetEmbed = component$((props: TweetProps) => {
       if (state.isComponentMounted) {
         if (!window.twttr.widgets[methodName]) {
           console.error(
-            `Method ${methodName} is not present anymore in twttr.widget api`
+            `Method ${methodName} is not present anymore in twttr.widget api`,
           );
           return;
         }
@@ -56,7 +56,7 @@ export const TweetEmbed = component$((props: TweetProps) => {
         window.twttr.widgets[methodName](
           props.tweetId,
           ref.value,
-          props.options
+          props.options,
         ).then(() => {
           state.isLoading = false;
         });
@@ -71,14 +71,7 @@ export const TweetEmbed = component$((props: TweetProps) => {
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: 550,
-        height: 648,
-        margin: "16px auto",
-      }}
+      class="mx-auto my-4 flex h-[648px] w-[550px] flex-col items-center overflow-hidden shadow-lg"
       ref={ref}
     ></div>
   );

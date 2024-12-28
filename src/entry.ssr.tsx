@@ -20,6 +20,13 @@ import Root from "./root";
 export default function (opts: RenderToStreamOptions) {
   return renderToStream(<Root />, {
     manifest,
+    prefetchStrategy: {
+      implementation: {
+        prefetchEvent: "always",
+        linkInsert: null,
+        workerFetchInsert: null,
+      },
+    },
     ...opts,
     // Use container attributes to set attributes on the html tag.
     containerAttributes: {

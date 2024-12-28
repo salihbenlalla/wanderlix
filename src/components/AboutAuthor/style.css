@@ -25,7 +25,7 @@
 .about-author-details p {
   margin-bottom: 10px;
   margin-top: 0;
-  color: #8f9bad;
+  color: #4d5366;
   font-size: 15px;
   line-height: 1.7;
   overflow: hidden;
@@ -58,14 +58,14 @@
   }
 }
 
-.about-author-details h6 {
+.about-author-details .about-author-name {
   font-size: 20px;
   margin-bottom: 10px;
   font-weight: 700;
   line-height: 1.4;
 }
 
-.about-author-details h6 a {
+.about-author-details .about-author-name a {
   color: #203656;
   text-decoration: none;
 }

@@ -9,7 +9,7 @@ import styles from "./style.css?inline";
 
 export default component$(() => {
   useStyles$(styles);
-  const percentage = useSignal<number>(0);
+  const barRef = useSignal<HTMLElement>();
   useOnWindow(
     "scroll",
     $(() => {
@@ -17,12 +17,14 @@ export default component$(() => {
       const scrollHeight = document.documentElement.scrollHeight;
       const clientHeight = document.documentElement.clientHeight;
 
-      percentage.value = (scrollTop / (scrollHeight - clientHeight)) * 100;
-    })
+      if (barRef.value) {
+        barRef.value.style.width = `${(scrollTop / (scrollHeight - clientHeight)) * 100}%`;
+      }
+    }),
   );
   return (
     <div class="reading-bar-wrapper">
-      <div class="reading-bar" style={{ width: `${percentage.value}%` }}></div>
+      <div class="reading-bar" ref={barRef}></div>
     </div>
   );
 });

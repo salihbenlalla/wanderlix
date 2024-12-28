@@ -6,8 +6,8 @@ import { getSiteName } from "~/lib/helpers/getSiteName";
 export const Logo = component$(() => {
   useStyles$(styles);
   const siteName = getSiteName() || "Logo";
-  const mainText = siteName.slice(0, -1);
-  const lastLetter = siteName.slice(-1);
+  const mainText = siteName.slice(0, -3);
+  const lastLetter = siteName.slice(-3);
 
   const theme = useContext(ThemeContext);
 
@@ -16,8 +16,8 @@ export const Logo = component$(() => {
   return (
     <div class="logo">
       <a href="/" onClick$={toggleMenu}>
-        <span >{mainText}</span>
-        <span class="logo-two" >{lastLetter}</span>
+        <span>{mainText}</span>
+        <span class="logo-two">{lastLetter}</span>
       </a>
     </div>
   );

@@ -23,7 +23,7 @@ declare module "@builder.io/qwik-city/middleware/cloudflare-pages" {
  * @return {Promise<SideBarProps>} The sidebar data.
  */
 export const getSidebarData = async (
-  ev: RequestEventLoader<PlatformCloudflarePages>,
+  ev: RequestEventLoader<PlatformCloudflarePages>
 ): Promise<SideBarProps> => {
   const DB = await getDB(ev);
 
@@ -38,7 +38,7 @@ export const getSidebarData = async (
         getCarouselPosts(DB), // Get 3 random posts for the carousel.
         getTags(DB), // Get the top 10 tags.
         getDestinations(DB), // Get 9 random destinations.
-      ],
+      ]
     );
 
     const sidebarData: SideBarProps = {
@@ -59,7 +59,7 @@ export const getSidebarData = async (
         destinations: destinations, // The 9 random destinations data.
       },
       sponsoredAd: {
-        imageUrl: "/images/etc/ad-widget-photo.png",
+        imageUrl: "/images/etc/ad-widget-photo.webp",
         adUrl: "#",
       },
       newsletter: {
@@ -82,11 +82,11 @@ export const getSidebarData = async (
  * @return {Promise<PopularPost[]>} The popular posts data.
  */
 export const getPopularPosts = async (
-  DB: D1Database,
+  DB: D1Database
 ): Promise<PopularPost[]> => {
   const postsIds = getUniqueRandomNumbers(3, 1, 6984);
   const { results } = (await DB.prepare(
-    `SELECT * FROM Posts WHERE id IN (?, ?, ?)`,
+    `SELECT * FROM Posts WHERE id IN (?, ?, ?)`
   )
     .bind(postsIds[0], postsIds[1], postsIds[2])
     .all()) as D1Result<PopularPost>;
@@ -108,7 +108,7 @@ export const getPopularPosts = async (
  * @return {Promise<CarouselPost[]>} The carousel posts data.
  */
 export const getCarouselPosts = async (
-  DB: D1Database,
+  DB: D1Database
 ): Promise<CarouselPost[]> => {
   const postsIds = getUniqueRandomNumbers(3, 1, 6984);
 
@@ -141,7 +141,7 @@ WHERE Posts.id IN (?, ?, ?)
  */
 export const getTags = async (DB: D1Database): Promise<Tag[]> => {
   const { results } = (await DB.prepare(
-    `SELECT Tags.name, Tags.url FROM Tags LIMIT 10`,
+    `SELECT Tags.name, Tags.url FROM Tags LIMIT 10`
   ).all()) as D1Result<Tag>;
 
   if (!results || results.length === 0) {
@@ -160,7 +160,7 @@ export const getTags = async (DB: D1Database): Promise<Tag[]> => {
  * @return {Promise<Destination[]>} The 9 random destinations data.
  */
 export const getDestinations = async (
-  DB: D1Database,
+  DB: D1Database
 ): Promise<Destination[]> => {
   const query = `
 SELECT countryName, countryParam, count

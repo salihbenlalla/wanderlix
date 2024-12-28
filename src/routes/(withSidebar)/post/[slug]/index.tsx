@@ -178,7 +178,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
       },
       {
         property: "og:image",
-        content: post.image,
+        content: `${origin}/images/${post.imageWidth}/${post.imageHeight}/${post.image}`,
       },
       {
         property: "og:image:width",
