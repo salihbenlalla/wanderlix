@@ -9,6 +9,8 @@
 node_modules
 *.local
 .env
+tags.sql
+todo.txt
 
 # Cache
 .cache
