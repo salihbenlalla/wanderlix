@@ -143,83 +143,105 @@ const SlickSlider = component$(() => {
       <div class={`slider2-container`}>
         <div class="slider2-wrapper">
           <div ref={firstSlide} class="slide2 first-slide">
-            <div class="slide2-content">
-              <img
-                src={
-                  homeContextStore.slides[
-                    homeContextStore.direction === "next"
-                      ? prevIndex.value
-                      : currentIndex.value
-                  ].thumbnail
-                }
-                alt={
-                  homeContextStore.slides[
-                    homeContextStore.direction === "next"
-                      ? prevIndex.value
-                      : currentIndex.value
-                  ].title
-                }
-                width={170}
-                height={230}
-              />
+            <a
+              href={
+                homeContextStore.slides[
+                  homeContextStore.direction === "next"
+                    ? prevIndex.value
+                    : currentIndex.value
+                ].url
+              }
+            >
+              <div class="slide2-content">
+                <img
+                  src={
+                    homeContextStore.slides[
+                      homeContextStore.direction === "next"
+                        ? prevIndex.value
+                        : currentIndex.value
+                    ].thumbnail
+                  }
+                  alt={
+                    homeContextStore.slides[
+                      homeContextStore.direction === "next"
+                        ? prevIndex.value
+                        : currentIndex.value
+                    ].title
+                  }
+                  width={170}
+                  height={230}
+                />
 
-              <h2>
-                {
-                  homeContextStore.slides[
-                    homeContextStore.direction === "next"
-                      ? prevIndex.value
-                      : currentIndex.value
-                  ].title
-                }
-              </h2>
-            </div>
+                <h2>
+                  {
+                    homeContextStore.slides[
+                      homeContextStore.direction === "next"
+                        ? prevIndex.value
+                        : currentIndex.value
+                    ].title
+                  }
+                </h2>
+              </div>
+            </a>
           </div>
           {homeContextStore.slides.map((slide, index) => (
             <div
               key={index}
               class={`slide2${isTransparent(index)} left-${getLeftValue(index)}`}
             >
-              <div class="slide2-content">
-                <img
-                  src={slide.thumbnail}
-                  alt={slide.title}
-                  width={170}
-                  height={230}
-                />
-                <h2>{slide.title}</h2>
-              </div>
+              <a href={slide.url}>
+                <div class="slide2-content">
+                  <img
+                    src={slide.thumbnail}
+                    alt={slide.title}
+                    width={170}
+                    height={230}
+                  />
+                  <h2>{slide.title}</h2>
+                </div>
+              </a>
             </div>
           ))}
           <div ref={lastSlide} class={`slide2`}>
-            <div class="slide2-content">
-              <img
-                src={
-                  homeContextStore.slides[
-                    homeContextStore.direction === "prev"
-                      ? currentIndex.value
-                      : prevIndex.value
-                  ].thumbnail
-                }
-                alt={
-                  homeContextStore.slides[
-                    homeContextStore.direction === "next"
-                      ? prevIndex.value
-                      : currentIndex.value
-                  ].title
-                }
-                width={170}
-                height={230}
-              />
-              <h2>
-                {
-                  homeContextStore.slides[
-                    homeContextStore.direction === "prev"
-                      ? currentIndex.value
-                      : prevIndex.value
-                  ].title
-                }
-              </h2>
-            </div>
+            <a
+              href={
+                homeContextStore.slides[
+                  homeContextStore.direction === "prev"
+                    ? currentIndex.value
+                    : prevIndex.value
+                ].url
+              }
+            >
+              <div class="slide2-content">
+                <img
+                  src={
+                    homeContextStore.slides[
+                      homeContextStore.direction === "prev"
+                        ? currentIndex.value
+                        : prevIndex.value
+                    ].thumbnail
+                  }
+                  alt={
+                    homeContextStore.slides[
+                      homeContextStore.direction === "next"
+                        ? prevIndex.value
+                        : currentIndex.value
+                    ].title
+                  }
+                  width={170}
+                  height={230}
+                />
+                <h2>
+                  {
+                    homeContextStore.slides[
+                      homeContextStore.direction === "prev"
+                        ? currentIndex.value
+                        : prevIndex.value
+                    ].title
+                  }
+                </h2>
+              </div>
+            </a>
           </div>
         </div>
       </div>

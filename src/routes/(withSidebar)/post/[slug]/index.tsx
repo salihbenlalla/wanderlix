@@ -25,7 +25,7 @@ export const useGetPost = routeLoader$(
   async (ev: RequestEventLoader<PlatformCloudflarePages>) => {
     const post = await getPost(ev);
     return post;
-  }
+  },
 );
 
 export default component$(() => {
@@ -67,7 +67,6 @@ export default component$(() => {
         />
       </div>
       <div class="page-content">
-        {/* <Slot /> */}
         <Content components={contextComponents} />
         <PostFooter
           tagName={post.tagName}
@@ -97,7 +96,7 @@ export default component$(() => {
 const imageTransformer$ = $(
   ({ src, width, height }: ImageTransformerProps): string => {
     return `/images/${width}/${height}/${src.split("/")[4]}`;
-  }
+  },
 );
 
 export const useDocumentHeadData = routeLoader$(async ({ resolveValue }) => {
@@ -124,13 +123,12 @@ export const head: DocumentHead = ({ resolveValue }) => {
   const { post, srcSet, imgSrc } = resolveValue(useDocumentHeadData);
   const origin = getOrigin();
 
-
   return {
     title: post.title,
     links: [
       {
         rel: "canonical",
-        href: `${origin}/post/${post.slug}/`
+        href: `${origin}/post/${post.slug}/`,
       },
       {
         rel: "preload",
@@ -170,7 +168,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
       },
       {
         property: "article:publisher",
-        content: origin
+        content: origin,
       },
       {
         property: "article:published_time",
@@ -214,7 +212,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
       },
       {
         name: "robots",
-        content: "index, follow"
+        content: "index, follow",
       },
     ],
   };

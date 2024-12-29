@@ -35,6 +35,7 @@ const InstagramEmbed = component$<InstagramEmbedProps>((props) => {
         height={state.height || 0}
         allowTransparency={true}
         title="Embeded instagram post"
+        loading="lazy"
       />
     </div>
   );

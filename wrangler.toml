@@ -19,5 +19,6 @@ database_name = "DB"
 database_id = "835d38b8-043d-49ce-9a03-ffe3fdf34963"
 
 [vars]
-# PUBLIC_SITE_NAME = "Wanderlix"
-# CF_PAGES_URL = "https://wanderlix.com"
+PUBLIC_SITE_NAME = "Wanderlix"
+PUBLIC_SITE_DOMAIN_NAME = "wanderlix.com"
+ORIGIN = "https://wanderlix.com"

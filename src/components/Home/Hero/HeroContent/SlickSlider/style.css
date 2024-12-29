@@ -1,6 +1,5 @@
 .slick-slider-container {
   width: 100%;
-  /* overflow: hidden; */
 }
 
 .slider2-container {
@@ -9,7 +8,6 @@
   flex-direction: column;
   align-items: flex-start;
   width: 1116;
-  /* justify-content: flex-start; */
 }
 
 .slider2-wrapper {
@@ -22,15 +20,19 @@
   position: absolute;
   top: 0;
   height: 100%;
+  width: 170px;
   transition: left 1.5s ease-out;
   background-size: cover;
   background-position: center;
   border-radius: 10px;
   padding: 5px;
-  width: 170px;
   margin-right: 20px;
   overflow: hidden;
-  cursor: "pointer";
+  cursor: pointer;
+}
+
+.slide2 a {
+  color: #fff;
 }
 
 .transparent {
@@ -87,13 +89,13 @@
 
 @media screen and (max-height: 700px) and (max-width: 991px) {
   .slider2-wrapper {
-    height: 28vh;
-    width: 20vh;
+    height: 190px;
+    width: 160px;
   }
 
   .slide2 {
-    height: 28vh;
-    width: 20vh;
+    height: 100%;
+    width: 140px;
   }
 
   .slider2-container {
@@ -108,6 +110,12 @@
   align-items: flex-start;
   justify-content: flex-end;
   font-size: 12px;
+}
+
+.slide2-content h2 {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
 }
 
 .slide2-content img {
