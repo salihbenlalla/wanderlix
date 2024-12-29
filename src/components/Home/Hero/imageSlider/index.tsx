@@ -53,16 +53,16 @@ const ImageSlider = component$(() => {
   });
 
   // eslint-disable-next-line qwik/no-use-visible-task
-  // useVisibleTask$(({ track }) => {
-  //   track(() => homeContextStore.generalIndex);
-  //   window.heroSliderTimer = setInterval(async () => {
-  //     homeContextStore.animationIsRunning = true;
-  //     await animateSlider({ ...animateSliderOptions, direction: "next" });
-  //     homeContextStore.animationIsRunning = false;
-  //   }, 5000);
+  useVisibleTask$(({ track }) => {
+    track(() => homeContextStore.generalIndex);
+    window.heroSliderTimer = setInterval(async () => {
+      homeContextStore.animationIsRunning = true;
+      await animateSlider({ ...animateSliderOptions, direction: "next" });
+      homeContextStore.animationIsRunning = false;
+    }, 5000);
 
-  //   return () => clearInterval(window.heroSliderTimer);
-  // });
+    return () => clearInterval(window.heroSliderTimer);
+  });
 
   return (
     <>
