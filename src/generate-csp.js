@@ -24,6 +24,7 @@ const cspDirectives = {
   "font-src": ["'self'"],
   "connect-src": ["'self'"],
   "frame-src": [
+    "'self'",
     "https://www.google.com",
     "https://www.youtube.com",
     "https://www.instagram.com",
