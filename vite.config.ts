@@ -12,19 +12,19 @@ import resolvePlatform from "./src/vite-plugin-resolve-platform";
 import replaceLinkIdsRehype from "./src/rehypePlugin";
 import createGetDevDB from "./src/lib/helpers/createGetDevDB";
 import { suppress403Errors } from "./src/vitePluginSupressErrors";
-
+import { partytownVite } from "@builder.io/partytown/utils";
+import { join } from "path";
 const { dependencies = {}, devDependencies = {} } = pkg as any as {
   dependencies: Record<string, string>;
   devDependencies: Record<string, string>;
   [key: string]: unknown;
 };
-
 /**
  * Note that Vite normally starts from `index.html` but the qwikCity plugin makes start at `src/entry.ssr.tsx` instead.
  */
+
 export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
   const DB = await (await createGetDevDB())();
-
   return {
     plugins: [
       resolvePlatform(),
@@ -58,10 +58,11 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
       tsconfigPaths(),
       svgx(),
       suppress403Errors(),
+      partytownVite({ dest: join(__dirname, "dist", "~partytown") }),
     ],
     define: {
       "import.meta.env.PUBLIC_CF_PAGES_URL": JSON.stringify(
-        process.env.CF_PAGES_URL
+        process.env.CF_PAGES_URL,
       ),
     },
     build: {
@@ -131,19 +132,15 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
         // Don't cache the server response in dev mode
         "Cache-Control": "public, max-age=0",
       },
-
       watch: {
         ignored: ["./src/routes/**/*.mdx"],
       },
-
       preTransformRequests: false,
-
       // from previous project
       // hmr: {
       //   clientPort: 5173,
       // }
     },
-
     preview: {
       headers: {
         // Do cache the server response in preview (non-adapter production build)
@@ -169,7 +166,6 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
     },
   };
 });
-
 function bundle(bundleName: string, symbols: string[]) {
   return symbols.reduce(
     (obj, key) => {
@@ -177,6 +173,6 @@ function bundle(bundleName: string, symbols: string[]) {
       obj[key.replace("s_", "")] = obj[key] = bundleName;
       return obj;
     },
-    {} as Record<string, string>
+    {} as Record<string, string>,
   );
 }

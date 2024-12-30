@@ -1,4 +1,5 @@
 import { component$, useOnWindow, $, useStore } from "@builder.io/qwik";
+import { cn } from "~/lib/helpers/cn";
 
 interface InstagramEmbedProps {
   postId: string;
@@ -20,6 +21,7 @@ const InstagramEmbed = component$<InstagramEmbedProps>((props) => {
         if (iFrameData.type === "MEASURE") {
           const iFrameHeight = iFrameData.details.height;
           state.height = iFrameHeight;
+          console.log("iframe height: ", iFrameHeight);
         }
       }
     }),
@@ -27,12 +29,10 @@ const InstagramEmbed = component$<InstagramEmbedProps>((props) => {
   return (
     <div class="instagram-media flex flex-col items-center">
       <iframe
-        class="m-px h-[608px] w-[400px] max-w-[550px] overflow-hidden rounded-[3px] border-0 bg-white p-0 shadow-lg"
-        // frameBorder="0"
-        // scrolling="no"
+        class={cn(
+          "m-px h-[618px] w-[400px] max-w-full overflow-hidden rounded-[3px] border-0 bg-white p-0 shadow-lg",
+        )}
         src={`https://www.instagram.com/p/${props.postId}/embed/`}
-        width="400"
-        height={state.height || 0}
         allowTransparency={true}
         title="Embeded instagram post"
         loading="lazy"

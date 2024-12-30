@@ -62,6 +62,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^7.13.1
         version: 7.18.0(eslint@8.57.0)(typescript@5.3.3)
+      autoprefixer:
+        specifier: ^10.4.14
+        version: 10.4.20(postcss@8.4.47)
       better-sqlite3:
         specifier: ^11.6.0
         version: 11.6.0
@@ -104,9 +107,15 @@ importers:
       node-html-parser:
         specifier: ^6.1.13
         version: 6.1.13
+      postcss:
+        specifier: ^8.4.31
+        version: 8.4.47
       prettier:
         specifier: ^3.2.5
         version: 3.3.3
+      prettier-plugin-tailwindcss:
+        specifier: ^0.5.4
+        version: 0.5.14(prettier@3.3.3)
       scriptjs:
         specifier: ^2.5.9
         version: 2.5.9
@@ -116,6 +125,9 @@ importers:
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
+      tailwindcss:
+        specifier: 3.3.3
+        version: 3.3.3(ts-node@10.9.2(@types/node@20.17.0)(typescript@5.3.3))
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.17.0)(typescript@5.3.3)
@@ -144,27 +156,18 @@ importers:
         specifier: ^3.76.0
         version: 3.82.0
     devDependencies:
+      '@builder.io/partytown':
+        specifier: ^0.8.1
+        version: 0.8.2
       '@modular-forms/qwik':
         specifier: ^0.24.0
         version: 0.24.0(@builder.io/qwik-city@1.9.1(@types/node@20.17.0)(acorn@8.13.0)(rollup@4.24.0)(typescript@5.3.3))(@builder.io/qwik@1.4.0(@types/node@20.17.0)(undici@6.20.1))
       '@salihbenlalla/qwik-city':
         specifier: ^1.4.0
         version: 1.4.0(@types/node@20.17.0)(rollup@4.24.0)
-      autoprefixer:
-        specifier: ^10.4.14
-        version: 10.4.20(postcss@8.4.47)
-      postcss:
-        specifier: ^8.4.31
-        version: 8.4.47
-      prettier-plugin-tailwindcss:
-        specifier: ^0.5.4
-        version: 0.5.14(prettier@3.3.3)
       qwik-image:
         specifier: ^0.0.15
         version: 0.0.15
-      tailwindcss:
-        specifier: 3.3.3
-        version: 3.3.3(ts-node@10.9.2(@types/node@20.17.0)(typescript@5.3.3))
 
 packages:
 
@@ -188,6 +191,11 @@ packages:
   '@babel/types@7.26.3':
     resolution: {integrity: sha512-vN5p+1kl59GVKMvTHt55NzzmYVxprfJD+ql7U9NFIfKCBkYE55LYtS+WtPlaYOyzydrKI8Nezd+aZextrd+FMA==}
     engines: {node: '>=6.9.0'}
+
+  '@builder.io/partytown@0.8.2':
+    resolution: {integrity: sha512-WKGE+SO0qUGirW8J+xOWkHeCkfFEoPPvHnFkcdMl+MY3kDbAcTwjZCzjg27JCvoD0h8fH47FR7DSIss0/S5lyg==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
 
   '@builder.io/qwik-city@1.9.1':
     resolution: {integrity: sha512-GEM4Ybjg9edSWzAtp38mAyb2lIeuQYlcpyrDJ9W/KhXPoIQ7CAjhE2w1XaYXrtfg4iJOgCkiCXjL3JxobxNLxw==}
@@ -3906,6 +3914,8 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
+
+  '@builder.io/partytown@0.8.2': {}
 
   '@builder.io/qwik-city@1.9.1(@types/node@20.17.0)(acorn@8.13.0)(rollup@4.24.0)(typescript@5.3.3)':
     dependencies:
