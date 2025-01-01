@@ -12,8 +12,7 @@ import resolvePlatform from "./src/vite-plugin-resolve-platform";
 import replaceLinkIdsRehype from "./src/rehypePlugin";
 import createGetDevDB from "./src/lib/helpers/createGetDevDB";
 import { suppress403Errors } from "./src/vitePluginSupressErrors";
-import { partytownVite } from "@builder.io/partytown/utils";
-import { join } from "path";
+// import { partytownVite } from "@builder.io/partytown/utils";
 const { dependencies = {}, devDependencies = {} } = pkg as any as {
   dependencies: Record<string, string>;
   devDependencies: Record<string, string>;
@@ -58,7 +57,7 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
       tsconfigPaths(),
       svgx(),
       suppress403Errors(),
-      partytownVite({ dest: join(__dirname, "dist", "~partytown") }),
+      // partytownVite({ dest: join(__dirname, "dist", "~partytown") }),
     ],
     define: {
       "import.meta.env.PUBLIC_CF_PAGES_URL": JSON.stringify(

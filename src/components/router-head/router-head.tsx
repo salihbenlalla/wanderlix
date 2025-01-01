@@ -2,7 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import { useDocumentHead } from "@builder.io/qwik-city";
 import { v4 as uuidv4 } from "uuid";
 import { getSiteName } from "~/lib/helpers/getSiteName";
-import { QwikPartytown } from "../partytown/partytown";
+// import { QwikPartytown } from "../partytown/partytown";
 
 /**
  * The RouterHead component is placed inside of the document `<head>` element.
@@ -15,7 +15,7 @@ export const RouterHead = component$(() => {
       <title>{head.title}</title>
 
       <meta charSet="utf-8" />
-      <QwikPartytown forward={["gtag", "dataLayer.push"]} />
+      {/* <QwikPartytown forward={["gtag", "dataLayer.push"]} />
       <script
         async
         type="text/partytown"
@@ -30,12 +30,13 @@ export const RouterHead = component$(() => {
 
           gtag('config', 'G-HDJ6SCBSHE');
         `}
-      />
+      /> */}
       <meta name="theme-color" content="#01a0c6" />
       <meta
         name="robots"
         content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
       />
+      <meta name="yandex-verification" content="04dc76ad5a846fd9" />
       <meta property="og:locale" content="en_US" />
       <meta property="og:site_name" content={getSiteName()} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
