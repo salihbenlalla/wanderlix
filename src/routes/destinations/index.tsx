@@ -2,16 +2,18 @@ import { component$, useStyles$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
 import GridHeader from "~/components/PostsGrid/GridHeader";
 import { v4 as uuidv4 } from "uuid";
-import DestinationCard, { type DestinationCardProps } from "~/components/DestinationCard";
+import DestinationCard, {
+  type DestinationCardProps,
+} from "~/components/DestinationCard";
 import styles from "./style.css?inline";
 import { getOrigin } from "~/lib/helpers/getOrigin";
 import { getSiteName } from "~/lib/helpers/getSiteName";
-import destinationsByContinent from "./destinationsByContinent.json"
+import destinationsByContinent from "./destinationsByContinent.json";
 
 interface Continent {
-  contintentName: string,
-  continentId: string,
-  destinations: DestinationCardProps[],
+  contintentName: string;
+  continentId: string;
+  destinations: DestinationCardProps[];
 }
 
 interface Continents {
@@ -37,9 +39,11 @@ export default component$(() => {
       <div class="container destinations-container">
         {(Object.values(destinations) as Continent[]).map((continent) => (
           <>
-            <h2 class="continent-name" id={continent.continentId}># {continent.contintentName}</h2>
+            <h2 class="continent-name" id={continent.continentId}>
+              # {continent.contintentName}
+            </h2>
             <div class="destinations-grid">
-              {continent.destinations.map(destination => (
+              {continent.destinations.map((destination) => (
                 <DestinationCard
                   key={uuidv4()}
                   country={destination.country}
@@ -58,7 +62,6 @@ export default component$(() => {
   );
 });
 
-
 export const head: DocumentHead = () => {
   const origin = getOrigin();
   const siteName = getSiteName();
@@ -68,8 +71,26 @@ export const head: DocumentHead = () => {
 
   return {
     title,
-    links: [
-      { rel: "canonical", href: ogUrl },
+    links: [{ rel: "canonical", href: ogUrl }],
+    scripts: [
+      {
+        script: `
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "headline": "${title}",
+            "description": "${description}",
+            "url": "${ogUrl}",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "url": "${ogUrl}"
+            },
+          }
+        `,
+        props: {
+          type: "application/ld+json",
+        },
+      },
     ],
     meta: [
       { name: "description", content: description },

@@ -125,6 +125,30 @@ export const head: DocumentHead = ({ resolveValue }) => {
 
   return {
     title: post.title,
+    scripts: [
+      {
+        script: `
+          {
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            "headline": "${post.title}",
+            "image": [
+              "${origin}/images/${post.imageWidth}/${post.imageHeight}/${post.image}"
+             ],
+            "datePublished": "${post.datePublished}",
+            "dateModified": "${post.dateModified}",
+            "author": [{
+                "@type": "Person",
+                "name": "${post.authorName}",
+                "url": "${origin}/author/${post.authorUrl}"
+              }]
+          }
+        `,
+        props: {
+          type: "application/ld+json",
+        },
+      },
+    ],
     links: [
       {
         rel: "canonical",

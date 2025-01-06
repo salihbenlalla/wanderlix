@@ -69,6 +69,26 @@ export const head: DocumentHead = () => {
         href: `${origin}/contact/`,
       },
     ],
+    scripts: [
+      {
+        script: `
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "headline": "${pageTitle}",
+            "description": "${pageDescription}",
+            "url": "${origin}/contact/",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "url": "${origin}/contact/"
+            },
+          }
+        `,
+        props: {
+          type: "application/ld+json",
+        },
+      },
+    ],
     meta: [
       {
         name: "description",

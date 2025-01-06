@@ -1,6 +1,5 @@
 import type { RootContent } from "hast";
 import type { Properties } from "hast";
-// import type { Plugin } from "unified";
 import type { MdxJsxAttributeValueExpression } from "mdast-util-mdx-jsx";
 import type { MdxJsxFlowElement, MdxJsxTextElement } from "mdast-util-mdx-jsx";
 import { type D1Database } from "@miniflare/d1";
@@ -12,10 +11,9 @@ import { getDomainName } from "./lib/helpers/getDomainName";
 
 type VisitorAsync = (node: RootContent, parent?: RootContent) => Promise<void>;
 async function visit(
-  // node: MyNode | MyParent,
   node: RootContent,
   visitor: VisitorAsync,
-  parent?: RootContent
+  parent?: RootContent,
 ): Promise<void> {
   await visitor(node, parent);
 
@@ -44,10 +42,19 @@ const handleLink = async (
   DB: D1Database,
   href?: string | null,
   title?: string,
-  use?: "none" | "originalHref" | "newHref"
+  use?: "none" | "originalHref" | "newHref",
 ): Promise<LinkProperties> => {
   const origin = getOrigin();
-  if (href?.startsWith("/post") || href?.startsWith(origin)) {
+  if (
+    href?.startsWith("/post") ||
+    href?.startsWith("/author") ||
+    href?.startsWith("/destination") ||
+    href?.startsWith("/tag") ||
+    href?.startsWith(origin)
+  ) {
+    if (!href?.endsWith("/")) {
+      return { href: `${href}/`, title };
+    }
     return { href, title };
   }
 
@@ -90,7 +97,7 @@ const handleLink = async (
 type FindSrcFunc = (
   DB: D1Database,
   src?: string | MdxJsxAttributeValueExpression | null | undefined,
-  use?: "none" | "originalSrc" | "newSrc"
+  use?: "none" | "originalSrc" | "newSrc",
 ) => Promise<string | MdxJsxAttributeValueExpression | null | undefined>;
 
 export const findSrc: FindSrcFunc = async (DB, src, use) => {
@@ -111,7 +118,7 @@ export const findSrc: FindSrcFunc = async (DB, src, use) => {
 
 const attributeExists = (
   attributesArr: MdxJsxElementFields["attributes"],
-  attribute: string
+  attribute: string,
 ): boolean => {
   for (const attr of attributesArr) {
     if (attr.type === "mdxJsxAttribute" && attr.name === attribute) return true;
@@ -150,7 +157,7 @@ const replaceLinkIds = (DB: D1Database) => {
               attr.value = href;
             }
             return attr;
-          })
+          }),
         );
         node.attributes = newAttributes;
       }
@@ -165,7 +172,7 @@ const replaceLinkIds = (DB: D1Database) => {
               attr.value = newSrc;
             }
             return attr;
-          })
+          }),
         );
         node.attributes = newAttributes;
       }
@@ -180,7 +187,7 @@ const replaceLinkIds = (DB: D1Database) => {
               attr.value = newHref.href;
             }
             return attr;
-          })
+          }),
         );
         newAttributes.push({
           type: "mdxJsxAttribute",
@@ -205,7 +212,7 @@ const replaceLinkIds = (DB: D1Database) => {
               attr.value = newHref.href;
             }
             return attr;
-          })
+          }),
         );
         node.attributes = newAttributes;
       }

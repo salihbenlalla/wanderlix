@@ -16,7 +16,7 @@ import { getOrigin } from "~/lib/helpers/getOrigin";
 export const useDestinationData = routeLoader$(
   async (ev: RequestEventLoader<PlatformCloudflarePages>) => {
     return await getDestinationData(ev);
-  }
+  },
 );
 
 export default component$(() => {
@@ -70,10 +70,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
   const data = resolveValue(useDestinationData); // Fetch destination data
   const destinationPath = constructDestinationPath(data);
 
-  const destinationName =
-    data.cityName ||
-    data.stateName ||
-    data.countryName;
+  const destinationName = data.cityName || data.stateName || data.countryName;
   const currentPage = data.currentPage;
   const origin = getOrigin();
 
@@ -82,9 +79,10 @@ export const head: DocumentHead = ({ resolveValue }) => {
   const imageHeight = data.posts ? data.posts[0].imageHeight : "";
 
   // Build the canonical URL based on the current page number
-  const canonicalUrl = currentPage && currentPage > 1
-    ? `${origin}/destination/${destinationPath}/${currentPage}/`
-    : `${origin}/destination/${destinationPath}/`;
+  const canonicalUrl =
+    currentPage && currentPage > 1
+      ? `${origin}/destination/${destinationPath}/${currentPage}/`
+      : `${origin}/destination/${destinationPath}/`;
 
   return {
     title: `Explore ${destinationName}`,
@@ -92,6 +90,26 @@ export const head: DocumentHead = ({ resolveValue }) => {
       {
         rel: "canonical",
         href: canonicalUrl,
+      },
+    ],
+    scripts: [
+      {
+        script: `
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "headline": "Explore ${destinationName}",
+            "description": "Discover posts about traveling to ${destinationName}.",
+            "url": "${canonicalUrl}",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "url": "${canonicalUrl}"
+            },
+          }
+        `,
+        props: {
+          type: "application/ld+json",
+        },
       },
     ],
     meta: [

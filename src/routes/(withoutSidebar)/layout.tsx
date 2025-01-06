@@ -45,6 +45,26 @@ export const head: DocumentHead = ({ url }) => {
         href: `${origin}${isPrivacyPolicy ? "/privacy-policy/" : "/about-us/"}`,
       },
     ],
+    scripts: [
+      {
+        script: `
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "headline": "${pageTitle} - ${siteName}",
+            "description": "${pageDescription}",
+            "url": "${origin}${isPrivacyPolicy ? "/privacy-policy/" : "/about-us/"}",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "url": "${origin}${isPrivacyPolicy ? "/privacy-policy/" : "/about-us/"}"
+            },
+          }
+        `,
+        props: {
+          type: "application/ld+json",
+        },
+      },
+    ],
     meta: [
       {
         name: "description",

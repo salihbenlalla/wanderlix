@@ -20,6 +20,26 @@ export const head: DocumentHead = () => {
         href: `${origin}/`,
       },
     ],
+    scripts: [
+      {
+        script: `
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "headline": "${siteName} - Your Gateway to the World",
+            "description": "Discover exciting travel destinations, tips, and guides from ${siteName}.",
+            "url": "${origin}/",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "url": "${origin}/"
+            },
+          }
+        `,
+        props: {
+          type: "application/ld+json",
+        },
+      },
+    ],
     meta: [
       {
         name: "description",

@@ -14,7 +14,7 @@ import { getOrigin } from "~/lib/helpers/getOrigin";
 
 export const useTagData = routeLoader$(
   async (ev: RequestEventLoader<PlatformCloudflarePages>) =>
-    await getTagData(ev)
+    await getTagData(ev),
 );
 
 export default component$(() => {
@@ -47,7 +47,6 @@ export default component$(() => {
   );
 });
 
-
 export const head: DocumentHead = ({ resolveValue }) => {
   const data = resolveValue(useTagData); // Assuming you have a hook for fetching tag data
   const tagData = { url: data.tagUrl, name: data.tagName };
@@ -55,12 +54,33 @@ export const head: DocumentHead = ({ resolveValue }) => {
   const origin = getOrigin();
 
   // Build the canonical URL based on the current page number
-  const canonicalUrl = currentPage && currentPage > 1
-    ? `${origin}/tag/${tagData.url}/${currentPage}/`
-    : `${origin}/tag/${tagData.url}/`;
+  const canonicalUrl =
+    currentPage && currentPage > 1
+      ? `${origin}/tag/${tagData.url}/${currentPage}/`
+      : `${origin}/tag/${tagData.url}/`;
 
   return {
     title: `Tag: ${tagData.name}`,
+    scripts: [
+      {
+        script: `
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "headline": "Posts tagged with ${tagData.name}",
+            "description": "Discover posts tagged with ${tagData.name} on our blog.",
+            "url": "${canonicalUrl}",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "url": "${canonicalUrl}"
+            },
+          }
+        `,
+        props: {
+          type: "application/ld+json",
+        },
+      },
+    ],
     links: [
       {
         rel: "canonical",
@@ -99,7 +119,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
       {
         name: "twitter:description",
         content: `Explore posts about ${tagData.name}.`,
-      }
+      },
     ],
   };
 };

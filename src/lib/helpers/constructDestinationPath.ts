@@ -1,18 +1,18 @@
-export function constructDestinationPath(data: { countryName?: string | null, stateName?: string | null, cityName?: string | null }): string {
-    if (!data.countryName) {
+export function constructDestinationPath(data: { countryParam?: string | null, stateParam?: string | null, cityParam?: string | null }): string {
+    if (!data.countryParam) {
         return '';
     }
 
-    let path = `${data.countryName}`;
+    let path = `${data.countryParam}`;
 
-    if (data.stateName) {
-        path += `/${data.stateName}`;
+    if (data.stateParam) {
+        path += `/${data.stateParam}`;
     } else {
         return path;
     }
 
-    if (data.cityName) {
-        path += `/${data.cityName}`;
+    if (data.cityParam) {
+        path += `/${data.cityParam}`;
     }
 
     return path;

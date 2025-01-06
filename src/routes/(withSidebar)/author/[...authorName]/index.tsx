@@ -79,6 +79,26 @@ export const head: DocumentHead = ({ resolveValue }) => {
         href: canonicalUrl,
       },
     ],
+    scripts: [
+      {
+        script: `
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "headline": "Author: ${authorData.name}",
+            "description": "${truncateParagraph(authorData.bio)}",
+            "url": "${canonicalUrl}",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "url": "${canonicalUrl}"
+            },
+          }
+        `,
+        props: {
+          type: "application/ld+json",
+        },
+      },
+    ],
     meta: [
       {
         name: "description",

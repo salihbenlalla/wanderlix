@@ -15,6 +15,9 @@ export interface DestinationData {
   countryName: string;
   stateName: string | null;
   cityName: string | null;
+  countryParam: string;
+  stateParam: string | null;
+  cityParam: string | null;
   totalPages: number;
   currentPage: number;
 }
@@ -23,6 +26,9 @@ interface DestinationDBData extends PostCardData {
   countryName: string;
   stateName: string | null;
   cityName: string | null;
+  countryParam: string;
+  stateParam: string | null;
+  cityParam: string | null;
   totalPages: number;
 }
 
@@ -58,7 +64,7 @@ WITH PageCountCTE AS (
   ${stateFilter}
   ${cityFilter}
 )
-SELECT Posts.title, Posts.dateModified, Posts.slug, Posts.description, Posts.image, Posts.imageWidth, Posts.imageHeight, Authors.name AS authorName, Authors.avatarUrl AS authorAvatar, Authors.url AS authorUrl, Tags.name As tagName, Tags.url AS tagUrl, Countries.name AS countryName, States.name AS stateName, Cities.name AS cityName, totalPages
+SELECT Posts.title, Posts.dateModified, Posts.slug, Posts.description, Posts.image, Posts.imageWidth, Posts.imageHeight, Authors.name AS authorName, Authors.avatarUrl AS authorAvatar, Authors.url AS authorUrl, Tags.name As tagName, Tags.url AS tagUrl, Countries.name AS countryName, Countries.param As countryParam, States.name AS stateName, States.param As stateParam, Cities.name AS cityName, Cities.param AS cityParam, totalPages
 FROM Posts
 LEFT JOIN Authors ON Posts.author_id = Authors.id
 LEFT JOIN Tags ON Posts.tag_id = Tags.id
@@ -107,6 +113,9 @@ LIMIT ${gridPostsNumber} OFFSET ?;
       countryName: results2[0].countryName,
       stateName: state ? results2[0].stateName : null,
       cityName: city ? results2[0].cityName : null,
+      countryParam: results2[0].countryParam,
+      stateParam: state ? results2[0].stateParam : null,
+      cityParam: city ? results2[0].cityParam : null,
       currentPage: pageNumber,
     };
   } catch (error) {

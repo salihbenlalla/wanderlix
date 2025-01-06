@@ -1,5 +1,9 @@
 import { component$ } from "@builder.io/qwik";
-import { type RequestEventLoader, routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
+import {
+  type RequestEventLoader,
+  routeLoader$,
+  type DocumentHead,
+} from "@builder.io/qwik-city";
 import { type PlatformCloudflarePages } from "@builder.io/qwik-city/middleware/cloudflare-pages";
 import PostsGrid from "~/components/PostsGrid";
 import GridHeader from "~/components/PostsGrid/GridHeader";
@@ -11,7 +15,7 @@ export const useGetSearchData = routeLoader$(
     const searchPosts = await getSearchData(ev);
 
     return searchPosts;
-  }
+  },
 );
 
 export default component$(() => {
@@ -28,12 +32,13 @@ export default component$(() => {
     );
   }
 
-
   if (searchData.posts.length === 0) {
     return (
       <>
         <div class="sub-header">
-          <GridHeader pageTitle={`No results for "${searchData.searchQuery}"`} />
+          <GridHeader
+            pageTitle={`No results for "${searchData.searchQuery}"`}
+          />
         </div>
         <div class="page-content"></div>
       </>
@@ -59,7 +64,6 @@ export default component$(() => {
   );
 });
 
-
 export const head: DocumentHead = ({ resolveValue }) => {
   const data = resolveValue(useGetSearchData);
   const searchQuery = data.searchQuery;
@@ -83,15 +87,34 @@ export const head: DocumentHead = ({ resolveValue }) => {
     const currentPage = data.currentPage;
     title = `Search results for "${searchQuery}"`;
     description = `Explore posts and travel stories related to "${searchQuery}".`;
-    ogUrl = currentPage && currentPage > 1
-      ? `${origin}/search/${searchQuery}/${currentPage}/`
-      : `${origin}/search/${searchQuery}/`;
+    ogUrl =
+      currentPage && currentPage > 1
+        ? `${origin}/search/${searchQuery}/${currentPage}/`
+        : `${origin}/search/${searchQuery}/`;
   }
 
   return {
     title,
-    links: [
-      { rel: "canonical", href: ogUrl },
+    links: [{ rel: "canonical", href: ogUrl }],
+    scripts: [
+      {
+        script: `
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "headline": "${title}",
+            "description": "${description}",
+            "url": "${ogUrl}",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "url": "${ogUrl}"
+            },
+          }
+        `,
+        props: {
+          type: "application/ld+json",
+        },
+      },
     ],
     meta: [
       { name: "description", content: description },
