@@ -44,26 +44,6 @@ export const RouterHead = component$(() => {
       <link rel="manifest" href="/manifest.json" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-      {/* <script */}
-      {/*   type="application/ld+json" */}
-      {/*   dangerouslySetInnerHTML={` */}
-      {/*     { */}
-      {/*       "@context": "https://schema.org", */}
-      {/*       "@type": "NewsArticle", */}
-      {/*       "headline": "${head.title}", */}
-      {/*       "image": [ */}
-      {/*         "${head.links.find((obj) => obj.rel === "preload" && obj.as === "image")?.href}" */}
-      {/*        ], */}
-      {/*       "datePublished": "${head.meta.find((obj) => obj.property === "article:published_time")?.content}", */}
-      {/*       "dateModified": "${head.meta.find((obj) => obj.property === "article:published_time")?.content}", */}
-      {/*       "author": [{ */}
-      {/*           "@type": "Person", */}
-      {/*           "name": "${head.meta.find((obj) => obj.name === "author")?.content}", */}
-      {/*           "url": "/author/${head.meta.find((obj) => obj.name === "author")?.content}" */}
-      {/*         }] */}
-      {/*     } */}
-      {/*   `} */}
-      {/* /> */}
       {head.meta.map((m) => (
         <meta key={uuidv4()} {...m} />
       ))}

@@ -132,6 +132,8 @@ export const head: DocumentHead = ({ resolveValue }) => {
             "@context": "https://schema.org",
             "@type": "NewsArticle",
             "headline": "${post.title}",
+            "url": "${origin}/post/${post.slug}/",
+            "description": "${post.description}",
             "image": [
               "${origin}/images/${post.imageWidth}/${post.imageHeight}/${post.image}"
              ],
